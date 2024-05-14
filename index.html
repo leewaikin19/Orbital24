@@ -6,50 +6,46 @@
     <script src="https://kit.fontawesome.com/26c6ac6f54.js" crossorigin="anonymous"></script>
     <title>Signup/Login</title>
     <link rel="stylesheet" type="text/css" href="main_style.css">
+    <link rel="stylesheet" type="text/css" href="outside_style.css">
 </head>
 <body>
-    <div id="signin">
+    <div class="main_container">
         <img src="./Assets/Logo/dark.svg">
-        <div>
-            <div>
-                <button><span>Sign Up</span></button>
-                <button><span>Log In</span></button>
+        <div style="width: 100%;">
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly; margin: clamp(3px, 3vh, 12px) 0px 0px 0px;">
+                <button class="animated_button selected_button"><span>Sign Up</span></button>
+                <button class="animated_button" ><span>Log In</span></button>
             </div>
-            <div>
-                <form action="javascript:signup()">
-                    <div class="form-input">
+            <div style="padding: clamp(3px, 3vh, 12px); background-color: #444444;">
+                <form action="javascript:signup()" style="display: flex; flex-direction: column; row-gap: clamp(3px, 3vh, 12px); margin-bottom: clamp(3px, 3vh, 12px);">
+                    <div class="form_input" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
                         <input data-sc="" type="text" name="first_name" id="firstName" placeholder="First Name" required>
-                    </div>
-                    <div class="form-input">
                         <input data-sc="" type="text" name="last_name" id="lastName" placeholder="Last Name" required>
                     </div>
-                    <div class="form-input">
-                        <input data-sc="" type="text" name="phone_number" id="countryCode" placeholder="Country Code" required>
+                    <div class="form_input">
+                        <input data-sc="" type="tel" name="phone_number" id="phoneNum" placeholder="Phone Number" required>
                     </div>
-                    <div class="form-input">
-                        <input data-sc="" type="text" name="phone_number" id="phoneNum" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-input">
+                    <div class="form_input">
                         <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username" required>
                     </div>
-                    <div class="form-input">
-                        <input data-sc="" type="password"name="password1" id="password1" placeholder="Password" required>
+                    <div class="form_input" >
+                        <input data-sc="" type="password" name="password1" id="password1" placeholder="Password" required>
                     </div>
-                    <div class="form-input">
-                        <input data-sc="" type="password"name="password2" id="password2" placeholder="Re-Enter Password" required>
+                    <div class="form_input" >
+                        <input data-sc="" type="password" name="password2" id="password2" placeholder="Re-Enter Password" required>
+                    </div>
                     </div>
                     <div class="error" id="incorrect">
                     </div>
-                    <div class="buttons" style="display: flex; flex-direction: row; column-gap: 12px;">
-                        <button><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign In</span></button>
-                        <!--button onclick="window.location.href='newaccount.html'"><i class="fa-solid fa-user-plus"></i> <span>Create Account</span></button-->
+                    <div style="display: flex; flex-direction: row; column-gap: 12px;">
+                        <button class="animated_button" onclick="window.location.href='newaccount.html'"><i class="fa-solid fa-user-plus"></i> <span>Sign Up</span></button>
                     </div>
                 </form>
-                <form action="javascript:login()">
-                    <div class="form-input">
+                <form action="javascript:login()" style="display: flex; flex-direction: column; row-gap: clamp(3px, 3vh, 12px); margin-bottom: clamp(3px, 3vh, 12px);">
+                    <div class="form_input">
                         <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username" required>
                     </div>
-                    <div class="form-input">
+                    <div class="form_input">
                         <input data-sc="" type="password"name="password" id="password" placeholder="Password" required>
                     </div>
                     <div class="smalllink">
@@ -57,9 +53,8 @@
                     </div>
                     <div class="error" id="incorrect">
                     </div>
-                    <div class="buttons" style="display: flex; flex-direction: row; column-gap: 12px;">
-                        <button><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign In</span></button>
-                        <!--button onclick="window.location.href='newaccount.html'"><i class="fa-solid fa-user-plus"></i> <span>Create Account</span></button-->
+                    <div style="display: flex; flex-direction: row; column-gap: 12px;">
+                        <button class="animated_button"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log In</span></button>
                     </div>
                 </form>
             </div>

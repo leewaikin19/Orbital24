@@ -27,8 +27,6 @@ body {
     overflow: hidden;
 }
 
-
-
 button {
     font-family: 'Satoshi';
     color: #ededed;
@@ -85,5 +83,26 @@ button {
 .selected_button {
     background-color: var(--orange);
     color: var(--grayest);
-    border-bottom: 3px solid var(--orange);
+}
+
+.smalllink {
+    display: flex;
+    justify-content: end;
+    margin-top: 6px;
+}
+
+.smalllink span {
+    margin: 0px;
+    font-family: 'Satoshi';
+    color: var(--orange);
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 1px 
+    no-repeat;
+    transition:0.4s;
+    color: var(--orange)
+}
+
+.smalllink a:hover {
+    --d: 100%;
 }
