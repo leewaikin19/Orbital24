@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+@import url("https://use.typekit.net/qfq4azv.css");
+@import url('https://fonts.cdnfonts.com/css/satoshi');
+
+:root {
+    --white: #fff;
+    --red: #ff0f0f;
+    --orange: #ff9c07;
+    --grayest: #222222;
+    --grayer: #666666;
+    --gray: #cdcdcd;
+    --lightgray: #ededed;
+    --title: clamp(24px, 15vh, 44px);
+    --topic: clamp(20px, 10vh, 36px);
+    --subtopic: clamp(20px, 8vh, 30px);
+    --text: clamp(16px, 4vh, 20px);
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    background-color: var(--grayest);
+    display: grid;
+    grid-template-columns: 20vw 80vw;
+    grid-template-rows: max(7vh, fit-content) max(93vh, fit-content);
+    overflow: hidden;
+}
+
+
+
+button {
+    font-family: 'Satoshi';
+    color: #ededed;
+    font-size: var(--text);
+    background-color: var(--grayest);
+    border: none;
+    border-radius: 0;
+    height: 100%;
+    min-height: fit-content;
+}
+
+.vertical_center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.horizontal_center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav_bar {
+    border-bottom: 3px solid var(--lightgray);
+}
+
+.animated_button {
+    padding: clamp(3px, 10%, 12px);
+    background-color: var(--grayest);
+    width: clamp(200px, 10%, 300px);
+    height: 100%;
+    font-weight: bold;
+}
+
+.animated_button span {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 3px 
+    no-repeat;
+    transition:0.4s;
+}
+
+.animated_button:hover {
+    background-color: var(--orange);
+    color: var(--grayest);
+    --d: 100%;
+}
+
+#logout_button:hover {
+    background-color: var(--red);
+}
+
+.selected_button {
+    background-color: var(--orange);
+    color: var(--grayest);
+    border-bottom: 3px solid var(--orange);
+}

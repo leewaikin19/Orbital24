@@ -26,13 +26,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.1691113"
-     inkscape:cx="153.10775"
-     inkscape:cy="484.98377"
-     inkscape:window-width="2560"
-     inkscape:window-height="1321"
+     inkscape:zoom="1.2529369"
+     inkscape:cx="257.39525"
+     inkscape:cy="553.10049"
+     inkscape:window-width="1712"
+     inkscape:window-height="955"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="33"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
@@ -366,116 +366,9 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <text
-       xml:space="preserve"
-       transform="scale(0.26458333)"
-       id="text1"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1);display:inline;fill:#000000;fill-opacity:1;stroke:none" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="88.765121"
-       y="111.90189"
-       id="text2"
-       inkscape:label="text2"><tspan
-         sodipodi:role="line"
-         id="tspan2"
-         style="stroke-width:0.264583"
-         x="88.765121"
-         y="111.90189"> </tspan></text>
-    <g
-       id="g8-8"
-       transform="translate(-1.463586,-17.17926)">
-      <text
-         xml:space="preserve"
-         style="font-size:16.9333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;letter-spacing:-2.64583px;stroke-width:0.264583"
-         x="83.05632"
-         y="135.55957"
-         id="text8-3"><tspan
-           sodipodi:role="line"
-           id="tspan8-71"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;stroke-width:0.264583"
-           x="83.05632"
-           y="135.55957">ロ</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-size:16.9333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;letter-spacing:-2.64583px;fill:#ff0f0f;fill-opacity:1;stroke-width:0.264583"
-         x="96.701347"
-         y="136.33003"
-         id="text8-1-2"><tspan
-           sodipodi:role="line"
-           id="tspan8-9-6"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;fill:#ff0f0f;fill-opacity:1;stroke-width:0.264583"
-           x="96.701347"
-           y="136.33003">ジ</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-size:16.9333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;letter-spacing:-2.64583px;fill:#ff9c07;fill-opacity:1;stroke-width:0.264583"
-         x="110.7951"
-         y="135.61037"
-         id="text8-9-1"><tspan
-           sodipodi:role="line"
-           id="tspan8-7-7"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;fill:#ff9c07;fill-opacity:1;stroke-width:0.264583"
-           x="110.7951"
-           y="135.61037">ク</tspan></text>
-    </g>
-    <g
-       id="g2"
-       transform="matrix(1.7586979,0,0,1.7586979,-5.958113,-46.133033)"
-       inkscape:export-filename="transparent.svg"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <text
-         xml:space="preserve"
-         transform="matrix(0.28584724,0,0,0.28584724,-112.24204,-33.916826)"
-         id="text5-4-7"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-1-5);display:inline;fill:#444444;fill-opacity:1;stroke:none"
-         x="47.285255"
-         y="0"><tspan
-           x="438.57256"
-           y="445.13579"
-           id="tspan3"><tspan
-             style="font-weight:900;font-size:29.3333px;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Heavy';text-align:center;text-anchor:middle"
-             id="tspan1">RO</tspan></tspan></text>
-      <text
-         xml:space="preserve"
-         transform="matrix(0.28584724,0,0,0.28584724,-102.29947,-33.97552)"
-         id="text5-3-9-4"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-93-3-88);display:inline;fill:#ff0f0f;fill-opacity:1;stroke:none"
-         x="47.285255"
-         y="0"><tspan
-           x="447.25523"
-           y="445.13579"
-           id="tspan6"><tspan
-             style="font-weight:900;font-size:29.3333px;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Heavy';text-align:center;text-anchor:middle"
-             id="tspan4">JI</tspan></tspan></text>
-      <text
-         xml:space="preserve"
-         transform="matrix(0.28584724,0,0,0.28584724,-92.555736,-34.207662)"
-         id="text5-0-1-0"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';white-space:pre;shape-inside:url(#rect5-8-8-9);display:inline;fill:#ff9c07;fill-opacity:1;stroke:none"
-         x="47.285255"
-         y="0"><tspan
-           x="438.89524"
-           y="445.96258"
-           id="tspan9"><tspan
-             style="font-weight:900;font-size:29.3333px;-inkscape-font-specification:'Satoshi Variable Heavy';text-align:center;text-anchor:middle"
-             id="tspan7">KU</tspan></tspan></text>
-    </g>
-    <text
-       xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-1.4541409,29.471334)"
-       id="text3-6"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
-         x="72.310547"
-         y="280.68842"
-         id="tspan11"><tspan
-           style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-           id="tspan10">Transparent</tspan></tspan></text>
     <g
        id="g5"
-       transform="translate(0,-16.933338)"
+       transform="translate(7.9757222,-15.84574)"
        inkscape:label="Pallette">
       <rect
          style="fill:#000000;fill-opacity:1;stroke-width:0.228381;stroke-opacity:0.980736"
@@ -532,9 +425,9 @@
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="303.16929"
-           id="tspan13"><tspan
+           id="tspan3"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan12">Playfair Display</tspan></tspan></text>
+             id="tspan1">Playfair Display</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,122.25056,-22.264718)"
@@ -542,9 +435,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-6);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan15"><tspan
+           id="tspan6"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan14">#000000</tspan></tspan></text>
+             id="tspan4">#000000</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,126.34843,2.8590496)"
@@ -552,9 +445,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-2);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan17"><tspan
+           id="tspan9"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan16">#ff0f0f</tspan></tspan></text>
+             id="tspan7">#ff0f0f</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,124.95569,26.952008)"
@@ -562,9 +455,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-3);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan19"><tspan
+           id="tspan11"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan18">#ff9c07</tspan></tspan></text>
+             id="tspan10">#ff9c07</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,124.29527,77.090565)"
@@ -572,9 +465,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-21);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan21"><tspan
+           id="tspan13"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan20">#666666</tspan></tspan></text>
+             id="tspan12">#666666</tspan></tspan></text>
       <rect
          style="fill:#222222;fill-opacity:1;stroke-width:0.228381;stroke-opacity:0.980736"
          id="rect2-0-8-9-9"
@@ -591,9 +484,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-21-0);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan23"><tspan
+           id="tspan15"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan22">#222222</tspan></tspan></text>
+             id="tspan14">#222222</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,123.5502,101.96246)"
@@ -601,9 +494,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-34);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan25"><tspan
+           id="tspan17"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan24">#ededed</tspan></tspan></text>
+             id="tspan16">#ededed</tspan></tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,123.80421,127.43493)"
@@ -611,9 +504,9 @@
          style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0-8-26);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="72.310547"
            y="280.68842"
-           id="tspan27"><tspan
+           id="tspan19"><tspan
              style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
-             id="tspan26">#cdcdcd</tspan></tspan></text>
+             id="tspan18">#cdcdcd</tspan></tspan></text>
       <text
          xml:space="preserve"
          style="font-size:10.5833px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;stroke-width:0.264583"
@@ -637,8 +530,98 @@
          transform="matrix(0.26458333,0,0,0.26458333,0,17.436983)"><tspan
            x="136"
            y="70.679375"
-           id="tspan28">Satoshi Variable</tspan></text>
+           id="tspan20">Satoshi Variable</tspan></text>
     </g>
+    <g
+       id="g8-8"
+       transform="translate(-1.463586,-17.17926)">
+      <text
+         xml:space="preserve"
+         style="font-size:16.9333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;letter-spacing:-2.64583px;stroke-width:0.264583"
+         x="83.05632"
+         y="135.55957"
+         id="text8-3"><tspan
+           sodipodi:role="line"
+           id="tspan8-71"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;stroke-width:0.264583"
+           x="83.05632"
+           y="135.55957">ロ</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:16.9333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;letter-spacing:-2.64583px;fill:#ff0f0f;fill-opacity:1;stroke-width:0.264583"
+         x="96.701347"
+         y="136.33003"
+         id="text8-1-2"><tspan
+           sodipodi:role="line"
+           id="tspan8-9-6"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;fill:#ff0f0f;fill-opacity:1;stroke-width:0.264583"
+           x="96.701347"
+           y="136.33003">ジ</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:16.9333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;letter-spacing:-2.64583px;fill:#ff9c07;fill-opacity:1;stroke-width:0.264583"
+         x="110.7951"
+         y="135.61037"
+         id="text8-9-1"><tspan
+           sodipodi:role="line"
+           id="tspan8-7-7"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;fill:#ff9c07;fill-opacity:1;stroke-width:0.264583"
+           x="110.7951"
+           y="135.61037">ク</tspan></text>
+    </g>
+    <g
+       id="g2"
+       transform="matrix(1.7586979,0,0,1.7586979,-5.958113,-46.133033)"
+       inkscape:export-filename="transparent.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.28584724,0,0,0.28584724,-112.24204,-33.916826)"
+         id="text5-4-7"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-1-5);display:inline;fill:#444444;fill-opacity:1;stroke:none"
+         x="47.285255"
+         y="0"><tspan
+           x="438.57256"
+           y="445.13579"
+           id="tspan22"><tspan
+             style="font-weight:900;font-size:29.3333px;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Heavy';text-align:center;text-anchor:middle"
+             id="tspan21">RO</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.28584724,0,0,0.28584724,-102.29947,-33.97552)"
+         id="text5-3-9-4"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-93-3-88);display:inline;fill:#ff0f0f;fill-opacity:1;stroke:none"
+         x="47.285255"
+         y="0"><tspan
+           x="447.25523"
+           y="445.13579"
+           id="tspan24"><tspan
+             style="font-weight:900;font-size:29.3333px;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Heavy';text-align:center;text-anchor:middle"
+             id="tspan23">JI</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.28584724,0,0,0.28584724,-92.555736,-34.207662)"
+         id="text5-0-1-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';white-space:pre;shape-inside:url(#rect5-8-8-9);display:inline;fill:#ff9c07;fill-opacity:1;stroke:none"
+         x="47.285255"
+         y="0"><tspan
+           x="438.89524"
+           y="445.96258"
+           id="tspan26"><tspan
+             style="font-weight:900;font-size:29.3333px;-inkscape-font-specification:'Satoshi Variable Heavy';text-align:center;text-anchor:middle"
+             id="tspan25">KU</tspan></tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-1.4541409,29.471334)"
+       id="text3-6"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3-0);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="72.310547"
+         y="280.68842"
+         id="tspan28"><tspan
+           style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
+           id="tspan27">Transparent</tspan></tspan></text>
     <g
        id="g9"
        inkscape:export-filename="white.svg"
@@ -695,19 +678,21 @@
                id="tspan33">KU</tspan></tspan></text>
       </g>
     </g>
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke-width:0.201575;stroke-opacity:0.980736"
-       id="rect6-7"
-       width="44.25172"
-       height="19.951803"
-       x="83.250397"
-       y="130.74655"
-       inkscape:export-filename="white.svg"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
     <g
        id="g8"
        transform="translate(-0.5331522,11.241936)">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke-width:0.201575;stroke-opacity:0.980736"
+         id="rect6-7"
+         width="44.25172"
+         height="19.951803"
+         x="83.250397"
+         y="130.74655"
+         inkscape:export-filename="white.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"
+         inkscape:label="rect6-7"
+         transform="translate(0.5331522,-11.241936)" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;stroke-width:0.264583"
@@ -752,17 +737,6 @@
          id="tspan36"><tspan
            style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
            id="tspan35">White Background</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="89.660805"
-       y="157.78523"
-       id="text2-3"><tspan
-         sodipodi:role="line"
-         id="tspan2-32"
-         style="stroke-width:0.264583"
-         x="89.660805"
-         y="157.78523"> </tspan></text>
     <g
        id="g10"
        inkscape:export-filename="dark.svg"
@@ -819,19 +793,20 @@
                id="tspan41">KU</tspan></tspan></text>
       </g>
     </g>
-    <rect
-       style="fill:#222222;fill-opacity:1;stroke-width:0.200541;stroke-opacity:0.980736"
-       id="rect6-7-4"
-       width="43.799095"
-       height="19.951803"
-       x="84.754578"
-       y="159.12361"
-       inkscape:export-filename="white.svg"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
     <g
        id="g8-5"
        transform="translate(1.2448299,39.543075)">
+      <rect
+         style="fill:#222222;fill-opacity:1;stroke-width:0.200541;stroke-opacity:0.980736"
+         id="rect6-7-4"
+         width="43.799095"
+         height="19.951803"
+         x="84.754578"
+         y="159.12361"
+         inkscape:export-filename="white.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"
+         transform="translate(-1.2448299,-39.543075)" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP Bold';letter-spacing:-2.64583px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
@@ -944,19 +919,20 @@
          id="tspan52"><tspan
            style="font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display'"
            id="tspan51">Light Background</tspan></tspan></text>
-    <rect
-       style="fill:#ededed;fill-opacity:1;stroke-width:0.200544;stroke-opacity:0.980736"
-       id="rect6-7-4-1"
-       width="43.799999"
-       height="19.951803"
-       x="83.703232"
-       y="190.66969"
-       inkscape:export-filename="white.svg"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
     <g
        id="g8-5-1"
        transform="translate(0.19393935,71.089153)">
+      <rect
+         style="fill:#ededed;fill-opacity:1;stroke-width:0.200544;stroke-opacity:0.980736"
+         id="rect6-7-4-1"
+         width="43.799999"
+         height="19.951803"
+         x="83.703232"
+         y="190.66969"
+         inkscape:export-filename="white.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"
+         transform="translate(-0.19393935,-71.089153)" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:'Noto Serif JP';-inkscape-font-specification:'Noto Serif JP';letter-spacing:-2.64583px;fill:#222222;fill-opacity:1;stroke-width:0.264583"
