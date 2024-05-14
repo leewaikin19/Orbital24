@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="58.509342mm"
-   height="19.951811mm"
-   viewBox="0 0 58.509342 19.951811"
+   width="58.509338mm"
+   height="19.951803mm"
+   viewBox="0 0 58.509338 19.951803"
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
-   sodipodi:docname="white.svg"
+   sodipodi:docname="light.svg"
    inkscape:export-filename="logo.svg"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -28,7 +28,7 @@
      inkscape:document-units="mm"
      inkscape:zoom="1.1691113"
      inkscape:cx="153.10775"
-     inkscape:cy="74.415498"
+     inkscape:cy="211.27159"
      inkscape:window-width="2560"
      inkscape:window-height="1321"
      inkscape:window-x="0"
@@ -102,45 +102,47 @@
        y="408.64224"
        width="128.64664"
        height="58.017105"
-       id="rect5-1-59" />
+       id="rect5-1-59-1" />
     <rect
        x="396.02982"
        y="408.64224"
        width="128.64664"
        height="58.017105"
-       id="rect5-93-3-83" />
+       id="rect5-93-3-83-8" />
     <rect
        x="396.02982"
        y="408.64224"
        width="128.64664"
        height="58.017105"
-       id="rect5-8-8-0" />
+       id="rect5-8-8-0-2" />
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-17.936839,-130.74543)">
+     transform="translate(-18.931961,-190.4042)">
     <g
-       id="g9">
+       id="g7-2-1"
+       inkscape:label="dark_a"
+       transform="translate(2.2398348,53.774666)">
       <rect
-         style="fill:#ffffff;fill-opacity:1;stroke-width:0.231785;stroke-opacity:0.980736"
-         id="rect6"
+         style="fill:#ededed;fill-opacity:1;stroke-width:0.231785;stroke-opacity:0.980736"
+         id="rect6-6-2"
          width="58.509342"
          height="19.951803"
-         x="17.93684"
-         y="130.74544"
+         x="16.692127"
+         y="136.62953"
          inkscape:export-filename="white.svg"
          inkscape:export-xdpi="96"
          inkscape:export-ydpi="96" />
       <g
-         id="g2-0"
-         transform="matrix(1.7488762,0,0,1.7488762,-3.8176457,-17.057776)">
+         id="g2-0-0"
+         transform="matrix(1.7488762,0,0,1.7488762,-5.062359,-11.173677)">
         <text
            xml:space="preserve"
            transform="matrix(0.28584724,0,0,0.28584724,-112.24204,-33.916826)"
-           id="text5-4"
-           style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-1-59);display:inline;fill:#444444;fill-opacity:1;stroke:none"
+           id="text5-4-3"
+           style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-1-59-1);display:inline;fill:#222222;fill-opacity:1;stroke:none"
            x="47.285255"
            y="0"><tspan
              x="438.57256"
@@ -151,8 +153,8 @@
         <text
            xml:space="preserve"
            transform="matrix(0.28584724,0,0,0.28584724,-102.29875,-33.97552)"
-           id="text5-3-9"
-           style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-93-3-83);display:inline;fill:#ff0f0f;fill-opacity:1;stroke:none"
+           id="text5-3-9-9"
+           style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5-93-3-83-8);display:inline;fill:#ff0f0f;fill-opacity:1;stroke:none"
            x="47.285255"
            y="0"><tspan
              x="447.25523"
@@ -163,8 +165,8 @@
         <text
            xml:space="preserve"
            transform="matrix(0.28584724,0,0,0.28584724,-92.555013,-34.207662)"
-           id="text5-0-1"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';white-space:pre;shape-inside:url(#rect5-8-8-0);display:inline;fill:#ff9c07;fill-opacity:1;stroke:none"
+           id="text5-0-1-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';white-space:pre;shape-inside:url(#rect5-8-8-0-2);display:inline;fill:#ff9c07;fill-opacity:1;stroke:none"
            x="47.285255"
            y="0"><tspan
              x="438.89524"
