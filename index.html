@@ -23,7 +23,7 @@
                     <form action="javascript:signup()">
                         <div class="form_input" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
                             <input data-sc="" type="text" name="first_name" id="firstName" placeholder="First Name" required>
-                            <input data-sc="" type="text" name="last_name" id="lastName" placeholder="Last Name" required>
+                            <input data-sc="" type="text" name="last_name" id="lastName" placeholder="Last Name">
                         </div>
                         <div class="form_input">
                             <input data-sc="" type="tel" name="phone_number" id="phoneNum" placeholder="Phone Number" required>
@@ -75,7 +75,6 @@
             document.getElementById('login_btn').classList.add("unselected_button");
             document.getElementById('outer_form_container').classList.add("signup_selected");
             document.getElementById('outer_form_container').classList.remove("login_selected");
-
         });
 
         document.getElementById('login_btn').addEventListener('click', function() {

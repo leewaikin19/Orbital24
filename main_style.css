@@ -41,6 +41,18 @@ button {
     border-bottom: 3px solid var(--lightgray);
 }
 
+.vertical_center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.horizontal_center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .animated_button {
     padding: clamp(3px, 10%, 12px);
     background-color: var(--grayest);
@@ -93,4 +105,8 @@ button {
 
 .smalllink a:hover {
     --d: 100%;
+}
+
+.logo_container img {
+    width: clamp(100px, 20vmin, 250px);
 }

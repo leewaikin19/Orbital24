@@ -16,7 +16,6 @@ button {
 .form_container {
     position: absolute;
     width: 90%;
-    transition: opacity 0.4s ease;
 }
 
 .form_container form {
@@ -101,3 +100,5 @@ button {
 .main_logo img {
     width: clamp(250px, 50vmin, 750px);
 }
+
+
