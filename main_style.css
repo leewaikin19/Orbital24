@@ -24,6 +24,22 @@ body {
     display: grid;
     grid-template-columns: 20vw 80vw;
     grid-template-rows: max(7vh, fit-content) max(93vh, fit-content);
+    color: var(--white);
+}
+
+h1 {
+    font-family: 'Satoshi';
+    font-size: var(--title);
+    font-weight: 800;
+    color: var(--orange);
+    margin: 0px;
+}
+
+h2 {
+    font-family: 'Satoshi';
+    font-size: var(--topic);
+    color: var(--white);
+    margin: 0px;
 }
 
 button {
@@ -56,16 +72,16 @@ button {
 .animated_button {
     padding: clamp(3px, 10%, 12px);
     background-color: var(--grayest);
-    width: clamp(200px, 10%, 300px);
+    width: clamp(150px, 10%, 300px);
     height: 100%;
-    font-weight: bold;
+    font-weight: 400;
     transition: background-color 0.2s ease;
 }
 
 .animated_button span {
     background: 
       linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 3px 
+      0 100% /var(--d, 0) 2px 
     no-repeat;
     transition:0.4s;
 }
@@ -109,4 +125,5 @@ button {
 
 .logo_container img {
     width: clamp(100px, 20vmin, 250px);
+    margin: 0px;
 }

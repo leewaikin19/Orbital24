@@ -1,7 +1,21 @@
+:root {
+    --title: max(36px, 15vh);
+}
+
 body {
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+h1 {
+    font-family: 'Satoshi';
+    font-size: var(--title);
+    font-weight: 800;
+    color: var(--red);
+    margin: 0px;
 }
 
 input {
@@ -47,6 +61,7 @@ button {
 .animated_button {
     width: 100%;
     margin: 0px;
+    font-weight: bold;
 }
 
 .unselected_button:hover {
