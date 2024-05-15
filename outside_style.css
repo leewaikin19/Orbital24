@@ -9,23 +9,27 @@ input {
     padding: 0px;
 }
 
-form {
-    position: fixed
+button {
+    border-radius: 6px;
 }
 
-.main_container {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.form_container {
+    position: absolute;
+    width: 90%;
+    transition: opacity 0.4s ease;
+}
+
+.form_container form {
+    row-gap: clamp(3px, 3vmin, 12px); 
+    margin-bottom: clamp(3px, 3vmin, 12px); 
 }
 
 .form_input {
     width: 100%;
     display: flex; 
     flex-direction: row; 
-    column-gap: clamp(3px, 3vw, 12px);
+    column-gap: clamp(3px, 3vmin, 12px);
+    margin: clamp(3px, 3vmin, 16px) 0px;;
 }
 
 .form_input input {
@@ -33,7 +37,12 @@ form {
     font: 'Satoshi';
     font-size: var(--text);
     border-radius: 6px;
-    padding: clamp(3px, 3vh, 12px) clamp(3px, 3vw, 12px);
+    padding: clamp(3px, 3vmin, 12px) clamp(3px, 3vmin, 12px);
+}
+
+.main_container {
+    width: 50%;
+    padding: clamp(3px, 7vmin, 48px);
 }
 
 .animated_button {
@@ -41,3 +50,54 @@ form {
     margin: 0px;
 }
 
+.unselected_button:hover {
+    background-color: var(--grayest);
+    color: var(--white);
+}
+
+.top_button {
+    border-radius: 0px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.visibile {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#outer_form_container {
+    padding: clamp(3px, 3vmin, 12px); 
+    border: 3px solid var(--orange); 
+    position: relative; 
+    height: max(30em, 50vmin);
+    border-bottom-left-radius: 12px; 
+    border-bottom-right-radius: 12px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup_selected {
+    border-top-right-radius: 12px; 
+}
+
+.login_selected {
+    border-top-left-radius: 12px; 
+}
+
+.main_logo {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.main_logo img {
+    width: clamp(250px, 50vmin, 750px);
+}

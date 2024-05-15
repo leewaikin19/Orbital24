@@ -10,10 +10,10 @@
     --grayer: #666666;
     --gray: #cdcdcd;
     --lightgray: #ededed;
-    --title: clamp(24px, 15vh, 44px);
-    --topic: clamp(20px, 10vh, 36px);
-    --subtopic: clamp(20px, 8vh, 30px);
-    --text: clamp(16px, 4vh, 20px);
+    --title: clamp(24px, 15vmin, 44px);
+    --topic: clamp(20px, 10vmin, 36px);
+    --subtopic: clamp(20px, 8vmin, 30px);
+    --text: clamp(18px, 4vmin, 20px);
 }
 
 body {
@@ -24,7 +24,6 @@ body {
     display: grid;
     grid-template-columns: 20vw 80vw;
     grid-template-rows: max(7vh, fit-content) max(93vh, fit-content);
-    overflow: hidden;
 }
 
 button {
@@ -38,18 +37,6 @@ button {
     min-height: fit-content;
 }
 
-.vertical_center {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.horizontal_center {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 .nav_bar {
     border-bottom: 3px solid var(--lightgray);
 }
@@ -60,6 +47,7 @@ button {
     width: clamp(200px, 10%, 300px);
     height: 100%;
     font-weight: bold;
+    transition: background-color 0.2s ease;
 }
 
 .animated_button span {
@@ -88,7 +76,7 @@ button {
 .smalllink {
     display: flex;
     justify-content: end;
-    margin-top: 6px;
+    margin: clamp(2px, 1vh ,8px) 0px;
 }
 
 .smalllink span {
