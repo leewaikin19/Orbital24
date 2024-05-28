@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="outside_style.css">
 </head>
 <body>
-    <div class="side_bar">
+    <div class="side_bar" style="background-position: top left;">
     </div>
     <div class="main_container">
         <div class="main_logo">
@@ -40,23 +40,23 @@
                             <input data-sc="" type="password" name="password2" id="password2" placeholder="Re-Enter Password" required>
                         </div>
                         <div style="width: 100%; display: flex; align-items: center;">
-                            <button class="animated_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-user-plus"></i> <span>Sign Up</span></button>
+                            <button class="animated_button highlighted_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-user-plus"></i> <span>Sign Up</span></button>
                         </div>
                     </form>
                 </div>
                 <div id="login_form" class="form_container hidden">
                     <form action="javascript:login()">
                         <div class="form_input">
-                            <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username" required>
+                            <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username/Email" required>
                         </div>
                         <div class="form_input">
                             <input data-sc="" type="password"name="password" id="password" placeholder="Password" required>
                         </div>
                         <div class="smalllink">
-                            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0"><span>Forgot Password?</span></a>
+                            <a href="forgotpw.html"><span>Forgot Password?</span></a>
                         </div>
                         <div style="width: 100%; display: flex; align-items: center;">
-                            <button class="animated_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log In</span></button>
+                            <button class="animated_button highlighted_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log In</span></button>
                         </div>
                         <div class="error" id="incorrect">
                         </div>
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="side_bar" style="background-position: right;">
+    <div class="side_bar" style="background-position: bottom right;">
     </div>
     <script>
         document.getElementById('signup_btn').addEventListener('click', function() {
