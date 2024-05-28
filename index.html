@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="outside_style.css">
 </head>
 <body>
+    <div class="side_bar">
+    </div>
     <div class="main_container">
         <div class="main_logo">
             <img src="./Assets/Logo/dark.svg">
@@ -18,7 +20,7 @@
                 <button id="signup_btn" class="top_button animated_button selected_button"><span>Sign Up</span></button>
                 <button id="login_btn" class="top_button animated_button unselected_button"><span>Log In</span></button>
             </div>
-            <div id = "outer_form_container" class="signup_selected">
+            <div id = "outer_form_container">
                 <div id="signup_form" class = "form_container">
                     <form action="javascript:signup()">
                         <div class="form_input" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
@@ -26,7 +28,7 @@
                             <input data-sc="" type="text" name="last_name" id="lastName" placeholder="Last Name">
                         </div>
                         <div class="form_input">
-                            <input data-sc="" type="tel" name="phone_number" id="phoneNum" placeholder="Phone Number" required>
+                            <input data-sc="" type="email" name="email" id="email" placeholder="Email" required>
                         </div>
                         <div class="form_input">
                             <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username" required>
@@ -62,6 +64,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="side_bar">
     </div>
     <script>
         document.getElementById('signup_btn').addEventListener('click', function() {

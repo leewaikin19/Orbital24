@@ -3,11 +3,11 @@
 }
 
 body {
-    height: 100%;
-    width: 100%;
-    display: flex;
+    grid-template-columns: 15vw 70vw 15vw;
+    grid-template-rows: 100vh;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 h1 {
@@ -19,12 +19,20 @@ h1 {
 }
 
 input {
-    border: 0px;
-    padding: 0px;
+    border: 2px var(--grayer) solid;
+    color: var(--lightgray);
+    outline: none;
 }
 
 button {
-    border-radius: 6px;
+    border-radius: 0px;
+}
+
+.side_bar {
+    background-image: url(./Assets/Logo/stripes.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
 
 .form_container {
@@ -49,12 +57,25 @@ button {
     width: 100%;
     font: 'Satoshi';
     font-size: var(--text);
-    border-radius: 6px;
-    padding: clamp(3px, 3vmin, 12px) clamp(3px, 3vmin, 12px);
+    border-radius: 0px;
+    padding: clamp(3px, 3vmin, 12px);
+    transition: border 0.15s;
+    background-color: black;
+}
+
+.form_input input:focus {
+    background-color: var(--grayest);
+    border: 2px var(--orange) solid;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px black inset;
+    -webkit-text-fill-color: var(--lightgray);
 }
 
 .main_container {
-    width: 50%;
+    margin-top: 15vh;
+    height: 100vh;
     padding: clamp(3px, 7vmin, 48px);
 }
 
@@ -67,12 +88,6 @@ button {
 .unselected_button:hover {
     background-color: var(--grayest);
     color: var(--white);
-}
-
-.top_button {
-    border-radius: 0px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
 }
 
 .visibile {
@@ -90,20 +105,10 @@ button {
     border: 3px solid var(--orange); 
     position: relative; 
     height: max(30em, 50vmin);
-    border-bottom-left-radius: 12px; 
-    border-bottom-right-radius: 12px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.signup_selected {
-    border-top-right-radius: 12px; 
-}
-
-.login_selected {
-    border-top-left-radius: 12px; 
 }
 
 .main_logo {
