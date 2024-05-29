@@ -16,49 +16,18 @@
             <img src="./Assets/Logo/dark.svg">
         </div>
         <div style="width: 100%;">
-            <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
-                <button id="signup_btn" class="top_button animated_button selected_button"><span>Sign Up</span></button>
-                <button id="login_btn" class="top_button animated_button unselected_button"><span>Log In</span></button>
-            </div>
             <div id = "outer_form_container">
                 <div id="signup_form" class = "form_container">
+                    Enter the OTP sent to your email address here.
                     <form action="javascript:signup()">
-                        <div class="form_input" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
-                            <input data-sc="" type="text" name="first_name" id="firstName" placeholder="First Name" required>
-                            <input data-sc="" type="text" name="last_name" id="lastName" placeholder="Last Name">
-                        </div>
-                        <div class="form_input">
-                            <input data-sc="" type="email" name="email" id="email" placeholder="Email" required>
-                        </div>
-                        <div class="form_input">
-                            <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username" required>
-                        </div>
-                        <div class="form_input" >
-                            <input data-sc="" type="password" name="password1" id="password1" placeholder="Password" required>
-                        </div>
-                        <div class="form_input" >
-                            <input data-sc="" type="password" name="password2" id="password2" placeholder="Re-Enter Password" required>
-                        </div>
-                        <div style="width: 100%; display: flex; align-items: center;">
-                            <button class="animated_button highlighted_button" onclick="window.location.href='otp.html'"><i class="fa-solid fa-user-plus"></i> <span>Sign Up</span></button>
-                        </div>
-                    </form>
-                </div>
-                <div id="login_form" class="form_container hidden">
-                    <form action="javascript:login()">
-                        <div class="form_input">
-                            <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username/Email" required>
-                        </div>
-                        <div class="form_input">
-                            <input data-sc="" type="password"name="password" id="password" placeholder="Password" required>
+                        <div class="form_input" id="otp_container" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
+                            <input class="otp_input" data-sc="" type="number" required>
                         </div>
                         <div class="smalllink">
-                            <a href="forgotpw.html"><span>Forgot Password?</span></a>
+                            <a href="#"><span>Didn't Receive the Email?</span></a>
                         </div>
                         <div style="width: 100%; display: flex; align-items: center;">
-                            <button class="animated_button highlighted_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log In</span></button>
-                        </div>
-                        <div class="error" id="incorrect">
+                            <button class="animated_button highlighted_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-check"></i> <span>Verify OTP</span></button>
                         </div>
                     </form>
                 </div>

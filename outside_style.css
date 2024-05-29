@@ -86,7 +86,7 @@ button {
 }
 
 .form_input input:focus {
-    background-color: var(--grayest);
+    background-color: black;
     border: 2px var(--orange) solid;
 }
 
@@ -151,4 +151,35 @@ input:-webkit-autofill {
     width: clamp(250px, 50vmin, 750px);
 }
 
+.smalllink {
+    display: flex;
+    justify-content: end;
+    margin: clamp(2px, 1vh ,8px) 0px;
+}
+
+.smalllink a {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+.smalllink span {
+    margin: 0px;
+    font-family: 'Satoshi';
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
+    color: var(--orange)
+}
+
+.smalllink a:hover {
+    --d: 100%;
+}
+
+#otp_container .otp_input {
+    font-size: var(--topic);
+    font-weight: 800;
+    text-align: center;
+}
 
