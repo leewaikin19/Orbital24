@@ -21,7 +21,7 @@
                     Enter the OTP sent to your email address here.
                     <form action="javascript:signup()">
                         <div class="form_input" id="otp_container" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
-                            <input class="otp_input" data-sc="" type="number" required>
+                            <input id="otp_input" data-sc="" type="text" pattern="[0-9]{6}" maxlength="6" required>
                         </div>
                         <div class="smalllink">
                             <a href="#"><span>Didn't Receive the Email?</span></a>
@@ -37,30 +37,10 @@
     <div class="side_bar" style="background-position: bottom right;">
     </div>
     <script>
-        document.getElementById('signup_btn').addEventListener('click', function() {
-            document.getElementById('signup_form').classList.add('visible');
-            document.getElementById('login_form').classList.remove('visible');
-            document.getElementById('signup_form').classList.remove('hidden');
-            document.getElementById('login_form').classList.add('hidden');
-            document.getElementById('signup_btn').classList.add("selected_button");
-            document.getElementById('login_btn').classList.remove("selected_button");
-            document.getElementById('signup_btn').classList.remove("unselected_button");
-            document.getElementById('login_btn').classList.add("unselected_button");
-            document.getElementById('outer_form_container').classList.add("signup_selected");
-            document.getElementById('outer_form_container').classList.remove("login_selected");
-        });
-
-        document.getElementById('login_btn').addEventListener('click', function() {
-            document.getElementById('signup_form').classList.add('hidden');
-            document.getElementById('login_form').classList.remove('hidden');
-            document.getElementById('signup_form').classList.remove('visible');
-            document.getElementById('login_form').classList.add('visible');
-            document.getElementById('signup_btn').classList.remove("selected_button");
-            document.getElementById('login_btn').classList.add("selected_button");
-            document.getElementById('signup_btn').classList.add("unselected_button");
-            document.getElementById('login_btn').classList.remove("unselected_button");
-            document.getElementById('outer_form_container').classList.remove("signup_selected");
-            document.getElementById('outer_form_container').classList.add("login_selected");
+        document.getElementById("otp_input").addEventListener("keypress", function (e) {
+            if (e.which < 48 || e.which > 57) {
+                e.preventDefault();
+            }
         });
     </script>
 </body>
