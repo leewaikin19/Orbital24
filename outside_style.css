@@ -7,30 +7,30 @@
 }
 
 body {
-    grid-template-columns: 20vw 60vw 20vw;
+    grid-template-columns: 10vw 80vw 10vw;
     grid-template-rows: 100vh;
 }
 
 .side_bar {
     position: relative;
     background-image: url(./Assets/Logo/stripes.svg);
-    background-size: contain;
+    background-size: auto 100%;
     background-repeat: no-repeat;
 }
 
 .main_container {
-    padding: clamp(3px, 7vmin, 48px) 0px;
+    padding: clamp(6px, 8vmin, 60px);
 }
 
 @media only screen and (orientation: portrait) {
     body {
-        grid-template-rows: 20vh 60vh 20vh;
+        grid-template-rows: 10vh 80vh 10vh;
         grid-template-columns: 100vw;
     }
 
     .side_bar {
         background-image: url(./Assets/Logo/horiz_stripes.svg);
-        background-size: contain;
+        background-size: 100% auto;
         background-repeat: no-repeat;
         width: 100%;
     }
@@ -38,7 +38,8 @@ body {
     .main_container {
         margin-top: 0vh;
         padding: 0px clamp(3px, 7vmin, 48px);
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 }
 
@@ -133,7 +134,7 @@ input:-webkit-autofill {
     padding: clamp(3px, 3vmin, 12px); 
     border: 3px solid var(--orange); 
     position: relative; 
-    height: max(30em, 50vmin);
+    height: max(25em, 40vmin);
     display: flex;
     flex-direction: column;
     align-items: center;
