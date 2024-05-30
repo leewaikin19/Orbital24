@@ -18,13 +18,14 @@
 }
 
 body {
+    position: absolute;
     height: 100%;
     width: 100%;
     margin: 0px;
     background-color: var(--grayest);
     display: grid;
-    grid-template-columns: 20vw 80vw;
-    grid-template-rows: max(7vh, fit-content) max(93vh, fit-content);
+    grid-template-columns: clamp(40px, 20vw, 300px) 80vw;
+    grid-template-rows: clamp(75px, 10vh, 100px) 90vh;
     color: var(--white);
     font-family: 'Satoshi';
     font-size: var(--text);
@@ -59,7 +60,7 @@ button {
 }
 
 .nav_bar {
-    border-bottom: 3px solid var(--lightgray);
+    background-color: black;
 }
 
 .vertical_center {
@@ -110,12 +111,43 @@ button {
     width: clamp(100px, 20vmin, 250px);
     margin: 0px;
 }
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+
+#sidebar_buttons {
+    display: flex;
+    flex-direction: column;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
+.side_button {
+    position: relative;
+    padding-left: 3vw;
+    height: max(60px, 4em);
+    transition: background-color 0.4s ease;
+    transition: padding 0.4s ease;
+    text-align: left;
+    border-radius: 0px;
+}
+
+.side_button span {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
+}
+
+.side_button:hover {
+    background-color: var(--orange);
+    color: var(--grayest);
+    padding-left: 4vw;
+    --d: 100%;
+}
+
+#current_page_button {
+    color: var(--orange);
+    padding-left: 4vw;
+}
+
+#current_page_button:hover {
+    background-color: var(--grayest);
+    --d: 100%;
 }

@@ -7,13 +7,24 @@
     <link rel="stylesheet" type="text/css" href="main_style.css">
 </head>
 <body>
-    <div>
+    <div id = "side_container">
         <div class="vertical_center horizontal_center nav_bar">
             <button class="logo_container" onclick="window.location.href = 'home.html'" style="padding: 0px;">
-                <img src="./Assets/Logo/dark.svg">
+                <img src = "Assets/Logo/dark.svg">
             </button>
         </div>
         <div id = "user" class = "main_content">
+            <div id="profile">
+
+            </div>
+            <div id = "sidebar_buttons">
+                <button class="side_button" id="current_page_button"  onclick="window.location.href='#'"><span>Account<br>Dashboard</span></button>
+                <button class="side_button" onclick="window.location.href='#'"><span>Tournaments</span></button>
+                <button class="side_button" onclick="window.location.href='#'"><span>Create/Assess<br>Problems</span></button>
+                <button class="side_button" onclick="window.location.href='#'"><span>Leaderboards</span></button>
+                <button class="side_button" onclick="window.location.href='#'"><span>Forum Posts</span></button>
+                <button class="side_button" onclick="window.location.href='#'"><span>Report Bugs</span></button>
+            </div>
         </div>
     </div>
     <div id="main_container">
