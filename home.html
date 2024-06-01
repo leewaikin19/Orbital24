@@ -9,16 +9,20 @@
 <body>
     <div id = "side_container">
         <div class="vertical_center horizontal_center nav_bar">
-            <button class="logo_container" onclick="window.location.href = 'home.html'" style="padding: 0px;">
-                <img src = "Assets/Logo/dark.svg">
+            <button class="logo_container" onclick="window.location.href = 'home.html'" style="padding: 0px; background: transparent;">
+                <img src = "./Assets/Logo/dark.svg">
             </button>
         </div>
-        <div id = "user" class = "main_content">
-            <div id="profile">
-
+        <div id = "user" class = "main_content" style="margin-top: clamp(3px, 5vh, 12px);">
+            <div id="profile" style="display: flex; column-gap: clamp(3px, 3vw, 12px); padding-left: 1vw;">
+                <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic">
+                <div style=" display: flex; flex-direction: column; justify-content: center;">
+                    <a href="#" style="font-weight: 700;">Username</a>
+                    <p style="font-size: 14px; font-weight: 300;">Rating</p>
+                </div>
             </div>
             <div id = "sidebar_buttons">
-                <button class="side_button" id="current_page_button"  onclick="window.location.href='#'"><span>Account<br>Dashboard</span></button>
+                <button class="side_button" onclick="window.location.href='#'"><span>Account<br>Dashboard</span></button>
                 <button class="side_button" onclick="window.location.href='#'"><span>Tournaments</span></button>
                 <button class="side_button" onclick="window.location.href='#'"><span>Create/Assess<br>Problems</span></button>
                 <button class="side_button" onclick="window.location.href='#'"><span>Leaderboards</span></button>
@@ -28,10 +32,11 @@
         </div>
     </div>
     <div id="main_container">
-        <div class = "vertical_center nav_bar" style="display: flex; justify-content:  end;" id = "nav_buttons">
-            <button class="animated_button selected_button" onclick="window.location.href='home.html'"><span>Home</span></button>
-            <button class="animated_button" onclick="window.location.href='problems.html'"><span>Problems</span></button>
-            <button class="animated_button" id="logout_button" onclick="window.location.href='index.html'"><span>Logout</span></button>
+        <div class = "vertical_center nav_bar" style="display: flex; justify-content: end;">
+            <input type="text" id="search_bar" placeholder="Search Problems...">
+            <button class="animated_button selected_button nav_button" onclick="window.location.href='home.html'"><span>Home</span></button>
+            <button class="animated_button nav_button" onclick="window.location.href='problems.html'"><span>Problems</span></button>
+            <button class="animated_button nav_button" id="logout_button" onclick="window.location.href='index.html'"><span>Logout</span></button>
         </div>
         <div id = "main" class = "main_content">
 

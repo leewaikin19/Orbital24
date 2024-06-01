@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
 @import url("https://use.typekit.net/qfq4azv.css");
-@import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url('./font.css');
 
 :root {
     --white: #fff;
@@ -14,23 +14,22 @@
     --title: clamp(24px, 15vmin, 44px);
     --topic: clamp(20px, 10vmin, 36px);
     --subtopic: clamp(20px, 8vmin, 30px);
-    --text: clamp(18px, 4vmin, 20px);
+    --text: clamp(14px, 4vmin, 18px);
 }
 
 body {
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     margin: 0px;
     background-color: var(--grayest);
     display: grid;
-    grid-template-columns: clamp(40px, 20vw, 300px) 80vw;
-    grid-template-rows: clamp(75px, 10vh, 100px) 90vh;
+    grid-template-columns: 20vw 80vw;
+    grid-template-rows: 10vh 90vh;
     color: var(--white);
     font-family: 'Satoshi';
     font-size: var(--text);
     color: var(--lightgray);
-    margin: 0px;
 }
 
 h1 {
@@ -48,6 +47,27 @@ h2 {
     margin: 0px;
 }
 
+p {
+    font-family: 'Satoshi';
+    font-size: var(--text);
+    color: var(--white);
+    margin: 0px;
+}
+
+a {
+    color: var(--lightgray);
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
+    text-decoration: none;
+}
+
+a:hover {
+    --d: 100%;
+}
+
 button {
     font-family: 'Satoshi';
     color: #ededed;
@@ -59,8 +79,27 @@ button {
     min-height: fit-content;
 }
 
+.side_container {
+    min-width: 200px;
+}
+
 .nav_bar {
     background-color: black;
+    min-height: 60px;
+    max-height: 75px;
+}
+
+.nav_bar button {
+    font-weight: 700;
+    min-width: 8em;
+}
+
+.nav_bar button span {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
 }
 
 .vertical_center {
@@ -77,7 +116,7 @@ button {
 
 .animated_button {
     padding: clamp(3px, 10%, 12px);
-    background-color: var(--grayest);
+    background-color: transparent;
     width: clamp(150px, 10%, 300px);
     height: 100%;
     font-weight: 400;
@@ -93,18 +132,33 @@ button {
 }
 
 .animated_button:hover {
-    background-color: var(--orange);
-    color: var(--grayest);
+    background-color: transparent;
+    color: var(--orange);
     --d: 100%;
 }
 
 #logout_button:hover {
     background-color: var(--red);
+    color: var(--grayest);
 }
 
 .selected_button {
     background-color: var(--orange);
     color: var(--grayest);
+}
+
+.selected_button span {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
+}
+
+.selected_button:hover {
+    background-color: var(--orange);
+    color: var(--grayest);
+    --d: 100%;
 }
 
 .logo_container img {
@@ -115,16 +169,17 @@ button {
 #sidebar_buttons {
     display: flex;
     flex-direction: column;
+    margin-top: clamp(3px, 5vh, 12px);
 }
 
 .side_button {
     position: relative;
     padding-left: 3vw;
     height: max(60px, 4em);
-    transition: background-color 0.4s ease;
     transition: padding 0.4s ease;
     text-align: left;
     border-radius: 0px;
+    font-weight: 400;
 }
 
 .side_button span {
@@ -136,18 +191,40 @@ button {
 }
 
 .side_button:hover {
-    background-color: var(--orange);
-    color: var(--grayest);
+    color: var(--orange);
     padding-left: 4vw;
     --d: 100%;
 }
 
 #current_page_button {
-    color: var(--orange);
     padding-left: 4vw;
 }
 
-#current_page_button:hover {
-    background-color: var(--grayest);
-    --d: 100%;
+#profile img {
+    border-radius: 50%;
+    display: inline-block;
+    width: clamp(60px, 7vh, 90px);
+    height: clamp(60px, 7vh, 90px);
+    object-fit: cover;
+}
+
+#search_bar {
+    display: flex;
+    min-width: 10em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-right: clamp(10px, 2vw, 50px);
+    color: var(--lightgray);
+    font: 400 var(--text);
+    outline: none;
+    border: none;
+    padding: 0px 0px 6px 12px;
+    border-bottom: 2px solid var(--grayer);
+    background-color: transparent;
+    transition: border-bottom 0.2s ease;
+}
+
+#search_bar:focus {
+    border-bottom: 2px solid var(--lightgray);
 }
