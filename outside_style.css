@@ -97,6 +97,7 @@ input:-webkit-autofill {
     font-weight: bold;
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .animated_button span {
     background: 
       linear-gradient(currentColor 0 0) 
@@ -158,6 +159,7 @@ input:-webkit-autofill {
     text-decoration: none;
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .smalllink span {
     margin: 0px;
     font-family: 'Satoshi';

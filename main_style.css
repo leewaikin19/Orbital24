@@ -54,6 +54,7 @@ p {
     margin: 0px;
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 a {
     color: var(--lightgray);
     background: 
@@ -94,6 +95,7 @@ button {
     min-width: 8em;
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .nav_bar button span {
     background: 
       linear-gradient(currentColor 0 0) 
@@ -123,6 +125,7 @@ button {
     transition: background-color 0.2s ease;
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .animated_button span {
     background: 
       linear-gradient(currentColor 0 0) 
@@ -147,6 +150,7 @@ button {
     color: var(--grayest);
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .selected_button span {
     background: 
       linear-gradient(currentColor 0 0) 
@@ -182,6 +186,7 @@ button {
     font-weight: 400;
 }
 
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .side_button span {
     background: 
       linear-gradient(currentColor 0 0) 
