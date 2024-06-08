@@ -23,17 +23,17 @@ function side_container() {
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
                 <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic"/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href="#" style={{fontWeight: 700}}>Username</a>
+                    <a href='home' style={{fontWeight: 700}}>Username</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>Rating</p>
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                {side_button('Account<br/>Dashboard', () => window.location.href='#')}
-                {side_button('Tournaments', () => window.location.href='#')}
-                {side_button('Create/Assess<br/>Problems', () => window.location.href='#')}
-                {side_button('Leaderboards', () => window.location.href='#')}
-                {side_button('Forum Posts', () => window.location.href='#')}
-                {side_button('Report Bugs', () => window.location.href='#')}
+                {side_button('Account<br/>Dashboard', () => window.location.href='')}
+                {side_button('Tournaments', () => window.location.href='')}
+                {side_button('Create/Assess<br/>Problems', () => window.location.href='')}
+                {side_button('Leaderboards', () => window.location.href='')}
+                {side_button('Forum Posts', () => window.location.href='')}
+                {side_button('Report Bugs', () => window.location.href='')}
             </div>
         </div>
     </div>
