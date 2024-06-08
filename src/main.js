@@ -5,6 +5,7 @@ export default function Main() {
     const [formContents, setFormContents] = React.useState(login());
     const [loginSelected, setLoginSelected] = React.useState(true);
     const [signupSelected, setSignupSelected] = React.useState(false);
+    document.title = 'Signup/Login';
 
     function toggleLogin(bool) {
         setLoginSelected(bool);

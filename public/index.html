@@ -4,98 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/26c6ac6f54.js" crossorigin="anonymous"></script>
-    <title>Signup/Login</title>
     <link rel="stylesheet" type="text/css" href="main_style.css">
     <link rel="stylesheet" type="text/css" href="outside_style.css">
 </head>
 <body>
     <div id="root"></div>
-    <!--
-    <div class="side_bar" style="background-position: top left;">
-    </div>
-    <div class="main_container">
-        <div class="main_logo">
-            <img src="./Assets/Logo/dark.svg">
-        </div>
-        <div style="width: 100%;">
-            <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
-                <button id="signup_btn" class="top_button animated_button selected_button"><span>Sign Up</span></button>
-                <button id="login_btn" class="top_button animated_button unselected_button"><span>Log In</span></button>
-            </div>
-            <div id = "outer_form_container">
-                <div id="signup_form" class = "form_container">
-                    <form action="javascript:signup()">
-                        <div class="form_input" style="display: flex; flex-direction: row; column-gap: clamp(3px, 3vw, 12px);">
-                            <input data-sc="" type="text" name="first_name" id="firstName" placeholder="First Name" required>
-                            <input data-sc="" type="text" name="last_name" id="lastName" placeholder="Last Name">
-                        </div>
-                        <div class="form_input">
-                            <input data-sc="" type="email" name="email" id="email" placeholder="Email" required>
-                        </div>
-                        <div class="form_input">
-                            <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username" required>
-                        </div>
-                        <div class="form_input" >
-                            <input data-sc="" type="password" name="password1" id="password1" placeholder="Password" required>
-                        </div>
-                        <div class="form_input" >
-                            <input data-sc="" type="password" name="password2" id="password2" placeholder="Re-Enter Password" required>
-                        </div>
-                        <div style="width: 100%; display: flex; align-items: center;">
-                            <button class="animated_button highlighted_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-user-plus"></i> <span>Sign Up</span></button>
-                        </div>
-                    </form>
-                </div>
-                <div id="login_form" class="form_container hidden">
-                    <form action="javascript:login()">
-                        <div class="form_input">
-                            <input data-sc="" type="text" name="UserID" id="UserID" placeholder="Username/Email" required>
-                        </div>
-                        <div class="form_input">
-                            <input data-sc="" type="password"name="password" id="password" placeholder="Password" required>
-                        </div>
-                        <div class="smalllink">
-                            <a href="forgotpw.html"><span>Forgot Password?</span></a>
-                        </div>
-                        <div style="width: 100%; display: flex; align-items: center;">
-                            <button class="animated_button highlighted_button" onclick="window.location.href='home.html'"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log In</span></button>
-                        </div>
-                        <div class="error" id="incorrect">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="side_bar" style="background-position: bottom right;">
-    </div>
-    <script>
-        document.getElementById('signup_btn').addEventListener('click', function() {
-            document.getElementById('signup_form').classList.add('visible');
-            document.getElementById('login_form').classList.remove('visible');
-            document.getElementById('signup_form').classList.remove('hidden');
-            document.getElementById('login_form').classList.add('hidden');
-            document.getElementById('signup_btn').classList.add("selected_button");
-            document.getElementById('login_btn').classList.remove("selected_button");
-            document.getElementById('signup_btn').classList.remove("unselected_button");
-            document.getElementById('login_btn').classList.add("unselected_button");
-            document.getElementById('outer_form_container').classList.add("signup_selected");
-            document.getElementById('outer_form_container').classList.remove("login_selected");
-        });
-
-        document.getElementById('login_btn').addEventListener('click', function() {
-            document.getElementById('signup_form').classList.add('hidden');
-            document.getElementById('login_form').classList.remove('hidden');
-            document.getElementById('signup_form').classList.remove('visible');
-            document.getElementById('login_form').classList.add('visible');
-            document.getElementById('signup_btn').classList.remove("selected_button");
-            document.getElementById('login_btn').classList.add("selected_button");
-            document.getElementById('signup_btn').classList.add("unselected_button");
-            document.getElementById('login_btn').classList.remove("unselected_button");
-            document.getElementById('outer_form_container').classList.remove("signup_selected");
-            document.getElementById('outer_form_container').classList.add("login_selected");
-        });
-    </script>
-    -->
 </body>
 </html>
