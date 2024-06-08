@@ -5,8 +5,6 @@ import Main from './main';
 import Home from './home';
 import P404 from './404';
 
-Home();
-
 export default function App() {
   console.log("appp")
   return (
