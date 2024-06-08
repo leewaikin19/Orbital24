@@ -6,6 +6,7 @@ import Home from './home';
 import P404 from './404';
 
 export default function App() {
+  console.log("appp")
   return (
     <BrowserRouter>
       <Routes>

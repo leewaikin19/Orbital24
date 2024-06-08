@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as template from "./template.js"
 
 export default function Main() {
+    console.log("mainnnn")
     const [formContents, setFormContents] = React.useState(login());
     const [loginSelected, setLoginSelected] = React.useState(true);
     const [signupSelected, setSignupSelected] = React.useState(false);
