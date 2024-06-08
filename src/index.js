@@ -14,6 +14,7 @@ export default function App() {
       <Routes>
           <Route path="/">
             <Route path="" element={<Main />} />
+            <Route path="another" element={<Main />} />
             <Route path="home" element={<Home />} />
             <Route path="*" element={<P404 />} />
           </Route>
