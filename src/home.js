@@ -2,7 +2,6 @@ import * as React from 'react'
 //import * as template from "./template.js"
 
 export default function Home() {
-    console.log("homeee")
     return (
         <div className='root'>
             {side_container()}

@@ -6,13 +6,11 @@ import Home from './home';
 import P404 from './404';
 
 export default function App() {
-  console.log("appp")
   return (
     <BrowserRouter>
       <Routes>
           <Route path="/">
             <Route path="" element={<Main />} />
-            <Route path="another" element={<Main />} />
             <Route path="home" element={<Home />} />
             <Route path="*" element={<P404 />} />
           </Route>
