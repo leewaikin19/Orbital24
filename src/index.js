@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from './main';
-import Home from './home.js';
-import P404 from './404.js';
+import Home from './home';
+import P404 from './404';
+
+Home();
 
 export default function App() {
   console.log("appp")
@@ -11,7 +13,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
           <Route path="/">
-            <Route index element={<Main />} />
+            <Route path="" element={<Main />} />
             <Route path="home" element={<Home />} />
             <Route path="*" element={<P404 />} />
           </Route>

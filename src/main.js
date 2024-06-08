@@ -76,7 +76,7 @@ function signup() {
     return (
         <div id="signup_form" className="form_container">
             <form action='signup'>
-                <div class="form_input" style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
+                <div className="form_input" style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
                     {template.form_input("text", 'first_name', "firstName", 'First Name', true)}
                     {template.form_input("text", 'last_name', "lastName", 'Last Name', true)}
                 </div>
