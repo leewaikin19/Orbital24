@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as template from "./template.js"
 
-export default function P404() {
-    document.title = "Error 404";
+export default function P418() {
+    document.title = 'Error 418';
 
     return (
         <div className='root'>
@@ -15,7 +15,7 @@ export default function P404() {
                     justifyContent: 'center'
                 }}>
                 <h1 style={{textAlign: 'center'}}>Error 404</h1>
-                <h2>Page Not Found.</h2>
+                <h2>I'm a Teapot.</h2>
             </div>
             {template.side_bar()}
         </div>

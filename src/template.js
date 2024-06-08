@@ -5,3 +5,9 @@ export function form_input(type, name, id, placeholder, required) {
         </div>
     )
 }
+
+export function side_bar() {
+    return (
+        <div className="side_bar"></div>
+    )
+}

@@ -28,9 +28,9 @@ function side_container() {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                {side_button('Account<br/>Dashboard', () => window.location.href='')}
+                {side_button('Account\nDashboard', () => window.location.href='')}
                 {side_button('Tournaments', () => window.location.href='')}
-                {side_button('Create/Assess<br/>Problems', () => window.location.href='')}
+                {side_button('Create/Assess\nProblems', () => window.location.href='')}
                 {side_button('Leaderboards', () => window.location.href='')}
                 {side_button('Forum Posts', () => window.location.href='')}
                 {side_button('Report Bugs', () => window.location.href='')}

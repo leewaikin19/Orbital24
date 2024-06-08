@@ -15,7 +15,7 @@ export default function Main() {
 
     return (
         <div className="root">
-            {side_bar()}
+            {template.side_bar()}
             <div className="main_container">
                 <div className="main_logo">
                     <img src="./Assets/Logo/dark.svg" alt="Logo"></img>
@@ -44,7 +44,7 @@ export default function Main() {
                     </div>
                 </div>
             </div>
-            {side_bar()}
+            {template.side_bar()}
         </div>
     )
 }
@@ -85,18 +85,12 @@ function signup() {
                 {template.form_input("password", 'password1', 'password1', 'Password', true)}
                 {template.form_input("password", 'password2', 'password2', 'Re-Enter Password', true)}
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <button className="animated_button highlighted_button" onClick={() => window.location.href = 'home.html'}>
+                    <button className="animated_button highlighted_button" onClick={() => window.location.href = 'home'}>
                         <i className="fa-solid fa-user-plus"></i>
                         <span>Sign Up</span>
                     </button>
                 </div>
             </form>
         </div>
-    )
-}
-
-function side_bar() {
-    return (
-        <div className="side_bar" style={{ backgroundPosition: "top left" }}></div>
     )
 }
