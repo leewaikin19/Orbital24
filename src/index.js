@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from './main';
-import Home from './home';
-import P404 from './404';
+import Home from './home.js';
+import P404 from './404.js';
 
 export default function App() {
   console.log("appp")
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
           <Route path="/">
             <Route index element={<Main />} />
@@ -16,7 +16,7 @@ export default function App() {
             <Route path="*" element={<P404 />} />
           </Route>
         </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
