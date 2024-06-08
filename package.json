@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "react-router-dom": "^6.23.1",
     "wrangler": "^3.60.0"
   }
 }

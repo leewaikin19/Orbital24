@@ -2,7 +2,7 @@
     --title: max(36px, 15vh);
 }
 
-body {
+.root {
     grid-template-columns: 10vw 80vw 10vw;
     grid-template-rows: 100vh;
 }

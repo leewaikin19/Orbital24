@@ -17,8 +17,10 @@
     --text: clamp(14px, 4vmin, 18px);
 }
 
-body {
+.root {
     position: fixed;
+    left:0;
+    top: 0;
     height: 100%;
     width: 100%;
     margin: 0px;
