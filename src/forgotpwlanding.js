@@ -6,7 +6,7 @@ export default function Forgotpwlanding() {
 
     return (
         <div className='root'>
-            {template.side_bar()}
+            {template.left_bar()}
             <div className="main_container">
                 <div className="main_logo">
                     <img src="./Assets/Logo/dark.svg" alt="Logo"></img>
@@ -26,7 +26,7 @@ export default function Forgotpwlanding() {
                     </div>
                 </div>
             </div>
-            {template.side_bar()}
+            {template.right_bar()}
         </div>
     )
 }

@@ -6,8 +6,14 @@ export function form_input(type, name, id, placeholder, required) {
     )
 }
 
-export function side_bar() {
+export function left_bar() {
     return (
-        <div className="side_bar"></div>
+        <div className="side_bar push_left"></div>
+    )
+}
+
+export function right_bar() {
+    return (
+        <div className="side_bar push_right"></div>
     )
 }

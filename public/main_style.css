@@ -14,7 +14,7 @@
     --title: clamp(24px, 15vmin, 44px);
     --topic: clamp(20px, 10vmin, 36px);
     --subtopic: clamp(20px, 8vmin, 30px);
-    --text: clamp(14px, 4vmin, 18px);
+    --text: clamp(16px, 4vmin, 20px);
 }
 
 .root {
@@ -25,13 +25,13 @@
     width: 100%;
     margin: 0px;
     background-color: var(--grayest);
-    display: grid;
-    grid-template-columns: 20vw 80vw;
-    grid-template-rows: 10vh 90vh;
     color: var(--white);
     font-family: 'Satoshi';
     font-size: var(--text);
     color: var(--lightgray);
+    display: grid;
+    grid-template-columns: 20vw 80vw;
+    grid-template-rows: 10vh 90vh;
 }
 
 h1 {
@@ -80,10 +80,6 @@ button {
     border-radius: 0;
     height: 100%;
     min-height: fit-content;
-}
-
-.side_container {
-    min-width: 200px;
 }
 
 .nav_bar {

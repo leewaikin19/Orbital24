@@ -14,21 +14,29 @@
     background-repeat: no-repeat;
 }
 
+.push_left {
+    background-position: left;
+}
+
+.push_right {
+    background-position: right;
+}
+
 .main_container {
     padding: clamp(6px, 8vmin, 60px);
 }
 
 @media only screen and (orientation: portrait) {
-    body {
-        grid-template-rows: 10vh 80vh 10vh;
+    .root {
+        grid-template-rows: 5vh 90vh 5vh;
         grid-template-columns: 100vw;
     }
 
     .side_bar {
+        position: relative;
         background-image: url(./Assets/Logo/horiz_stripes.svg);
         background-size: 100% auto;
         background-repeat: no-repeat;
-        width: 100%;
     }
 
     .main_container {
@@ -36,6 +44,14 @@
         padding: 0px clamp(3px, 7vmin, 48px);
         overflow-y: scroll;
         overflow-x: hidden;
+    }
+
+    .push_left {
+        background-position: top;
+    }
+    
+    .push_right {
+        background-position: bottom;
     }
 }
 
@@ -167,7 +183,7 @@ input:-webkit-autofill {
     font-size: 12pt;
     background: 
       linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 1px 
+      0 100% /var(--d, 0) 0.5px 
     no-repeat;
     transition:0.4s;
     color: var(--orange)

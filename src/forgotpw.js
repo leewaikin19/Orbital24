@@ -2,11 +2,11 @@ import * as React from 'react'
 import * as template from "./template.js"
 
 export default function Forgotpw() {
-    document.title = 'Signup/Login';
+    document.title = 'Forgot Password';
 
     return (
         <div className='root'>
-            {template.side_bar()}
+            {template.left_bar()}
             <div className="main_container">
                 <div className="main_logo">
                     <img src="./Assets/Logo/dark.svg" alt="Logo"></img>
@@ -26,7 +26,7 @@ export default function Forgotpw() {
                                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                                     <button className="animated_button highlighted_button"
                                         onClick={() => window.location.href='forgotpwlanding'}>
-                                        <i className="fa-regular fa-envelope"></i>
+                                        <i className="fa-regular fa-envelope"></i>{" "}
                                         <span>Submit Email Address</span>
                                     </button>
                                 </div>
@@ -35,7 +35,7 @@ export default function Forgotpw() {
                     </div>
                 </div>
             </div>
-            {template.side_bar()}
+            {template.right_bar()}
         </div>
     )
 }
