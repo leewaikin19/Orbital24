@@ -56,7 +56,32 @@ function main_container() {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                
+                <div className='table_container'>
+                    <h1>Current Problems</h1>
+                    <table>
+                        <tr>
+                            <th>Problem Title</th>
+                            <th>Difficulty</th>
+                        </tr>
+                        <tr>
+                            <td>Sample Title</td>
+                            <td>4.5</td>
+                        </tr>
+                    </table>
+                </div>
+                <div className='table_container'>
+                    <h1>Recommended Problems</h1>
+                    <table>
+                        <tr>
+                            <th>Problem Title</th>
+                            <th>Difficulty</th>
+                        </tr>
+                        <tr>
+                            <td>Sample Title</td>
+                            <td>4.5</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     )

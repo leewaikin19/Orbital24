@@ -82,6 +82,24 @@ button {
     min-height: fit-content;
 }
 
+table {
+    width: 100%;
+    display: table;
+}
+
+th {
+    background-color: var(--orange);
+    color: var(--grayest);
+    margin: 0px;
+}
+
+td {
+    background-color: var(--grayest);
+    color: var(--lightgray);
+    border-collapse: collapse;
+    border: 2px solid var(--orange);
+}
+
 .nav_bar {
     background-color: black;
     min-height: 60px;
