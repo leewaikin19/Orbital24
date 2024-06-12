@@ -5,7 +5,7 @@ export default function P404() {
     document.title = "Error 404";
 
     return (
-        <div className='outside_root'>
+        <div className='outside_root root'>
             {template.left_bar()}
             <div className="main_container" 
                 style={{

@@ -5,7 +5,7 @@ export default function Forgotpw() {
     document.title = 'Forgot Password';
 
     return (
-        <div className='outside_root'>
+        <div className='outside_root root'>
             {template.left_bar()}
             <div className="main_container">
                 <div className="main_logo">

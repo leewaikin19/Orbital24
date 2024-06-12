@@ -1,7 +1,3 @@
-:outside_root {
-    --title: max(36px, 15vh);
-}
-
 .outside_root {
     grid-template-columns: 10vw 80vw 10vw;
     grid-template-rows: 100vh;
@@ -57,6 +53,7 @@
 
 .outside_root h1 {
     color: var(--red);
+    font-size: clamp(24px, 15vh, 144px);
 }
 
 .outside_root input {
