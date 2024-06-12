@@ -64,7 +64,7 @@ function main_container() {
                             <th>Difficulty</th>
                         </tr>
                         <tr>
-                            <td>Sample Title</td>
+                            <td><a>Sample Title</a></td>
                             <td>4.5</td>
                         </tr>
                     </table>
@@ -77,7 +77,7 @@ function main_container() {
                             <th>Difficulty</th>
                         </tr>
                         <tr>
-                            <td>Sample Title</td>
+                            <td><a>Sample Title</a></td>
                             <td>4.5</td>
                         </tr>
                     </table>

@@ -91,6 +91,7 @@ th {
     background-color: var(--orange);
     color: var(--grayest);
     margin: 0px;
+    padding: 0.5em;
 }
 
 td {
@@ -98,6 +99,7 @@ td {
     color: var(--lightgray);
     border-collapse: collapse;
     border: 2px solid var(--orange);
+    padding: 0.5em 1em;
 }
 
 .nav_bar {
@@ -215,6 +217,25 @@ td {
     color: var(--orange);
     padding-left: 4vw;
     --d: 100%;
+}
+
+.table_container {
+    margin: 2vh 2vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.table_container table a {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
+}
+
+.table_container table a:hover {
+    --d: 100%;
+    cursor: pointer;
 }
 
 #current_page_button {
