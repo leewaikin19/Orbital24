@@ -5,7 +5,7 @@ export default function Forgotpwlanding() {
     document.title = 'Signup/Login';
 
     return (
-        <div className='root'>
+        <div className='outside_root'>
             {template.left_bar()}
             <div className="main_container">
                 <div className="main_logo">

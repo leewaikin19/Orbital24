@@ -1,85 +1,85 @@
-:root {
+:outside_root {
     --title: max(36px, 15vh);
 }
 
-.root {
+.outside_root {
     grid-template-columns: 10vw 80vw 10vw;
     grid-template-rows: 100vh;
 }
 
-.side_bar {
+.outside_root .side_bar {
     position: relative;
     background-image: url(./Assets/Logo/stripes.svg);
     background-size: auto 100%;
     background-repeat: no-repeat;
 }
 
-.push_left {
+.outside_root .push_left {
     background-position: left;
 }
 
-.push_right {
+.outside_root .push_right {
     background-position: right;
 }
 
-.main_container {
+.outside_root .main_container {
     padding: clamp(6px, 8vmin, 60px);
 }
 
 @media only screen and (orientation: portrait) {
-    .root {
+    .outside_root {
         grid-template-rows: 5vh 90vh 5vh;
         grid-template-columns: 100vw;
     }
 
-    .side_bar {
+    .outside_root .side_bar {
         position: relative;
         background-image: url(./Assets/Logo/horiz_stripes.svg);
         background-size: 100% auto;
         background-repeat: no-repeat;
     }
 
-    .main_container {
+    .outside_root .main_container {
         margin-top: 0vh;
         padding: 0px clamp(3px, 7vmin, 48px);
         overflow-y: scroll;
         overflow-x: hidden;
     }
 
-    .push_left {
+    .outside_root .push_left {
         background-position: top;
     }
     
-    .push_right {
+    .outside_root .push_right {
         background-position: bottom;
     }
 }
 
-h1 {
+.outside_root h1 {
     color: var(--red);
 }
 
-input {
+.outside_root input {
     border: 2px var(--grayer) solid;
     color: var(--lightgray);
     outline: none;
 }
 
-button {
+.outside_root button {
     border-radius: 0px;
 }
 
-.form_container {
+.outside_root .form_container {
     position: absolute;
     width: 90%;
 }
 
-.form_container form {
+.outside_root .form_container form {
     row-gap: clamp(3px, 3vmin, 12px); 
     margin-bottom: clamp(3px, 3vmin, 12px); 
 }
 
-.form_input {
+.outside_root .form_input {
     width: 100%;
     display: flex; 
     flex-direction: row; 
@@ -87,7 +87,7 @@ button {
     margin: clamp(3px, 3vmin, 16px) 0px;;
 }
 
-.form_input input {
+.outside_root .form_input input {
     width: 100%;
     font: 'Satoshi';
     font-size: var(--text);
@@ -97,24 +97,24 @@ button {
     background-color: black;
 }
 
-.form_input input:focus {
+.outside_root .form_input input:focus {
     background-color: black;
     border: 2px var(--orange) solid;
 }
 
-input:-webkit-autofill {
+.outside_root input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px black inset;
     -webkit-text-fill-color: var(--lightgray);
 }
 
-.animated_button {
+.outside_root .animated_button {
     width: 100%;
     margin: 0px;
     font-weight: bold;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.animated_button span {
+.outside_root .animated_button span {
     background: 
       linear-gradient(currentColor 0 0) 
       0 100% /var(--d, 0) 3px 
@@ -122,28 +122,28 @@ input:-webkit-autofill {
     transition:0.4s;
 }
 
-.unselected_button:hover {
+.outside_root .unselected_button:hover {
     background-color: var(--grayest);
     color: var(--white);
 }
 
-.highlighted_button {
+.outside_root .highlighted_button {
     margin-top: 18px;
     border: 3px solid var(--orange);
     color: var(--orange);
 }
 
-.visibile {
+.outside_root .visibile {
     opacity: 1;
     pointer-events: auto;
 }
 
-.hidden {
+.outside_root .hidden {
     opacity: 0;
     pointer-events: none;
 }
 
-#outer_form_container {
+.outside_root #outer_form_container {
     padding: clamp(3px, 3vmin, 12px); 
     border: 3px solid var(--orange); 
     position: relative; 
@@ -154,29 +154,29 @@ input:-webkit-autofill {
     justify-content: center;
 }
 
-.main_logo {
+.outside_root .main_logo {
     display: flex; 
     align-items: center; 
     justify-content: center;
 }
 
-.main_logo img {
+.outside_root .main_logo img {
     width: clamp(250px, 50vmin, 750px);
 }
 
-.smalllink {
+.outside_root .smalllink {
     display: flex;
     justify-content: end;
     margin: clamp(2px, 1vh ,8px) 0px;
 }
 
-.smalllink a {
+.outside_root .smalllink a {
     color: var(--orange);
     text-decoration: none;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.smalllink span {
+.outside_root .smalllink span {
     margin: 0px;
     font-family: 'Satoshi';
     font-weight: 300;
@@ -189,11 +189,11 @@ input:-webkit-autofill {
     color: var(--orange)
 }
 
-.smalllink a:hover {
+.outside_root .smalllink a:hover {
     --d: 100%;
 }
 
-#otp_container #otp_input {
+.outside_root #otp_container #otp_input {
     font-size: var(--topic);
     font-weight: 800;
     text-align: center;

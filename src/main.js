@@ -14,7 +14,7 @@ export default function Main() {
     }
 
     return (
-        <div className="root">
+        <div className="outside_root root">
             {template.left_bar()}
             <div className="main_container">
                 <div className="main_logo">
