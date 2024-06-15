@@ -8,6 +8,8 @@ import Forgotpwlanding from './forgotpwlanding';
 import Otp from './otp';
 import P418 from './418';
 import P404 from './404';
+window.React1 = require('react');
+// TODO dev note: use useID() to generate unique IDs for elements
 
 export default function App() {
   return (

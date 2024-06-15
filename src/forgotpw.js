@@ -16,7 +16,8 @@ export default function Forgotpw() {
                         <div id="forgot_pw" className="form_container">
                             <form action="signup()">
                                 Please enter your email address.
-                                {template.form_input('email', 'email', 'email', 'Email', true)}
+                                {//template.form_input('email', 'email', 'email', 'Email', true)
+                                }
                                 <div className="smalllink">
                                     <a href="index">
                                         <i className="fa-solid fa-caret-left"></i>

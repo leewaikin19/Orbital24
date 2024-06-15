@@ -1,16 +1,21 @@
-import * as React from 'react'
+import { useState } from 'react'
+import Form_input from "./template.js"
 import * as template from "./template.js"
+import * as API from "./API.js"
+require('react-dom');
+window.React2 = require('react');
+console.log(window.React1 === window.React2);
 
 export default function Main() {
-    const [formContents, setFormContents] = React.useState(login());
-    const [loginSelected, setLoginSelected] = React.useState(true);
-    const [signupSelected, setSignupSelected] = React.useState(false);
+    const [formContents, setFormContents] = useState(Login());
+    const [loginSelected, setLoginSelected] = useState(true);
+    const [signupSelected, setSignupSelected] = useState(false);
     document.title = 'Signup/Login';
 
     function toggleLogin(bool) {
         setLoginSelected(bool);
         setSignupSelected(!bool);
-        setFormContents(bool ? login() : signup());
+        setFormContents(bool ? Login() : Signup());
     }
 
     return (
@@ -51,12 +56,15 @@ export default function Main() {
 
 
 
-function login() {
+function Login() {
+    //const [username, setUsername] = useState("");
+    //const [password, setPassword] = useState("");
+
     return (
         <div className="form_container">
             <form action='login'>
-                {template.form_input("text", 'UserID', 'UserID', 'Username', true)}
-                {template.form_input("password", 'password', 'password', 'Password', true)}
+                {/*template.form_input("text", 'username', 'username', username, setUsername, 'Username', true)}
+                {template.form_input("password", 'password', 'password', password, setPassword, 'Password', true)*/}
                 <div className="smalllink">
                     <a href="forgotpw"><span>Forgot Password?</span></a>
                 </div>
@@ -72,20 +80,44 @@ function login() {
     )
 }
 
-function signup() {
+function Signup() {
+    //const [firstName, setFirstName] = useState("");
+    //const [lastName, setLastName] = useState(0);
+    //const [email, setEmail] = useState("");
+    //const [username, setUsername] = useState("");
+    //const [password1, setPassword1] = useState("");
+    //const [password2, setPassword2] = useState("");
+
+
+    async function clickSignup() {
+        if("password1" === "password2") {
+            const resp = await API.signup("firstName", "lastName", "email", "username", "password1");
+            if (resp.success) {
+                window.location.href = 'home';
+            } else {
+                handleErrors(resp.msg);
+            }
+        } else {
+            // TODO password no match
+        }
+    }
     return (
         <div className="form_container">
             <form action='signup'>
                 <div className="form_input" style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
-                    {template.form_input("text", 'first_name', "firstName", 'First Name', true)}
-                    {template.form_input("text", 'last_name', "lastName", 'Last Name', true)}
+                    {//template.form_input("text", 'firstName', "firstName", firstName, setFirstName, 'First Name')
+                    }
+                    {Form_input("text", 'firstName', "firstName", 'First Name')}
+                    
+                    {//template.form_input("text", 'lastName', "lastName", lastName, setLastName, 'Last Name')
+                    }
                 </div>
-                {template.form_input("email", 'email', 'email', 'Email', true)}
-                {template.form_input("text", 'UserID', 'UserID', 'Username', true)}
-                {template.form_input("password", 'password1', 'password1', 'Password', true)}
-                {template.form_input("password", 'password2', 'password2', 'Re-Enter Password', true)}
+                {/*template.form_input("email", 'email', 'email', email, setEmail, 'Email')}
+                {template.form_input("text", 'username', 'username', username, setUsername, 'Username')}
+                {template.form_input("password", 'password1', 'password1', password1, setPassword1, 'Password')}
+                {template.form_input("password", 'password2', 'password2', password2, setPassword2, 'Re-Enter Password')*/}
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <button className="animated_button highlighted_button" onClick={() => window.location.href = 'home'}>
+                    <button className="animated_button highlighted_button" onClick={clickSignup}>
                         <i className="fa-solid fa-user-plus"></i>{" "}
                         <span>Sign Up</span>
                     </button>
@@ -93,4 +125,13 @@ function signup() {
             </form>
         </div>
     )
+}
+
+function handleErrors(resp) {
+    if (resp.msg === "Token Error") {
+        window.location.href = "index";
+        alert("Login timeout. Please sign in again.");
+    } else {
+        console.log(resp.msg);
+    }
 }
