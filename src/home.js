@@ -28,12 +28,12 @@ function side_container() {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                {side_button('Account\nDashboard', () => window.location.href='')}
-                {side_button('Tournaments', () => window.location.href='')}
-                {side_button('Create/Assess\nProblems', () => window.location.href='')}
-                {side_button('Leaderboards', () => window.location.href='')}
-                {side_button('Forum Posts', () => window.location.href='')}
-                {side_button('Report Bugs', () => window.location.href='')}
+                {side_button('Account\nDashboard', () => window.location.href='home')}
+                {side_button('Tournaments', () => window.location.href='home')}
+                {side_button('Create/Assess\nProblems', () => window.location.href='home')}
+                {side_button('Leaderboards', () => window.location.href='home')}
+                {side_button('Forum Posts', () => window.location.href='home')}
+                {side_button('Report Bugs', () => window.location.href='home')}
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@ function main_container() {
                             <th>Difficulty</th>
                         </tr>
                         <tr>
-                            <td><a>Sample Title</a></td>
+                            <td><a href='home'>Sample Title</a></td>
                             <td>4.5</td>
                         </tr>
                     </table>
@@ -77,7 +77,7 @@ function main_container() {
                             <th>Difficulty</th>
                         </tr>
                         <tr>
-                            <td><a>Sample Title</a></td>
+                            <td><a href='home'>Sample Title</a></td>
                             <td>4.5</td>
                         </tr>
                     </table>
