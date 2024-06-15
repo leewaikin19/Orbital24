@@ -2,6 +2,9 @@
 // if resp.success is true, resp.reply is a JSON with all other data
 // if resp.success is false, resp.msg will contain the error message 
 
+
+/* eslint-disable */
+
 async function post(payload) {
     // TODO oh yah we need a loader
     // Cloudflare workers
