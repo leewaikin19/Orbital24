@@ -1,10 +1,6 @@
 import { useState } from 'react'
-import Form_input from "./template.js"
 import * as template from "./template.js"
 import * as API from "./API.js"
-require('react-dom');
-window.React2 = require('react');
-console.log(window.React1 === window.React2);
 
 export default function Main() {
     const [formContents, setFormContents] = useState(Login());
@@ -82,7 +78,7 @@ function Login() {
 
 function Signup() {
     //const [firstName, setFirstName] = useState("");
-    //const [lastName, setLastName] = useState(0);
+    const [lastName, setLastName] = useState(0);
     //const [email, setEmail] = useState("");
     //const [username, setUsername] = useState("");
     //const [password1, setPassword1] = useState("");
@@ -107,9 +103,8 @@ function Signup() {
                 <div className="form_input" style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
                     {//template.form_input("text", 'firstName', "firstName", firstName, setFirstName, 'First Name')
                     }
-                    {Form_input("text", 'firstName', "firstName", 'First Name')}
-                    
-                    {//template.form_input("text", 'lastName', "lastName", lastName, setLastName, 'Last Name')
+            
+                    {template.form_input("text", 'lastName', "lastName", lastName, setLastName, 'Last Name')
                     }
                 </div>
                 {/*template.form_input("email", 'email', 'email', email, setEmail, 'Email')}

@@ -1,12 +1,9 @@
-import { useState } from 'react'
-export default function Form_input(type, name, id, placeholder, required=true) {
-    const [value, setValue] = useState(true);
-    function test() {
-        setValue(false);
-    }
+import * as React from 'react'
+
+export function form_input(type, name, id, value, setValue, placeholder, required=true) {
     return (
         <div className="form_input">
-            <input type={type} name={name} id={id} value={value} onInput={e => test()} placeholder={placeholder} required={required}/>
+            <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required}/>
         </div>
     )
 }
