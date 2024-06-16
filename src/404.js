@@ -6,7 +6,7 @@ export default function P404() {
 
     return (
         <div className='outside_root root'>
-            {template.left_bar()}
+            <template.Bar dir='left'/>
             <div className="main_container" 
                 style={{
                     display: 'flex', 
@@ -17,7 +17,7 @@ export default function P404() {
                 <h1 style={{textAlign: 'center'}}>Error 404</h1>
                 <h2>Page Not Found.</h2>
             </div>
-            {template.right_bar()}
+            <template.Bar dir='right'/>
         </div>
     )
 }

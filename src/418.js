@@ -6,7 +6,7 @@ export default function P418() {
 
     return (
         <div className='outside_root root'>
-            {template.left_bar()}
+            <template.Bar dir='left'/>
             <div className="main_container" 
                 style={{
                     display: 'flex', 
@@ -17,7 +17,7 @@ export default function P418() {
                 <h1 style={{textAlign: 'center'}}>Error 404</h1>
                 <h2>I'm a Teapot.</h2>
             </div>
-            {template.right_bar()}
+            <template.Bar dir='right'/>
         </div>
     )
 }

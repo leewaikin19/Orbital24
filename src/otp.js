@@ -6,7 +6,7 @@ export default function Otp() {
 
     return (
         <div className='outside_root'>
-            {template.left_bar()}
+            <template.Bar dir='left'/>
             <div className="main_container">
                 <div className="main_logo">
                     <img src="./Assets/Logo/dark.svg" alt="Logo"></img>
@@ -35,7 +35,7 @@ export default function Otp() {
                     </div>
                 </div>
             </div>
-            {template.right_bar()}
+            <template.Bar dir='right'/>
         </div>
     )
 }

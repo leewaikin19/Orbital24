@@ -2,70 +2,94 @@ import { useState } from 'react'
 import * as template from "./template.js"
 import * as API from "./API.js"
 
+const SIGNUP_LOGIN = 0;
+const FORGOT_PW = 1;
+const FORGOT_PW_LANDING = 2;
+
 export default function Main() {
-    const [formContents, setFormContents] = useState(Login());
-    const [loginSelected, setLoginSelected] = useState(true);
-    const [signupSelected, setSignupSelected] = useState(false);
-    document.title = 'Signup/Login';
+    
+    const [page, setPage] = useState(SIGNUP_LOGIN);
 
-    function toggleLogin(bool) {
-        setLoginSelected(bool);
-        setSignupSelected(!bool);
-        setFormContents(bool ? Login() : Signup());
+    function renderPage() {
+        switch(page) {
+            case SIGNUP_LOGIN: return <SignupLogin setPage={setPage} />
+            case FORGOT_PW: return <Forgotpw setPage={setPage} />
+            case FORGOT_PW_LANDING: return <Forgotpwlanding setPage={setPage}/>
+            default: return null
+        }
     }
-
     return (
         <div className="outside_root root">
-            {template.left_bar()}
+            <template.Bar dir='left'/>
             <div className="main_container">
                 <div className="main_logo">
                     <img src="./Assets/Logo/dark.svg" alt="Logo"></img>
                 </div>
-                <div style={{ width: '100%' }}>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-evenly"
-                    }}>
-                        <button id="signup_btn" 
-                            className={"top_button animated_button " + 
-                                        (signupSelected ? "selected_button" : "unselected_button")}
-                            onClick={() => toggleLogin(false)}>
-                            <span>Sign Up</span>
-                        </button>
-                        <button id="login_btn" 
-                            className={"top_button animated_button " + 
-                                        (loginSelected ? "selected_button" : "unselected_button")}
-                            onClick={() => toggleLogin(true)}>
-                            <span>Log In</span>
-                        </button>
-                    </div>
-                    <div id="outer_form_container">
-                        {formContents}
-                    </div>
-                </div>
+                {renderPage()}
             </div>
-            {template.right_bar()}
+            <template.Bar dir='right'/>
+        </div>
+    )
+    
+}
+
+function SignupLogin({setPage}) {
+    const [loginSelected, setLoginSelected] = useState(true);
+    return (
+        <div style={{ width: '100%' }}>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly"
+            }}>
+                <button id="signup_btn" 
+                    className={"top_button animated_button " + 
+                                (loginSelected ? "unselected_button" : "selected_button")}
+                    onClick={() => setLoginSelected(false)}>
+                    <span>Sign Up</span>
+                </button>
+                <button id="login_btn" 
+                    className={"top_button animated_button " + 
+                                (loginSelected ? "selected_button" : "unselected_button")}
+                    onClick={() => setLoginSelected(true)}>
+                    <span>Log In</span>
+                </button>
+            </div>
+            <div id="outer_form_container">
+                { loginSelected ? <Login setPage={setPage} /> : <Signup/> }
+            </div>
         </div>
     )
 }
 
+function Login({setPage}) {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
+    document.title = 'Signup/Login';
 
-function Login() {
-    //const [username, setUsername] = useState("");
-    //const [password, setPassword] = useState("");
+    async function clickLogin() {
+        const resp = await API.login(username, password);
+        if (resp.success) {
+            template.setCookie('token', resp.reply.token)
+            window.location.href = 'home';
+        } else {
+            template.handleErrors(resp.msg);
+        }
+    }
 
     return (
         <div className="form_container">
-            <form action='login'>
-                {/*template.form_input("text", 'username', 'username', username, setUsername, 'Username', true)}
-                {template.form_input("password", 'password', 'password', password, setPassword, 'Password', true)*/}
+            <form>
+                <template.Form_input name='username' value={username} setValue={setUsername} placeholder='Username'/>
+                <template.Form_input type='password' name='password' value={password} setValue={setPassword} placeholder='Password'/>
                 <div className="smalllink">
-                    <a href="forgotpw"><span>Forgot Password?</span></a>
+                    <div onClick={() => setPage(FORGOT_PW)}>
+                        <span>Forgot Password?</span>
+                    </div>
                 </div>
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <button className="animated_button highlighted_button" onClick={() => window.location.href='home'}>
+                    <button className="animated_button highlighted_button" type="button" onClick={clickLogin}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                         <span>Log In</span>
                     </button>
@@ -77,21 +101,22 @@ function Login() {
 }
 
 function Signup() {
-    //const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState(0);
-    //const [email, setEmail] = useState("");
-    //const [username, setUsername] = useState("");
-    //const [password1, setPassword1] = useState("");
-    //const [password2, setPassword2] = useState("");
-
+    const [username, setUsername] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password1, setPassword1] = useState("");
+    const [password2, setPassword2] = useState("");
+    document.title = 'Signup/Login';
 
     async function clickSignup() {
-        if("password1" === "password2") {
-            const resp = await API.signup("firstName", "lastName", "email", "username", "password1");
+        if(password1 === password2) {
+            const resp = await API.signup(firstName, lastName, email, username, password1);
             if (resp.success) {
+                template.setCookie('token', resp.token)
                 window.location.href = 'home';
             } else {
-                handleErrors(resp.msg);
+                template.handleErrors(resp.msg);
             }
         } else {
             // TODO password no match
@@ -101,18 +126,16 @@ function Signup() {
         <div className="form_container">
             <form action='signup'>
                 <div className="form_input" style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
-                    {//template.form_input("text", 'firstName', "firstName", firstName, setFirstName, 'First Name')
-                    }
-            
-                    {template.form_input("text", 'lastName', "lastName", lastName, setLastName, 'Last Name')
-                    }
+                    <template.Form_input name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name'/>
+                    <template.Form_input name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name'/>
                 </div>
-                {/*template.form_input("email", 'email', 'email', email, setEmail, 'Email')}
-                {template.form_input("text", 'username', 'username', username, setUsername, 'Username')}
-                {template.form_input("password", 'password1', 'password1', password1, setPassword1, 'Password')}
-                {template.form_input("password", 'password2', 'password2', password2, setPassword2, 'Re-Enter Password')*/}
+                <template.Form_input type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
+                <template.Form_input name='username' value={username} setValue={setUsername} placeholder='Username'/>
+                <template.Form_input type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
+                <template.Form_input type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
+
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <button className="animated_button highlighted_button" onClick={clickSignup}>
+                    <button className="animated_button highlighted_button" type="button" onClick={clickSignup}>
                         <i className="fa-solid fa-user-plus"></i>{" "}
                         <span>Sign Up</span>
                     </button>
@@ -122,11 +145,60 @@ function Signup() {
     )
 }
 
-function handleErrors(resp) {
-    if (resp.msg === "Token Error") {
-        window.location.href = "index";
-        alert("Login timeout. Please sign in again.");
-    } else {
-        console.log(resp.msg);
+function Forgotpw({setPage}) {
+    document.title = 'Forgot Password';
+    const [email, setEmail] = useState("");
+
+    function handleForgotPw() {
+        setPage(FORGOT_PW_LANDING);
+        // TODO handle forgot pw
     }
+
+    return (
+        <div style={{ width: '100%' }}>
+            <div id="outer_form_container">
+                <div id="forgot_pw" className="form_container">
+                    <form action="signup()">
+                        Please enter your email address.
+                        <template.Form_input type='email' name='email' value={email} setValue={setEmail} placeholder='Email'/>
+                        <div className="smalllink">
+                            <div onClick={() => setPage(SIGNUP_LOGIN)}>
+                                <i className="fa-solid fa-caret-left"></i>
+                                <span>Back to Sign Up/Login</span>
+                            </div>
+                        </div>
+                        <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                            <button className="animated_button highlighted_button"
+                                onClick={handleForgotPw}>
+                                <i className="fa-regular fa-envelope"></i>{" "}
+                                <span>Submit Email Address</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
 }
+
+function Forgotpwlanding({setPage}) {
+    document.title = 'Forgot Password';
+    return (
+        <div style={{ width: '100%' }}>
+            <div id="outer_form_container">
+                <div id="forgot_pw" className="form_container">
+                    Check your inbox for the instructions to reset your password.
+                    <div style={{width: '100%', display: 'flex', alignItems: 'center'}}>
+                        <button className="animated_button highlighted_button" 
+                            onClick={() => setPage(SIGNUP_LOGIN)}>
+                            <i className="fa-solid fa-caret-left"></i>
+                            <span>Back to Sign Up/Login</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+

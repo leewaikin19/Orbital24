@@ -1,16 +1,34 @@
-import * as React from 'react'
-//import * as template from "./template.js"
+import { useState, useRef } from 'react'
+import * as API from './API.js'
+import * as template from "./template.js"
 
 export default function Home() {
+    const [loading, setLoading] = useState(true);
+    const user = useRef(null);
+
+    async function getDashboard() {
+        const resp = await API.dashboard(template.getCookie('token'))
+        if(resp.success){
+            user.current = resp.reply;
+            setLoading(false);
+        } else {
+            template.handleErrors(resp.msg);
+            return null;
+        }
+    }
+    getDashboard();
     return (
         <div className='root'>
-            {side_container()}
-            {main_container()}
+            { loading ? <template.Loader/> : 
+             <> 
+                <SideContainer username={user.current.username}/> 
+                <MainContainer/> 
+             </> }
         </div>
-    )
+    ) 
 }
 
-function side_container() {
+function SideContainer({username}) {
     return (
         <div id = "side_container">
         <div className="vertical_center horizontal_center nav_bar">
@@ -23,24 +41,24 @@ function side_container() {
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
                 <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href='home' style={{fontWeight: 700}}>Username</a>
+                    <a href='home' style={{fontWeight: 700}}>{username}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>Rating</p>
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                {side_button('Account\nDashboard', () => window.location.href='home')}
-                {side_button('Tournaments', () => window.location.href='home')}
-                {side_button('Create/Assess\nProblems', () => window.location.href='home')}
-                {side_button('Leaderboards', () => window.location.href='home')}
-                {side_button('Forum Posts', () => window.location.href='home')}
-                {side_button('Report Bugs', () => window.location.href='home')}
+                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='home'}/>
+                <SideButton contents='Tournaments' onClick={() => window.location.href='home'}/>
+                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='home'}/>
+                <SideButton contents='Leaderboards' onClick={() => window.location.href='home'}/>
+                <SideButton contents='Forum Posts' onClick={() => window.location.href='home'}/>
+                <SideButton contents='Report Bugs' onClick={() => window.location.href='home'}/>
             </div>
         </div>
     </div>
     )
 }
 
-function main_container() {
+function MainContainer() {
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
@@ -87,10 +105,10 @@ function main_container() {
     )
 }
 
-function side_button(span, click) {
+function SideButton({contents, onClick}) {
     return (
-        <button className="side_button" onClick={click}>
-            <span> {span} </span>
+        <button className="side_button" onClick={onClick}>
+            <span> {contents} </span>
         </button>
     )
 }
