@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+@import url("https://use.typekit.net/qfq4azv.css");
+@import url('./font.css');
+
+.impt_note {
+    width: 100%;
+}
+
+.impt_note .impt_note_title {
+    background-color: var(--red);
+    color: var(--white);
+    font-size: var(--topic);
+    font-weight: 600;
+    padding: 10px;
+}
+
+.impt_note .impt_note_content {
+    background-color: var(--lightgray);
+    color: var(--grayest);
+    font-size: var(--text);
+    font-weight: 400;
+    padding: 10px;
+}
