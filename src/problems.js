@@ -28,7 +28,7 @@ function side_container() {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-            {side_button('Account\nDashboard', () => window.location.href='dashboard')}
+                {side_button('Account\nDashboard', () => window.location.href='dashboard')}
                 {side_button('Tournaments', () => window.location.href='tournament')}
                 {side_button('Create/Assess\nProblems', () => window.location.href='createassess')}
                 {side_button('Leaderboards', () => window.location.href='leaderboard')}
@@ -45,10 +45,10 @@ function main_container() {
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
-                <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
+                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='problems'}>
                     <span>Problems</span>
                     </button>
                 <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
@@ -56,31 +56,14 @@ function main_container() {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                <div className='table_container'>
-                    <h1>Current Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
-                </div>
-                <div className='table_container'>
-                    <h1>Recommended Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
+                <div>
+                    <div id = "problem_title">
+                        Title Should Go Here
+                        <a href=''>View Past Submissions</a>
+                    </div>
+                    <div id = "problem_desc">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,5 +75,20 @@ function side_button(span, click) {
         <button className="side_button" onClick={click}>
             <span> {span} </span>
         </button>
+    )
+}
+
+function impt_note(note) {
+    return (
+        <div className='impt_note'>
+            <div className='impt_note_title'>
+                Important Note!
+            </div>
+            <div className='impt_note_content'>
+                <p>
+                    {note}
+                </p>
+            </div>
+        </div>
     )
 }

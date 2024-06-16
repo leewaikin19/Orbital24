@@ -22,7 +22,7 @@ export default function App() {
             <Route path="forgotpw" element={<Forgotpw />} />
             <Route path="forgotpwlanding" element={<Forgotpwlanding />} />
             <Route path="otp" element={<Otp />} />
-            <Route path="416" element={<P418 />} />
+            <Route path="418" element={<P418 />} />
             <Route path="*" element={<P404 />} />
           </Route>
         </Routes>
