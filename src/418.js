@@ -14,7 +14,7 @@ export default function P418() {
                     alignItems: 'center', 
                     justifyContent: 'center'
                 }}>
-                <h1 style={{textAlign: 'center'}}>Error 404</h1>
+                <h1 style={{textAlign: 'center'}}>Error 418</h1>
                 <h2>I'm a Teapot.</h2>
             </div>
             <template.Bar dir='right'/>

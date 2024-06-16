@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-export default function Home() {
+export default function Submissions() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
 
@@ -46,12 +46,12 @@ function SideContainer({name, exp}) {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
-                <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
-                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
-                <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
-                <SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
-                <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
+                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='home'}/>
+                <SideButton contents='Tournaments' onClick={() => window.location.href='home'}/>
+                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='home'}/>
+                <SideButton contents='Leaderboards' onClick={() => window.location.href='home'}/>
+                <SideButton contents='Forum Posts' onClick={() => window.location.href='home'}/>
+                <SideButton contents='Report Bugs' onClick={() => window.location.href='home'}/>
             </div>
         </div>
     </div>

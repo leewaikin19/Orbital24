@@ -75,7 +75,7 @@ export async function leaderboard(token) {
     return resp;
 }
 
-// HOW TO DO AH
+// HOW TO DO AH (lol ~dom)
 export async function createProblem(token) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token });
@@ -115,3 +115,4 @@ export async function gradeSubmission(token, submissionID, correct) {
     return resp;
 }
 
+//TODO save user's past tournaments

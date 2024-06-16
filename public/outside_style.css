@@ -56,54 +56,9 @@
     font-size: clamp(24px, 15vh, 144px);
 }
 
-.outside_root input {
-    border: 2px var(--grayer) solid;
-    color: var(--lightgray);
-    outline: none;
-}
-
 .outside_root button {
     border-radius: 0px;
 }
-
-.outside_root .form_container {
-    position: absolute;
-    width: 90%;
-}
-
-.outside_root .form_container form {
-    row-gap: clamp(3px, 3vmin, 12px); 
-    margin-bottom: clamp(3px, 3vmin, 12px); 
-}
-
-.outside_root .form_input {
-    width: 100%;
-    display: flex; 
-    flex-direction: row; 
-    column-gap: clamp(3px, 3vmin, 12px);
-    margin: clamp(3px, 3vmin, 16px) 0px;;
-}
-
-.outside_root .form_input input {
-    width: 100%;
-    font: 'Satoshi';
-    font-size: var(--text);
-    border-radius: 0px;
-    padding: clamp(3px, 3vmin, 12px);
-    transition: border 0.15s;
-    background-color: black;
-}
-
-.outside_root .form_input input:focus {
-    background-color: black;
-    border: 2px var(--orange) solid;
-}
-
-.outside_root input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px black inset;
-    -webkit-text-fill-color: var(--lightgray);
-}
-
 .outside_root .animated_button {
     width: 100%;
     margin: 0px;
@@ -119,15 +74,14 @@
     transition:0.4s;
 }
 
+.outside_root .animated_button:hover {
+    background-color: var(--orange);
+    color: var(--grayest);
+}
+
 .outside_root .unselected_button:hover {
     background-color: var(--grayest);
     color: var(--white);
-}
-
-.outside_root .highlighted_button {
-    margin-top: 18px;
-    border: 3px solid var(--orange);
-    color: var(--orange);
 }
 
 .outside_root .visibile {
@@ -161,19 +115,19 @@
     width: clamp(250px, 50vmin, 750px);
 }
 
-.outside_root .smalllink {
+.smalllink {
     display: flex;
     justify-content: end;
     margin: clamp(2px, 1vh ,8px) 0px;
 }
 
-.outside_root .smalllink a {
+.smalllink a {
     color: var(--orange);
     text-decoration: none;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.outside_root .smalllink span {
+.smalllink span {
     margin: 0px;
     font-family: 'Satoshi';
     font-weight: 300;
@@ -186,7 +140,7 @@
     color: var(--orange)
 }
 
-.outside_root .smalllink a:hover {
+.smalllink a:hover {
     --d: 100%;
 }
 

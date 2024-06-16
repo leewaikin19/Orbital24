@@ -89,7 +89,7 @@ function Login({setPage}) {
                     </div>
                 </div>
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <button className="animated_button highlighted_button" type="button" onClick={clickLogin}>
+                    <button className="animated_button action_button" type="button" onClick={clickLogin}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                         <span>Log In</span>
                     </button>
@@ -125,7 +125,7 @@ function Signup() {
     return (
         <div className="form_container">
             <form action='signup'>
-                <div className="form_input" style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
+                <div style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
                     <template.Form_input name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name'/>
                     <template.Form_input name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name'/>
                 </div>
@@ -135,7 +135,7 @@ function Signup() {
                 <template.Form_input type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                    <button className="animated_button highlighted_button" type="button" onClick={clickSignup}>
+                    <button className="animated_button action_button" type="button" onClick={clickSignup}>
                         <i className="fa-solid fa-user-plus"></i>{" "}
                         <span>Sign Up</span>
                     </button>
@@ -168,7 +168,7 @@ function Forgotpw({setPage}) {
                             </div>
                         </div>
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                            <button className="animated_button highlighted_button"
+                            <button className="animated_button action_button"
                                 onClick={handleForgotPw}>
                                 <i className="fa-regular fa-envelope"></i>{" "}
                                 <span>Submit Email Address</span>
@@ -189,7 +189,7 @@ function Forgotpwlanding({setPage}) {
                 <div id="forgot_pw" className="form_container">
                     Check your inbox for the instructions to reset your password.
                     <div style={{width: '100%', display: 'flex', alignItems: 'center'}}>
-                        <button className="animated_button highlighted_button" 
+                        <button className="animated_button action_button" 
                             onClick={() => setPage(SIGNUP_LOGIN)}>
                             <i className="fa-solid fa-caret-left"></i>
                             <span>Back to Sign Up/Login</span>

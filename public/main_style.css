@@ -32,6 +32,7 @@
     display: grid;
     grid-template-columns: 20vw 80vw;
     grid-template-rows: 10vh 90vh;
+    overflow-y: scroll;
 }
 
 h1 {
@@ -102,6 +103,45 @@ td {
     padding: 0.5em 1em;
 }
 
+.form_container {
+    width: 100%;
+}
+
+form {
+    row-gap: clamp(3px, 3vmin, 12px); 
+    margin-bottom: clamp(3px, 3vmin, 12px); 
+}
+
+.form_input {
+    width: 100%;
+    display: flex; 
+    flex-direction: row; 
+    column-gap: clamp(3px, 3vmin, 12px);
+}
+
+.form_input input {
+    width: 100%;
+    font: 'Satoshi';
+    font-size: var(--text);
+    border-radius: 0px;
+    padding: clamp(3px, 3vmin, 12px);
+    transition: border 0.15s;
+    background-color: black;
+    border: 2px var(--grayer) solid;
+    color: var(--lightgray);
+    outline: none;
+}
+
+.form_input input:focus {
+    background-color: black;
+    border: 2px var(--orange) solid;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px black inset;
+    -webkit-text-fill-color: var(--lightgray);
+}
+
 .nav_bar {
     background-color: black;
     min-height: 60px;
@@ -134,6 +174,15 @@ td {
     justify-content: center;
 }
 
+.section {
+    padding-bottom: max(2vh, 6px);
+}
+
+#main {
+    overflow-y: scroll; /* TODO figure out why this doesnt work */
+    padding: 1vh 3vw 1vh 0vw;
+}
+
 .animated_button {
     padding: clamp(3px, 10%, 12px);
     background-color: transparent;
@@ -156,6 +205,29 @@ td {
     background-color: transparent;
     color: var(--orange);
     --d: 100%;
+}
+
+.action_button {
+    background-color: var(--grayest);
+    color: var(--orange);
+    border: 3px solid var(--orange);
+    width: 100%;
+    margin-top: 24px; /* TODO figure out a better way to do this */
+    font-weight: bold;
+}
+
+/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
+.action_button span {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 3px 
+    no-repeat;
+    transition:0.4s;
+}
+
+.action_button:hover {
+    background-color: var(--orange);
+    color: var(--grayest);
 }
 
 #logout_button:hover {
@@ -220,7 +292,6 @@ td {
 }
 
 .table_container {
-    margin: 2vh 2vw;
     overflow-y: scroll;
     overflow-x: hidden;
 }

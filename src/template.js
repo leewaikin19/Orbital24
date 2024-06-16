@@ -3,7 +3,7 @@ import * as React from 'react'
 export function Form_input( {type="text", name, id=name, value="", setValue, placeholder, required=true }) {
     return (
         <div className="form_input">
-            <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required}/>
+            <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} style={{margin: "clamp(3px, 1vmin, 12px) 0px"}}/>
         </div>
     )
 }
@@ -18,7 +18,7 @@ export function Loader() {
 
 export function Bar({dir}) {
     return (
-        <div className={"side_bar " + dir === 'left' ? "push_left" : "push_right"}></div>
+        <div className={"side_bar " + (dir === 'left' ? "push_left" : "push_right")}></div>
     )
 }
 
