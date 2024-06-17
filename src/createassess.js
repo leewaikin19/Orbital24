@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-export default function Home() {
+export default function CreateAssess() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
 
@@ -22,7 +22,8 @@ export default function Home() {
             { loading ? <template.Loader/> : 
              <> 
                 <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp}/> 
-                <MainContainer/> 
+                <MainContainer assessableProblems={[]} createdProblems={[]}/>
+                 {/*TODO @LWK19 help :))*/}
              </> }
         </div>
     ) 
@@ -48,7 +49,7 @@ function SideContainer({name, exp}) {
             <div id = "sidebar_buttons">
                 <template.SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
                 <template.SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
-                <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
+                <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'} selected/>
                 <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
                 <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
                 <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
@@ -58,12 +59,12 @@ function SideContainer({name, exp}) {
     )
 }
 
-function MainContainer() {
+function MainContainer({assessableProblems, createdProblems}) {
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
                 <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
@@ -74,31 +75,36 @@ function MainContainer() {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                <div className='table_container'>
-                    <h1>Current Problems</h1>
+                <div className='section table_container'>
+                    <h1>Assess Others' Problems</h1>
                     <table>
                         <tr>
                             <th>Problem Title</th>
-                            <th>Difficulty</th>
                         </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
+                        {assessableProblems.length > 0 ?
+                        {/* for (let i = 0; i < assessableProb.length; i++) {
+                            {row(solvedProblems[i])}; //TODO solve when the "problem" object is clearly defined.
+                        } */} : (<tr>
+                        <td>No problems to assess</td>
+                        </tr>)}
+                        
                     </table>
                 </div>
-                <div className='table_container'>
-                    <h1>Recommended Problems</h1>
+                <div className='section table_container'>
+                    <h1>Created Problems</h1>
                     <table>
                         <tr>
                             <th>Problem Title</th>
-                            <th>Difficulty</th>
+                            <th>Status</th>
                         </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
+                        {/* for (let i = 0; i < tournaments.length; i++) {
+                            {row(tournaments[i])}; //TODO solve when the "tournament" object is clearly defined.
+                        } */}
                     </table>
+                    <button className='action_button animated_button'>
+                        <i class="fa-solid fa-plus"></i> {" "}
+                        <span>Create New Problem</span>
+                    </button>
                 </div>
             </div>
         </div>

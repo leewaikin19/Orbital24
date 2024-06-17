@@ -41,17 +41,17 @@ function SideContainer({name, exp}) {
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
                 <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href='home' style={{fontWeight: 700}}>{name}</a>
+                    <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
-                <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
-                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
-                <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
-                <SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
-                <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
+                <template.SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'} selected/>
+                <template.SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
+                <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
+                <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
+                <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
+                <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@ function MainContainer({solvedProblems, pendingSubmissions, tournaments, badges}
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
                 <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
@@ -147,12 +147,29 @@ function MainContainer({solvedProblems, pendingSubmissions, tournaments, badges}
                             <template.Form_input type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
                             <template.Form_input name='username' value={username} setValue={setUsername} placeholder='Username'/>
                             <template.Form_input type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
-                            <template.Form_input type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
 
                             <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                                 <button className="action_button animated_button" type="button">
-                                    <i className="fa-solid fa-user-plus"></i>{" "}
-                                    <span>Update Details</span>
+                                    <i class="fa-solid fa-check"></i>{" "}
+                                    <span>Confirm Details</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div className='section'>
+                    <h1>Update Password</h1> 
+                    {/* TODO @lwk19 hehe */}
+                    <div className="form_container">
+                        <form action=''>
+                            <template.Form_input type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Old Password'/>
+                            <template.Form_input type="password" name='password1' value={password1} setValue={setPassword1} placeholder='New Password'/>
+                            <template.Form_input type="password" name='password1' value={password2} setValue={setPassword1} placeholder='Reenter New Password'/>
+
+                            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                                <button className="action_button animated_button" type="button">
+                                    <i class="fa-solid fa-lock"></i>{" "}
+                                    <span>Update Passowrd</span>
                                 </button>
                             </div>
                         </form>
@@ -160,13 +177,5 @@ function MainContainer({solvedProblems, pendingSubmissions, tournaments, badges}
                 </div>
             </div>
         </div>
-    )
-}
-
-function SideButton({contents, onClick}) {
-    return (
-        <button className="side_button" onClick={onClick}>
-            <span> {contents} </span>
-        </button>
     )
 }

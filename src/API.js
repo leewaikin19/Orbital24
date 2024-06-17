@@ -3,7 +3,7 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 async function post(payload) {
-    // TODO oh yah we need a loader
+    // TODOM oh yah we need a loader
     // Cloudflare workers
     const url = "https://rojiku-server.lwk19-eab.workers.dev";
     //const url = "http://127.0.0.1:8787";
@@ -115,4 +115,4 @@ export async function gradeSubmission(token, submissionID, correct) {
     return resp;
 }
 
-//TODO save user's past tournaments
+//TODO @LWK19 save user's past tournaments

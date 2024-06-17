@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-export default function Home() {
+export default function Explore() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
 
@@ -22,7 +22,7 @@ export default function Home() {
             { loading ? <template.Loader/> : 
              <> 
                 <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp}/> 
-                <MainContainer/> 
+                <MainContainer problems={[]}/> 
              </> }
         </div>
     ) 
@@ -41,7 +41,7 @@ function SideContainer({name, exp}) {
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
                 <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
+                    <a href='home' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
                 </div>
             </div>
@@ -50,7 +50,7 @@ function SideContainer({name, exp}) {
                 <template.SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
                 <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
                 <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
-                <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
+                <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'} selected/>
                 <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
             </div>
         </div>
@@ -58,15 +58,16 @@ function SideContainer({name, exp}) {
     )
 }
 
-function MainContainer() {
+
+function MainContainer({problems}) { 
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
-                <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
+                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='problems'}>
                     <span>Problems</span>
                     </button>
                 <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
@@ -74,32 +75,19 @@ function MainContainer() {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                <div className='table_container'>
-                    <h1>Current Problems</h1>
-                    <table>
+                <h1>Explore Problems</h1>
+                {problems.length > 0 ? (<table>
                         <tr>
-                            <th>Problem Title</th>
+                            <th>Problems</th>
                             <th>Difficulty</th>
                         </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
-                </div>
-                <div className='table_container'>
-                    <h1>Recommended Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
-                </div>
+                        {problems.map(problem => {
+                            <tr>
+                                <td>{problem}</td> 
+                                {/* TODO to be done when the problems object is fully defined.*/}
+                            </tr>
+                        })}
+                    </table>) : (<p>There are no problems yet. This only happens during development stage.</p>)}
             </div>
         </div>
     )

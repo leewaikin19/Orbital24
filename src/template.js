@@ -22,6 +22,14 @@ export function Bar({dir}) {
     )
 }
 
+export function SideButton({contents, onClick, selected=false}) {
+    return (
+        <button className={"side_button " + (selected ? "selected_side_button" : "")} onClick={onClick}>
+            <span> {contents} </span>
+        </button>
+    )
+}
+
 export function setCookie(cname, value){
     document.cookie = cname + "=" + value + ";max-age=7200;path=/";
 }

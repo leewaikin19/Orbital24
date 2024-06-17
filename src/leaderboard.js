@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-export default function Home() {
+export default function Leaderboards() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
 
@@ -22,7 +22,8 @@ export default function Home() {
             { loading ? <template.Loader/> : 
              <> 
                 <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp}/> 
-                <MainContainer/> 
+                <MainContainer problemset={[]}/> 
+                {/* TODO @lwk19 this is a placeholder, idk what to do. */}
              </> }
         </div>
     ) 
@@ -41,7 +42,7 @@ function SideContainer({name, exp}) {
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
                 <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
+                    <a href='home' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
                 </div>
             </div>
@@ -49,7 +50,7 @@ function SideContainer({name, exp}) {
                 <template.SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
                 <template.SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
                 <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
-                <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
+                <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'} selected/>
                 <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
                 <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
             </div>
@@ -58,12 +59,13 @@ function SideContainer({name, exp}) {
     )
 }
 
-function MainContainer() {
+
+function MainContainer({problemset}) { 
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
                 <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
@@ -73,30 +75,24 @@ function MainContainer() {
                     <span>Logout</span>
                     </button>
             </div>
-            <div id = "main" className = "main_content">
-                <div className='table_container'>
-                    <h1>Current Problems</h1>
+            <div id = "main" className = "main_content" style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly", columnGap:"clamp(6px, 2vw, 48px)"}}>
+                <div className='section'>
+                    <h1>Exp Leaderboard</h1>
                     <table>
                         <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Exp</th>
                         </tr>
                     </table>
                 </div>
-                <div className='table_container'>
-                    <h1>Recommended Problems</h1>
+                <div className='section'>
+                    <h1>Badges Leaderboard</h1>
                     <table>
                         <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Badges</th>
                         </tr>
                     </table>
                 </div>

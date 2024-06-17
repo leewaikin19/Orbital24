@@ -22,7 +22,7 @@ export default function Submissions() {
             { loading ? <template.Loader/> : 
              <> 
                 <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp}/> 
-                <MainContainer/> 
+                <MainContainer submissions={user.current.Submissions}/> /*TODO @lwk19 this is a placeholder, we need to get the submissions from the API*/
              </> }
         </div>
     ) 
@@ -46,27 +46,35 @@ function SideContainer({name, exp}) {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='home'}/>
-                <SideButton contents='Tournaments' onClick={() => window.location.href='home'}/>
-                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='home'}/>
-                <SideButton contents='Leaderboards' onClick={() => window.location.href='home'}/>
-                <SideButton contents='Forum Posts' onClick={() => window.location.href='home'}/>
-                <SideButton contents='Report Bugs' onClick={() => window.location.href='home'}/>
+                <template.SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
+                <template.SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
+                <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
+                <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
+                <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
+                <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
             </div>
         </div>
     </div>
     )
 }
 
-function MainContainer() {
+function MainContainer({submissions}) { 
+    const noSubmissions = () => {
+        return (
+        <tr style={{textAlign:"center"}}>
+            <td>No Submission Records Found</td>
+        </tr>
+        )
+    }
+
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
-                <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
+                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='problems'}>
                     <span>Problems</span>
                     </button>
                 <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
@@ -74,41 +82,20 @@ function MainContainer() {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                <div className='table_container'>
-                    <h1>Current Problems</h1>
+                <div className='section'>
+                    <h1>My Submissions</h1>
                     <table>
                         <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
+                            <th>Submissions</th>
                         </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
-                </div>
-                <div className='table_container'>
-                    <h1>Recommended Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
+                        {submissions.length > 0 ? submissions.map(sub => {
+                            <tr>
+                                <td>{sub}</td>
+                            </tr>
+                        }) : noSubmissions()}
                     </table>
                 </div>
             </div>
         </div>
-    )
-}
-
-function SideButton({contents, onClick}) {
-    return (
-        <button className="side_button" onClick={onClick}>
-            <span> {contents} </span>
-        </button>
     )
 }

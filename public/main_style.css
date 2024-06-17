@@ -84,8 +84,11 @@ button {
 }
 
 table {
+    margin: 1vh 0px;
     width: 100%;
     display: table;
+    border-collapse: collapse;
+    border: 3px solid var(--orange);
 }
 
 th {
@@ -98,9 +101,20 @@ th {
 td {
     background-color: var(--grayest);
     color: var(--lightgray);
-    border-collapse: collapse;
-    border: 2px solid var(--orange);
     padding: 0.5em 1em;
+}
+
+tr th {
+    border-right: 3px solid var(--grayest);
+}
+
+tr th:last-child {
+    border-right: none;
+}
+
+tr td {
+    border: 3px solid var(--orange);
+    border-top: none;
 }
 
 .form_container {
@@ -176,11 +190,12 @@ input:-webkit-autofill {
 
 .section {
     padding-bottom: max(2vh, 6px);
+    width: 100%;
 }
 
 #main {
     overflow-y: scroll; /* TODO figure out why this doesnt work */
-    padding: 1vh 3vw 1vh 0vw;
+    padding: 2vh 3vw 1vh 3vw;
 }
 
 .animated_button {
@@ -214,6 +229,7 @@ input:-webkit-autofill {
     width: 100%;
     margin-top: 24px; /* TODO figure out a better way to do this */
     font-weight: bold;
+    padding: 0.75em 0em;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
@@ -291,12 +307,14 @@ input:-webkit-autofill {
     --d: 100%;
 }
 
-.table_container {
-    overflow-y: scroll;
-    overflow-x: hidden;
+.selected_side_button {
+    background-color: var(--orange);
+    color: var(--grayest);
+    padding-left: 4vw;
+    font-weight: 600;
 }
 
-.table_container table a {
+.selected_side_button span {
     background: 
       linear-gradient(currentColor 0 0) 
       0 100% /var(--d, 0) 2px 
@@ -304,7 +322,20 @@ input:-webkit-autofill {
     transition:0.4s;
 }
 
-.table_container table a:hover {
+.selected_side_button:hover {
+    color: var(--grayest);
+    --d: 100%;
+}
+
+table a {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 2px 
+    no-repeat;
+    transition:0.4s;
+}
+
+table a:hover {
     --d: 100%;
     cursor: pointer;
 }

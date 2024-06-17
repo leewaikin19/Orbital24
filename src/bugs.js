@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-export default function Home() {
+export default function Bugs() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
 
@@ -41,7 +41,7 @@ function SideContainer({name, exp}) {
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
                 <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
+                    <a href='home' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
                 </div>
             </div>
@@ -51,19 +51,20 @@ function SideContainer({name, exp}) {
                 <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
                 <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
                 <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
-                <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
+                <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'} selected/>
             </div>
         </div>
     </div>
     )
 }
 
-function MainContainer() {
+
+function MainContainer() { 
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>
                 <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
@@ -74,32 +75,9 @@ function MainContainer() {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                <div className='table_container'>
-                    <h1>Current Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
-                </div>
-                <div className='table_container'>
-                    <h1>Recommended Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        <tr>
-                            <td><a href='home'>Sample Title</a></td>
-                            <td>4.5</td>
-                        </tr>
-                    </table>
-                </div>
+                <h1>Contact Support</h1>
+                {/* Mailto code adapted from https://www.w3docs.com/snippets/html/how-to-create-mailto-links.html and https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/ */}
+                <p>Please report bugs to <a href="mailto:lwk19@comp.nus.edu.sg?cc=dominic_bryan@u.nus.edu&subject=ROJIKU Bug Report" target="_blank" rel="noreferrer noopener" style={{color:"var(--orange)"}}>lwk19@comp.nus.edu.sg</a> and attach a screenshot of the problem.</p>
             </div>
         </div>
     )
