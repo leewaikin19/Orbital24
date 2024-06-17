@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-export default function Explore() {
+export default function Problems() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
 
@@ -60,6 +60,7 @@ function SideContainer({name, exp}) {
 
 
 function MainContainer({problems}) { 
+
     return (
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
@@ -75,19 +76,26 @@ function MainContainer({problems}) {
                     </button>
             </div>
             <div id = "main" className = "main_content">
-                <h1>Explore Problems</h1>
-                {problems.length > 0 ? (<table>
-                        <tr>
-                            <th>Problems</th>
-                            <th>Difficulty</th>
-                        </tr>
-                        {problems.map(problem => {
-                            <tr>
-                                <td>{problem}</td> 
-                                {/* TODO to be done when the problems object is fully defined.*/}
-                            </tr>
-                        })}
-                    </table>) : (<p>There are no problems yet. This only happens during development stage.</p>)}
+                <>
+                    <h1>Problem Title</h1>
+                </>
+                <>
+                    <p>Problem Description</p>
+                </>
+                {impt_note({note: "This is an important note"})}
+            </div>
+        </div>
+    )
+}
+
+function impt_note({note}) {
+    return(
+        <div className="impt_note">
+            <div className='impt_note_title'>
+                Important Note!
+                <div className='impt_note_content'>
+                {note}
+                </div>
             </div>
         </div>
     )

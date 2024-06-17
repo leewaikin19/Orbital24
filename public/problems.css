@@ -8,10 +8,10 @@
 
 .impt_note .impt_note_title {
     background-color: var(--red);
-    color: var(--white);
+    color: var(--lightgray);
     font-size: var(--topic);
-    font-weight: 600;
-    padding: 10px;
+    font-weight: 900;
+    padding: 1vh 1vw 3vh 1vw;
 }
 
 .impt_note .impt_note_content {
@@ -19,5 +19,5 @@
     color: var(--grayest);
     font-size: var(--text);
     font-weight: 400;
-    padding: 10px;
+    padding: 1vh 1vw;
 }
