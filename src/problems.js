@@ -75,14 +75,15 @@ function MainContainer({problems}) {
                     <span>Logout</span>
                     </button>
             </div>
-            <div id = "main" className = "main_content">
+            <div id = "main" className = "main_content problems">
                 <>
                     <h1>Problem Title</h1>
                 </>
-                <>
+                <div className='description'>
                     <p>Problem Description</p>
-                </>
+                </div>
                 {impt_note({note: "This is an important note"})}
+                {step({title: "Step 1", desc: "This is step 1"})}
             </div>
         </div>
     )
@@ -93,8 +94,21 @@ function impt_note({note}) {
         <div className="impt_note">
             <div className='impt_note_title'>
                 Important Note!
-                <div className='impt_note_content'>
+                <div className='content'>
                 {note}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function step({title, desc}) {
+    return(
+        <div className="step">
+            <div className='step_title'>
+                {title}
+                <div className='content'>
+                {desc}
                 </div>
             </div>
         </div>
