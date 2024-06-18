@@ -9,6 +9,15 @@
     padding: 1vh 0px;
 }
 
+.problems .content {
+    background-color: var(--lightgray);
+    color: var(--grayest);
+    font-size: var(--text);
+    font-weight: 400;
+    padding: 1vh 1vw;
+    margin-top: 1vh;
+}
+
 .impt_note {
     width: 100%;
     margin: 2vh 0px;
@@ -19,15 +28,7 @@
     color: var(--lightgray);
     font-size: var(--topic);
     font-weight: 900;
-    padding: 1vh 1vw 2vh 1vw;
-}
-
-.problems .content {
-    background-color: var(--lightgray);
-    color: var(--grayest);
-    font-size: var(--text);
-    font-weight: 400;
-    padding: 1vh 1vw;
+    padding: 1vh 2vw 2vh 2vw;
 }
 
 .step {
@@ -40,5 +41,5 @@
     color: var(--grayest);
     font-size: var(--topic);
     font-weight: 900;
-    padding: 1vh 1vw 2vh 1vw;
+    padding: 1vh 2vw 2vh 2vw;
 }
