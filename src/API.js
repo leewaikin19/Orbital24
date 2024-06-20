@@ -50,6 +50,13 @@ export async function dashboard(token) {
     return resp;
 }
 
+export async function updateUser(token, updates) {
+    // updates should take the form { 'field' : 'new_value', ... }
+    // List of available fields to update: password, email, firstName, lastName, badges, xp, problemsSolved
+    var resp = await post({ 'mode': 'main', 'method':'dashboard', 'token':token, 'updates':updates });
+    return resp;
+}
+
 export async function getAllProblems(token) {
     // resp.success=true returns reply.title,statement,hints["string1","string2"]
     var resp = await post({ 'mode': 'main', 'method':'getAllProblems', 'token':token });
@@ -70,7 +77,9 @@ export async function submitProblem(token, questionID, submission) {
 }
 
 export async function leaderboard(token) {
-    // resp.success=true returns reply. xp,achievments,... tbc
+    // resp.success=true returns reply.xp,badges
+    // reply.xp contains the following fields: xp, username, firstName, lastName
+    // reply.badges contains the following fields: badges, badges_count, username, firstName, lastName
     var resp = await post({ 'mode': 'main', 'method':'leaderboard', 'token':token });
     return resp;
 }
@@ -82,7 +91,7 @@ export async function createProblem(token, title, statement, hints) {
 }
 
 export async function getAllTournaments(token) {
-    // resp.success=true returns reply tournament structure tbc
+    // resp.success=true returns reply.title,problems["UUIDforProblem"],dateStart,dateEnd
     var resp = await post({ 'mode': 'main', 'method':'getAllTournaments', 'token':token });
     return resp;
 }

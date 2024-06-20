@@ -6,9 +6,10 @@ export default function Leaderboard() {
     const [isThisNeeded, setThis] = useState(true);
     const temp = useRef(null);
     
-    const promise = API.dashboard(template.getCookie('token'))
+    const promise = API.leaderboard(template.getCookie('token'))
     promise.then((resp) => {
-        console.log('Im doneee')
+        console.log("leader")
+        console.log(resp)
     })
     return (
         < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'tournaments'} promise={promise} />
