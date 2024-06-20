@@ -11,7 +11,7 @@ export default function Leaderboard() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'leaderboards'} promise={promise} />
     ) 
 }
 

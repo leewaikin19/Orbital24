@@ -61,16 +61,12 @@ export function SideContainer({name, exp, selected, isAdmin}) {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                {// TODOM selected param do highlighting here
-                }
-                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
-                <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'}/>
-                {// TODOM Create/Assess problem should only be visible to admins
-                }
-                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
-                <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
-                <SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
-                <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
+                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'} highlighted={selected == "dashboard"}/>
+                <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'} highlighted={selected == "tournaments"}/>
+                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'} highlighted={selected == "createassessprobems"} shown={isAdmin}/>
+                <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'} highlighted={selected == "leaderboards"}/>
+                <SideButton contents='Forum Posts' onClick={() => window.location.href='posts'} highlighted={selected == "posts"}/>
+                <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'} highlighted={selected == "bugs"}/>
             </div>
         </div>
     </div>
@@ -107,9 +103,9 @@ export function Bar({dir}) {
     )
 }
 
-export function SideButton({contents, onClick, selected=false}) {
+export function SideButton({contents, onClick, highlighted, shown}) {
     return (
-        <button className={"side_button " + (selected ? "selected_side_button" : "")} onClick={onClick}>
+        <button className={"side_button " + (highlighted ? "selected_side_button" : "")} onClick={onClick} style={{shown} ? {display: "visible"} : {display: "hidden"}}>
             <span> {contents} </span>
         </button>
     )

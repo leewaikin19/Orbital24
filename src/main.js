@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState } from 'react'
 import * as template from "./template.js"
 import * as API from "./API.js"
@@ -28,6 +29,7 @@ export default function Main() {
                 {renderPage()}
             </div>
             <template.Bar dir='right'/>
+            
         </div>
     )
     

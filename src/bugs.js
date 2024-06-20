@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
@@ -12,7 +14,7 @@ export default function Bugs() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent/>)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent/>)} SSelected={'bugs'} promise={promise} />
     ) 
 }
 
