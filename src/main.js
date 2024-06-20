@@ -153,7 +153,7 @@ function Forgotpw({setPage}) {
 
     function handleForgotPw() {
         setPage(FORGOT_PW_LANDING);
-        // TODO handle forgot pw
+        // TODOM handle forgot pw
     }
 
     return (
