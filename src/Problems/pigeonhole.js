@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react'
-import * as API from './API.js'
-import * as template from "./template.js"
+import * as API from '../API.js'
+import * as template from "../template.js"
 /* eslint-disable */
-export default function Problems() {
+export default function pigeonhole() {
     const [isThisNeeded, setThis] = useState(true);
     const temp = useRef(null);
     
-    const promise = API.dashboard(template.getCookie('token'))
+    const promise = API.getProblem(template.getCookie('token'), "")//TODO @LWK19 need questionID here
     promise.then((resp) => {
         console.log('Im doneee')
     })
