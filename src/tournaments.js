@@ -10,7 +10,7 @@ export default function Tournaments() {
     promise.then((resp) => {
         console.log('Im doneee')
     })
-    return (
+    return ( 
         < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'tournaments'} promise={promise} />
     ) 
 }

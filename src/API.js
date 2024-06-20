@@ -5,8 +5,8 @@
 async function post(payload) {
     // TODOM oh yah we need a loader
     // Cloudflare workers
-    const url = "https://rojiku-server.lwk19-eab.workers.dev";
-    //const url = "http://127.0.0.1:8787";
+    //const url = "https://rojiku-server.lwk19-eab.workers.dev";
+    const url = "http://127.0.0.1:8787";
     var req = await fetch(url, {
         method: "POST",
         headers: {
@@ -45,13 +45,13 @@ export async function resetPassword(email) {
 
 export async function dashboard(token) {
     // resp.success=true returns reply... username,password,email,firstName,lastName,
-    //      account(user/admin),exp,problemsSolved,pendingSubmissions,achievments
+    //      account(user/admin),exp,problemsSolved,pendingSubmissions,badges
     var resp = await post({ 'mode': 'main', 'method':'dashboard', 'token':token });
     return resp;
 }
 
 export async function getAllProblems(token) {
-    // resp.success=true returns reply... Problem structure tbc
+    // resp.success=true returns reply.title,statement,hints["string1","string2"]
     var resp = await post({ 'mode': 'main', 'method':'getAllProblems', 'token':token });
     return resp;
 }
@@ -75,10 +75,9 @@ export async function leaderboard(token) {
     return resp;
 }
 
-// HOW TO DO AH (lol ~dom)
-export async function createProblem(token) {
+export async function createProblem(token, title, statement, hints) {
     // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token });
+    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints});
     return resp;
 }
 
