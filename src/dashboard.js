@@ -11,7 +11,7 @@ export default function Dashboard() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={"temp"} pendingSubmissions={user.current.pendingSubmissions} tournaments={user.current.tournaments} badges={user.current.achievement} />)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent solvedProblems={"temp"} pendingSubmissions={"temp"} tournaments={"temp"} badges={"temp"} />)} SSelected={'tournaments'} promise={promise} />
     ) 
 }
 
