@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-
+/* eslint-disable */
 export default function Explore() {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);

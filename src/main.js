@@ -81,8 +81,8 @@ function Login({setPage}) {
     return (
         <div className="form_container">
             <form>
-                <template.Form_input name='username' value={username} setValue={setUsername} placeholder='Username'/>
-                <template.Form_input type='password' name='password' value={password} setValue={setPassword} placeholder='Password'/>
+                <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
+                <template.FormInput type='password' name='password' value={password} setValue={setPassword} placeholder='Password'/>
                 <div className="smalllink">
                     <div onClick={() => setPage(FORGOT_PW)}>
                         <span>Forgot Password?</span>
@@ -119,20 +119,20 @@ function Signup() {
                 template.handleErrors(resp.msg);
             }
         } else {
-            // TODO password no match
+            // TODOM message to user if password no match
         }
     }
     return (
         <div className="form_container">
             <form action='signup'>
                 <div style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
-                    <template.Form_input name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name'/>
-                    <template.Form_input name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name'/>
+                    <template.FormInput name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name'/>
+                    <template.FormInput name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name'/>
                 </div>
-                <template.Form_input type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
-                <template.Form_input name='username' value={username} setValue={setUsername} placeholder='Username'/>
-                <template.Form_input type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
-                <template.Form_input type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
+                <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
+                <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
+                <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
+                <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                     <button className="animated_button action_button" type="button" onClick={clickSignup}>
@@ -160,7 +160,7 @@ function Forgotpw({setPage}) {
                 <div id="forgot_pw" className="form_container">
                     <form action="signup()">
                         Please enter your email address.
-                        <template.Form_input type='email' name='email' value={email} setValue={setEmail} placeholder='Email'/>
+                        <template.FormInput type='email' name='email' value={email} setValue={setEmail} placeholder='Email'/>
                         <div className="smalllink">
                             <div onClick={() => setPage(SIGNUP_LOGIN)}>
                                 <i className="fa-solid fa-caret-left"></i>

@@ -1,8 +1,9 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from './main';
-import Home from './home';
+import Homepage from './homepage';
 import Otp from './otp';
 import P418 from './418';
 import P404 from './404';
@@ -16,7 +17,7 @@ import Posts from './posts';
 import Explore from './explore';
 import Problems from './problems';
 
-// TODO dev note: use useID() to generate unique IDs for elements
+// TODOM dev note: use useID() to generate unique IDs for elements
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
           <Route path="/">
             <Route index element={<Main />} />
             <Route path="index" element={<Main />} />
-            <Route path="home" element={<Home />} />
+            <Route path="home" element={<Homepage />} />
             <Route path="otp" element={<Otp />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="418" element={<P418 />} />

@@ -1,96 +1,35 @@
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-
+/* eslint-disable */
 export default function Tournaments() {
-    const [loading, setLoading] = useState(true);
-    const user = useRef(null);
-
-    async function getDashboard() {
-        const resp = await API.dashboard(template.getCookie('token'))
-        if(resp.success){
-            user.current = resp.reply;
-            setLoading(false);
-        } else {
-            template.handleErrors(resp.msg);
-            return null;
-        }
-    }
-    getDashboard();
+    const [isThisNeeded, setThis] = useState(true);
+    const temp = useRef(null);
+    
+    const promise = API.dashboard(template.getCookie('token'))
+    promise.then((resp) => {
+        console.log('Im doneee')
+    })
     return (
-        <div className='root'>
-            { loading ? <template.Loader/> : 
-             <> 
-                <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp}/> 
-                <MainContainer problemset={[]}/> 
-                {/* TODO @lwk19 this is a placeholder, idk what to do. */}
-             </> }
-        </div>
+        < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'tournaments'} promise={promise} />
     ) 
 }
 
-function SideContainer({name, exp}) {
+function MainContent({problemset}) { 
     return (
-        <div id = "side_container">
-        <div className="vertical_center horizontal_center nav_bar">
-            <button className="logo_container" onClick={() => window.location.href = 'home'} 
-                    style={{padding: '0px', background: 'transparent'}}>
-                <img src = "./Assets/Logo/dark.svg" alt=''/>
-            </button>
-        </div>
-        <div id = "user" className = "main_content" style={{marginTop: 'clamp(3px, 5vh, 12px)'}}>
-            <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
-                <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
-                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <a href='home' style={{fontWeight: 700}}>{name}</a>
-                    <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
-                </div>
-            </div>
-            <div id = "sidebar_buttons">
-                <template.SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'}/>
-                <template.SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'} selected/>
-                <template.SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'}/>
-                <template.SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'}/>
-                <template.SideButton contents='Forum Posts' onClick={() => window.location.href='posts'}/>
-                <template.SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'}/>
-            </div>
-        </div>
-    </div>
-    )
-}
-
-
-function MainContainer({problemset}) { 
-    return (
-        <div id="main_container">
-            <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
-                <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button nav_button" onClick={() => window.location.href='home'}>
-                    <span>Home</span>
-                    </button>
-                <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
-                    <span>Problems</span>
-                    </button>
-                <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
-                    <span>Logout</span>
-                    </button>
-            </div>
-            <div id = "main" className = "main_content">
-                <div className='section'>
-                    <h1>Tournament Problem Set</h1>
-                    {problemset.length > 0 ? (<table>
-                        <tr>
-                            <th>Problem Set</th>
-                        </tr>
-                        {problemset.map(problem => {
-                            <tr>
-                                <td>{problem}</td> 
-                                {/* TODO @LWK19 to be solved when problem object is clearly defined */}
-                            </tr>
-                        })}
-                    </table>) : (<p>Tournament has not begun yet. Please come back later!</p>)}
-                </div>
-            </div>
+        <div className='section'>
+            <h1>Tournament Problem Set</h1>
+            {problemset.length > 0 ? (<table>
+                <tr>
+                    <th>Problem Set</th>
+                </tr>
+                {problemset.map(problem => {
+                    <tr>
+                        <td>{problem}</td> 
+                        {/* TODO @LWK19 to be solved when problem object is clearly defined */}
+                    </tr>
+                })}
+            </table>) : (<p>Tournament has not begun yet. Please come back later!</p>)}
         </div>
     )
 }
