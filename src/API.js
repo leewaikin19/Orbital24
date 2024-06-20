@@ -53,7 +53,7 @@ export async function dashboard(token) {
 export async function updateUser(token, updates) {
     // updates should take the form { 'field' : 'new_value', ... }
     // List of available fields to update: password, email, firstName, lastName, badges, xp, problemsSolved
-    var resp = await post({ 'mode': 'main', 'method':'dashboard', 'token':token, 'updates':updates });
+    var resp = await post({ 'mode': 'main', 'method':'updateUser', 'token':token, 'updates':updates });
     return resp;
 }
 
