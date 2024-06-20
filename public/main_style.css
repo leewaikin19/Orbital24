@@ -372,3 +372,17 @@ table a:hover {
 #search_bar:focus {
     border-bottom: 2px solid var(--lightgray);
 }
+
+/* Code for unselectable elements sourced from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page */
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.rotatable:hover {
+    transition: 0.4s ease;
+    transform: rotate(90deg);
+}

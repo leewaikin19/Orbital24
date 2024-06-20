@@ -31,15 +31,30 @@
     padding: 1vh 2vw 2vh 2vw;
 }
 
-.step {
+.hint {
     width: 100%;
     margin: 2vh 0px;
 }
 
-.step .step_title {
+.hint .hint_title {
     background-color: var(--orange);
+    padding: 1vh 2vw 2vh 2vw;
+}
+
+.hint_title a,i {
     color: var(--grayest);
     font-size: var(--topic);
     font-weight: 900;
-    padding: 1vh 2vw 2vh 2vw;
+}
+
+.problems a {
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 4px 
+    no-repeat;
+    transition:0.4s;
+}
+
+.problems a:hover {
+    --d: 100%;
 }

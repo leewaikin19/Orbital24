@@ -20,7 +20,7 @@ function MainContent() {
                     <th>Difficulty</th>
                 </tr>
                 <tr>
-                    <td><a href='home'>Sample Title</a></td>
+                    <td><a href='php'>Pigeon Hole Principle</a></td>
                     <td>4.5</td>
                 </tr>
             </table>

@@ -15,7 +15,7 @@ import Leaderboards from './leaderboard';
 import Bugs from './bugs';
 import Posts from './posts';
 import Explore from './explore';
-import pigeonhole from './Problems/pigeonhole';
+import PigeonHole from './pigeonhole';
 
 // TODOM dev note: use useID() to generate unique IDs for elements
 
@@ -36,7 +36,7 @@ export default function App() {
             <Route path="bugs" element={<Bugs />} />
             <Route path="posts" element={<Posts />} />
             <Route path="problems" element={<Explore />} />
-            <Route path="problem" element={<Problems />} />
+            <Route path="php" element={<PigeonHole />} />
             <Route path="*" element={<P404 />} />
           </Route>
         </Routes>
