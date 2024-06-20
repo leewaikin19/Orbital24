@@ -103,7 +103,6 @@ export async function getTournament(token) {
     return resp;
 }
 
-//TODO set admins to see assess problems only
 export async function getSubmissions(token) {
     // resp.success=true returns reply submission struct tbc
     var resp = await post({ 'mode': 'main', 'method':'getSubmissions', 'token':token });
