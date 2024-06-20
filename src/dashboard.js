@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
@@ -11,7 +13,7 @@ export default function Dashboard() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={"temp"} pendingSubmissions={"temp"} tournaments={"temp"} badges={"temp"} />)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent solvedProblems={"temp"} pendingSubmissions={"temp"} tournaments={"temp"} badges={"temp"} />)} SSelected={'dashboard'} promise={promise} />
     ) 
 }
 
@@ -66,14 +68,6 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                             {row(tournaments[i])}; //TODO solve when the "tournament" object is clearly defined.
                         } */}
                     </table>
-                </div>
-                <div className='section'>
-                    <h1>Exp Progression</h1>
-                    {/* TODO decide if we still want to do this */}
-                </div>
-                <div className='section'>
-                    <h1>Longest Streak</h1>
-                    {/* TODO decide if we still want to do this */}
                 </div>
                 <div className='section'>
                     <h1>Badges</h1>

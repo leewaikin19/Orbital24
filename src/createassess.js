@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
@@ -11,7 +13,7 @@ export default function CreateAssess() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent assessableProblems={[]} createdProblems={[]} />)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent assessableProblems={[]} createdProblems={[]} />)} SSelected={'createassessprobems'} promise={promise} />
     ) 
 }
 

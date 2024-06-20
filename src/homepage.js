@@ -5,7 +5,7 @@ import * as template from "./template.js"
 
 export default function Homepage() {
     return (
-        < template.Home MainContent={MainContent} selected={'Home'} />
+        < template.Home MainContent={MainContent} Sselected={'Home'} />
     ) 
 }
 
