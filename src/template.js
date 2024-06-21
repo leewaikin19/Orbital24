@@ -78,8 +78,6 @@ export function MainContainer({MainContent, selected}) {
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                {// TODOM Create/Assess problem should only be visible to admins
-                }
                 <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
                     <span>Home</span>
                     </button>

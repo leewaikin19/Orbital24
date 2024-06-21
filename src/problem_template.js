@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useState, useId } from 'react'
+import { useState, useId, createRef } from 'react'
 
 export function impt_note({note}) {
     return(
@@ -15,32 +15,80 @@ export function impt_note({note}) {
 }
 // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
 export function Hints({title, desc}) {
-    const chevronID = useId();
-    const titleID = useId();
+    const chevronRef= createRef();
+    const contentRef = createRef();
     const [showHint, setShowHint] = useState(false);
     function Reveal() {
         setShowHint((showHint) => !showHint)
     }
     function Hover() {
-        document.querySelector("#"+CSS.escape(chevronID)).style.transform = "rotate(90deg)"
-        document.querySelector("#"+CSS.escape(titleID)).style.background = "linear-gradient(currentColor 0 0) 0 100% /var(--d, 0) 4px no-repeat;"
-        document.querySelector("#"+CSS.escape(chevronID)).style.transition = "0.4s ease"
+        chevronRef.current.style.transform = "rotate(90deg)"
+        chevronRef.current.style.transition = "0.4s ease"
     }
 
     function Unhover() {
-        document.querySelector("#"+CSS.escape(chevronID)).style.transform = "rotate(0deg)"
-        document.querySelector("#"+CSS.escape(titleID)).style.transition = "0.4s ease"
+        showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+        chevronRef.current.style.transition = "0.4s ease"
     }
 
     return(
         <div className="hint">
             <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title unselectable' style={{cursor:"default"}}>
-                <a id={titleID}>{title} {" "}</a> <i class="fa-solid fa-chevron-right" id={chevronID} style={{float:"right", verticalAlign:"middle"}}></i>
+                <a>{title} {" "}</a> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                 {(showHint) ? (
-                <div className='content'>
+                <div className='content' ref={contentRef}>
                     {desc}
                 </div>) : null}
             </div>
+        </div>
+    )
+}
+
+export function Forum({comments}) {
+    const chevronRef= createRef();
+    const contentRef = createRef();
+    const [showHint, setShowHint] = useState(false);
+    function Reveal() {
+        setShowHint((showHint) => !showHint)
+    }
+    function Hover() {
+        chevronRef.current.style.transform = "rotate(90deg)"
+        chevronRef.current.style.transition = "0.4s ease"
+    }
+
+    function Unhover() {
+        showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+        chevronRef.current.style.transition = "0.4s ease"
+    }
+
+    return(
+        <div className="hint">
+            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title unselectable' style={{cursor:"default"}}>
+                Discussion <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+            </div>
+            {(showHint) ? (
+                <div className='content' ref={contentRef}>
+                    {comments.map((comment) => {
+                        return(
+                            <div className='comment'>
+                                <div className='comment_content'>
+                                    {comment.content}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>) : null}
+        </div>
+    )
+}
+
+export function Simulation({sim}) {
+    return(
+        <div className='simulation'>
+            <div className='simulation_title'>
+                <h2>Sandbox</h2>
+            </div>
+            {sim}
         </div>
     )
 }

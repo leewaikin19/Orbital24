@@ -32,7 +32,8 @@
     display: grid;
     grid-template-columns: 20vw 80vw;
     grid-template-rows: 10vh 90vh;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 h1 {
