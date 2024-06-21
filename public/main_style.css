@@ -47,7 +47,7 @@ h1 {
 h2 {
     font-family: 'Satoshi';
     font-size: var(--topic);
-    color: var(--white);
+    color: var(--orange);
     margin: 0px;
 }
 

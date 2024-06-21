@@ -37,7 +37,6 @@ export default function App() {
             <Route path="posts" element={<Posts />} />
             <Route path="problems" element={<Explore />} />
             <Route path="php" element={<PigeonHole />} />
-            <Route path="nim" element={<Nim />} />
             <Route path="*" element={<P404 />} />
           </Route>
         </Routes>
