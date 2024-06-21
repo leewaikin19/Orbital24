@@ -23,7 +23,7 @@ function MainContent({title, description, id}) {
         card_container.innerHTML = '';
         for (let i = 0; i < cards.length; i++) {
             var card = document.createElement('img');
-            card.setAttribute("src", "../../Assets/Cards/" + cards[i]);
+            card.setAttribute("src", "../../Assets/Cards/" + cards[i] + ".svg");
             card_container.appendChild(card);
         }
 
@@ -47,7 +47,7 @@ function MainContent({title, description, id}) {
                             if(cards >= 1 && cards <= 52) {
                                 const suits = ['clubs', 'hearts', 'diamonds', 'spades'];
                                 for(let i = 0; i < cards; i++) {
-                                    const s = String(Math.floor(Math.random() * 12 + 1)) + "_" + String(suits[Math.floor(Math.random() * 4)]) + ".svg"
+                                    const s = String(Math.floor(Math.random() * 12 + 1)) + "_" + String(suits[Math.floor(Math.random() * 4)])
                                     card_array.includes(s) ? i-- : card_array.push(s);
                                 }
                                 console.log(card_array)
@@ -55,7 +55,7 @@ function MainContent({title, description, id}) {
                             }
                         }}><span>Take Cards</span></button>
                     </div>
-                    <div id='card_container' style={{display:"flex", flexWrap:"wrap", justifyContent:"space-around"}}>
+                    <div id='card_container' style={{display:"flex", flexWrap:"wrap", justifyContent:"space-around", margin:"1vh 1vw"}}>
                     </div>
                 </>
             }/>
