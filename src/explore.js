@@ -7,13 +7,14 @@ export default function Explore() {
     const [isThisNeeded, setThis] = useState(true);
     const temp = useRef(null);
     
-    const promise = API.dashboard(template.getCookie('token'))
+    const promise = API.getAllProblems(template.getCookie('token'))
     promise.then((resp) => {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent problems={[]} />)} MSelected={'Problems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent titles={promise.resp.title} />)} MSelected={'Problems'} promise={promise} />
     ) 
+    // TODO @LWK19: Is this correct?
 }
 
 
@@ -24,12 +25,10 @@ function MainContent({problems}) {
             {problems.length > 0 ? (<table>
                     <tr>
                         <th>Problems</th>
-                        <th>Difficulty</th>
                     </tr>
                     {problems.map(problem => {
                         <tr>
                             <td>{problem.title}</td> 
-                            <td>{problem.diff}</td>
                         </tr>
                     })}
                 </table>) : (<p>There are no problems yet. This only happens during development stage.</p>)}

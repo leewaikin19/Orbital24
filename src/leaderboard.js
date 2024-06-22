@@ -12,11 +12,11 @@ export default function Leaderboard() {
         console.log(resp)
     })
     return (
-        < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'leaderboards'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent expLeaderboards={promise.resp.badges} badgesLeaderboards={promise.resp.badges} />)} SSelected={'leaderboards'} promise={promise} />
     ) 
 }
 
-function MainContent({problemset}) { 
+function MainContent({expLeaderboards, badgesLeaderboards}) { 
     return (
         // TODOM do smt about this CSS, the main div is created in the template
         // TODO @leewaikin19 what do you want me to do exactly
@@ -29,6 +29,8 @@ function MainContent({problemset}) {
                             <th>Name</th>
                             <th>Exp</th>
                         </tr>
+                        expLeaderboards.map() 
+                        {/* TODO @someone I geuinely am lost */}
                     </table>
                 </div>
                 <div className='section'>
