@@ -78,15 +78,15 @@ export function MainContainer({MainContent, selected}) {
         <div id="main_container">
             <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
                 <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className="animated_button selected_button nav_button" onClick={() => window.location.href='home'}>
+                <button className={"animated_button nav_button " + (selected == "Home" ? "selected_button" : "")} onClick={() => window.location.href='home'}>
                     <span>Home</span>
-                    </button>
-                <button className="animated_button nav_button" onClick={() => window.location.href='problems'}>
+                </button>
+                <button className={"animated_button nav_button " + (selected == "Problems" ? "selected_button" : "")} onClick={() => window.location.href='problems'}>
                     <span>Problems</span>
-                    </button>
+                </button>
                 <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
                     <span>Logout</span>
-                    </button>
+                </button>
             </div>
             <div id = "main" className = "main_content">
                 <MainContent/>
@@ -94,7 +94,7 @@ export function MainContainer({MainContent, selected}) {
         </div>
     )
 }
-
+    
 export function Bar({dir}) {
     return (
         <div className={"side_bar " + (dir === 'left' ? "push_left" : "push_right")}></div>

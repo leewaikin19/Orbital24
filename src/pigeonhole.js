@@ -18,8 +18,7 @@ export default function PigeonHole() {
 
 function MainContent({title, description, id}) { 
     function cardSimulation(cards) {
-        cards >=1 && cards <= 52 ? cards : cards = 1;
-        const card_array = [];
+        cards >=1 && cards <= 52 ? null : cards = 1;
         const suits = ['clubs', 'hearts', 'diamonds', 'spades'];
         const clubs = document.getElementById('clubs');
         clubs.innerHTML = '';
@@ -33,45 +32,50 @@ function MainContent({title, description, id}) {
         var hearts_count = 0;
         var spades_count = 0;
         var diamonds_count = 0;
+        var card_array = new Uint8Array(cards);
 
         for(let i = 0; i < cards; i++) {
             var n = Math.floor(Math.random() * 52);
-            var suit = suits[Math.floor(n/13)];
-            var value = n % 13 + 1;
-            var s = String(value) + "_" + suit;
-            if(card_array.includes(s)) { 
+            if(card_array.includes(n)) { 
                 i--;
                 continue;
             } else{
-                card_array.push(s);
-                var card = document.createElement('img');
-                card.setAttribute("src", "../../Assets/Cards/" + s + ".svg");
-                card.setAttribute("width", "100vw");
-                switch (suit) {
-                    case 'clubs':
-                        clubs.appendChild(card);
-                        clubs_count++;
-                        console.log(clubs_count);
-                        break;
-                    case 'hearts':
-                        hearts.appendChild(card);
-                        hearts_count++;
-                        break;
-                    case 'spades':
-                        spades.appendChild(card);
-                        spades_count++;
-                        break;
-                    case 'diamonds':
-                        diamonds.appendChild(card);
-                        diamonds_count++;
-                        break;
-                }
+                card_array[i] = n;
             }
-            if(clubs_count * hearts_count * spades_count * diamonds_count == 0) {
-                document.getElementById('sucess_message').innerHTML = 'Sadly there is one or more missing suit. Try again!';
-            } else {
-                document.getElementById('sucess_message').innerHTML = 'You succeeded. Congratulations! But do you really need to take this many cards? Or is this not enough to guarantee a win?';
+        }
+        card_array.sort();
+        for(let i = 0; i < cards; i++) {
+            var n = card_array[i];
+            var suit = suits[Math.floor(n/13)];
+            var value = n % 13 + 1;
+            var s = String(value) + "_" + suit;
+            var card = document.createElement('img');
+            card.setAttribute("src", "../../Assets/Cards/" + s + ".svg");
+            card.setAttribute("width", "75vw");
+            switch (suit) {
+                case 'clubs':
+                    clubs.appendChild(card);
+                    clubs_count++;
+                    console.log(clubs_count);
+                    break;
+                case 'hearts':
+                    hearts.appendChild(card);
+                    hearts_count++;
+                    break;
+                case 'spades':
+                    spades.appendChild(card);
+                    spades_count++;
+                    break;
+                case 'diamonds':
+                    diamonds.appendChild(card);
+                    diamonds_count++;
+                    break;
             }
+        }
+        if(clubs_count * hearts_count * spades_count * diamonds_count == 0) {
+            document.getElementById('sucess_message').innerHTML = 'Sadly there is one or more missing suit. Try again!';
+        } else {
+            document.getElementById('sucess_message').innerHTML = 'You succeeded. Congratulations! But do you really need to take this many cards? Or is this not enough to guarantee a win?';
         }
     }
     return (
@@ -102,6 +106,7 @@ function MainContent({title, description, id}) {
                     </div>
                 </>
             }/>
+
             < problems.Hints title= "Hint 1: Extremely Unlucky :(" desc= "Think about the extreme case. What is the highest number of cards you can take that does not contain one card from each suit?" />
             < problems.Hints title= "Hint 2: Can't Be Unlucky Forever :)" desc= "Take 13 Clubs, 13 Hearts and 13 Diamonds. Then the remaining cards are all Spades." />
             <h2>Solution</h2>

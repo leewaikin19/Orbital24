@@ -13,20 +13,22 @@ export default function Dashboard() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={"temp"} pendingSubmissions={"temp"} tournaments={"temp"} badges={"temp"} />)} SSelected={'dashboard'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent solvedProblems={[]} pendingSubmissions={[]} tournaments={[]} badges={[]} />)} SSelected={'dashboard'} promise={promise} />
     ) 
 }
 
 function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) {
-    function row({desc, exp}) {
-        <tr>
-            <td>
-                <a href='home'><span>{desc}</span></a>
-            </td>
-            <td>
-                {exp}
-            </td>
-        </tr>
+    function entry({desc, exp}) {
+        return(
+            <tr>
+                <td>
+                    <a href='home'><span>{desc}</span></a>
+                </td>
+                <td>
+                    {exp}
+                </td>
+            </tr>
+        )
     }
 
     const [username, setUsername] = useState("");
@@ -41,20 +43,13 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
         
                 <div className='section table_container'>
                     <h1>Solved Problems</h1>
-                    <table>
+                    <table id='solvedProblemsTable'>
                         <tr>
                             <th>Problem Title</th>
                             <th>Exp</th>
                         </tr>
-
-                        {/* for (let i = 0; i < solvedProblems.length; i++) {
-                            {row(solvedProblems[i])}; //TODO solve when the "problem" object is clearly defined.
-                        } */}
-
-                        {/* for (let i = 0; i < pendingSubmissions.length; i++) {
-                            {row(pendingSubmissions[i])}; //TODO solve when the "problem" object is clearly defined.
-                        } */}
-                        
+                        {pendingSubmissions.map((problem) => entry(problem.title, problem.exp))}
+                        {solvedProblems.map((problem) => entry(problem.title, problem.exp))}
                     </table>
                 </div>
                 <div className='section table_container'>
@@ -64,16 +59,18 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                             <th>Tournaments</th>
                             <th>Exp</th>
                         </tr>
-                        {/* for (let i = 0; i < tournaments.length; i++) {
-                            {row(tournaments[i])}; //TODO solve when the "tournament" object is clearly defined.
-                        } */}
+                        {tournaments.map((tournament) => entry(tournament.title, tournament.exp))}
                     </table>
                 </div>
                 <div className='section'>
                     <h1>Badges</h1>
-                    {/* for (let i = 0; i < badges.length; i++) {
-                        <img src={badges[i].img} alt=''/> //TODO solve when the "badge" object is clearly defined.
-                    } */}
+                    <div className='badges_container' style={{overflowX:"scroll"}}>
+                        {badges.map((badge) => (
+                            <div className='badge'>
+                                <img src= {{badge} + ".svg"}/>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className='section'>
                     <h1>Change Account Details</h1>
