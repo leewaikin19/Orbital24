@@ -19,6 +19,7 @@ export default function Leaderboard() {
 function MainContent({problemset}) { 
     return (
         // TODOM do smt about this CSS, the main div is created in the template
+        // TODO @leewaikin19 what do you want me to do exactly
             <div id = "main" className = "main_content" style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly", columnGap:"clamp(6px, 2vw, 48px)"}}>
                 <div className='section'>
                     <h1>Exp Leaderboard</h1>

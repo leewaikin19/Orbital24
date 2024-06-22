@@ -25,8 +25,7 @@ function MainContent({problemset}) {
                 </tr>
                 {problemset.map(problem => {
                     <tr>
-                        <td>{problem}</td> 
-                        {/* TODO @LWK19 to be solved when problem object is clearly defined */}
+                        <td>{problem.title}</td> 
                     </tr>
                 })}
             </table>) : (<p>Tournament has not begun yet. Please come back later!</p>)}

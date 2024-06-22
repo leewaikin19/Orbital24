@@ -27,12 +27,15 @@ function MainContent({assessableProblems, createdProblems}) {
                             <th>Problem Title</th>
                         </tr>
                         {assessableProblems.length > 0 ?
-                        {/* for (let i = 0; i < assessableProb.length; i++) {
-                            {row(solvedProblems[i])}; //TODO solve when the "problem" object is clearly defined.
-                        } */} : (<tr>
-                        <td>No problems to assess</td>
-                        </tr>)}
-                        
+                            assessableProblems.map((problem) => {
+                                return (
+                                    <tr>
+                                        <td>{problem.title}</td>
+                                    </tr>
+                                )
+                            }) : (<tr>
+                            <td>No problems to assess</td>
+                            </tr>)}
                     </table>
                 </div>
                 <div className='section table_container'>
