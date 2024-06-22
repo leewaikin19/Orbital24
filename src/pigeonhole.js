@@ -96,11 +96,11 @@ function MainContent({title, description, id}) {
                             cardSimulation(cards)
                         }}><span>Take Cards</span></button>
                     </div>
-                    <div id='card_container' style={{display:"flex", flexDirection:"column", margin:"1vh 1vw", rowGap:"0.5vh"}}>
-                        <div id='clubs' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw"}}></div>
-                        <div id='hearts' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw"}}></div>
-                        <div id='spades' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw"}}></div>
-                        <div id='diamonds' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw"}}></div>
+                    <div id='card_container' style={{display:"flex", flexDirection:"column", margin:"1vh 1vw", rowGap:"2vh"}}>
+                        <div id='clubs' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                        <div id='hearts' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                        <div id='spades' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                        <div id='diamonds' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
                     </div>
                     <div id='sucess_message' style={{textAlign:"center"}}>
                     </div>

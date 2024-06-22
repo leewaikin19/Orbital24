@@ -17,12 +17,16 @@
     --text: clamp(16px, 4vmin, 20px);
 }
 
+body {
+    background-color: var(--grayest);
+}
+
 .root {
-    position: fixed;
-    left:0;
+    position: absolute;
     top: 0;
-    height: 100%;
+    left: 0;
     width: 100%;
+    height: fit-content;
     margin: 0px;
     background-color: var(--grayest);
     color: var(--white);
@@ -30,8 +34,8 @@
     font-size: var(--text);
     color: var(--lightgray);
     display: grid;
-    grid-template-columns: 20vw 80vw;
-    grid-template-rows: 10vh 90vh;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 10% 90%;
 }
 
 h1 {
@@ -159,6 +163,8 @@ input:-webkit-autofill {
     background-color: black;
     min-height: 60px;
     max-height: 75px;
+    position: sticky;
+    top: 0;
 }
 
 .nav_bar button {
@@ -192,9 +198,14 @@ input:-webkit-autofill {
     width: 100%;
 }
 
+#user {
+    position: sticky;
+    top: 10%;
+}
+
 #main {
-    overflow-y: scroll; /* TODO figure out why this doesnt work */
     padding: 2vh 3vw 1vh 3vw;
+    overflow-y: auto;
 }
 
 .animated_button {
@@ -282,7 +293,6 @@ input:-webkit-autofill {
 }
 
 .side_button {
-    position: relative;
     padding-left: 3vw;
     height: max(60px, 4em);
     transition: padding 0.4s ease;
@@ -379,9 +389,4 @@ table a:hover {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-.rotatable:hover {
-    transition: 0.4s ease;
-    transform: rotate(90deg);
 }
