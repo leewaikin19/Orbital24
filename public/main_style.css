@@ -214,19 +214,20 @@ input:-webkit-autofill {
     width: clamp(150px, 10%, 300px);
     height: 100%;
     font-weight: 400;
+    transition: all 0.4s ease;
     transition: background-color 0.2s ease;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.animated_button span {
+.animated_button:enabled span {
     background: 
       linear-gradient(currentColor 0 0) 
       0 100% /var(--d, 0) 2px 
     no-repeat;
-    transition:0.4s;
+    transition: 0.2s;
 }
 
-.animated_button:hover {
+.animated_button:hover:enabled {
     background-color: transparent;
     color: var(--orange);
     --d: 100%;
@@ -240,20 +241,18 @@ input:-webkit-autofill {
     margin-top: 2vh;
     font-weight: bold;
     padding: 0.75em 0em;
+    transition: all 0.2s ease;
 }
 
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.action_button span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 3px 
-    no-repeat;
-    transition:0.4s;
-}
-
-.action_button:hover {
+.action_button:hover:enabled {
     background-color: var(--orange);
     color: var(--grayest);
+}
+
+.action_button:disabled {
+    background-color: var(--grayest);
+    color: var(--gray);
+    border: 3px solid var(--gray);
 }
 
 #logout_button:hover {
@@ -389,4 +388,15 @@ table a:hover {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.mcq_button {
+    width: 10em;
+    padding: 1vh 1vw;
+    margin-left: 2vw;
+}
+
+.selected_mcq_button {
+    background-color: var(--orange);
+    color: var(--grayest);
 }

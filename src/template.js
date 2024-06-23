@@ -9,6 +9,24 @@ export function FormInput( {type="text", name, id=name, value="", setValue, plac
     )
 }
 
+export function MCQInput( {name, id=name, value="", onClick}) {
+    return (
+        <button name={name} id={id} value={value} className='action_button animated_button mcq_button' onClick={onClick}><span>{value}</span></button>
+    )
+}
+
+export function select(choice, container) {
+    // Conversion to array adapted from: https://stackoverflow.com/questions/5158338/how-to-convert-a-collection-to-an-array-in-javascript
+    const children = Array.from(container.children);
+    children.forEach((child) => {
+        if (child === choice) {
+            child.classList.add('selected_mcq_button');
+        } else {
+            child.classList.remove('selected_mcq_button');
+        }
+    })
+}
+
 export function Loader() {
     return (
         <div>
