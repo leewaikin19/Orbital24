@@ -1,5 +1,36 @@
 /* eslint-disable */
 import { useState, useId, createRef } from 'react'
+import * as API from './API.js'
+import * as template from "./template.js"
+
+export function MainContent({title, description, sandbox, hints, solution}) { 
+    function arrayiser() {
+        var arr = [];
+        for(let i = 0; i < hints.length; i++) {
+            arr.push({"index": i + 1, "hints": hints[i]});
+        }
+        return arr;
+    }
+    return (
+        <div className='problems'>
+            <>
+                <h1>{title}</h1>
+            </>
+            <div className='description'>
+                <p>{description}</p>
+            </div>
+            {sandbox}
+            {arrayiser().map((hint) => {
+                return(
+                    <Hints title={"Hint " + hint.index} desc={hint.hints} />
+                )
+            })}
+            <h2>Solution</h2>
+            {solution}
+            {/* < problems.Forum  /> */}
+        </div>
+    )
+}
 
 export function impt_note({note}) {
     return(

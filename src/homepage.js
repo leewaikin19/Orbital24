@@ -9,7 +9,7 @@ export default function Homepage() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={promise.resp.problemsSolved} />)} SSelected={'dashboard'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent solvedProblems={[]} />)} MSelected={'Home'} promise={promise} /> // TODO @LWK19 I'm not sure how to grab the
     ) 
 }
 

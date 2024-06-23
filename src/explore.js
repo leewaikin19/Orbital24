@@ -12,7 +12,7 @@ export default function Explore() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent titles={promise.resp.title} />)} MSelected={'Problems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent problems={[]} />)} MSelected={'Problems'} promise={promise} /> // TODO @LWK19 I'm not sure how to grab the problems
     ) 
     // TODO @LWK19: Is this correct?
 }

@@ -7,16 +7,31 @@ export default function PigeonHole() {
     const [isThisNeeded, setThis] = useState(true);
     const temp = useRef(null);
     
-    const promise = API.getProblem(template.getCookie('token'), "")//TODO @LWK19 need questionID here
+    const promise = API.getProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee")
     promise.then((resp) => {
         console.log('Im doneee')
     })
-    return (
-        < template.Home MainContent={() => (<MainContent title={"Bad Luck Doesn't Last Forever"} description={"There are 52 cards (a standard deck) on the table. Unluckily, you are trapped in a dark room and cannot see which side the cards are facing. You can take as many cards as you want, and you win if there is at least one card from each suit. How many cards should you take to always guarantee a win?"} />)} promise={promise} />
-    ) 
-}
 
-function MainContent({title, description, id}) { 
+    const sim= () => { return (
+        <>
+            <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
+            <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                <input style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
+                <button style={{flexGrow:"1", marginTop:"0px"}} className="action_button animated_button" onClick={() => {
+                    cardSimulation(document.querySelector('input[name="cards"]').value)
+                }}><span>Take Cards</span></button>
+            </div>
+            <div id='card_container' style={{display:"flex", flexDirection:"column", margin:"1vh 1vw", rowGap:"2vh"}}>
+                <div id='clubs' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                <div id='hearts' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                <div id='spades' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                <div id='diamonds' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+            </div>
+            <div id='sucess_message' style={{textAlign:"center"}}>
+            </div>
+        </>
+    )}
+
     function cardSimulation(cards) {
         cards >=1 && cards <= 52 ? null : cards = 1;
         const suits = ['clubs', 'hearts', 'diamonds', 'spades'];
@@ -56,7 +71,6 @@ function MainContent({title, description, id}) {
                 case 'clubs':
                     clubs.appendChild(card);
                     clubs_count++;
-                    console.log(clubs_count);
                     break;
                 case 'hearts':
                     hearts.appendChild(card);
@@ -78,44 +92,19 @@ function MainContent({title, description, id}) {
             document.getElementById('sucess_message').innerHTML = 'You succeeded. Congratulations! But do you really need to take this many cards? Or is this not enough to guarantee a win?';
         }
     }
-    return (
-        <div className='problems'>
-            <>
-                <h1>{title}</h1>
-            </>
-            <div className='description'>
-                <p>{description}</p>
-            </div>
-            < problems.Simulation title="Simulation" sim={
-                <>
-                    <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
-                    <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                        <input style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
-                        <button style={{flexGrow:"1", marginTop:"0px"}} className="action_button animated_button" onClick={() => {
-                            const cards = document.querySelector('input[name="cards"]').value
-                            cardSimulation(cards)
-                        }}><span>Take Cards</span></button>
-                    </div>
-                    <div id='card_container' style={{display:"flex", flexDirection:"column", margin:"1vh 1vw", rowGap:"2vh"}}>
-                        <div id='clubs' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                        <div id='hearts' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                        <div id='spades' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                        <div id='diamonds' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                    </div>
-                    <div id='sucess_message' style={{textAlign:"center"}}>
-                    </div>
-                </>
-            }/>
 
-            < problems.Hints title= "Hint 1: Extremely Unlucky :(" desc= "Think about the extreme case. What is the highest number of cards you can take that does not contain one card from each suit?" />
-            < problems.Hints title= "Hint 2: Can't Be Unlucky Forever :)" desc= "Take 13 Clubs, 13 Hearts and 13 Diamonds. Then the remaining cards are all Spades." />
-            <h2>Solution</h2>
+    const sol = () => { 
+        const [solution, setSolution] = useState("");
+        return (
+        <>
             <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                <input style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
+                <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder='Enter how many cards you will take' required/>
             </div>
-            <button className="action_button animated_button" onClick={() => window.location.href = 'home'}><span>Submit Solution</span></button> 
-            {/* TODO @LWK19 need to add submit solution */}
-            {/* < problems.Forum  /> */}
-        </div>
-    )
+            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", {solution})}><span>Submit Solution</span></button> 
+        </>
+    )}
+
+    return (
+        < template.Home MainContent={() => (<problems.MainContent title={""} description={""} sandbox={<problems.Simulation sim = {sim()}/>} hints={[]} solution={sol()} />)} MSelected={"Problems"} promise={promise} />
+    ) 
 }

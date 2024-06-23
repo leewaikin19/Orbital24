@@ -38,6 +38,12 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
 
+    function updatePassword() {
+        if(password1 === password2) {
+            API.updateUser(template.getCookie('token'), {'password': {password1}}); // TODO @LWK19 The "" account is now defunct becoz of this. Can help fix? Does the update need to have every field too?
+        } else {}
+    }
+
     return (
         <>
         
@@ -82,10 +88,12 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                             </div>
                             <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
                             <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
-                            <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
 
                             <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                                <button className="action_button animated_button" type="button">
+                                <button className="action_button animated_button" type="button" onClick={() => {
+                                    const dict = {'firstName': {firstName}, 'lastName': {lastName}, 'email': {email}, 'username': {username}}
+                                    API.updateUser(template.getCookie('token'), dict);
+                                }}>
                                     <i class="fa-solid fa-check"></i>{" "}
                                     <span>Confirm Details</span>
                                 </button>
@@ -98,14 +106,13 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                     {/* TODO @lwk19 hehe */}
                     <div className="form_container">
                         <form action=''>
-                            <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Old Password'/>
-                            <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='New Password'/>
-                            <template.FormInput type="password" name='password1' value={password2} setValue={setPassword1} placeholder='Reenter New Password'/>
+                            <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Enter New Password'/>
+                            <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Reenter New Password'/>
 
-                            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                                <button className="action_button animated_button" type="button">
+                            <div style={{ width: '100%', display: 'flex', alignItems: 'center'}}>
+                                <button className="action_button animated_button" type="button" onClick={() => updatePassword()}>
                                     <i class="fa-solid fa-lock"></i>{" "}
-                                    <span>Update Passowrd</span>
+                                    <span>Update Password</span>
                                 </button>
                             </div>
                         </form>

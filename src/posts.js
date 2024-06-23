@@ -14,16 +14,26 @@ export default function Posts() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent problemset={[]} />)} SSelected={'posts'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent forumLinks = {[]} forumPosts={[]} />)} SSelected={'posts'} promise={promise} />
     ) 
 }
 
-function MainContent({problemset}) { 
+function MainContent({forumLinks, forumPosts}) {
+    function arrayiser() {
+        var arr = [];
+        for(let i = 0; i < forumLinks.length; i++) {
+            arr.push({"link": forumLinks[i], "content": forumPosts[i]});
+        }
+        return arr;
+    } 
     return (
         <>
                 <h1>Past Forum Posts</h1>
-                {/* TODOm @LWK19 help gimme ideas :)) */}
-
-                </>
+                {arrayiser().map((post) => { return(
+                    <div style={{borderBottom:"2px var(--gray) solid", padding:"2vw 2vh"}}>
+                        <a href={post.link}>{post.content}</a>
+                    </div>
+                )})}
+        </>
     )
 }

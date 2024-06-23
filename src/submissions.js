@@ -12,18 +12,10 @@ export default function Submissions() {
     })
     return (
         < template.Home MainContent={() => (<MainContent submissions={user.current.Submissions} />)} SSelected={'tournaments'} promise={promise} />
-        /*TODO @lwk19 this is a placeholder, we need to get the submissions from the API*/
     ) 
 }
 
 function MainContent({submissions}) { 
-    const noSubmissions = () => {
-        return (
-        <tr style={{textAlign:"center"}}>
-            <td>No Submission Records Found</td>
-        </tr>
-        )
-    }
 
     return (
         
@@ -37,7 +29,11 @@ function MainContent({submissions}) {
                             <tr>
                                 <td>{sub}</td>
                             </tr>
-                        }) : noSubmissions()}
+                        }) : (
+                            <tr style={{textAlign:"center"}}>
+                                <td>No Submission Records Found</td>
+                            </tr>
+                            )}
                     </table>
                 </div>
     )
