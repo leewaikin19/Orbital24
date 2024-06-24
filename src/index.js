@@ -17,6 +17,7 @@ import Posts from './posts';
 import Explore from './explore';
 import PigeonHole from './pigeonhole';
 import Nim from './nim';
+import Create from './create'
 
 // TODOM dev note: use useID() to generate unique IDs for elements
 
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="bugs" element={<Bugs />} />
             <Route path="posts" element={<Posts />} />
             <Route path="problems" element={<Explore />} />
+            <Route path="create" element={<Create />} />
             <Route path="php" element={<PigeonHole />} />
             <Route path="nim" element={<Nim />} />
             <Route path="*" element={<P404 />} />

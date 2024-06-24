@@ -4,7 +4,25 @@ import * as API from './API.js'
 export function FormInput( {type="text", name, id=name, value="", setValue, placeholder, required=true }) {
     return (
         <div className="form_input">
-            <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} style={{margin: "clamp(3px, 1vmin, 12px) 0px"}}/>
+            <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} />
+        </div>
+    )
+}
+
+export function auto_resize(element) {
+    element.style.height = "0px"
+    element.style.height = (element.scrollHeight) + "px";
+}
+
+export function handler(e, setValue, elem) {
+    setValue(e.target.value);
+    auto_resize(document.getElementById(elem));
+}
+
+export function TextArea({name, id=name, value="", setValue, placeholder, style, required=true}) {
+    return (
+        <div className="form_input">
+                <textarea id = {id} value = {value} onInput={e => handler(e, setValue, id)} placeholder={placeholder} style={style} required={required}/>
         </div>
     )
 }

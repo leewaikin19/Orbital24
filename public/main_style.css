@@ -134,11 +134,12 @@ form {
     display: flex; 
     flex-direction: row; 
     column-gap: clamp(3px, 3vmin, 12px);
+    margin-bottom: 2vh;
 }
 
-.form_input input {
+.form_input input, .form_input textarea {
     width: 100%;
-    font: 'Satoshi';
+    font-family: 'Satoshi';
     font-size: var(--text);
     border-radius: 0px;
     padding: clamp(3px, 3vmin, 12px);
@@ -147,11 +148,20 @@ form {
     border: 2px var(--grayer) solid;
     color: var(--lightgray);
     outline: none;
+    margin: "clamp(3px, 1vmin, 12px) 0px"
 }
+
+
 
 .form_input input:focus {
     background-color: black;
     border: 2px var(--orange) solid;
+}
+
+.form_input textarea {
+    resize: none;
+    overflow: hidden;
+    padding-bottom: 0px;
 }
 
 input:-webkit-autofill {

@@ -103,7 +103,6 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                 </div>
                 <div className='section'>
                     <h1>Update Password</h1> 
-                    {/* TODO @lwk19 hehe */}
                     <div className="form_container">
                         <form action=''>
                             <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Enter New Password'/>

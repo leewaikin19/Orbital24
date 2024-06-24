@@ -25,7 +25,7 @@ export function MainContent({title, description, sandbox, hints, solution}) {
                     <Hints title={"Hint " + hint.index} desc={hint.hints} />
                 )
             })}
-            <h2>Solution</h2>
+            <h2>Submission</h2>
             {solution}
             {/* < problems.Forum  /> */}
         </div>

@@ -49,7 +49,7 @@ function MainContent({assessableProblems, createdProblems}) {
                             {row(tournaments[i])}; //TODO solve when the "tournament" object is clearly defined.
                         } */}
                     </table>
-                    <button className='action_button animated_button'>
+                    <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
                         <i class="fa-solid fa-plus"></i> {" "}
                         <span>Create New Problem</span>
                     </button>
