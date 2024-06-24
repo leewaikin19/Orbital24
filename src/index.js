@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react';
+import { useState, useRef, React } from 'react'
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from './main';
@@ -15,11 +15,8 @@ import Leaderboards from './leaderboard';
 import Bugs from './bugs';
 import Posts from './posts';
 import Explore from './explore';
-import PigeonHole from './pigeonhole';
-import Nim from './nim';
 import Create from './create'
-
-// TODOM dev note: use useID() to generate unique IDs for elements
+import * as template from './template'
 
 export default function App() {
   return (
@@ -28,6 +25,10 @@ export default function App() {
           <Route path="/">
             <Route index element={<Main />} />
             <Route path="index" element={<Main />} />
+            <Route path='problems'> 
+              <Route path='/problems' element={<Explore />}/>
+              <Route path='*' element={<Problem/>}/>
+            </Route>
             <Route path="home" element={<Homepage />} />
             <Route path="otp" element={<Otp />} />
             <Route path="dashboard" element={<Dashboard />} />
@@ -37,15 +38,29 @@ export default function App() {
             <Route path="leaderboards" element={<Leaderboards />} />
             <Route path="bugs" element={<Bugs />} />
             <Route path="posts" element={<Posts />} />
-            <Route path="problems" element={<Explore />} />
             <Route path="create" element={<Create />} />
-            <Route path="php" element={<PigeonHole />} />
-            <Route path="nim" element={<Nim />} />
             <Route path="*" element={<P404 />} />
           </Route>
         </Routes>
     </BrowserRouter>
   )
+}
+
+function Problem(){
+  const [loading, setLoading] = useState(true);
+  const page = useRef(null);
+
+  const id = window.location.href.split('/').at(-1);
+  const k = import('./problems/'+id).then((r) => {
+    page.current = <r.default />
+    setLoading(false);
+  }).catch((e) => {
+    window.location.href = '../problems'
+  })
+
+  return (
+      <>{loading ? <template.Loader/> : page.current}</>
+  )  
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

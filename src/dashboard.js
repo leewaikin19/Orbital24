@@ -5,24 +5,35 @@ import * as API from './API.js'
 import * as template from "./template.js"
 /* eslint-disable */
 export default function Dashboard() {
-    const [isThisNeeded, setThis] = useState(true);
-    const temp = useRef(null);
-    
-    const promise = API.dashboard(template.getCookie('token'))
-    promise.then((resp) => {
-        console.log('Im doneee')
+    const solvedProblems = useRef(null);
+    const pastTournaments = useRef(null);
+    const user = useRef(null);
+    const promise1 = API.dashboard(template.getCookie('token'))
+    const promise2 = API.getAllProblems(template.getCookie('token'))
+    const promise3 = API.getAllTournaments(template.getCookie('token'))
+    promise1.then(resp1 => {
+        user.current = resp1.reply;
+        promise2.then(resp2 => {
+            // find problems that are already solved
+            solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
+        })
+        promise3.then(resp3 => {
+            // find past tournaments
+            pastTournaments.current = resp1.reply.pastTournaments.map(id => resp3.reply.find(x => x.id === id));
+        })
     })
+    const promise = Promise.all([promise1, promise2, promise3])
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={[]} pendingSubmissions={[]} tournaments={[]} badges={[]} />)} SSelected={'dashboard'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
     ) 
 }
 
-function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) {
-    function entry({desc, exp}) {
+function MainContent({solvedProblems, tournaments, user}) {
+    function entry(desc, exp, link) {
         return(
             <tr>
                 <td>
-                    <a href='home'><span>{desc}</span></a>
+                    <a href={link}><span>{desc}</span></a>
                 </td>
                 <td>
                     {exp}
@@ -31,22 +42,21 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
         )
     }
 
-    const [username, setUsername] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState(user.username);
+    const [firstName, setFirstName] = useState(user.firstName);
+    const [lastName, setLastName] = useState(user.lastName);
+    const [email, setEmail] = useState(user.email);
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
 
     function updatePassword() {
         if(password1 === password2) {
-            API.updateUser(template.getCookie('token'), {'password': {password1}}); // TODO @LWK19 The "" account is now defunct becoz of this. Can help fix? Does the update need to have every field too?
+            API.updateUser(template.getCookie('token'), {'password': password1}); 
+            
         } else {}
     }
-
     return (
         <>
-        
                 <div className='section table_container'>
                     <h1>Solved Problems</h1>
                     <table id='solvedProblemsTable'>
@@ -54,8 +64,11 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                             <th>Problem Title</th>
                             <th>Exp</th>
                         </tr>
-                        {pendingSubmissions.map((problem) => entry(problem.title, problem.exp))}
-                        {solvedProblems.map((problem) => entry(problem.title, problem.exp))}
+                        {
+                            //TODOM why is pendingSubmissions under solved problems
+                        }
+                        {user.pendingSubmissions.map((problem) => entry(problem.title, problem.xp, 'problems/' + problem.id))}
+                        {solvedProblems.map((problem) => entry(problem.title, problem.xp, 'problems/' + problem.id))}
                     </table>
                 </div>
                 <div className='section table_container'>
@@ -65,13 +78,13 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                             <th>Tournaments</th>
                             <th>Exp</th>
                         </tr>
-                        {tournaments.map((tournament) => entry(tournament.title, tournament.exp))}
+                        {tournaments.map((tournament) => entry(tournament.title, tournament.xp, 'tournaments'))}
                     </table>
                 </div>
                 <div className='section'>
                     <h1>Badges</h1>
                     <div className='badges_container' style={{overflowX:"scroll"}}>
-                        {badges.map((badge) => {return(
+                        {user.badges.map((badge) => {return(
                             <div className='badge'>
                                 <img src= {{badge} + ".svg"}/>
                             </div>
@@ -94,7 +107,7 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
                                     const dict = {'firstName': {firstName}, 'lastName': {lastName}, 'email': {email}, 'username': {username}}
                                     API.updateUser(template.getCookie('token'), dict);
                                 }}>
-                                    <i class="fa-solid fa-check"></i>{" "}
+                                    <i className="fa-solid fa-check"></i>{" "}
                                     <span>Confirm Details</span>
                                 </button>
                             </div>
@@ -110,7 +123,7 @@ function MainContent({solvedProblems, pendingSubmissions, tournaments, badges}) 
 
                             <div style={{ width: '100%', display: 'flex', alignItems: 'center'}}>
                                 <button className="action_button animated_button" type="button" onClick={() => updatePassword()}>
-                                    <i class="fa-solid fa-lock"></i>{" "}
+                                    <i className="fa-solid fa-lock"></i>{" "}
                                     <span>Update Password</span>
                                 </button>
                             </div>

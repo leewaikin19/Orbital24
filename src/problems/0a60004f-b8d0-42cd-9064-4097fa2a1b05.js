@@ -1,15 +1,14 @@
 import { useState, useRef } from 'react'
-import * as API from './API.js'
-import * as template from "./template.js"
-import * as problems from "./problem_template.js"
+import * as API from '../API.js'
+import * as template from "../template.js"
+import * as problems from "../problem_template.js"
 /* eslint-disable */
 export default function Nim() {
-    const [isThisNeeded, setThis] = useState(true);
-    const temp = useRef(null);
+    const problem = useRef(null);
     
-    const promise = API.getProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee")
+    const promise = API.getProblem(template.getCookie('token'), "0a60004f-b8d0-42cd-9064-4097fa2a1b05")
     promise.then((resp) => {
-        console.log('Im doneee')
+        problem.current = resp.reply;
     })
 
     const sim= () => { return (
@@ -155,6 +154,6 @@ export default function Nim() {
     )}
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent title={""} description={""} sandbox={<problems.Simulation sim = {sim()}/>} hints={[]} solution={sol()} />)} MSelected={"Problems"} promise={promise} />
+        < template.Home MainContent={() => (<problems.MainContent title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} solution={sol()} />)} MSelected={"Problems"} promise={promise} />
     ) 
 }

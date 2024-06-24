@@ -115,7 +115,7 @@ function Signup() {
         if(password1 === password2) {
             const resp = await API.signup(firstName, lastName, email, username, password1);
             if (resp.success) {
-                template.setCookie('token', resp.token)
+                template.setCookie('token', resp.reply.token)
                 window.location.href = 'home';
             } else {
                 template.handleErrors(resp.msg);

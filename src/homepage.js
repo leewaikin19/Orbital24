@@ -4,35 +4,42 @@ import * as API from './API.js'
 import * as template from "./template.js"
 
 export default function Homepage() {
-    const promise = API.dashboard(template.getCookie('token'))
-    promise.then((resp) => {
-        console.log('Im doneee')
+    const solvedProblems = useRef(null);
+    const unsolvedProblems = useRef(null);
+    const promise1 = API.dashboard(template.getCookie('token'))
+    const promise2 = API.getAllProblems(template.getCookie('token'))
+    
+    promise1.then(resp1 => {
+        promise2.then(resp2 => {
+            // find problems that are already solved
+            solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
+            unsolvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id !== id));
+        })
     })
+    const promise = Promise.all([promise1, promise2])
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={[]} />)} MSelected={'Home'} promise={promise} /> // TODO @LWK19 I'm not sure how to grab the
+        < template.Home MainContent={() => (<MainContent solvedProblems={solvedProblems.current} unsolvedProblems={unsolvedProblems.current} />)} MSelected={'Home'} promise={promise} />
     ) 
 }
 
-function MainContent({solvedProblems}) {
+function MainContent({solvedProblems, unsolvedProblems}) {
     return (
         <>
         <div className='table_container'>
-            <h1>Current Problems</h1>
+            <h1>Solved Problems</h1>
             <table>
                 <tr>
                     <th>Problem Title</th>
                     <th>Difficulty</th>
                 </tr>
                 {solvedProblems.map((problem) => (
-                    // TODO @LWK19: I'm not sure if this is the correct way to link to the problem
                     <tr>
-                        <td><a href={problem.id}>{problem.title}</a></td>
+                        <td><a href={'problems/' + problem.id}>{problem.title}</a></td>
                         <td>{problem.difficulty}</td>
                     </tr>
                 ))}
             </table>
         </div>
-        {/*  TODO @LWK19: Are we still doing recoms?*/}
         <div className='table_container'>
             <h1>Recommended Problems</h1>
             <table>
@@ -40,10 +47,12 @@ function MainContent({solvedProblems}) {
                     <th>Problem Title</th>
                     <th>Difficulty</th>
                 </tr>
-                <tr>
-                    <td><a href='home'>Sample Title</a></td>
-                    <td>4.5</td>
-                </tr>
+                {unsolvedProblems.map((problem) => (
+                    <tr>
+                        <td><a href={'problems/' + problem.id}>{problem.title}</a></td>
+                        <td>{problem.difficulty}</td>
+                    </tr>
+                ))}
             </table>
         </div>
         </>

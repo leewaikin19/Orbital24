@@ -3,7 +3,6 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 async function post(payload) {
-    // TODOM oh yah we need a loader
     // Cloudflare workers
     const url = "https://rojiku-server.lwk19-eab.workers.dev";
     //const url = "http://127.0.0.1:8787";
@@ -58,15 +57,15 @@ export async function updateUser(token, updates) {
 }
 
 export async function getAllProblems(token) {
-    // resp.success=true returns reply.title,statement,hints["string1","string2"]
+    // resp.success=true returns reply[problems]
     var resp = await post({ 'mode': 'main', 'method':'getAllProblems', 'token':token });
     return resp;
 }
 
 //maybe we dont need this
 export async function getProblem(token, questionID) {
-    // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'getProblem', 'token':token, 'id':questionID });
+    // resp.success=true returns reply.title,statement,hints["string1","string2"], difficulty
+    var resp = await post({ 'mode': 'main', 'method':'getProblem', 'token':token, 'questionID':questionID });
     return resp;
 }
 
@@ -84,9 +83,9 @@ export async function leaderboard(token) {
     return resp;
 }
 
-export async function createProblem(token, title, statement, hints) {
+export async function createProblem(token, title, statement, hints, difficulty) {
     // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints});
+    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints, 'difficulty':difficulty});
     return resp;
 }
 
@@ -121,5 +120,3 @@ export async function gradeSubmission(token, submissionID, correct) {
     var resp = await post({ 'mode': 'main', 'method':'gradeSubmission','token':token, 'submissionID':submissionID, 'correct':correct });
     return resp;
 }
-
-//TODO @LWK19 save user's past tournaments
