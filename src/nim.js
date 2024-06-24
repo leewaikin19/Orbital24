@@ -40,7 +40,7 @@ export default function Nim() {
         else if(card == 0 || (document.getElementById(card - 1).getAttribute("src") != "../../Assets/Cards/Misc/back_panel.svg" && player_counter < 3)) {
             const end_turn = document.getElementById('end_turn');
             end_turn.innerHTML = "End Your Turn";
-            document.getElementById(card).setAttribute("src", "../../Assets/Cards/Misc/joker_red.svg")
+            document.getElementById(card).setAttribute("src", "../../Assets/Cards/Misc/user.svg")
             player_counter++;
             current_card = card + 1;
             computer_counter = 0;
@@ -62,7 +62,7 @@ export default function Nim() {
     function computer_flip() {
         if (turn == 1) {}
         else if(current_card == 0 || (document.getElementById(current_card - 1).getAttribute("src") != "../../Assets/Cards/Misc/back_panel.svg" && computer_counter < 3)) {
-            document.getElementById(current_card).setAttribute("src", "../../Assets/Cards/Misc/joker_black.svg")
+            document.getElementById(current_card).setAttribute("src", "../../Assets/Cards/Misc/comp.svg")
             computer_counter++;
             current_card++;
             player_counter = 0;
@@ -131,6 +131,7 @@ export default function Nim() {
             card_container.appendChild(card);
         }
         end_player_turn.style.display = 'block';
+        end_player_turn.disabled = false;
         end_player_turn.onclick = () => {end_player_move()}
     }
 
