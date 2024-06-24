@@ -27,9 +27,9 @@ export function TextArea({name, id=name, value="", setValue, placeholder, style,
     )
 }
 
-export function MCQInput( {name, id=name, value="", onClick}) {
+export function MCQInput( {name, id=name, value="", content=value, onClick}) {
     return (
-        <button name={name} id={id} value={value} className='action_button animated_button mcq_button' onClick={onClick}><span>{value}</span></button>
+        <button name={name} id={id} value={value} className='action_button animated_button mcq_button' onClick={onClick}><span>{content}</span></button>
     )
 }
 

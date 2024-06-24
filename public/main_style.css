@@ -134,7 +134,7 @@ form {
     display: flex; 
     flex-direction: row; 
     column-gap: clamp(3px, 3vmin, 12px);
-    margin-bottom: 2vh;
+    margin: 1vh 0px;
 }
 
 .form_input input, .form_input textarea {
@@ -401,9 +401,7 @@ table a:hover {
 }
 
 .mcq_button {
-    width: 10em;
     padding: 1vh 1vw;
-    margin-left: 2vw;
 }
 
 .selected_mcq_button {
