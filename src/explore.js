@@ -18,21 +18,10 @@ export default function Explore() {
 
 
 function MainContent({problems}) { 
-    console.log(problems)
-    console.log(problems.map(x => x.title))
-    return (
-        <div id = "main" className = "main_content">
-            <h1>Explore Problems</h1>
-            {problems.length > 0 ? (<table>
-                    <tr>
-                        <th>Problems</th>
-                    </tr>
-                    {problems.map(problem => (
-                        <tr>
-                            <td><a href={'problems/' + problem.id}>{problem.title}</a></td>
-                        </tr>
-                    ))}
-                </table>) : (<p>There are no problems yet. This only happens during development stage.</p>)}
-        </div>
+    return (<>
+        <h1>Explore Problems</h1>
+        <template.StaticTable id="explore_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={problems.map(
+            (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+    </>
     )
 }

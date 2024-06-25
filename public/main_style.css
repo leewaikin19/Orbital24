@@ -151,7 +151,30 @@ form {
     margin: "clamp(3px, 1vmin, 12px) 0px"
 }
 
+.table_container {
+    width: 100%;
+    overflow-x: auto;
+}
 
+.badges_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2vw;
+    overflow-x: hidden;
+    padding: 0.5em
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 5em;
+}
+.badge img {
+    height: 5em; 
+    margin-bottom: 2vh;
+}
 
 .form_input input:focus {
     background-color: black;

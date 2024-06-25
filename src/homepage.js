@@ -25,36 +25,10 @@ export default function Homepage() {
 function MainContent({solvedProblems, unsolvedProblems}) {
     return (
         <>
-        <div className='table_container'>
-            <h1>Solved Problems</h1>
-            <table>
-                <tr>
-                    <th>Problem Title</th>
-                    <th>Difficulty</th>
-                </tr>
-                {solvedProblems.map((problem) => (
-                    <tr>
-                        <td><a href={'problems/' + problem.id}>{problem.title}</a></td>
-                        <td>{problem.difficulty}</td>
-                    </tr>
-                ))}
-            </table>
-        </div>
-        <div className='table_container'>
-            <h1>Recommended Problems</h1>
-            <table>
-                <tr>
-                    <th>Problem Title</th>
-                    <th>Difficulty</th>
-                </tr>
-                {unsolvedProblems.map((problem) => (
-                    <tr>
-                        <td><a href={'problems/' + problem.id}>{problem.title}</a></td>
-                        <td>{problem.difficulty}</td>
-                    </tr>
-                ))}
-            </table>
-        </div>
+        <template.StaticTable id="recommended_problems" headers={['Problem Title', 'Difficulty']} width={[7,1]} data={unsolvedProblems.map(
+            (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.difficulty]))} />
+        <template.StaticTable id="solved_problems" headers={['Problem Title', 'Difficulty']} width={[7,1]} data={solvedProblems.map(
+            (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.difficulty]))} />
         </>
     )
 }

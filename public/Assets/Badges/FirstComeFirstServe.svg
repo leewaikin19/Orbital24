@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="54.618488mm"
+   height="54.618492mm"
+   viewBox="0 0 54.618488 54.618492"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1"><linearGradient
+       id="linearGradient7"><stop
+         style="stop-color:#ff9c07;stop-opacity:1;"
+         offset="0.5"
+         id="stop7" /><stop
+         style="stop-color:#ff0f0f;stop-opacity:1;"
+         offset="1"
+         id="stop8" /></linearGradient><linearGradient
+       xlink:href="#linearGradient7"
+       id="linearGradient10"
+       x1="72.462166"
+       y1="35.191193"
+       x2="127.08065"
+       y2="35.191193"
+       gradientUnits="userSpaceOnUse" /></defs><g
+     id="layer1"
+     transform="translate(-63.486536,-5.9752434)"><g
+       id="g5"
+       transform="translate(-8.9756259,-1.9067039)"><circle
+         style="fill:#222222;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient10);stroke-width:4.61849;stroke-opacity:1;paint-order:markers fill stroke"
+         id="path1-6"
+         cx="99.771408"
+         cy="35.191193"
+         r="25" /><path
+         style="font-style:italic;font-weight:900;font-size:96px;line-height:1.25;font-family:Satoshi;-inkscape-font-specification:'Satoshi Heavy Italic';white-space:pre;fill:#222222;stroke:#ff9c07;stroke-width:1"
+         d="m 85.392504,36.511993 h 2.2098 l 0.914399,-2.5908 h -2.565399 l 1.3208,-3.556 h 2.489199 l 1.6002,-4.572 h 3.7592 l -1.6002,4.572 h 2.4892 l 1.6002,-4.572 h 3.759197 l -1.600197,4.572 h 2.539997 l -1.3208,3.556 h -2.463797 l -0.889,2.5908 h 2.870197 l -1.269997,3.556 h -2.8448 l -1.5748,4.5212 h -3.7592 l 1.5748,-4.5212 h -2.5146 l -1.5748,4.5212 h -3.759199 l 1.5748,-4.5212 h -2.2606 z m 5.968999,0 h 2.5146 l 0.889,-2.5908 h -2.4892 z m 19.145617,-7.2136 h -4.1402 l 4.78836,-3.5052 h 4.36588 l -5.5912,18.796 h -4.45524 z"
+         id="text4"
+         aria-label="#1" /></g></g></svg>

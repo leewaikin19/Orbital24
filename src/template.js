@@ -9,14 +9,37 @@ export function FormInput( {type="text", name, id=name, value="", setValue, plac
     )
 }
 
-export function auto_resize(element) {
+export function StaticTable({id, headers, width, data}) {
+    const total = width.reduce((a, b) => a + b, 0);
+    const normalised = width.map((w) => w / total * 100);
+    return (
+        <div className="table_container" id={id}>
+            <table>
+                <tr>
+                    {headers.map((header, i) => (
+                        <th style={{width: normalised[i] + '%'}}>{header}</th>
+                    ))}
+                </tr>
+                {data.map((row) => (
+                    <tr>
+                        {row.map((cell, i) => (
+                            <td style={{width: normalised[i] + '%'}}>{cell}</td>
+                        ))}
+                    </tr>
+                ))}
+            </table>
+        </div>
+    )
+}
+
+export function Resize(element) {
     element.style.height = "0px"
     element.style.height = (element.scrollHeight) + "px";
 }
 
 export function handler(e, setValue, elem) {
     setValue(e.target.value);
-    auto_resize(document.getElementById(elem));
+    Resize(document.getElementById(elem));
 }
 
 export function TextArea({name, id=name, value="", setValue, placeholder, style, required=true}) {
@@ -71,7 +94,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <>
-                <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
+                <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
                 <MainContainer MainContent={MainContent} selected={MSelected}/>
             </>
             }

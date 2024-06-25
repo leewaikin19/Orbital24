@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="54.618488mm"
+   height="54.618492mm"
+   viewBox="0 0 54.618488 54.618492"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1"><linearGradient
+       id="linearGradient7"><stop
+         style="stop-color:#ff9c07;stop-opacity:1;"
+         offset="0.5"
+         id="stop7" /><stop
+         style="stop-color:#ff0f0f;stop-opacity:1;"
+         offset="1"
+         id="stop8" /></linearGradient><rect
+       x="70.79966"
+       y="338.42236"
+       width="179.83113"
+       height="118.94343"
+       id="rect6" /><linearGradient
+       xlink:href="#linearGradient7"
+       id="linearGradient14"
+       x1="136.93204"
+       y1="33.284489"
+       x2="191.55052"
+       y2="33.284489"
+       gradientUnits="userSpaceOnUse" /></defs><g
+     id="layer1"
+     transform="translate(-4.8992969,-64.562483)"><g
+       id="g6-0"
+       transform="translate(-132.03273,58.58724)"><circle
+         style="fill:#222222;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient14);stroke-width:4.61849;stroke-opacity:1;paint-order:markers fill stroke"
+         id="path1-6-6-0"
+         cx="164.24127"
+         cy="33.284489"
+         r="25" /><text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,128.27519,-70.563778)"
+         id="text6"
+         style="font-size:96px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;white-space:pre;shape-inside:url(#rect6);display:inline;fill:none;fill-opacity:1;stroke:#ff9c07;stroke-width:3.77953;stroke-dasharray:none;stroke-opacity:1"><tspan
+           x="70.798828"
+           y="428.68939"
+           id="tspan2"><tspan
+             style="font-style:italic;font-weight:900;font-family:Satoshi;-inkscape-font-specification:'Satoshi Heavy Italic'"
+             id="tspan1">2K</tspan></tspan></text></g></g></svg>

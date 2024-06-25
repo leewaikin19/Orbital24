@@ -57,40 +57,32 @@ function MainContent({solvedProblems, tournaments, user}) {
     }
     return (
         <>
-                <div className='section table_container'>
-                    <h1>Solved Problems</h1>
-                    <table id='solvedProblemsTable'>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Exp</th>
-                        </tr>
-                        {
-                            //TODOM why is pendingSubmissions under solved problems
-                        }
-                        {user.pendingSubmissions.map((problem) => entry(problem.title, problem.xp, 'problems/' + problem.id))}
-                        {solvedProblems.map((problem) => entry(problem.title, problem.xp, 'problems/' + problem.id))}
-                    </table>
-                </div>
-                <div className='section table_container'>
-                    <h1>Past Tournaments</h1>
-                    <table>
-                        <tr>
-                            <th>Tournaments</th>
-                            <th>Exp</th>
-                        </tr>
-                        {tournaments.map((tournament) => entry(tournament.title, tournament.xp, 'tournaments'))}
-                    </table>
-                </div>
-                <div className='section'>
-                    <h1>Badges</h1>
-                    <div className='badges_container' style={{overflowX:"scroll"}}>
-                        {user.badges.map((badge) => {console.log(badge);return(
-                            <div className='badge'>
-                                <img src= {badge + ".svg"}/>
+            <div className='section'>
+                <h1>Pending Submissions</h1>
+                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={user.pendingSubmissions.map((problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+            </div>
+            <div className='section'>
+                <h1>Solved Problems</h1>
+                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={solvedProblems.map(
+                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+            </div>
+            <div className='section'>
+                <h1>Past Tournaments</h1>
+                <template.StaticTable id="past_tournaments" headers={['Tournament', 'Exp']} width={[7,1]} data={tournaments.map(
+                    (tournament) => ([<a href="tournaments">{tournament.title}</a>, tournament.xp]))} />
+            </div>
+            <div className='section'>
+                <h1>Badges</h1>
+                <div className='badges_container'>
+                    {user.badges.map((badge) => {
+                        return(
+                            <div style={{width:"8em"}} className='badge'>
+                                <img style={{height:"8em", marginBottom:"2vh"}} src= {"../../Assets/Badges/" + badge.replaceAll(' ', '') + ".svg"}/>
+                                <b style={{wordWrap:"normal", textAlign:"center"}}>{badge}</b>
                             </div>
-                        )})}
-                    </div>
+                    )})}
                 </div>
+            </div>
                 <div className='section'>
                     <h1>Change Account Details</h1>
                     <div className="form_container">

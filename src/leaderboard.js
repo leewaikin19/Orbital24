@@ -19,47 +19,25 @@ export default function Leaderboard() {
 }
 
 function MainContent({expLeaderboards, badgesLeaderboards}) { 
-    return (
-            <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly", columnGap:"clamp(6px, 2vw, 48px)"}}>
-                <div className='section'>
-                    <h1>Exp Leaderboard</h1>
-                    <table>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Exp</th>
-                        </tr>
-                        {expLeaderboards.map((entry, index) => {
-                            return (
-                                <tr>
-                                    <td>{index + 1}</td>
-                                    <td>{entry.firstName} {entry.lastName}</td>
-                                    <td>{entry.xp}</td>
-                                </tr>
-                            )
-                        })}
-
-                    </table>
+    return (<>
+        <div className='section'>
+            <h1>Exp Leaderboard</h1>
+            <template.StaticTable id="expLeaderboards" headers={['Rank', 'Name', 'Exp']} width={[1,4,4]} data={expLeaderboards.map(
+                (entry, i) => ([i + 1, String(entry.firstName + " " + entry.lastName), entry.xp]))} />
+        </div>
+        <div className='section'>
+        <h1>Badges Leaderboard</h1>
+        <template.StaticTable id="badgesLeaderboards" headers={['Rank', 'Name', 'Badges']} width={[1,2,6]} data={badgesLeaderboards.map(
+            (entry, i) => ([i + 1, String(entry.firstName + " " + entry.lastName), (
+                <div className='badges_container' style={{overflowX:"auto"}}>
+                    {entry.badges.map((badge) => (
+                        <div className='badge'>
+                            <img src= {"../../Assets/Badges/" + badge.replaceAll(' ', '') + ".svg"}/>
+                            <p>{badge}</p>
+                        </div>
+                    ))}
                 </div>
-                <div className='section'>
-                    <h1>Badges Leaderboard</h1>
-                    <table>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Badges</th>
-                        </tr>
-                        {badgesLeaderboards.map((entry, index) => {
-                            return (
-                                <tr>
-                                    <td>{index + 1}</td>
-                                    <td>{entry.firstName} {entry.lastName}</td>
-                                    <td>{entry.badges.length}</td>
-                                </tr>
-                            )
-                        })}
-                    </table>
-                </div>
-            </div>
-    )
+            )]))} />
+        </div>
+    </>)
 }
