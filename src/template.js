@@ -53,7 +53,7 @@ export function Loader() {
     )
 }
 
-export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve()}) {
+export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
     
@@ -71,7 +71,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <>
-                <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp} selected={SSelected} isAdmin={user.current.account === 'admin'}/> 
+                <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.exp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
                 <MainContainer MainContent={MainContent} selected={MSelected}/>
             </>
             }
@@ -79,18 +79,18 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
     ) 
 }
 
-export function SideContainer({name, exp, selected, isAdmin}) {
+export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
     return (
         <div id = "side_container">
         <div className="vertical_center horizontal_center nav_bar">
             <button className="logo_container" onClick={() => window.location.href = 'home'} 
                     style={{padding: '0px', background: 'transparent'}}>
-                <img src = "./Assets/Logo/dark.svg" alt=''/>
+                <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt=''/>
             </button>
         </div>
         <div id = "user" className = "main_content" style={{marginTop: 'clamp(3px, 5vh, 12px)'}}>
             <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
-                <img src="./Assets/Miscelaneous/blank_profile.svg" id="profile_pic" alt=''/>
+                <img src={(isProblem ? "." : "") + "./Assets/Miscelaneous/blank_profile.svg"} id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>

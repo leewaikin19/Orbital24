@@ -84,9 +84,9 @@ function MainContent({solvedProblems, tournaments, user}) {
                 <div className='section'>
                     <h1>Badges</h1>
                     <div className='badges_container' style={{overflowX:"scroll"}}>
-                        {user.badges.map((badge) => {return(
+                        {user.badges.map((badge) => {console.log(badge);return(
                             <div className='badge'>
-                                <img src= {{badge} + ".svg"}/>
+                                <img src= {badge + ".svg"}/>
                             </div>
                         )})}
                     </div>

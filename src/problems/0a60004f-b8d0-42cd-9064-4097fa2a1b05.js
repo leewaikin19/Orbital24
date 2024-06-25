@@ -154,6 +154,6 @@ export default function Nim() {
     )}
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} solution={sol()} />)} MSelected={"Problems"} promise={promise} />
+        < template.Home MainContent={() => (<problems.MainContent title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} solution={sol()} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }
