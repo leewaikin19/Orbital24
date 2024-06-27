@@ -16,23 +16,16 @@ export default function Tournaments() {
 }
 
 function MainContent({tournaments}) { 
-    console.log(tournaments.map(x => x.title))
     return (
-        <div className='section'>
-            <h1>Tournament Problem Set</h1>
-            {tournaments.length > 0 ? (<table>
-                <tr>
-                    <th>Problem Set</th>
-                </tr>
-                {tournaments.map(tournament => (
-                    <tr>
-                        {
-                            //TODOM create tournament landing page for tournaments
-                        }
-                        <td>{tournament.title}</td> 
-                    </tr>
-                ))}
-            </table>) : (<p>Tournament has not begun yet. Please come back later!</p>)}
-        </div>
+        <>
+            {tournaments.map(tournament => (
+                <div className='section'>
+                    <h1>{tournament.title}</h1>
+                    <template.StaticTable id = {tournament.title} headers = {["Problem Set"]} width = {[1]} data={tournament.problems.map((problem) => [(
+                        <a href={'problems/' + problem}>{problem}</a> //TODO @LWK19 Help me get the titles
+                    )])}/>
+                </div>
+            ))}
+        </>
     )
 }

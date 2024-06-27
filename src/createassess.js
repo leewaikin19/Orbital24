@@ -20,40 +20,18 @@ export default function CreateAssess() {
 function MainContent({assessableProblems, createdProblems}) {
     return (
         <>
-                <div className='section table_container'>
-                    <h1>Assess Others' Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                        </tr>
-                        {assessableProblems.length > 0 ?
-                            assessableProblems.map((problem) => {
-                                return (
-                                    <tr>
-                                        <td>{problem.title}</td>
-                                    </tr>
-                                )
-                            }) : (<tr>
-                            <td>No problems to assess</td>
-                            </tr>)}
-                    </table>
-                </div>
-                <div className='section table_container'>
-                    <h1>Created Problems</h1>
-                    <table>
-                        <tr>
-                            <th>Problem Title</th>
-                            <th>Status</th>
-                        </tr>
-                        {/* for (let i = 0; i < tournaments.length; i++) {
-                            {row(tournaments[i])}; //TODO solve when the "tournament" object is clearly defined.
-                        } */}
-                    </table>
-                    <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
+            <div className='section'>
+                <h1>Assess Others' Problems</h1>
+                <template.StaticTable id = "assessable_problems" headers={["Problem Title"]} width={[1]} data={assessableProblems.map((problem) => [problem.title])} />
+            </div>
+            <div className='section'>
+                <h1>Created Problems</h1>
+                <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={assessableProblems.map((problem) => [problem.title, problem.status])} />
+                <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
                         <i class="fa-solid fa-plus"></i> {" "}
                         <span>Create New Problem</span>
-                    </button>
-                </div>
-                </>
+                </button>
+            </div>
+        </>
     )
 }
