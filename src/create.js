@@ -23,7 +23,6 @@ function MainContent() {
     const [hints, setHints] = useState([])
     const [hint_content, setHint] = useState("")
     const [mcqs, setMCQs] = useState([])
-    const [mcq_content, setMCQ] = useState("")
     const [srqs, setSRQs] = useState([])
     const [srq_content, setSRQ] = useState("")
     const [A, setA] = useState([])
