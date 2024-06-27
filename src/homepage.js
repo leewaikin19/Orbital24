@@ -25,8 +25,10 @@ export default function Homepage() {
 function MainContent({solvedProblems, unsolvedProblems}) {
     return (
         <>
+        <h1>Recommended Problems</h1>
         <template.StaticTable id="recommended_problems" headers={['Problem Title', 'Difficulty']} width={[7,1]} data={unsolvedProblems.map(
             (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.difficulty]))} />
+        <h1>Solved Problems</h1>
         <template.StaticTable id="solved_problems" headers={['Problem Title', 'Difficulty']} width={[7,1]} data={solvedProblems.map(
             (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.difficulty]))} />
         </>
