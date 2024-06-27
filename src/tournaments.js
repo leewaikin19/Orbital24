@@ -1,28 +1,34 @@
+/* eslint-disable */
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
+
 export default function Tournaments() {
-    const [isThisNeeded, setThis] = useState(true);
     const tournaments = useRef(null);
-    
-    const promise = API.getAllTournaments(template.getCookie('token'))
-    promise.then((resp) => {
+    const problems = useRef(null);
+
+    const promise1 = API.getAllTournaments(template.getCookie('token'));
+    const promise2 = API.getAllProblems(template.getCookie('token'));
+    promise1.then((resp) => {
         tournaments.current = resp.reply;
     })
+    promise2.then((resp) => {
+        problems.current = resp.reply;
+    })
     return ( 
-        < template.Home MainContent={() => (<MainContent tournaments={tournaments.current} />)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent tournaments={tournaments.current} problems={problems.current}/>)} SSelected={'tournaments'} promise={Promise.all([promise1, promise2])} />
     ) 
 }
 
-function MainContent({tournaments}) { 
+function MainContent({tournaments, problems}) { 
+    console.log(problems)
     return (
         <>
             {tournaments.map(tournament => (
                 <div className='section'>
                     <h1>{tournament.title}</h1>
-                    <template.StaticTable id = {tournament.title} headers = {["Problem Set"]} width = {[1]} data={tournament.problems.map((problem) => [(
-                        <a href={'problems/' + problem}>{problem}</a> //TODO @LWK19 Help me get the titles
+                    <template.StaticTable id = {tournament.title} headers = {["Problem Set"]} width = {[1]} data={tournament.problems.map(id => problems.find(x => x.id === id)).map((problem) => [(
+                        <a href={'problems/' + problem.id}>{problem.title}</a> 
                     )])}/>
                 </div>
             ))}
