@@ -26,16 +26,39 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: fit-content;
-    margin: 0px;
-    background-color: var(--grayest);
-    color: var(--white);
+    height: 100%;
+}
+
+.outer_grid {
     font-family: 'Satoshi';
     font-size: var(--text);
     color: var(--lightgray);
     display: grid;
-    grid-template-columns: 20% 80%;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 7vh 93vh
+}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: "left";
+    column-gap: clamp(3px, 3vmin, 12px);
+    padding-left: 1em;
+}
+
+.inner_grid {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+#user {
+    border-right: 2px solid var(--grayer);
+    padding-top: clamp(6px, 4vh, 18px);
+}
+
+#main {
+    padding: clamp(6px, 4vh, 18px) clamp(12px, 6vw, 48px);
+    overflow-y: auto;
 }
 
 h1 {
@@ -82,7 +105,6 @@ button {
     background-color: var(--grayest);
     border: none;
     border-radius: 0;
-    height: 100%;
     min-height: fit-content;
 }
 
@@ -194,36 +216,17 @@ input:-webkit-autofill {
 
 .nav_bar {
     background-color: black;
-    min-height: 60px;
-    max-height: 75px;
     position: sticky;
     top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .nav_bar button {
     font-weight: 700;
     min-width: 8em;
-}
-
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.nav_bar button span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
-    transition:0.4s;
-}
-
-.vertical_center {
     height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.horizontal_center {
-    width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
 .section {
@@ -231,21 +234,16 @@ input:-webkit-autofill {
     width: 100%;
 }
 
-#user {
-    position: sticky;
-    top: 10%;
-}
-
-#main {
-    padding: 2vh 3vw 1vh 3vw;
-    overflow-y: auto;
+.main_content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .animated_button {
     padding: clamp(3px, 10%, 12px);
     background-color: transparent;
     width: clamp(150px, 10%, 300px);
-    height: 100%;
     font-weight: 400;
     transition: all 0.4s ease;
     transition: background-color 0.2s ease;
@@ -261,7 +259,6 @@ input:-webkit-autofill {
 }
 
 .animated_button:hover:enabled {
-    background-color: transparent;
     color: var(--orange);
     --d: 100%;
 }
@@ -298,13 +295,12 @@ input:-webkit-autofill {
     color: var(--grayest);
 }
 
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 .selected_button span {
     background: 
       linear-gradient(currentColor 0 0) 
       0 100% /var(--d, 0) 2px 
     no-repeat;
-    transition:0.4s;
+    transition: all 0.4s ease;
 }
 
 .selected_button:hover {
@@ -395,10 +391,8 @@ table a:hover {
 
 #search_bar {
     display: flex;
-    min-width: 10em;
     justify-content: center;
     align-items: center;
-    width: 100%;
     margin-right: clamp(10px, 2vw, 50px);
     color: var(--lightgray);
     font: 400 var(--text);

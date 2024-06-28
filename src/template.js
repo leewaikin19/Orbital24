@@ -1,11 +1,27 @@
 import { useRef, useState } from 'react'
 import * as API from './API.js'
 /* eslint-disable */
-export function FormInput( {type="text", name, id=name, value="", setValue, placeholder, required=true }) {
+export function FormInput({type="text", name, id=name, value="", setValue, placeholder, required=true }) {
     return (
         <div className="form_input">
             <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} />
         </div>
+    )
+}
+
+export function MultiFormInput({type=["text"], name, id=name, value="", setValue, placeholder, required=true}) {
+    return (
+        <div className="form_input">
+            {name.map((n, i) => (
+                <input type={type[i]} name={n} id={id[i]} value={value[i]} onInput={e => setValue[i](e.target.value)} placeholder={placeholder[i]} required={required[i]} />
+            ))}
+        </div>
+    )
+}
+
+export function ActionButton ({name, id=name, value="", content=value, onClick}) {
+    return (
+        <button name={name} id={id} value={value} className='action_button animated_button' onClick={onClick}><span>{content}</span></button>
     )
 }
 
@@ -15,18 +31,22 @@ export function StaticTable({id, headers, width, data}) {
     return (
         <div className="table_container" id={id}>
             <table>
-                <tr>
-                    {headers.map((header, i) => (
-                        <th style={{width: normalised[i] + '%'}}>{header}</th>
-                    ))}
-                </tr>
-                {data.map((row) => (
+                <thead>
                     <tr>
-                        {row.map((cell, i) => (
-                            <td style={{width: normalised[i] + '%'}}>{cell}</td>
+                        {headers.map((header, i) => (
+                            <th style={{width: normalised[i] + '%'}}>{header}</th>
                         ))}
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {data.map((row) => (
+                        <tr>
+                            {row.map((cell, i) => (
+                                <td style={{width: normalised[i] + '%'}}>{cell}</td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     )
@@ -70,8 +90,9 @@ export function select(choice, container) {
 
 export function Loader() {
     return (
-        <div>
-            // TODOM loader here
+        <div style={{height:"100%", display:"flex", alignItems:"center", justifyContent:"center", gap:"2em"}}>
+            <img src='./Assets/Miscelaneous/blank_profile.svg' alt='Loading...' height="250em"/>
+            <h1>Loading...</h1>
         </div>
     )
 }
@@ -93,10 +114,13 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
     return (
         <div className='root'>
             {  loading ? <Loader/> : 
-            <>
-                <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
-                <MainContainer MainContent={MainContent} selected={MSelected}/>
-            </>
+            <div className='outer_grid'>
+                <NavBar isProblem={isProblem} selected={MSelected}/>
+                <div className='inner_grid'>
+                    <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
+                    <MainContainer MainContent={MainContent} selected={MSelected}/>
+                </div>
+            </div>
             }
         </div>
     ) 
@@ -104,15 +128,8 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
 
 export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
     return (
-        <div id = "side_container">
-        <div className="vertical_center horizontal_center nav_bar">
-            <button className="logo_container" onClick={() => window.location.href = 'home'} 
-                    style={{padding: '0px', background: 'transparent'}}>
-                <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt=''/>
-            </button>
-        </div>
-        <div id = "user" className = "main_content" style={{marginTop: 'clamp(3px, 5vh, 12px)'}}>
-            <div id="profile" style={{display: 'flex', columnGap: 'clamp(3px, 3vw, 12px)', paddingLeft: '1vw'}}>
+        <div id = "user" className = "main_content">
+            <div id="profile">
                 <img src={(isProblem ? "." : "") + "./Assets/Miscelaneous/blank_profile.svg"} id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
@@ -120,7 +137,7 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account\n Dashboard"} onClick={() => window.location.href='dashboard'} highlighted={selected == "dashboard"}/>
+                <SideButton contents={"Account\nDashboard"} onClick={() => window.location.href='dashboard'} highlighted={selected == "dashboard"}/>
                 <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'} highlighted={selected == "tournaments"}/>
                 <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'} highlighted={selected == "createassessprobems"} shown={isAdmin}/>
                 <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'} highlighted={selected == "leaderboards"}/>
@@ -128,28 +145,34 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
                 <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'} highlighted={selected == "bugs"}/>
             </div>
         </div>
-    </div>
     )
 }
 
-export function MainContainer({MainContent, selected}) {
+export function NavBar({isProblem, selected}) {
     return (
-        <div id="main_container">
-            <div className = "vertical_center nav_bar" style={{display: 'flex', justifyContent: 'end'}}>
-                <input type="text" id="search_bar" placeholder="Search Problems..."/>
-                <button className={"animated_button nav_button " + (selected == "Home" ? "selected_button" : "")} onClick={() => window.location.href='home'}>
+    <div className='nav_bar'>
+            <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt='' onClick={() => window.location.href = 'home'} style={{paddingLeft:"clamp(6px, 4vw, 18px)"}}/>
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center", width:"50%"}}>
+                <input type="text" id="search_bar" placeholder="Search Problems..." style={{width:"100%"}}/>
+            </div>
+            <div style={{justifySelf:"end"}}>
+                <button className={"nav_button " + (selected == "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='home'}>
                     <span>Home</span>
                 </button>
-                <button className={"animated_button nav_button " + (selected == "Problems" ? "selected_button" : "")} onClick={() => window.location.href='problems'}>
+                <button className={"nav_button " + (selected == "Problems" ? "selected_button" : "animated_button")} onClick={() => window.location.href='problems'}>
                     <span>Problems</span>
                 </button>
                 <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
                     <span>Logout</span>
                 </button>
             </div>
-            <div id = "main" className = "main_content">
-                <MainContent/>
-            </div>
+        </div>)
+}
+
+export function MainContainer({MainContent}) {
+    return (
+        <div id = "main" className = "main_content">
+            <MainContent/>
         </div>
     )
 }
@@ -162,7 +185,7 @@ export function Bar({dir}) {
 
 export function SideButton({contents, onClick, highlighted, shown}) {
     return (
-        <button className={"side_button " + (highlighted ? "selected_side_button" : "")} onClick={onClick} style={{shown} ? {display: "visible"} : {display: "hidden"}}>
+        <button className={"side_button " + (highlighted ? "selected_side_button" : "")} onClick={onClick} style={({shown} ? {display: "visible"} : {display: "hidden"})}>
             <span> {contents} </span>
         </button>
     )

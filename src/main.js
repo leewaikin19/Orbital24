@@ -127,10 +127,7 @@ function Signup() {
     return (
         <div className="form_container">
             <form action='signup'>
-                <div style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
-                    <template.FormInput name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name'/>
-                    <template.FormInput name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name'/>
-                </div>
+                <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
                 <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
                 <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
                 <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
