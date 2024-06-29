@@ -1,6 +1,17 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, React} from 'react'
 import * as API from './API.js'
 /* eslint-disable */
+
+export class FormInput extends HTMLInputElement {
+    render () {
+        return (
+            <div className="form_input">
+                <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} />
+            </div>
+        )
+    }
+}
+
 export function FormInput( {type="text", name, id=name, value="", setValue, placeholder, required=true }) {
     return (
         <div className="form_input">

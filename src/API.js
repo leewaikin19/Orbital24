@@ -2,9 +2,11 @@
 // if resp.success is true, resp.reply is a JSON with all other data
 // if resp.success is false, resp.msg will contain the error message 
 
+const url = "https://rojiku-server.lwk19-eab.workers.dev";
+
 async function post(payload) {
     // Cloudflare workers
-    const url = "https://rojiku-server.lwk19-eab.workers.dev";
+    
     //const url = "http://127.0.0.1:8787";
     var req = await fetch(url, {
         method: "POST",
