@@ -153,7 +153,7 @@ export function NavBar({isProblem, selected}) {
     <div className='nav_bar'>
             <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt='' onClick={() => window.location.href = 'home'} style={{paddingLeft:"clamp(6px, 4vw, 18px)"}}/>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", width:"50%"}}>
-                <input type="text" id="search_bar" placeholder="Search Problems..." style={{width:"100%"}}/>
+                <input type="text" id="search_bar" placeholder="Search Function Under Construction..." style={{width:"100%"}}/>
             </div>
             <div style={{justifySelf:"end"}}>
                 <button className={"nav_button " + (selected == "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='home'}>
