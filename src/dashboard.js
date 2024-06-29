@@ -87,22 +87,16 @@ function MainContent({solvedProblems, tournaments, user}) {
                     <h1>Change Account Details</h1>
                     <div className="form_container">
                         <form action=''>
-                            <div style={{display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)"}}>
-                                <template.FormInput name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name'/>
-                                <template.FormInput name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name'/>
-                            </div>
+                            <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
                             <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
                             <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
-
-                            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                                <button className="action_button animated_button" type="button" onClick={() => {
-                                    const dict = {'firstName': {firstName}, 'lastName': {lastName}, 'email': {email}, 'username': {username}}
-                                    API.updateUser(template.getCookie('token'), dict);
-                                }}>
-                                    <i className="fa-solid fa-check"></i>{" "}
-                                    <span>Confirm Details</span>
-                                </button>
-                            </div>
+                            <button className="action_button animated_button" onClick={() => {
+                                const dict = {'firstName': {firstName}, 'lastName': {lastName}, 'email': {email}, 'username': {username}}
+                                API.updateUser(template.getCookie('token'), dict);
+                            }}>
+                                <i className="fa-solid fa-check"></i>{" "}
+                                <span>Confirm Details</span>
+                            </button>
                         </form>
                     </div>
                 </div>

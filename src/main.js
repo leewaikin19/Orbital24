@@ -135,6 +135,11 @@ function Signup() {
                 <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username' />
                 <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password' />
                 <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password' />
+                <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
+                <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
+                <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
+                <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
+                <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                     <button className="animated_button action_button" type="button" onClick={clickSignup}>
