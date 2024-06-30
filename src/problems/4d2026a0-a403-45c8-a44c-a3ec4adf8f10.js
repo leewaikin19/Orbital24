@@ -149,7 +149,7 @@ export default function Nim() {
                 What strategy should the player use to always guarantee a win? <br/>
                 <template.TextArea name='solution' value={solution} setValue={setSolution} placeholder='Describe Your Strategy' required/>
             </div>
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", solution)}><span>Submit Solution</span></button> 
+            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "4d2026a0-a403-45c8-a44c-a3ec4adf8f10", solution)}><span>Submit Solution</span></button> 
         </>
     )}
 
