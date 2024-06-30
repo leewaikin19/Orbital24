@@ -7,22 +7,28 @@ import * as template from "./template.js"
 export default function Dashboard() {
     const solvedProblems = useRef(null);
     const pastTournaments = useRef(null);
+    const pendingSubmissions = useRef(null);
     const user = useRef(null);
     const promise1 = API.dashboard(template.getCookie('token'))
     const promise2 = API.getAllProblems(template.getCookie('token'))
     const promise3 = API.getAllTournaments(template.getCookie('token'))
+    const promise4 = API.getOwnPendingSubmissions(template.getCookie('token'))
     promise1.then(resp1 => {
         user.current = resp1.reply;
         promise2.then(resp2 => {
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
-        })
+       })
         promise3.then(resp3 => {
             // find past tournaments
             pastTournaments.current = resp1.reply.pastTournaments.map(id => resp3.reply.find(x => x.id === id));
         })
+        promise4.then(resp4 => {
+            // find pending submissions
+            pendingSubmissions.current = resp4.reply;
+        })
     })
-    const promise = Promise.all([promise1, promise2, promise3])
+    const promise = Promise.all([promise1, promise2, promise3, promise4])
     return (
         < template.Home MainContent={() => (<MainContent pendingSubmissions={[]} solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
     ) 

@@ -30,6 +30,20 @@ function MainContent() {
         mcqs[num].an = choice
     }
 
+    function saveProblem() {
+        //TODOM theres the xp value and difficulty, not sure if you need both
+        const TEMPORARY_XP_VALUE = 50;
+        const TEMPORARY_DIFFICULTY_VALUE = -1;
+        const TEMPORARY_AUTOGRADED_VALUE = true;
+        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_XP_VALUE, TEMPORARY_DIFFICULTY_VALUE, mcqs, srqs, TEMPORARY_AUTOGRADED_VALUE)
+        .then((resp) => {
+            if(resp.success){
+                alert("Successfully saved")
+        }else {
+            alert("Error: " + resp.msg)
+        }})
+    }
+
     return (
         <>
             <div className='section'>
@@ -40,7 +54,7 @@ function MainContent() {
             </div>
             <div id='sandbox_container' className='section'>
                 <h2>Sandbox</h2>
-                <template.TextArea name="Statement" value={statement} setValue={setStatement} placeholder={"Describe the Sandbox"} />
+                <template.TextArea name="Sandbox" value={sandbox} setValue={setSandbox} placeholder={"Describe the Sandbox"} />
             </div>
             <div className='section'>
                 <h2>Hints</h2>
@@ -88,7 +102,7 @@ function MainContent() {
                     <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
-            <button id='create_hint' className='action_button animated_button' onClick={() => {API.createProblem(template.getCookie('token'), title, statement, hints.filter((hint) => (hint!="")), -1)}}><span>Save Problem</span></button>
+            <button id='create_hint' className='action_button animated_button' onClick={saveProblem}><span>Save Problem</span></button>
             {/* TODOM update API call after it's been fully implemented */}
         </>
     )

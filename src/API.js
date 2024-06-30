@@ -2,12 +2,12 @@
 // if resp.success is true, resp.reply is a JSON with all other data
 // if resp.success is false, resp.msg will contain the error message 
 
+// Cloudflare workers
 const url = "https://rojiku-server.lwk19-eab.workers.dev";
+//const url = "http://127.0.0.1:8787";
 
 async function post(payload) {
-    // Cloudflare workers
     
-    //const url = "http://127.0.0.1:8787";
     var req = await fetch(url, {
         method: "POST",
         headers: {
@@ -88,11 +88,18 @@ export async function leaderboard(token) {
 // TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "", impt_notes = [""], hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
 export async function createProblem(token, title, statement, hints, difficulty) {
     // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints, 'difficulty':difficulty});
+    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'xp':xp, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded});
     return resp;
 }
 
-// TODO @LWK19 - export async function updateProblem(token, title, statement, sandbox = "", hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
+// TODOM done updateProblem(token, title, statement, sandbox = "", hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
+// TODOM updateProblem implies that the ID is known. Need ID included
+export async function updateProblem(token, questionID, title, statement, sandbox, hints, difficulty, mcqs, srqs, pending, autograded) {
+    // resp.success=true returns reply
+    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'questionID':questionID, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded, 'pending':pending});
+    return resp;
+}
+
 
 export async function getAllTournaments(token) {
     // resp.success=true returns reply.title,problems["UUIDforProblem"],dateStart,dateEnd
@@ -107,19 +114,22 @@ export async function getTournament(token) {
     return resp;
 }
 
-// TODO @LWK19 - export async function getSubmissions(token, problemID) {
-export async function getSubmissions(token) {
+// TODOM done getSubmissions(token, problemID) {
+export async function getSubmissions(token, problemID) {
     // resp.success=true returns reply submission struct tbc
-    // TODO @LWK19 - reply.submissionID = []
-    var resp = await post({ 'mode': 'main', 'method':'getSubmissions', 'token':token });
+    // TODOM done reply.submissionID = []
+    var resp = await post({ 'mode': 'main', 'method':'getSubmissions', 'token':token, 'problemID':problemID });
     return resp;
 }
 
-// TODO @LWK19 - export async function getSubmissions(token, problemID, submissionID) {
-export async function getSubmission(token) {
+// TODOM done getSubmissions(token, problemID, submissionID) {
+// TODOM getSubmission implies only one unique submission, problemID not required
+export async function getSubmission(token, submissionID) {
     // resp.success=true returns reply
-    // TODO @LWK19 - reply.datetime, reply.mcqs = [], reply.srqs = []
-    var resp = await post({ 'mode': 'main', 'method':'getSubmission','token':token });
+    // TODOM done reply.datetime, reply.mcqs = [], reply.srqs = []
+    // TODOM reply.datetime, reply.submission
+    // whatever the submission object is you can define, its not touched in the backend
+    var resp = await post({ 'mode': 'main', 'method':'getSubmission','token':token, 'submissionID':submissionID });
     return resp;
 }
 
@@ -129,21 +139,21 @@ export async function gradeSubmission(token, submissionID, correct) {
     return resp;
 }
 
-// TODO @LWK19 export async function getUserCreatedProblems(token) {
-//     // resp.success=true returns reply = []
-//     var resp = await post({ 'mode': 'main', 'method':'getUserCreatedProblems','token':token });
-//     return resp;
-// }
+// TODOM done 
+export async function getUserCreatedProblems(token) {
+    // resp.success=true returns reply = []
+    var resp = await post({ 'mode': 'main', 'method':'getUserCreatedProblems','token':token });
+    return resp;
+}
 
-// TODO @LWK19 export async function getAssessableProblems(token) {
-//     // resp.success=true returns reply = []
-//     var resp = await post({ 'mode': 'main', 'method':'getAssessableProblems','token':token });
-//     return resp;
-// }
+export async function getOwnPendingSubmissions(token) {
+    // resp.success=true returns reply = []
+    var resp = await post({ 'mode': 'main', 'method':'getOwnPendingSubmissions','token':token });
+    return resp;
+}
 
-// Return all problems that user attempted but not yet correct
-// TODO @LWK19 export async function getPendingSubmissions(token) {
-//     // resp.success=true returns reply = []
-//     var resp = await post({ 'mode': 'main', 'method':'getPendingSubmissions','token':token });
-//     return resp;
-// }
+export async function getAssessableProblems(token) {
+    // resp.success=true returns reply[problems]
+    var resp = await post({ 'mode': 'main', 'method':'getAssessableProblems', 'token':token });
+    return resp;
+}

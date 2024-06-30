@@ -1,10 +1,9 @@
-
+/* eslint-disable */
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
+
 export default function Explore() {
-    const [isThisNeeded, setThis] = useState(true);
     const problems = useRef(null);
     
     const promise = API.getAllProblems(template.getCookie('token'))

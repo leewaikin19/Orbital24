@@ -3,19 +3,32 @@
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
+
 export default function CreateAssess() {
-    const [isThisNeeded, setThis] = useState(true);
-    const temp = useRef(null);
-    
-    const promise = API.dashboard(template.getCookie('token'))
-    promise.then((resp) => {
-        console.log('Im doneee')
+    const approvedProblems = useRef(null);
+    const assessableProblems = useRef(null);
+    const createdProblems = useRef(null);
+
+    const promise1 = API.getAssessableProblems(template.getCookie('token'))
+    promise1.then((resp) => {
+        assessableProblems.current = resp.reply;
+    })
+    const promise2 = API.getAllProblems(template.getCookie('token'))
+    promise2.then((resp) => {
+        approvedProblems.current = resp.reply;
+    })
+    const promise3 = API.getUserCreatedProblems(template.getCookie('token'))
+    promise3.then((resp) => {
+        Promise.all([promise1, promise2]).then(() => {
+            const problems = approvedProblems.current.concat(assessableProblems.current);
+            createdProblems.current = resp.reply.map(id => problems.find(x => x.id === id))
+        }
+        )
     })
 
-
+    const promise = Promise.all([promise1, promise2, promise3])
     return (
-        < template.Home MainContent={() => (<MainContent assessableProblems={[]} createdProblems={[]} />)} SSelected={'createassessprobems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current} />)} SSelected={'createassessprobems'} promise={promise} />
     ) 
 }
 
