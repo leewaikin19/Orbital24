@@ -85,15 +85,14 @@ export async function leaderboard(token) {
     return resp;
 }
 
-// TODO @LWK19 - export async function createSolution(token, title, statement, hints, difficulty, mcqs = [{qn: "", options: "", an: ""}], srqs = [{qn: "", an: ""}]) {
-
+// TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
 export async function createProblem(token, title, statement, hints, difficulty) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints, 'difficulty':difficulty});
     return resp;
 }
 
-// TODO @LWK19 - export async function createSolution(token, mcqs = [], srqs = []) {
+// TODO @LWK19 - export async function updateProblem(token, title, statement, sandbox = "", hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
 
 export async function getAllTournaments(token) {
     // resp.success=true returns reply.title,problems["UUIDforProblem"],dateStart,dateEnd
@@ -130,15 +129,13 @@ export async function gradeSubmission(token, submissionID, correct) {
     return resp;
 }
 
-// TODO @LWK19
-// export async function getUserCreatedProblems(token) {
+// TODO @LWK19 export async function getUserCreatedProblems(token) {
 //     // resp.success=true returns reply = []
 //     var resp = await post({ 'mode': 'main', 'method':'getUserCreatedProblems','token':token });
 //     return resp;
 // }
 
-// TODO @LWK19
-// export async function getAssessableProblems(token) {
+// TODO @LWK19 export async function getAssessableProblems(token) {
 //     // resp.success=true returns reply = []
 //     var resp = await post({ 'mode': 'main', 'method':'getAssessableProblems','token':token });
 //     return resp;
