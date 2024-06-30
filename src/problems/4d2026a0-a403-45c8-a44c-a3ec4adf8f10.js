@@ -6,7 +6,7 @@ import * as problems from "../problem_template.js"
 export default function Nim() {
     const problem = useRef(null);
     
-    const promise = API.getProblem(template.getCookie('token'), "0a60004f-b8d0-42cd-9064-4097fa2a1b05")
+    const promise = API.getProblem(template.getCookie('token'), "4d2026a0-a403-45c8-a44c-a3ec4adf8f10")
     promise.then((resp) => {
         problem.current = resp.reply;
     })
@@ -146,10 +146,10 @@ export default function Nim() {
                 </div>
             </div>
             <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                How many cards would you flip in your initial step? <br/>
-                <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder='Enter how many cards you will flip' required/>
+                What strategy should the player use to always guarantee a win? <br/>
+                <template.TextArea name='solution' value={solution} setValue={setSolution} placeholder='Describe Your Strategy' required/>
             </div>
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", {solution})}><span>Submit Solution</span></button> 
+            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", solution)}><span>Submit Solution</span></button> 
         </>
     )}
 

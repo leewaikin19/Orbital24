@@ -27,7 +27,8 @@ export function MainContent({title, description, sandbox, hints, solution}) {
             })}
             <h2>Submission</h2>
             {solution}
-            {/* < problems.Forum  /> */}
+
+            {/* TODOM @LWK19 < problems.Forum  /> */}
         </div>
     )
 }

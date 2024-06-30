@@ -2,16 +2,6 @@ import { useRef, useState, React} from 'react'
 import * as API from './API.js'
 /* eslint-disable */
 
-export class FormInput extends HTMLInputElement {
-    render () {
-        return (
-            <div className="form_input">
-                <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} />
-            </div>
-        )
-    }
-}
-
 export function FormInput({type="text", name, id=name, value="", setValue, placeholder, required=true }) {
     return (
         <div className="form_input">
@@ -63,20 +53,18 @@ export function StaticTable({id, headers, width, data}) {
     )
 }
 
-export function Resize(element) {
-    element.style.height = "0px"
-    element.style.height = (element.scrollHeight) + "px";
-}
 
 export function handler(e, setValue, elem) {
     setValue(e.target.value);
-    Resize(document.getElementById(elem));
+    elem = document.getElementById(elem);
+    elem.style.height = "0px"
+    elem.style.height = (elem.scrollHeight) + "px";
 }
 
 export function TextArea({name, id=name, value="", setValue, placeholder, style, required=true}) {
     return (
         <div className="form_input">
-                <textarea id = {id} value = {value} onInput={e => handler(e, setValue, id)} placeholder={placeholder} style={style} required={required}/>
+            <textarea id = {id} value = {value} onInput={e => handler(e, setValue, id)} placeholder={placeholder} style={style} required={required}/>
         </div>
     )
 }
@@ -148,9 +136,10 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account\nDashboard"} onClick={() => window.location.href='dashboard'} highlighted={selected == "dashboard"}/>
+                <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='dashboard'} highlighted={selected == "dashboard"}/>
                 <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'} highlighted={selected == "tournaments"}/>
-                <SideButton contents={'Create/Assess\nProblems'} onClick={() => window.location.href='createassessprobems'} highlighted={selected == "createassessprobems"} shown={isAdmin}/>
+                <SideButton contents={'Create Problems'} onClick={() => window.location.href='createassessprobems'} highlighted={selected == "createassessprobems"} shown = {isAdmin}/>
+                <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='grade'} highlighted={selected == "grade"} shown = {isAdmin}/>
                 <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'} highlighted={selected == "leaderboards"}/>
                 <SideButton contents='Forum Posts' onClick={() => window.location.href='posts'} highlighted={selected == "posts"}/>
                 <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'} highlighted={selected == "bugs"}/>
@@ -194,9 +183,10 @@ export function Bar({dir}) {
     )
 }
 
-export function SideButton({contents, onClick, highlighted, shown}) {
+export function SideButton({contents, onClick, highlighted, shown=true}) {
+    if (!shown) return null;
     return (
-        <button className={"side_button " + (highlighted ? "selected_side_button" : "")} onClick={onClick} style={({shown} ? {display: "visible"} : {display: "hidden"})}>
+        <button className={"side_button " + (highlighted ? "selected_side_button" : "")} onClick={onClick}>
             <span> {contents} </span>
         </button>
     )

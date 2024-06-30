@@ -13,7 +13,7 @@ export default function Create() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent assessableProblems={[]} createdProblems={[]} />)} SSelected={'createassessprobems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent />)} SSelected={'createassessprobems'} promise={promise} />
     ) 
 }
 
@@ -21,15 +21,13 @@ function MainContent() {
     const [title, setTitle] = useState("")
     const [statement, setStatement] = useState("")
     const [hints, setHints] = useState([])
-    const [hint_content, setHint] = useState("")
     const [mcqs, setMCQs] = useState([])
     const [srqs, setSRQs] = useState([])
-    const [srq_content, setSRQ] = useState("")
-    const [A, setA] = useState([])
-    const [B, setB] = useState([])
-    const [C, setC] = useState([])
-    const [D, setD] = useState([])
-    const [E, setE] = useState(null)
+
+    function McqHandler (choice, num){
+        template.select(document.getElementById(choice + num), document.getElementById(num))
+        mcqs[num].an = choice
+    }
 
     return (
         <>
@@ -42,46 +40,51 @@ function MainContent() {
             <div className='section'>
                 <h2>Hints</h2>
                 <div className='hint_container'>
-                    {hints.map((i) => {return(
-                        <>
-                            <template.TextArea name={"Hint " + {i}} value={hint_content} setValue={setHint} placeholder={"Enter Hint " + i}/>
-                        </>
+                    {hints.map((i, index) => {
+                        return(
+                        <div className='form_input'>
+                            <textarea id={"Hint " + index} onInput= {(e) => template.handler(e, (i) => {hints[index] = i}, "Hint " + index)} placeholder={"Enter Hint " + (index + 1)}/>
+                        </div>
                     )})}
                 </div>
-                <button id='create_hint' className='action_button animated_button' onClick = {() => setHints(hints => [...hints, (hints.length + 1)])}><span>Add Hint</span></button>
+                <button id='create_hint' className='action_button animated_button' onClick = {() => setHints(hints => [...hints, ""])}><span>Add Hint</span></button>
             </div>
             <div className='section'>
                 <h2>Submission</h2>
                 <div id='mcq_container'>
-                    {mcqs.map((i) => {return(
+                    {mcqs.map((i, index) => {return(
                         <>
-                            <template.TextArea name={"Hint " + {i}} value={srq_content} setValue={setSRQ} placeholder={"Enter Multiple Choice Question " + i}/>
+                            <div className='form_input'>
+                                <textarea id={"MCQ " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
+                            </div>
 
-                            <div id={i} style={{display:"flex", flexDirection:"column"}}>
-                                <template.MCQInput id={"A" + i} name='A' value='A' content={<template.FormInput name={"Option A"} value={A} setValue={setA} placeholder={"Enter First Choice"}/>} onClick={() => template.select(document.getElementById("A" + i), document.getElementById(i))}/>
-                                <template.MCQInput id={"B" + i} name='B' value='B' content={<template.FormInput name={"Option B"} value={B} setValue={setB} placeholder={"Enter Second Choice"}/>} onClick={() => template.select(document.getElementById("B" + i), document.getElementById(i))}/>
-                                <template.MCQInput id={"C" + i} name='C' value='C' content={<template.FormInput name={"Option C"} value={C} setValue={setC} placeholder={"Enter Third Choice"}/>} onClick={() => template.select(document.getElementById("C" + i), document.getElementById(i))}/>
-                                <template.MCQInput id={"D" + i} name='D' value='D' content={<template.FormInput name={"Option D"} value={D} setValue={setD} placeholder={"Enter Fourth Choice"}/>} onClick={() => template.select(document.getElementById("D" + i), document.getElementById(i))}/>
-                                <template.MCQInput id={"E" + i} name='E' value='E' content={<template.FormInput name={"Option E"} value={E} setValue={setE} placeholder={"Enter Final Choice"}/>} onClick={() => template.select(document.getElementById("E" + i), document.getElementById(i))}/>
+                            <div className='form_input' id={index} style={{display:"flex", flexDirection:"column"}}>
+                                <template.MCQInput id={"A" + i} name='A' value='A' content={<textarea id={"A " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[0] = i}, "A " + index)} placeholder={"Enter First Option"}/>} onClick={() => McqHandler("A", index)}/>
+                                <template.MCQInput id={"B" + i} name='B' value='B' content={<textarea id={"B " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[1] = i}, "B " + index)} placeholder={"Enter Second Option"}/>} onClick={() => McqHandler("B", index)}/>
+                                <template.MCQInput id={"C" + i} name='C' value='C' content={<textarea id={"C " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[2] = i}, "C " + index)} placeholder={"Enter Third Option"}/>} onClick={() => McqHandler("C", index)}/>
+                                <template.MCQInput id={"D" + i} name='D' value='D' content={<textarea id={"D " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[3] = i}, "D " + index)} placeholder={"Enter Fourth Option"}/>} onClick={() => McqHandler("D", index)}/>
+                                <template.MCQInput id={"E" + i} name='E' value='E' content={<textarea id={"E " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[4] = i}, "E " + index)} placeholder={"Enter Fifth Option"}/>} onClick={() => McqHandler("E", index)}/>
                             </div>
                         </>
                     )})}
                 </div>
-                <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}} onClick={() => setMCQs(mcqs => [...mcqs, (mcqs.length + 1)])}>
-                    <button className='action_button animated_button'><span>Add New Multiple Choice Question</span></button>
+                <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                    <button className='action_button animated_button' onClick={() => setMCQs(mcqs => [...mcqs, {"qn": "", "options":["", "", "", "", ""], "an": ""}])}><span>Add New Multiple Choice Question</span></button>
                 </div>
                 <div id='srq_container'>
-                    {srqs.map((i) => {return(
-                        <>
-                            <template.TextArea name={"Hint " + {i}} value={srq_content} setValue={setSRQ} placeholder={"Enter Short Response Question " + i}/>
-                        </>
+                    {srqs.map((i, index) => {return(
+                        <div className='form_input'>
+                            <textarea id={"SRQ " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].qn = i}, "SRQ " + index)} placeholder={"Enter Short Response Question " + (index + 1)}/>
+                            <textarea id={"SRQAns " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].an = i}, "SRQAns " + index)} placeholder={"Enter Answer " + (index + 1)}/>
+                        </div>
                     )})}
                 </div>
                 <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                    <button className='action_button animated_button' onClick={() => setSRQs(sqrs => [...sqrs, (sqrs.length + 1)])}><span>Add New Short Response Question</span></button>
+                    <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
-            <button id='create_hint' className='action_button animated_button' onClick={{}}><span>Save Problem</span></button>
+            <button id='create_hint' className='action_button animated_button' onClick={() => {API.createProblem(template.getCookie('token'), title, statement, hints.filter((hint) => (hint!="")), -1)}}><span>Save Problem</span></button>
+            {/* TODOM update API call after it's been fully implemented */}
         </>
     )
 }

@@ -85,11 +85,15 @@ export async function leaderboard(token) {
     return resp;
 }
 
+// TODO @LWK19 - export async function createSolution(token, title, statement, hints, difficulty, mcqs = [{qn: "", options: "", an: ""}], srqs = [{qn: "", an: ""}]) {
+
 export async function createProblem(token, title, statement, hints, difficulty) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints, 'difficulty':difficulty});
     return resp;
 }
+
+// TODO @LWK19 - export async function createSolution(token, mcqs = [], srqs = []) {
 
 export async function getAllTournaments(token) {
     // resp.success=true returns reply.title,problems["UUIDforProblem"],dateStart,dateEnd
@@ -104,15 +108,18 @@ export async function getTournament(token) {
     return resp;
 }
 
+// TODO @LWK19 - export async function getSubmissions(token, problemID) {
 export async function getSubmissions(token) {
     // resp.success=true returns reply submission struct tbc
+    // TODO @LWK19 - reply.submissionID = []
     var resp = await post({ 'mode': 'main', 'method':'getSubmissions', 'token':token });
     return resp;
 }
 
-//maybe no need
+// TODO @LWK19 - export async function getSubmissions(token, problemID, submissionID) {
 export async function getSubmission(token) {
     // resp.success=true returns reply
+    // TODO @LWK19 - reply.datetime, reply.mcqs = [], reply.srqs = []
     var resp = await post({ 'mode': 'main', 'method':'getSubmission','token':token });
     return resp;
 }
@@ -122,3 +129,17 @@ export async function gradeSubmission(token, submissionID, correct) {
     var resp = await post({ 'mode': 'main', 'method':'gradeSubmission','token':token, 'submissionID':submissionID, 'correct':correct });
     return resp;
 }
+
+// TODO @LWK19
+// export async function getUserCreatedProblems(token) {
+//     // resp.success=true returns reply = []
+//     var resp = await post({ 'mode': 'main', 'method':'getUserCreatedProblems','token':token });
+//     return resp;
+// }
+
+// TODO @LWK19
+// export async function getAssessableProblems(token) {
+//     // resp.success=true returns reply = []
+//     var resp = await post({ 'mode': 'main', 'method':'getAssessableProblems','token':token });
+//     return resp;
+// }
