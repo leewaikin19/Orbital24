@@ -16,9 +16,9 @@ export default function PigeonHole() {
         <>
             <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
             <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                <input style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
+                <input id='cards' style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
                 <button style={{flexGrow:"1", marginTop:"0px"}} className="action_button animated_button" onClick={() => {
-                    cardSimulation(document.querySelector('input[name="cards"]').value)
+                    cardSimulation(document.querySelector('#cards').value)
                 }}><span>Take Cards</span></button>
             </div>
             <div id='card_container' style={{display:"flex", flexDirection:"column", margin:"1vh 1vw", rowGap:"2vh"}}>
@@ -27,8 +27,7 @@ export default function PigeonHole() {
                 <div id='spades' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
                 <div id='diamonds' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
             </div>
-            <div id='sucess_message' style={{textAlign:"center"}}>
-            </div>
+            <p id='sucess_message' style={{textAlign:"center"}}></p>
         </>
     )}
 
@@ -97,8 +96,8 @@ export default function PigeonHole() {
         const [solution, setSolution] = useState("");
         return (
         <>
-            <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                How many cards would you take? <br/>
+            <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                <p>How many cards would you take?</p> <br/>
                 <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder='Enter how many cards you will take' required/>
             </div>
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 

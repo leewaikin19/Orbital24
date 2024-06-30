@@ -66,15 +66,6 @@
     font-weight: bold;
 }
 
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.outside_root .animated_button span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 3px 
-    no-repeat;
-    transition:0.4s;
-}
-
 .outside_root .animated_button:hover {
     background-color: var(--orange);
     color: var(--grayest);
@@ -96,7 +87,7 @@
 }
 
 .outside_root #outer_form_container {
-    padding: clamp(3px, 3vmin, 12px); 
+    padding: 4em;
     border: 3px solid var(--orange); 
     position: relative; 
     height: max(25em, 40vmin);
@@ -117,32 +108,15 @@
 }
 
 .smalllink {
+    color: var(--orange);
     display: flex;
     justify-content: end;
     margin: clamp(2px, 1vh ,8px) 0px;
 }
 
-.smalllink a {
+.smalllink a, .smalllink i {
     color: var(--orange);
     text-decoration: none;
-}
-
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.smalllink span {
-    margin: 0px;
-    font-family: 'Satoshi';
-    font-weight: 300;
-    font-size: 12pt;
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 0.5px 
-    no-repeat;
-    transition:0.4s;
-    color: var(--orange)
-}
-
-.smalllink a:hover {
-    --d: 100%;
 }
 
 .outside_root #otp_container #otp_input {

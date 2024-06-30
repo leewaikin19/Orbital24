@@ -19,6 +19,7 @@
 
 body {
     background-color: var(--grayest);
+    font-family: 'Satoshi';
 }
 
 .root {
@@ -29,68 +30,42 @@ body {
     height: 100%;
 }
 
-.outer_grid {
-    font-family: 'Satoshi';
-    font-size: var(--text);
-    color: var(--lightgray);
-    display: grid;
-    grid-template-rows: 7vh 93vh
-}
-
-#profile {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: "left";
-    column-gap: clamp(3px, 3vmin, 12px);
-    padding-left: 1em;
-}
-
-.inner_grid {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-}
-
-#user {
-    border-right: 2px solid var(--grayer);
-    padding-top: clamp(6px, 4vh, 18px);
-}
-
-#main {
-    padding: clamp(6px, 4vh, 18px) clamp(12px, 6vw, 48px);
-    overflow-y: auto;
-}
-
 h1 {
     font-family: 'Satoshi';
     font-size: var(--title);
     font-weight: 900;
     color: var(--orange);
-    margin: 0px;
+    margin-bottom: 0.2em;
 }
 
 h2 {
     font-family: 'Satoshi';
     font-size: var(--topic);
+    font-weight: 700;
     color: var(--orange);
     margin: 0px;
 }
 
-p {
+p,b {
     font-family: 'Satoshi';
     font-size: var(--text);
-    color: var(--white);
-    margin: 0px;
+    color: var(--lightgray);
+    margin-bottom: 1em;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-a {
-    color: var(--lightgray);
+a, span {
+    font-family: 'Satoshi';
     background: 
       linear-gradient(currentColor 0 0) 
       0 100% /var(--d, 0) 2px 
     no-repeat;
     transition:0.4s;
+    cursor: pointer;
+}
+
+a {
+    color: var(--lightgray);
     text-decoration: none;
 }
 
@@ -98,18 +73,20 @@ a:hover {
     --d: 100%;
 }
 
+span:hover {
+    --d: 100%;
+}
+
 button {
-    font-family: 'Satoshi';
     color: #ededed;
     font-size: var(--text);
-    background-color: var(--grayest);
+    background-color: transparent;
     border: none;
     border-radius: 0;
     min-height: fit-content;
 }
 
 table {
-    margin: 1vh 0px;
     width: 100%;
     display: table;
     border-collapse: collapse;
@@ -119,7 +96,6 @@ table {
 th {
     background-color: var(--orange);
     color: var(--grayest);
-    margin: 0px;
     padding: 0.5em;
 }
 
@@ -142,13 +118,27 @@ tr td {
     border-top: none;
 }
 
-.form_container {
-    width: 100%;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3px, 3vmin, 12px); 
 }
 
-form {
-    row-gap: clamp(3px, 3vmin, 12px); 
-    margin-bottom: clamp(3px, 3vmin, 12px); 
+.error {
+    color: var(--grayest);
+    font-size: var(--text);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Code for unselectable elements sourced from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page */
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
 }
 
 .form_input {
@@ -156,26 +146,28 @@ form {
     display: flex; 
     flex-direction: row; 
     column-gap: clamp(3px, 3vmin, 12px);
-    margin: 1vh 0px;
 }
 
-.form_input input, .form_input textarea {
-    width: 100%;
+input, textarea {
     font-family: 'Satoshi';
+    width: 100%;
     font-size: var(--text);
-    border-radius: 0px;
     padding: clamp(3px, 3vmin, 12px);
     transition: border 0.15s;
     background-color: black;
     border: 2px var(--grayer) solid;
     color: var(--lightgray);
     outline: none;
-    margin: "clamp(3px, 1vmin, 12px) 0px"
 }
 
-.table_container {
-    width: 100%;
-    overflow-x: auto;
+input:focus, textarea:focus {
+    border: 2px var(--orange) solid;
+}
+
+textarea {
+    resize: none;
+    overflow: hidden;
+    padding-bottom: 0px;
 }
 
 .badges_container {
@@ -193,25 +185,10 @@ form {
     align-items: center;
     width: 5em;
 }
+
 .badge img {
     height: 5em; 
     margin-bottom: 2vh;
-}
-
-.form_input input:focus {
-    background-color: black;
-    border: 2px var(--orange) solid;
-}
-
-.form_input textarea {
-    resize: none;
-    overflow: hidden;
-    padding-bottom: 0px;
-}
-
-.form_input textarea:focus {
-    background-color: black;
-    border: 2px var(--orange) solid;
 }
 
 input:-webkit-autofill {
@@ -235,7 +212,7 @@ input:-webkit-autofill {
 }
 
 .section {
-    padding-bottom: max(2vh, 6px);
+    padding-bottom: 1em;
     width: 100%;
 }
 
@@ -247,20 +224,7 @@ input:-webkit-autofill {
 
 .animated_button {
     padding: clamp(3px, 10%, 12px);
-    background-color: transparent;
-    width: clamp(150px, 10%, 300px);
-    font-weight: 400;
-    transition: all 0.4s ease;
-    transition: background-color 0.2s ease;
-}
-
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.animated_button:enabled span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
 .animated_button:hover:enabled {
@@ -269,12 +233,10 @@ input:-webkit-autofill {
 }
 
 .action_button {
-    background-color: var(--grayest);
     color: var(--orange);
     border: 3px solid var(--orange);
     width: 100%;
-    margin-top: 2vh;
-    font-weight: bold;
+    font-weight: 700;
     padding: 0.75em 0em;
     transition: all 0.2s ease;
 }
@@ -285,7 +247,6 @@ input:-webkit-autofill {
 }
 
 .action_button:disabled {
-    background-color: var(--grayest);
     color: var(--gray);
     border: 3px solid var(--gray);
 }
@@ -300,14 +261,6 @@ input:-webkit-autofill {
     color: var(--grayest);
 }
 
-.selected_button span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
-    transition: all 0.4s ease;
-}
-
 .selected_button:hover {
     background-color: var(--orange);
     color: var(--grayest);
@@ -319,28 +272,12 @@ input:-webkit-autofill {
     margin: 0px;
 }
 
-#sidebar_buttons {
-    display: flex;
-    flex-direction: column;
-    margin-top: clamp(3px, 5vh, 12px);
-}
-
 .side_button {
     padding-left: 3vw;
     height: max(60px, 4em);
     transition: padding 0.4s ease;
     text-align: left;
-    border-radius: 0px;
     font-weight: 400;
-}
-
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
-.side_button span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
-    transition:0.4s;
 }
 
 .side_button:hover {
@@ -353,15 +290,7 @@ input:-webkit-autofill {
     background-color: var(--orange);
     color: var(--grayest);
     padding-left: 4vw;
-    font-weight: 600;
-}
-
-.selected_side_button span {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
-    transition:0.4s;
+    font-weight: 700;
 }
 
 .selected_side_button:hover {
@@ -369,29 +298,17 @@ input:-webkit-autofill {
     --d: 100%;
 }
 
-table a {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
-    transition:0.4s;
+.mcq_button {
+    padding: 1vh 1vw;
 }
 
-table a:hover {
-    --d: 100%;
-    cursor: pointer;
+.selected_mcq_button {
+    background-color: var(--orange);
+    color: var(--grayest);
 }
 
 #current_page_button {
     padding-left: 4vw;
-}
-
-#profile img {
-    border-radius: 50%;
-    display: inline-block;
-    width: clamp(60px, 7vh, 90px);
-    height: clamp(60px, 7vh, 90px);
-    object-fit: cover;
 }
 
 #search_bar {
@@ -413,20 +330,48 @@ table a:hover {
     border-bottom: 2px solid var(--lightgray);
 }
 
-/* Code for unselectable elements sourced from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page */
-.unselectable {
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.outer_grid {
+    font-size: var(--text);
+    display: grid;
+    grid-template-rows: 7vh 93vh
 }
 
-.mcq_button {
-    padding: 1vh 1vw;
+.inner_grid {
+    font-size: var(--text);
+    display: grid;
+    grid-template-columns: 1fr 4fr;
 }
 
-.selected_mcq_button {
-    background-color: var(--orange);
-    color: var(--grayest);
+#user {
+    border-right: 2px solid var(--grayer);
+    padding-top: clamp(6px, 4vh, 18px);
+}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: "left";
+    column-gap: clamp(3px, 3vmin, 12px);
+    padding-left: 1em;
+}
+
+#profile img {
+    border-radius: 50%;
+    display: inline-block;
+    width: clamp(60px, 7vh, 90px);
+    height: clamp(60px, 7vh, 90px);
+    object-fit: cover;
+}
+
+#sidebar_buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: clamp(3px, 5vh, 12px);
+}
+
+
+#main {
+    padding: clamp(6px, 4vh, 18px) clamp(12px, 6vw, 48px);
+    overflow-y: auto;
 }

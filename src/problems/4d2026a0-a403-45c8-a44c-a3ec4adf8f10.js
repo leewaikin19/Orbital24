@@ -22,7 +22,7 @@ export default function Nim() {
                 }}><span>Start New Game</span></button>
             </div>
             <div id='card_container' style={{display:"flex", flexDirection:"row", margin:"1vh 1vw", rowGap:"1vh", columnGap:"1vw", flexWrap:"wrap", justifyContent:"center"}}></div>
-            <div id='sucess_message' style={{textAlign:"center"}}></div>
+            <p id='sucess_message' style={{textAlign:"center"}}></p>
             <button id='end_player_turn' className="action_button animated_button" style={{display:"none"}}><span id='end_turn'>Let Computer Go First</span></button>
         </>
     )}
@@ -139,14 +139,14 @@ export default function Nim() {
         return (
         <>
             <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                Which player is guaranteed a win? <br/>
+                <p>Which player is guaranteed a win?</p> <br/>
                 <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
                     <template.MCQInput id="first" name='first' value='First' onClick={() => template.select(document.getElementById("first"), document.getElementById("mcq"))}/>
                     <template.MCQInput id="second" name='second' value='Second' onClick={() => template.select(document.getElementById("second"), document.getElementById("mcq"))}/>
                 </div>
             </div>
             <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                What strategy should the player use to always guarantee a win? <br/>
+                <p>What strategy should the player use to always guarantee a win?</p> <br/>
                 <template.TextArea name='solution' value={solution} setValue={setSolution} placeholder='Describe Your Strategy' required/>
             </div>
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "4d2026a0-a403-45c8-a44c-a3ec4adf8f10", solution)}><span>Submit Solution</span></button> 

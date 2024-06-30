@@ -71,17 +71,30 @@ function Login({ setPage }) {
     document.title = 'Signup/Login';
 
     async function clickLogin() {
-        const resp = await API.login(username, password);
-        if (resp.success) {
-            template.setCookie('token', resp.reply.token)
-            window.location.href = 'home';
+        if (username === "" || password === "") {
+            document.getElementById('incorrect').style.color = 'var(--red)';
+            return;
         } else {
-            template.handleErrors(resp.msg);
+            const resp = await API.login(username, password);
+            if (resp.success) {
+                template.setCookie('token', resp.reply.token)
+                window.location.href = 'home';
+            } else {
+                template.handleErrors(resp.msg);
+                document.getElementById('incorrect').style.color = 'var(--red)';
+                document.getElementById('incorrect').innerHTML = 'Incorrect username or password';
+            }
         }
     }
+    
+    addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            clickLogin();
+        }
+    })
 
     return (
-        <div className="form_container">
+        <div style={{width:"100%"}}>
             <form>
                 <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username' />
                 <template.FormInput type='password' name='password' value={password} setValue={setPassword} placeholder='Password' />
@@ -96,7 +109,7 @@ function Login({ setPage }) {
                         <span>Log In</span>
                     </button>
                 </div>
-                <div className="error" id="incorrect"></div>
+                <p className="error" id="incorrect">Please fill out all the fields</p>
             </form>
         </div>
     )
@@ -112,7 +125,12 @@ function Signup() {
     document.title = 'Signup/Login';
 
     async function clickSignup() {
-        if (password1 === password2) {
+        if (username === "" || firstName === "" || lastName === "" || email === "" || password1 === "" || password2 === "") {
+            document.getElementById('unequal').style.color = 'var(--red)';
+            document.getElementById('unequal').innerHTML = 'Please fill out all fields';
+        } else if (password1 === password2) {
+            document.getElementById('unequal').style.color = 'var(--grayest)';
+            document.getElementById('password2').style.border = '2px solid var(--grayer)';
             const resp = await API.signup(firstName, lastName, email, username, password1);
             if (resp.success) {
                 template.setCookie('token', resp.reply.token)
@@ -121,20 +139,21 @@ function Signup() {
                 template.handleErrors(resp.msg);
             }
         } else {
-            // TODOM message to user if password no match
+            document.getElementById('unequal').style.color = 'var(--red)';
+            document.getElementById('password2').style.border = '2px solid var(--red)';
+            document.getElementById('password2').focus();
         }
     }
+
+    addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            clickSignup();
+        }
+    })
+
     return (
-        <div className="form_container">
-            <form action='signup'>
-                <div style={{ display: 'flex', flexDirection: 'row', columnGap: "clamp(3px, 3vw, 12px)" }}>
-                    <template.FormInput name='firstName' value={firstName} setValue={setFirstName} placeholder='First Name' />
-                    <template.FormInput name='lastName' value={lastName} setValue={setLastName} placeholder='Last Name' />
-                </div>
-                <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email' />
-                <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username' />
-                <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password' />
-                <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password' />
+        <div style={{width:"100%"}}>
+            <form className="section" action='signup'>
                 <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
                 <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
                 <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
@@ -148,6 +167,7 @@ function Signup() {
                     </button>
                 </div>
             </form>
+            <p className="error unselectable" id="unequal">Passwords do not match</p>
         </div>
     )
 }
@@ -158,15 +178,14 @@ function Forgotpw({ setPage }) {
 
     function handleForgotPw() {
         setPage(FORGOT_PW_LANDING);
-        // TODOM handle forgot pw
     }
 
     return (
         <div style={{ width: '100%' }}>
             <div id="outer_form_container">
-                <div id="forgot_pw" className="form_container">
+                <div style={{width:"100%"}}>
                     <form action="signup()">
-                        Please enter your email address.
+                        <p>Please enter your email address.</p>
                         <template.FormInput type='email' name='email' value={email} setValue={setEmail} placeholder='Email' />
                         <div className="smalllink">
                             <div onClick={() => setPage(SIGNUP_LOGIN)}>
@@ -193,8 +212,8 @@ function Forgotpwlanding({ setPage }) {
     return (
         <div style={{ width: '100%' }}>
             <div id="outer_form_container">
-                <div id="forgot_pw" className="form_container">
-                    Check your inbox for the instructions to reset your password.
+                <div style={{width:"100%"}}>
+                    <p>Feature to be implemented soon.</p>
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                         <button className="animated_button action_button"
                             onClick={() => setPage(SIGNUP_LOGIN)}>

@@ -68,7 +68,7 @@ function Problem(){
   )  
 }
 
-// TODOM @LWK19 - Implement Submission component
+// TODOM @LWK19 - Implement Submission page
 function Submission(){
 //   const [loading, setLoading] = useState(true);
 //   const page = useRef(null);
