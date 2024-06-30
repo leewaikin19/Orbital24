@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="36.775936mm"
+   height="8.7455263mm"
+   viewBox="0 0 36.775936 8.7455263"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <rect
+       x="3587.5312"
+       y="1469.6635"
+       width="633.54059"
+       height="83.693214"
+       id="rect56-2-3-4" />
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-13.871559,-143.25749)">
+    <g
+       id="g56-1-9-7"
+       transform="matrix(0.30234145,0,0,0.30234145,-293.60501,50.086604)"
+       style="display:inline">
+      <rect
+         style="fill:#f6ac97;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.18457;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         id="rect55-4-4-72"
+         width="95.635635"
+         height="28.903374"
+         x="1029.9852"
+         y="308.17575" />
+      <path
+         style="fill:#f6ac97;fill-opacity:1;stroke:none;stroke-width:0.242002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 1029.9852,308.16445 c 0,0 -13.0007,0 -13.0007,14.46299 0,14.46296 13.0007,14.46299 13.0007,14.46299 v -28.92598 0"
+         id="path56-1-9-0" />
+      <path
+         style="display:inline;fill:#f6ac97;fill-opacity:1;stroke:none;stroke-width:0.242002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 1125.6209,308.16445 c 0,0 13.0007,0 13.0007,14.46299 0,14.46296 -13.0007,14.46299 -13.0007,14.46299 v -28.92598 0"
+         id="path56-5-4-1-90" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,86.368233,-79.304459)"
+         id="text56-16-5-71"
+         style="font-size:72px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:Helvetica;white-space:pre;shape-inside:url(#rect56-2-3-4);display:inline"><tspan
+           x="3587.5312"
+           y="1537.3647"
+           id="tspan2"><tspan
+             style="font-family:Satoshi;-inkscape-font-specification:Satoshi"
+             id="tspan1">Very Hard</tspan></tspan></text>
+    </g>
+  </g>
+</svg>

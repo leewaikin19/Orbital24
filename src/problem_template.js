@@ -1,16 +1,8 @@
 /* eslint-disable */
 import { useState, useId, createRef } from 'react'
-import * as API from './API.js'
 import * as template from "./template.js"
 
-export function MainContent({title, description, sandbox, hints, solution}) { 
-    function arrayiser() {
-        var arr = [];
-        for(let i = 0; i < hints.length; i++) {
-            arr.push({"index": i + 1, "hints": hints[i]});
-        }
-        return arr;
-    }
+export function MainContent({title, description, sandbox, hints, impt_note, solution}) { 
     return (
         <div className='problems'>
             <>
@@ -20,14 +12,18 @@ export function MainContent({title, description, sandbox, hints, solution}) {
                 <p>{description}</p>
             </div>
             {sandbox}
-            {arrayiser().map((hint) => {
+            {impt_note.map((note) => {
                 return(
-                    <Hints title={"Hint " + hint.index} desc={hint.hints} />
+                    <impt_note note={note} />
+                )
+            })}
+            {hints.map((hint, index) => {
+                return(
+                    <Hints title={"Hint " + index} desc={hint.hints} />
                 )
             })}
             <h2>Submission</h2>
             {solution}
-
             {/* TODOM @LWK19 < problems.Forum  /> */}
         </div>
     )
@@ -71,6 +67,31 @@ export function Hints({title, desc}) {
                 <div className='content' ref={contentRef}>
                     {desc}
                 </div>) : null}
+            </div>
+        </div>
+    )
+}
+
+export function Srq({question, placeholder = "Enter your answer here"}) {
+    const [solution, setSolution] = useState("");
+    return(
+        <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+            <p>{question}</p> <br/>
+            <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder={placeholder} required/>
+        </div>
+    )
+}
+
+export function Mcq({question, options}) {
+    return(
+        <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
+                <p>{question}</p> <br/>
+                <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
+                    {options.filter(option => option!= '').map((option) => {
+                        return(
+                            <template.MCQInput id={option} name={option} value={option} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))}/>
+                        )
+                    })}
             </div>
         </div>
     )

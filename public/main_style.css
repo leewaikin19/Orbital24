@@ -103,6 +103,7 @@ td {
     background-color: var(--grayest);
     color: var(--lightgray);
     padding: 0.5em 1em;
+    vertical-align: bottom;
 }
 
 tr th {

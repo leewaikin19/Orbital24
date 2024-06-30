@@ -32,8 +32,12 @@ function MainContent() {
 
     return (
         <>
-            <template.TextArea name="Title" value={title} setValue={setTitle} placeholder={"Enter Title"} style={{fontSize:"var(--title)", fontWeight: 900, color:"var(--orange)"}} />
-            <template.TextArea name="Statement" value={statement} setValue={setStatement} placeholder={"Enter Problem Statement"} />
+            <div className='section'>
+                <template.TextArea name="Title" value={title} setValue={setTitle} placeholder={"Enter Title"} style={{fontSize:"var(--title)", fontWeight: 900, color:"var(--orange)"}} />
+            </div>
+            <div className='section'>
+                <template.TextArea name="Statement" value={statement} setValue={setStatement} placeholder={"Enter Problem Statement"} />
+            </div>
             <div id='sandbox_container' className='section'>
                 <h2>Sandbox</h2>
                 <template.TextArea name="Statement" value={statement} setValue={setStatement} placeholder={"Describe the Sandbox"} />
@@ -52,14 +56,14 @@ function MainContent() {
             </div>
             <div className='section'>
                 <h2>Submission</h2>
-                <div id='mcq_container'>
+                <div id='mcq_container' className='section'>
                     {mcqs.map((i, index) => {return(
                         <>
-                            <div className='form_input'>
+                            <div className='form_input section'>
                                 <textarea id={"MCQ " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
                             </div>
                             {/* TODOM Figure out how to do these better*/}
-                            <div className='form_input' id={index} style={{display:"flex", flexDirection:"column"}}>
+                            <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
                                 <template.MCQInput id={"A" + index} name='A' value='A' content={<textarea id={"A " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[0] = i}, "A " + index)} style={{width:"80%"}} placeholder={"Enter First Option"}/>} onClick={() => McqHandler("A", index)}/>
                                 <template.MCQInput id={"B" + index} name='B' value='B' content={<textarea id={"B " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[1] = i}, "B " + index)} style={{width:"80%"}} placeholder={"Enter Second Option"}/>} onClick={() => McqHandler("B", index)}/>
                                 <template.MCQInput id={"C" + index} name='C' value='C' content={<textarea id={"C " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[2] = i}, "C " + index)} style={{width:"80%"}} placeholder={"Enter Third Option"}/>} onClick={() => McqHandler("C", index)}/>
@@ -69,18 +73,18 @@ function MainContent() {
                         </>
                     )})}
                 </div>
-                <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                     <button className='action_button animated_button' onClick={() => setMCQs(mcqs => [...mcqs, {"qn": "", "options":["", "", "", "", ""], "an": ""}])}><span>Add New Multiple Choice Question</span></button>
                 </div>
-                <div id='srq_container'>
+                <div id='srq_container' className='section '>
                     {srqs.map((i, index) => {return(
-                        <div className='form_input'>
+                        <div className='form_input section'>
                             <textarea id={"SRQ " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].qn = i}, "SRQ " + index)} placeholder={"Enter Short Response Question " + (index + 1)}/>
                             <textarea id={"SRQAns " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].an = i}, "SRQAns " + index)} placeholder={"Enter Answer " + (index + 1)}/>
                         </div>
                     )})}
                 </div>
-                <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                     <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>

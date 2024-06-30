@@ -31,11 +31,11 @@ function MainContent({assessableProblems, createdProblems}) {
                 <h1>Created Problems</h1>
                 <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(
                     (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
-                <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
-                        <i class="fa-solid fa-plus"></i> {" "}
-                        <span>Create New Problem</span>
-                </button>
             </div>
+            <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
+                    <i class="fa-solid fa-plus"></i> {" "}
+                    <span>Create New Problem</span>
+            </button>
         </>
     )
 }

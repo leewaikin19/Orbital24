@@ -24,11 +24,11 @@ export default function Dashboard() {
     })
     const promise = Promise.all([promise1, promise2, promise3])
     return (
-        < template.Home MainContent={() => (<MainContent solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent pendingSubmissions={[]} solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
     ) 
 }
 
-function MainContent({solvedProblems, tournaments, user}) {
+function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
     const [username, setUsername] = useState(user.username);
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
@@ -46,13 +46,13 @@ function MainContent({solvedProblems, tournaments, user}) {
         <>
             <div className='section'>
                 <h1>Pending Submissions</h1>
-                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={user.pendingSubmissions.map(
-                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={pendingSubmissions.map(
+                    (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Solved Problems</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={solvedProblems.map(
-                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+                    (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Past Tournaments</h1>

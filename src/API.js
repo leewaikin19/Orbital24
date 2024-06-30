@@ -85,7 +85,7 @@ export async function leaderboard(token) {
     return resp;
 }
 
-// TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
+// TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "", impt_notes = [""], hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
 export async function createProblem(token, title, statement, hints, difficulty) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'hints':hints, 'difficulty':difficulty});
@@ -138,5 +138,12 @@ export async function gradeSubmission(token, submissionID, correct) {
 // TODO @LWK19 export async function getAssessableProblems(token) {
 //     // resp.success=true returns reply = []
 //     var resp = await post({ 'mode': 'main', 'method':'getAssessableProblems','token':token });
+//     return resp;
+// }
+
+// Return all problems that user attempted but not yet correct
+// TODO @LWK19 export async function getPendingSubmissions(token) {
+//     // resp.success=true returns reply = []
+//     var resp = await post({ 'mode': 'main', 'method':'getPendingSubmissions','token':token });
 //     return resp;
 // }
