@@ -2,7 +2,7 @@
 import { useState, useId, createRef } from 'react'
 import * as template from "./template.js"
 
-export function MainContent({title, description, sandbox, hints, impt_note, solution}) { 
+export function MainContent({title, description, sandbox, hints, solution}) { 
     return (
         <div className='problems'>
             <>
@@ -12,14 +12,9 @@ export function MainContent({title, description, sandbox, hints, impt_note, solu
                 <p>{description}</p>
             </div>
             {sandbox}
-            {impt_note.map((note) => {
-                return(
-                    <impt_note note={note} />
-                )
-            })}
             {hints.map((hint, index) => {
                 return(
-                    <Hints title={"Hint " + index} desc={hint.hints} />
+                    <Hints title={"Hint " + (index + 1)} desc={hint.hints} />
                 )
             })}
             <h2>Submission</h2>

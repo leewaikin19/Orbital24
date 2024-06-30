@@ -38,7 +38,7 @@ export default function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="418" element={<P418 />} />
             <Route path="tournaments" element={<Tournaments />} />
-            <Route path="createassessprobems" element={<CreateAssess />} />
+            <Route path="createassessprobems" element={<Create />} />
             <Route path="leaderboards" element={<Leaderboards />} />
             <Route path="bugs" element={<Bugs />} />
             <Route path="posts" element={<Posts />} />

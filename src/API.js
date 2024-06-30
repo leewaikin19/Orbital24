@@ -85,8 +85,8 @@ export async function leaderboard(token) {
     return resp;
 }
 
-// TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "", impt_notes = [""], hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
-export async function createProblem(token, title, statement, hints, difficulty) {
+// TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "",  = [""], hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
+export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}], autograded) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'xp':xp, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded});
     return resp;
