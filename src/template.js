@@ -2,7 +2,7 @@ import { useRef, useState, React} from 'react'
 import * as API from './API.js'
 /* eslint-disable */
 
-export class FormInput extends HTMLInputElement {
+class FormInpu extends HTMLInputElement {
     render () {
         return (
             <div className="form_input">
