@@ -98,9 +98,10 @@ export default function PigeonHole() {
         return (
         <>
             <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                How many cards would you take? <br/>
                 <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder='Enter how many cards you will take' required/>
             </div>
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", {solution})}><span>Submit Solution</span></button> 
+            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 
         </>
     )}
 
