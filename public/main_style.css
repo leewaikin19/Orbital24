@@ -61,6 +61,7 @@ a, span {
       0 100% /var(--d, 0) 2px 
     no-repeat;
     transition:0.4s;
+    cursor: pointer;
 }
 
 a {
@@ -69,6 +70,10 @@ a {
 }
 
 a:hover {
+    --d: 100%;
+}
+
+span:hover {
     --d: 100%;
 }
 

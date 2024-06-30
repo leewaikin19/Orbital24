@@ -178,15 +178,14 @@ function Forgotpw({ setPage }) {
 
     function handleForgotPw() {
         setPage(FORGOT_PW_LANDING);
-        // TODOM handle forgot pw
     }
 
     return (
         <div style={{ width: '100%' }}>
             <div id="outer_form_container">
-                <div id="forgot_pw" className="form_container">
+                <div style={{width:"100%"}}>
                     <form action="signup()">
-                        Please enter your email address.
+                        <p>Please enter your email address.</p>
                         <template.FormInput type='email' name='email' value={email} setValue={setEmail} placeholder='Email' />
                         <div className="smalllink">
                             <div onClick={() => setPage(SIGNUP_LOGIN)}>
@@ -213,8 +212,8 @@ function Forgotpwlanding({ setPage }) {
     return (
         <div style={{ width: '100%' }}>
             <div id="outer_form_container">
-                <div id="forgot_pw" className="form_container">
-                    Check your inbox for the instructions to reset your password.
+                <div style={{width:"100%"}}>
+                    <p>Feature to be implemented soon.</p>
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                         <button className="animated_button action_button"
                             onClick={() => setPage(SIGNUP_LOGIN)}>
