@@ -18,23 +18,10 @@ export default function Submissions() {
 function MainContent({submissions}) { 
 
     return (
-        
                 <div className='section'>
                     <h1>My Submissions</h1>
-                    <table>
-                        <tr>
-                            <th>Submissions</th>
-                        </tr>
-                        {submissions.length > 0 ? submissions.map(sub => {
-                            <tr>
-                                <td>{sub}</td>
-                            </tr>
-                        }) : (
-                            <tr style={{textAlign:"center"}}>
-                                <td>No Submission Records Found</td>
-                            </tr>
-                            )}
-                    </table>
+                    <template.StaticTable id="solved_problems" headers={['Submissions']} width={[7]} data={submissions.map(
+                        (sub) => ([sub]))} />
                 </div>
     )
 }

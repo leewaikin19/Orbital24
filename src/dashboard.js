@@ -29,19 +29,6 @@ export default function Dashboard() {
 }
 
 function MainContent({solvedProblems, tournaments, user}) {
-    function entry(desc, exp, link) {
-        return(
-            <tr>
-                <td>
-                    <a href={link}><span>{desc}</span></a>
-                </td>
-                <td>
-                    {exp}
-                </td>
-            </tr>
-        )
-    }
-
     const [username, setUsername] = useState(user.username);
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
@@ -59,7 +46,8 @@ function MainContent({solvedProblems, tournaments, user}) {
         <>
             <div className='section'>
                 <h1>Pending Submissions</h1>
-                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={user.pendingSubmissions.map((problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={user.pendingSubmissions.map(
+                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Solved Problems</h1>
