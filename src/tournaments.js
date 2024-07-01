@@ -28,7 +28,7 @@ function MainContent({tournaments, problems}) {
                 <div className='section'>
                     <h1>{tournament.title}</h1>
                     <template.StaticTable id = {tournament.title} headers = {["Problem Set"]} width = {[1]} data={tournament.problems.map(id => problems.find(x => x.id === id)).map((problem) => [(
-                        <a href={'problems/' + problem.id}>{problem.title}</a> 
+                        <><a href={'problems/' + problem.id}>{problem.title}</a><img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></> 
                     )])}/>
                 </div>
             ))}
