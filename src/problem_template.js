@@ -14,7 +14,7 @@ export function MainContent({title, description, sandbox, hints, solution}) {
             {sandbox}
             {hints.map((hint, index) => {
                 return(
-                    <Hints title={"Hint " + (index + 1)} desc={hint.hints} />
+                    <Hints title={"Hint " + (index + 1)} desc={hint} />
                 )
             })}
             <h2>Submission</h2>
