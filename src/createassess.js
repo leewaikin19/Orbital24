@@ -28,22 +28,24 @@ export default function CreateAssess() {
 
     const promise = Promise.all([promise1, promise2, promise3])
     return (
-        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current} />)} SSelected={'createassessprobems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current} approvedProblems={approvedProblems.current} />)} SSelected={'createassessprobems'} promise={promise} />
     ) 
 }
 
-function MainContent({assessableProblems, createdProblems}) {
+function MainContent({assessableProblems, createdProblems, approvedProblems}) {
     return (
         <>
             <div className='section'>
                 <h1>Assess Others' Problems</h1>
                 <template.StaticTable id = "assessable_problems" headers={["Problem Title"]} width={[1]} data={assessableProblems.map(
-                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
             </div>
             <div className='section'>
                 <h1>Created Problems</h1>
                 <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(
-                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.xp]))} />
+                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, "Pending"])).concat(approvedProblems.map(
+                        (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, 'Approved'])
+                    ))} />
             </div>
             <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
                     <i class="fa-solid fa-plus"></i> {" "}

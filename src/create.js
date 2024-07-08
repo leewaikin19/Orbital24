@@ -31,7 +31,7 @@ function MainContent() {
     }
 
     function saveProblem() {
-        //TODOM theres the xp value and difficulty, not sure if you need both
+        //TODO @LWK19 theres the xp value and difficulty, not sure if you need both. Yes (Dom)
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
         const TEMPORARY_AUTOGRADED_VALUE = true;
@@ -103,7 +103,6 @@ function MainContent() {
                 </div>
             </div>
             <button id='create_hint' className='action_button animated_button' onClick={saveProblem}><span>Save Problem</span></button>
-            {/* TODOM update API call after it's been fully implemented */}
         </>
     )
 }

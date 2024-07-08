@@ -332,6 +332,13 @@ input:-webkit-autofill {
     border-bottom: 2px solid var(--lightgray);
 }
 
+.problem_flair { 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 2em;
+}
+
 .outer_grid {
     font-size: var(--text);
     display: grid;

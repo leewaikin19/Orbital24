@@ -30,7 +30,7 @@ export default function Dashboard() {
     })
     const promise = Promise.all([promise1, promise2, promise3, promise4])
     return (
-        < template.Home MainContent={() => (<MainContent pendingSubmissions={[]} solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent pendingSubmissions={pendingSubmissions.current} solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
     ) 
 }
 
@@ -53,12 +53,12 @@ function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
             <div className='section'>
                 <h1>Pending Submissions</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={pendingSubmissions.map(
-                    (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Solved Problems</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={solvedProblems.map(
-                    (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Past Tournaments</h1>
