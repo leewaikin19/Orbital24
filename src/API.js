@@ -85,15 +85,12 @@ export async function leaderboard(token) {
     return resp;
 }
 
-// TODO @LWK19 - export async function createProblem(token, title, statement, sandbox = "",  = [""], hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
 export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}], autograded) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'xp':xp, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded});
     return resp;
 }
 
-// TODOM done updateProblem(token, title, statement, sandbox = "", hints, difficulty, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}]) {
-// TODOM updateProblem implies that the ID is known. Need ID included
 export async function updateProblem(token, questionID, title, statement, sandbox, hints, difficulty, mcqs, srqs, pending, autograded) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'questionID':questionID, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded, 'pending':pending});
@@ -122,8 +119,7 @@ export async function getSubmissions(token, problemID) {
 
 export async function getSubmission(token, submissionID) {
     // resp.success=true returns reply
-    // TODOM done reply.datetime, reply.mcqs = [], reply.srqs = []
-    // TODOM reply.datetime, reply.submission
+    // reply.datetime, reply.submission
     // whatever the submission object is you can define, its not touched in the backend
     var resp = await post({ 'mode': 'main', 'method':'getSubmission','token':token, 'submissionID':submissionID });
     return resp;
