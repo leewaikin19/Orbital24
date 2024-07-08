@@ -20,7 +20,7 @@ function MainContent({problems}) {
     return (<>
         <h1>Explore Problems</h1>
         <template.StaticTable id="explore_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={problems.map(
-            (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a><img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
+            (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a><img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></>, problem.xp]))} />
     </>
     )
 }

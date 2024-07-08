@@ -32,10 +32,10 @@ function MainContent({ solvedProblems, unsolvedProblems }) {
         <>
             <h1>Recommended Problems</h1>
             <template.StaticTable id="recommended_problems" headers={['Problem Title', 'Exp']} width={[7, 1]} data={unsolvedProblems.map(
-                (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
+                (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             <h1>Solved Problems</h1>
             <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7, 1]} data={solvedProblems.map(
-                (problem) => ([<><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".svg"}></img></>, problem.xp]))} />
+                (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
         </>
     )
 }
