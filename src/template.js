@@ -79,9 +79,11 @@ export function TextArea({name, id=name, value="", setValue, placeholder, style,
     )
 }
 
-export function MCQInput( {name, id=name, value="", content=value, onClick}) {
+export function MCQInput( {name, id=name, value="", content=value, onClick, preselected = false}) {
     return (
-        <button name={name} id={id} value={value} className='action_button animated_button mcq_button' onClick={onClick}><span>{content}</span></button>
+        <>
+             <button name={name} id={id} value={value} className={'animated_button mcq_button ' + (preselected ? 'selected_mcq_button' : '')} onClick={onClick} style={{marginBottom:"0.5em"}}>{content}</button>
+        </>
     )
 }
 
@@ -89,8 +91,10 @@ export function select(choice, container) {
     // Conversion to array adapted from: https://stackoverflow.com/questions/5158338/how-to-convert-a-collection-to-an-array-in-javascript
     const children = Array.from(container.children);
     children.forEach((child) => {
-        if (child === choice) {
+        if (child === choice && !child.classList.contains('selected_mcq_button')) {
             child.classList.add('selected_mcq_button');
+        } else if (child === choice && child.classList.contains('selected_mcq_button')) {
+            child.classList.remove('selected_mcq_button');
         } else {
             child.classList.remove('selected_mcq_button');
         }

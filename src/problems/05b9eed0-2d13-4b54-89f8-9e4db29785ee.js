@@ -92,19 +92,7 @@ export default function PigeonHole() {
         }
     }
 
-    const sol = () => { 
-        const [solution, setSolution] = useState("");
-        return (
-        <>
-            <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                <p>How many cards would you take?</p> <br/>
-                <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder='Enter how many cards you will take' required/>
-            </div>
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee", solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 
-        </>
-    )}
-
     return (
-        < template.Home MainContent={() => (<problems.MainContent title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} solution={sol()} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent id={problem.id} title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} mcqs={problem.current.mcqs} srqs={problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

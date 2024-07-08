@@ -52,8 +52,10 @@ function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
         <>
             <div className='section'>
                 <h1>Pending Submissions</h1>
-                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={pendingSubmissions.map(
-                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
+                <template.StaticTable id="solved_problems" headers={['Problem Title', 'Submission Time']} width={[1,1]} data={pendingSubmissions.map(
+                    //TODOM - Submission Page
+                    //TODO @LWK19 help with the problems title routing
+                    (submissions) => ([<a href={'problems/' + submissions.questionID}>title</a>, <a href={'submissions/' + submissions.id}>{new Date(submissions.datetime).toLocaleString()}</a>]))} />
             </div>
             <div className='section'>
                 <h1>Solved Problems</h1>

@@ -12,9 +12,9 @@
     --gray: #cdcdcd;
     --green: #57b000;
     --lightgray: #ededed;
-    --title: clamp(24px, 15vmin, 44px);
-    --topic: clamp(20px, 10vmin, 36px);
-    --subtopic: clamp(20px, 8vmin, 30px);
+    --title: clamp(36px, 15vmin, 44px);
+    --topic: clamp(26px, 10vmin, 36px);
+    --subtopic: clamp(20px, 6vmin, 26px);
     --text: clamp(16px, 4vmin, 20px);
 }
 
@@ -30,13 +30,57 @@ body {
     width: 100%;
     height: 100%;
 }
+.outer_grid {
+    font-size: var(--text);
+    display: grid;
+    grid-template-rows: 7vh 93vh
+}
+
+.inner_grid {
+    font-size: var(--text);
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+#user {
+    border-right: 2px solid var(--grayer);
+    padding-top: clamp(6px, 4vh, 18px);
+}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: "left";
+    column-gap: clamp(3px, 3vmin, 12px);
+    padding-left: 1em;
+}
+
+#profile img {
+    border-radius: 50%;
+    display: inline-block;
+    width: clamp(60px, 7vh, 90px);
+    height: clamp(60px, 7vh, 90px);
+    object-fit: cover;
+}
+
+#sidebar_buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: clamp(3px, 5vh, 12px);
+}
+
+#main {
+    padding: clamp(6px, 4vh, 18px) clamp(12px, 6vw, 48px);
+    overflow-y: auto;
+}
 
 h1 {
     font-family: 'Satoshi';
     font-size: var(--title);
     font-weight: 900;
     color: var(--orange);
-    margin-bottom: 0.2em;
+    margin: 0px;
 }
 
 h2 {
@@ -47,11 +91,19 @@ h2 {
     margin: 0px;
 }
 
+h3 {
+    font-family: 'Satoshi';
+    font-size: var(--subtopic);
+    font-weight: 400;
+    color: var(--orange);
+    margin: 0px;
+}
+
 p,b {
     font-family: 'Satoshi';
     font-size: var(--text);
     color: var(--lightgray);
-    margin-bottom: 1em;
+    margin: 0px;
 }
 
 /* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
@@ -61,7 +113,7 @@ a, span {
       linear-gradient(currentColor 0 0) 
       0 100% /var(--d, 0) 2px 
     no-repeat;
-    transition:0.4s;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
@@ -140,7 +192,7 @@ form {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    cursor: pointer;
+    cursor: default;
 }
 
 .form_input {
@@ -277,7 +329,7 @@ input:-webkit-autofill {
 .side_button {
     padding-left: 3vw;
     height: max(60px, 4em);
-    transition: padding 0.4s ease;
+    transition: padding 0.2s ease;
     text-align: left;
     font-weight: 400;
 }
@@ -301,11 +353,34 @@ input:-webkit-autofill {
 }
 
 .mcq_button {
+    border: 3px solid var(--grayer);
     padding: 1vh 1vw;
+    text-align: left;
+    width: 100%;
+}
+
+.mcq_button:hover {
+    color: var(--orange);
 }
 
 .selected_mcq_button {
+    border: 3px solid var(--orange);
     background-color: var(--orange);
+}
+
+.selected_mcq_button span {
+    color: var(--grayest);
+}
+
+.create_mcq_options {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    column-gap: 3em;
+}
+
+.create_mcq_options b {
+    margin: 0px;
     color: var(--grayest);
 }
 
@@ -339,48 +414,24 @@ input:-webkit-autofill {
     column-gap: 2em;
 }
 
-.outer_grid {
-    font-size: var(--text);
-    display: grid;
-    grid-template-rows: 7vh 93vh
+#approve_button {
+    border: 3px solid var(--green);
+    color: var(--green);
 }
 
-.inner_grid {
-    font-size: var(--text);
-    display: grid;
-    grid-template-columns: 1fr 4fr;
+#approve_button:hover {
+    background-color: var(--green);
+    border: 3px solid var(--green);
+    color: var(--grayest);
 }
 
-#user {
-    border-right: 2px solid var(--grayer);
-    padding-top: clamp(6px, 4vh, 18px);
+#reject_button {
+    border: 3px solid var(--red);
+    color: var(--red);
 }
 
-#profile {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: "left";
-    column-gap: clamp(3px, 3vmin, 12px);
-    padding-left: 1em;
-}
-
-#profile img {
-    border-radius: 50%;
-    display: inline-block;
-    width: clamp(60px, 7vh, 90px);
-    height: clamp(60px, 7vh, 90px);
-    object-fit: cover;
-}
-
-#sidebar_buttons {
-    display: flex;
-    flex-direction: column;
-    margin-top: clamp(3px, 5vh, 12px);
-}
-
-
-#main {
-    padding: clamp(6px, 4vh, 18px) clamp(12px, 6vw, 48px);
-    overflow-y: auto;
+#reject_button:hover {
+    background-color: var(--red);
+    border: 3px solid var(--red);
+    color: var(--grayest);
 }

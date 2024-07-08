@@ -1,24 +1,32 @@
 /* eslint-disable */
 import { useState, useId, createRef } from 'react'
 import * as template from "./template.js"
+import * as API from './API.js'
 
-export function MainContent({title, description, sandbox, hints, solution}) { 
+export function MainContent({id, title, description, sandbox, hints, mcqs, srqs}) { 
     return (
         <div className='problems'>
-            <>
-                <h1>{title}</h1>
-            </>
-            <div className='description'>
-                <p>{description}</p>
-            </div>
+            <h1>{title}</h1>
+            <p>{description}</p>
             {sandbox}
             {hints.map((hint, index) => {
                 return(
                     <Hints title={"Hint " + (index + 1)} desc={hint} />
                 )
             })}
-            <h2>Submission</h2>
-            {solution}
+            <h2 style={{marginBottom:"0.3em"}}>Submission</h2>
+            {mcqs.map((mcq, i) => {
+                return(
+                    <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} />
+                )
+            })}
+            {srqs.map((srq, i) => {
+                return(
+                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" />
+                )
+            })}
+            {/* TODO @LWK19 cyclic object value error. Idk what it means */}
+            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 
             {/* TODOM @LWK19 < problems.Forum  /> */}
         </div>
     )
@@ -36,6 +44,7 @@ export function impt_note({note}) {
         </div>
     )
 }
+
 // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
 export function Hints({title, desc}) {
     const chevronRef= createRef();
@@ -67,24 +76,26 @@ export function Hints({title, desc}) {
     )
 }
 
-export function Srq({question, placeholder = "Enter your answer here"}) {
+export function Srq({index, question, placeholder = "Enter your answer here"}) {
     const [solution, setSolution] = useState("");
     return(
-        <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-            <p>{question}</p> <br/>
+        <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
+            <b>Short Response Question {index}</b> 
+            <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
             <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder={placeholder} required/>
         </div>
     )
 }
 
-export function Mcq({question, options}) {
+export function Mcq({index, question, options}) {
     return(
-        <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                <p>{question}</p> <br/>
-                <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
+        <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
+            <b>Multiple Choice Question {index}</b> 
+            <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
+            <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
                     {options.filter(option => option!= '').map((option) => {
                         return(
-                            <template.MCQInput id={option} name={option} value={option} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))}/>
+                            <template.MCQInput id={option} name={option} value={option} content={<span>{option}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))}/>
                         )
                     })}
             </div>

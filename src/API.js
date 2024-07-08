@@ -112,7 +112,7 @@ export async function getTournament(token) {
 }
 
 export async function getSubmissions(token, problemID) {
-    // resp.success=true returns reply submission struct tbc reply.submissionID = []
+    // resp.success=true returns reply.submissionID = []
     var resp = await post({ 'mode': 'main', 'method':'getSubmissions', 'token':token, 'problemID':problemID });
     return resp;
 }

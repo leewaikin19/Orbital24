@@ -16,6 +16,8 @@ import Posts from './posts';
 import Explore from './explore';
 import Create from './create'
 import Grade from './grade'
+import AssessEdit from './assess';
+import Submissions from './submissions';
 import * as template from './template'
 
 export default function App() {
@@ -30,8 +32,12 @@ export default function App() {
               <Route path='*' element={<Problem/>}/>
             </Route>
             <Route path='submissions'> 
-              <Route path='/submissions' element={<Explore />}/>
-              <Route path='*' element={<Submission/>}/>
+              <Route path='/submissions' element={<Submissions />}/>
+              <Route path='*' element={<Submissions/>}/>
+            </Route>
+            <Route path='assess'> 
+              <Route path='/assess' element={<Explore/>}/>
+              <Route path='*' element={<AssessEdit/>}/>
             </Route>
             <Route path="home" element={<Homepage />} />
             <Route path="otp" element={<Otp />} />
@@ -84,6 +90,24 @@ function Submission(){
   return (
       <>{loading ? <template.Loader/> : page.current}</>
   )  
+}
+
+// TODOM @LWK19 - Module not Found: Cant resolve './assess/'
+function Assess(){
+  // const [loading, setLoading] = useState(true);
+  // const page = useRef(null);
+
+  // const id = window.location.href.split('/').at(-1);
+  // const k = import('./assess/'+id).then((r) => {
+  //   page.current = <r.default />
+  //   setLoading(false);
+  // }).catch((e) => {
+  //   window.location.href = '../assess'
+  // })
+
+  // return (
+  //     <>{loading ? <template.Loader/> : page.current}</>
+  // )  
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

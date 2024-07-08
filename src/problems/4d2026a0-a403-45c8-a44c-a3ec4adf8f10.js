@@ -134,26 +134,7 @@ export default function Nim() {
         end_player_turn.onclick = () => {end_player_move()}
     }
 
-    const sol = () => { 
-        const [solution, setSolution] = useState("");
-        return (
-        <>
-            <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                <p>Which player is guaranteed a win?</p> <br/>
-                <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                    <template.MCQInput id="first" name='first' value='First' onClick={() => template.select(document.getElementById("first"), document.getElementById("mcq"))}/>
-                    <template.MCQInput id="second" name='second' value='Second' onClick={() => template.select(document.getElementById("second"), document.getElementById("mcq"))}/>
-                </div>
-            </div>
-            <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"left"}}>
-                <p>What strategy should the player use to always guarantee a win?</p> <br/>
-                <template.TextArea name='solution' value={solution} setValue={setSolution} placeholder='Describe Your Strategy' required/>
-            </div>
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), "4d2026a0-a403-45c8-a44c-a3ec4adf8f10", solution)}><span>Submit Solution</span></button> 
-        </>
-    )}
-
     return (
-        < template.Home MainContent={() => (<problems.MainContent title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} solution={sol()} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent id={problem.id} title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} mcqs = {problem.current.mcqs} srqs = {problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

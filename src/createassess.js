@@ -38,7 +38,7 @@ function MainContent({assessableProblems, createdProblems, approvedProblems}) {
             <div className='section'>
                 <h1>Assess Others' Problems</h1>
                 <template.StaticTable id = "assessable_problems" headers={["Problem Title"]} width={[1]} data={assessableProblems.map(
-                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'assess/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
             </div>
             <div className='section'>
                 <h1>Created Problems</h1>
