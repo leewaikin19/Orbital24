@@ -1,8 +1,9 @@
+/* eslint-disable */
 import { useState, useRef } from 'react'
 import * as API from '../API.js'
 import * as template from "../template.js"
 import * as problems from "../problem_template.js"
-/* eslint-disable */
+
 export default function Nim() {
     const problem = useRef(null);
     

@@ -35,7 +35,7 @@ function MainContent() {
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
         const TEMPORARY_AUTOGRADED_VALUE = true;
-        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_XP_VALUE, TEMPORARY_DIFFICULTY_VALUE, mcqs, srqs, TEMPORARY_AUTOGRADED_VALUE)
+        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_XP_VALUE, TEMPORARY_DIFFICULTY_VALUE, mcqs.filter((mcq) => (mcq.qn!="")), srqs.filter((srq) => (srq.qn!="")), TEMPORARY_AUTOGRADED_VALUE)
         .then((resp) => {
             if(resp.success){
                 alert("Successfully saved")
@@ -73,7 +73,8 @@ function MainContent() {
                 <div id='mcq_container' className='section'>
                     {mcqs.map((i, index) => {return(
                         <>
-                            <div className='form_input section'>
+                            <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Multiple Choice Question {index + 1}</b>
+                            <div className='form_input' style={{marginBottom:"0.5em"}}>
                                 <textarea id={"MCQ " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
                             </div>
                             {/* TODOM Figure out how to do these better*/}
@@ -92,10 +93,13 @@ function MainContent() {
                 </div>
                 <div id='srq_container' className='section '>
                     {srqs.map((i, index) => {return(
-                        <div className='form_input section'>
-                            <textarea id={"SRQ " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].qn = i}, "SRQ " + index)} placeholder={"Enter Short Response Question " + (index + 1)}/>
-                            <textarea id={"SRQAns " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].an = i}, "SRQAns " + index)} placeholder={"Enter Answer " + (index + 1)}/>
-                        </div>
+                        <>
+                            <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Short Response Question {index + 1}</b>
+                            <div className='form_input section'>
+                                <textarea id={"SRQ " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].qn = i}, "SRQ " + index)} placeholder={"Enter Short Response Question " + (index + 1)}/>
+                                <textarea id={"SRQAns " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].an = i}, "SRQAns " + index)} placeholder={"Enter Answer " + (index + 1)}/>
+                            </div>
+                        </>
                     )})}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>

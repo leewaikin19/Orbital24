@@ -1,11 +1,14 @@
+// This is the page for users to view one of their submissions
+// TODO @LWK19: Idk how to fetch and display submissions
+
 /* eslint-disable */
 import { useState, useId, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
-export function MainContent({id, title, description, sandbox, hints, mcqs, srqs}) { 
+export function MainContent({id, title, description, sandbox, hints, mcqsQuestions, srqsQuestions, mcqUserAnswer, srqUserAnswer}) { 
     return (
-        <div className='problems'>
+        <div className='submission'>
             <h1>{title}</h1>
             <p>{description}</p>
             {sandbox}
@@ -17,17 +20,14 @@ export function MainContent({id, title, description, sandbox, hints, mcqs, srqs}
             <h2 style={{marginBottom:"0.3em"}}>Submission</h2>
             {mcqs.map((mcq, i) => {
                 return(
-                    <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} />
+                    <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} userAnswer = {mcqUserAnswer[i]} />
                 )
             })}
             {srqs.map((srq, i) => {
                 return(
-                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" />
+                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" userAnswer = {srqUserAnswer[i]}/>
                 )
             })}
-            {/* TODO @LWK19 submitProblem causes cyclic object value error. Idk what it means */}
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 
-            {/* TODOM @LWK19 < problems.Forum  /> */}
         </div>
     )
 }
@@ -76,18 +76,18 @@ export function Hints({title, desc}) {
     )
 }
 
-export function Srq({index, question, placeholder = "Enter your answer here"}) {
-    const [solution, setSolution] = useState("");
+export function Srq({index, question, placeholder = "Enter your answer here", userAnswer = ""}) {
+    const [solution, setSolution] = useState(userAnswer);
     return(
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Short Response Question {index}</b> 
             <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder={placeholder} required/>
+            <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder={placeholder} disabled = {true}/>
         </div>
     )
 }
 
-export function Mcq({index, question, options}) {
+export function Mcq({index, question, options, userAnswer = ""}) {
     return(
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Multiple Choice Question {index}</b> 
@@ -95,7 +95,7 @@ export function Mcq({index, question, options}) {
             <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
                     {options.filter(option => option!= '').map((option) => {
                         return(
-                            <template.MCQInput id={option} name={option} value={option} content={<span>{option}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))}/>
+                            <template.MCQInput id={option} name={option} value={option} content={<span>{option}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))} preselected = {option === userAnswer} disabled = {true}/>
                         )
                     })}
             </div>

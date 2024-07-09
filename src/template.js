@@ -2,6 +2,7 @@ import { useRef, useState, React} from 'react'
 import * as API from './API.js'
 /* eslint-disable */
 
+// TODO @LWK19 what this
 // class FormInput extends HTMLInputElement {
 //     render () {
 //         return (
@@ -12,10 +13,10 @@ import * as API from './API.js'
 //     }
 // }
 
-export function FormInput({type="text", name, id=name, value="", setValue, placeholder, required=true }) {
+export function FormInput({type="text", name, id=name, value="", setValue, placeholder, required=true, disabled = false}) {
     return (
         <div className="form_input">
-            <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} />
+            <input type={type} name={name} className={(disabled ? 'unselectable' : '')} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} disabled={disabled} />
         </div>
     )
 }
@@ -79,10 +80,18 @@ export function TextArea({name, id=name, value="", setValue, placeholder, style,
     )
 }
 
-export function MCQInput( {name, id=name, value="", content=value, onClick, preselected = false}) {
+export function MCQInput( {name, id=name, value="", content=value, onClick, preselected = false, disabled=false}) {
     return (
         <>
-             <button name={name} id={id} value={value} className={'animated_button mcq_button ' + (preselected ? 'selected_mcq_button' : '')} onClick={onClick} style={{marginBottom:"0.5em"}}>{content}</button>
+             <button name={name} id={id} value={value} className={'animated_button mcq_button ' + (preselected ? 'selected_mcq_button ' : '') + (disabled ? 'unselectable ' : '')} onClick={onClick} style={{marginBottom:"0.5em"}} disabled = {disabled}>{content}</button>
+        </>
+    )
+}
+
+export function GradeMCQInput( {name, id=name, value="", content=value, userAnswer = false, correctAnswer = false}) {
+    return (
+        <>
+             <button name={name} id={id} value={value} className={'animated_button mcq_button ' + (userAnswer ? 'reject_button ' : '') + (correctAnswer ? 'approve_button ' : '')} style={{marginBottom:"0.5em"}} disabled>{content}</button>
         </>
     )
 }

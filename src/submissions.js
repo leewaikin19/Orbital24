@@ -1,3 +1,5 @@
+// This is the page for users to see the list of submissions
+
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
