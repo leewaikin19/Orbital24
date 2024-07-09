@@ -3,10 +3,14 @@ import { useState, useId, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
-export function MainContent({id, title, description, sandbox, hints, mcqs, srqs}) { 
+export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
     return (
         <div className='problems'>
-            <h1>{title}</h1>
+            <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+                <h1 style={{flexGrow:7}}>{title}</h1>
+                {/* TODO @LWK19 Am I doing the routing right? */}
+                <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
+            </div>
             <p>{description}</p>
             {sandbox}
             {hints.map((hint, index) => {
@@ -65,8 +69,8 @@ export function Hints({title, desc}) {
 
     return(
         <div className="hint">
-            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title unselectable' style={{cursor:"default"}}>
-                <a>{title} {" "}</a> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title' style={{cursor:"default"}}>
+                <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                 {(showHint) ? (
                 <div className='content' ref={contentRef}>
                     {desc}

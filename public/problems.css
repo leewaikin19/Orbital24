@@ -42,31 +42,16 @@
     padding: 1vh 2vw 1vh 2vw;
 }
 
-.hint_title a, .hint_title i{
+.hint_title b, .hint_title i{
     color: var(--grayest);
     text-align: middle;
     font-size: var(--subtopic);
     font-weight: 900;
+    margin-right: 0.8em;
 }
 
 .simulation .simulation_title h2 {
     color: var(--orange);
-}
-
-i {
-    margin-left: 2vw;
-}
-
-.problems a {
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 4px 
-    no-repeat;
-    transition:0.4s;
-}
-
-.problems a:hover {
-    --d: 100%;
 }
 
 .forum_title {

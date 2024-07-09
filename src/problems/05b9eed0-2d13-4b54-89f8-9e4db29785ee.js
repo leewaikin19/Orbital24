@@ -21,11 +21,11 @@ export default function PigeonHole() {
                     cardSimulation(document.querySelector('#cards').value)
                 }}><span>Take Cards</span></button>
             </div>
-            <div id='card_container' style={{display:"flex", flexDirection:"column", margin:"1vh 1vw", rowGap:"2vh"}}>
-                <div id='clubs' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                <div id='hearts' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                <div id='spades' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
-                <div id='diamonds' style={{display:"flex", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+            <div id='card_container' style={{display:"flex", height:"min-content", flexDirection:"column", margin:"1vh 1vw", rowGap:"2vh"}}>
+                <div id='clubs' style={{display:"flex", height:"fit-content", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                <div id='hearts' style={{display:"flex", height:"fit-content", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                <div id='spades' style={{display:"flex", height:"fit-content", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
+                <div id='diamonds' style={{display:"flex", height:"fit-content", flexDirection:"row", columnGap:"0.5vw", rowGap:"0.5vh", flexWrap:"wrap"}}></div>
             </div>
             <p id='sucess_message' style={{textAlign:"center"}}></p>
         </>

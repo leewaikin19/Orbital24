@@ -9,7 +9,7 @@ export default function Submissions() {
     const [isThisNeeded, setThis] = useState(true);
     const temp = useRef(null);
     
-    const promise = API.getSubmissions(template.getCookie('token'), /*TODO @LWK19 get the problem and user id*/)
+    const promise = API.getSubmissions(template.getCookie('token'), /*TODO @LWK19 get the problem id*/)
     promise.then((resp) => {
         submissions.current = resp.reply;
         console.log('Im doneee')
