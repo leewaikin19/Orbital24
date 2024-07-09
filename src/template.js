@@ -1,24 +1,15 @@
-import { useRef, useState, React} from 'react'
+import React, { useRef, useState, Component } from 'react'
 import * as API from './API.js'
 /* eslint-disable */
 
-// TODO @LWK19 what this
-// class FormInput extends HTMLInputElement {
-//     render () {
-//         return (
-//             <div className="form_input">
-//                 <input type={type} name={name} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} />
-//             </div>
-//         )
-//     }
-// }
-
-export function FormInput({type="text", name, id=name, value="", setValue, placeholder, required=true, disabled = false}) {
-    return (
-        <div className="form_input">
-            <input type={type} name={name} className={(disabled ? 'unselectable' : '')} id={id} value={value} onInput={e => setValue(e.target.value)} placeholder={placeholder} required={required} disabled={disabled} />
-        </div>
-    )
+export class FormInput extends Component {
+    render () {
+        return (
+            <div className="form_input">
+                <input {...this.props}/>
+            </div>
+        )
+    }
 }
 
 export function MultiFormInput({type=["text"], name, id=name, value="", setValue, placeholder, required=true}) {
@@ -111,9 +102,12 @@ export function select(choice, container) {
 }
 
 export function Loader() {
+    const dot = ((window.location.href.includes('rojike.pages.dev')
+        ? window.location.href.split('rojiku.pages.dev').at(-1)
+        : window.location.href.split('localhost').at(-1)).match(/\//g) || []).length - 1;
     return (
         <div style={{height:"100%", display:"flex", alignItems:"center", justifyContent:"center", gap:"2em"}}>
-            <img src='./Assets/Miscelaneous/blank_profile.svg' alt='Loading...' height="250em"/>
+            <img src={'./.'.repeat(dot)+'./Assets/Miscelaneous/blank_profile.svg'} alt='Loading...' height="250em"/>
             <h1>Loading...</h1>
         </div>
     )
@@ -126,7 +120,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
     API.dashboard(getCookie('token')).then((resp) => {
         if(resp.success){
             user.current = resp.reply;
-            promise.then(() => setLoading(false));
+            promise.then(() => {setLoading(false)});
         } else {
             handleErrors(resp.msg);
             return null;
@@ -149,23 +143,26 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
 }
 
 export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
+    const dot = ((window.location.href.includes('rojike.pages.dev')
+        ? window.location.href.split('rojiku.pages.dev').at(-1)
+        : window.location.href.split('localhost').at(-1)).match(/\//g) || []).length - 1;
     return (
         <div id = "user" className = "main_content">
             <div id="profile">
-                <img src={(isProblem ? "." : "") + "./Assets/Miscelaneous/blank_profile.svg"} id="profile_pic" alt=''/>
+                <img src={'./.'.repeat(dot)+"./Assets/Miscelaneous/blank_profile.svg"} id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='dashboard'} highlighted={selected == "dashboard"}/>
-                <SideButton contents='Tournaments' onClick={() => window.location.href='tournaments'} highlighted={selected == "tournaments"}/>
-                <SideButton contents={'Create Problems'} onClick={() => window.location.href='createassessprobems'} highlighted={selected == "createassessprobems"} shown = {isAdmin}/>
-                <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='grade'} highlighted={selected == "grade"} shown = {isAdmin}/>
-                <SideButton contents='Leaderboards' onClick={() => window.location.href='leaderboards'} highlighted={selected == "leaderboards"}/>
-                <SideButton contents='Forum Posts' onClick={() => window.location.href='posts'} highlighted={selected == "posts"}/>
-                <SideButton contents='Report Bugs' onClick={() => window.location.href='bugs'} highlighted={selected == "bugs"}/>
+                <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='/dashboard'} highlighted={selected == "dashboard"}/>
+                <SideButton contents='Tournaments' onClick={() => window.location.href='/tournaments'} highlighted={selected == "tournaments"}/>
+                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessprobems'} highlighted={selected == "createassessprobems"} shown = {isAdmin}/>
+                <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='/grade'} highlighted={selected == "grade"} shown = {isAdmin}/>
+                <SideButton contents='Leaderboards' onClick={() => window.location.href='/leaderboards'} highlighted={selected == "leaderboards"}/>
+                <SideButton contents='Forum Posts' onClick={() => window.location.href='/posts'} highlighted={selected == "posts"}/>
+                <SideButton contents='Report Bugs' onClick={() => window.location.href='/bugs'} highlighted={selected == "bugs"}/>
             </div>
         </div>
     )
@@ -174,18 +171,18 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
 export function NavBar({isProblem, selected}) {
     return (
     <div className='nav_bar'>
-            <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt='' onClick={() => window.location.href = 'home'} style={{paddingLeft:"clamp(6px, 4vw, 18px)"}}/>
+            <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt='' onClick={() => window.location.href = '/home'} style={{paddingLeft:"clamp(6px, 4vw, 18px)"}}/>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", width:"50%"}}>
                 <input type="text" id="search_bar" placeholder="Search Function Under Construction..." style={{width:"100%"}}/>
             </div>
             <div style={{justifySelf:"end"}}>
-                <button className={"nav_button " + (selected == "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='home'}>
+                <button className={"nav_button " + (selected == "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/home'}>
                     <span>Home</span>
                 </button>
-                <button className={"nav_button " + (selected == "Problems" ? "selected_button" : "animated_button")} onClick={() => window.location.href='problems'}>
+                <button className={"nav_button " + (selected == "Problems" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/problems'}>
                     <span>Problems</span>
                 </button>
-                <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='index'}>
+                <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='/index'}>
                     <span>Logout</span>
                 </button>
             </div>
@@ -236,7 +233,7 @@ export function getCookie(cname) {
 
 export function handleErrors(msg) {
     if (msg === "Token Error") {
-        window.location.href = "index";
+        window.location.href = "/index";
         alert("Login timeout. Please sign in again.");
     } else {
         console.log(msg);

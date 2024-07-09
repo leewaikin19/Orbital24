@@ -1,14 +1,31 @@
 /* eslint-disable */
-import { useState, useId, createRef } from 'react'
+import { useState, useId, useRef, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
+export default function Problem(){
+    const [loading, setLoading] = useState(true);
+    const page = useRef(null);
+  
+    const id = window.location.href.split('/').at(-1);
+    const k = import('./problems/'+id).then((r) => {
+      page.current = <r.default />
+      setLoading(false);
+    }).catch((e) => {
+      window.location.href = '../problems'
+    })
+  
+    return (
+        <>{loading ? <template.Loader/> : page.current}</>
+    )  
+  }
+
 export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
+    console.log(title)
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
                 <h1 style={{flexGrow:7}}>{title}</h1>
-                {/* TODO @LWK19 Am I doing the routing right? */}
                 <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
             </div>
             <p>{description}</p>
@@ -29,9 +46,9 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            {/* TODO @LWK19 submitProblem causes cyclic object value error. Idk what it means */}
+            {/* TODOM solution is undefined. also why resp.reply.correct? if its not autograded there wont be a resp.reply.correct field */}
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 
-            {/* TODOM @LWK19 < problems.Forum  /> */}
+            {/* TODOM @LWK19 we need to discuss the struct of forum so we're on the same page < problems.Forum  /> */}
         </div>
     )
 }
@@ -86,7 +103,7 @@ export function Srq({index, question, placeholder = "Enter your answer here"}) {
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Short Response Question {index}</b> 
             <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder={placeholder} required/>
+            <template.FormInput name='solution' value={solution} onChange={e => setSolution(e.target.value)} placeholder={placeholder} required/>
         </div>
     )
 }

@@ -81,23 +81,24 @@ function Login({ setPage }) {
                 window.location.href = 'home';
             } else {
                 template.handleErrors(resp.msg);
+                console.log(resp.msg)
+                alert("asd")
                 document.getElementById('incorrect').style.color = 'var(--red)';
                 document.getElementById('incorrect').innerHTML = 'Incorrect username or password';
             }
         }
     }
-    
-    addEventListener('keydown', function (e) {
+    function keyPress(e) {
         if (e.key === 'Enter') {
             clickLogin();
         }
-    })
+    }
 
     return (
         <div style={{width:"100%"}}>
             <form>
-                <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username' />
-                <template.FormInput type='password' name='password' value={password} setValue={setPassword} placeholder='Password' />
+                <template.FormInput name='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
+                <template.FormInput type='password' name='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
                 <div className="smalllink">
                     <div onClick={() => setPage(FORGOT_PW)}>
                         <span>Forgot Password?</span>
@@ -154,11 +155,11 @@ function Signup() {
     return (
         <div style={{width:"100%"}}>
             <form className="section" action='signup'>
-                <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
-                <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
-                <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
-                <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Password'/>
-                <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Re-Enter Password'/>
+                <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} onChange={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
+                <template.FormInput type="email" name='email' value={email} onInput={e => setEmail(e.target.value)} placeholder='Email'/>
+                <template.FormInput name='username' value={username} onInput={e => setUsername(e.target.value)} placeholder='Username'/>
+                <template.FormInput type="password" name='password1' value={password1} onInput={e => setPassword1(e.target.value)} placeholder='Password'/>
+                <template.FormInput type="password" name='password2' value={password2} onInput={e => setPassword2(e.target.value)} placeholder='Re-Enter Password'/>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                     <button className="animated_button action_button" type="button" onClick={clickSignup}>
@@ -186,7 +187,7 @@ function Forgotpw({ setPage }) {
                 <div style={{width:"100%"}}>
                     <form action="signup()">
                         <p>Please enter your email address.</p>
-                        <template.FormInput type='email' name='email' value={email} setValue={setEmail} placeholder='Email' />
+                        <template.FormInput type='email' name='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' />
                         <div className="smalllink">
                             <div onClick={() => setPage(SIGNUP_LOGIN)}>
                                 <i className="fa-solid fa-caret-left"></i>

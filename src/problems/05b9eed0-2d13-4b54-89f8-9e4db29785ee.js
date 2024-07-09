@@ -32,6 +32,7 @@ export default function PigeonHole() {
     )}
 
     function cardSimulation(cards) {
+        // TODOM ?????? what is this line below lol anyways i assume this is meant to check the input val
         cards >=1 && cards <= 52 ? null : cards = 1;
         const suits = ['clubs', 'hearts', 'diamonds', 'spades'];
         const clubs = document.getElementById('clubs');
@@ -93,6 +94,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent id={problem.id} title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} mcqs={problem.current.mcqs} srqs={problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent id={problem.current.id} title={problem.current.title} description={problem.current.statement} sandbox={<problems.Simulation sim = {sim()}/>} hints={problem.current.hints} mcqs={problem.current.mcqs} srqs={problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

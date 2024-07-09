@@ -21,7 +21,7 @@ export default function CreateAssess() {
     promise3.then((resp) => {
         Promise.all([promise1, promise2]).then(() => {
             const problems = approvedProblems.current.concat(assessableProblems.current);
-            createdProblems.current = resp.reply.map(id => problems.find(x => x.id === id))
+            createdProblems.current = resp.reply.map(id => problems.find(x => x.id === id)).filter(x => x!==undefined)
         }
         )
     })
@@ -43,9 +43,7 @@ function MainContent({assessableProblems, createdProblems, approvedProblems}) {
             <div className='section'>
                 <h1>Created Problems</h1>
                 <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(
-                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, "Pending"])).concat(approvedProblems.map(
-                        (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, 'Approved'])
-                    ))} />
+                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.pending?"Pending":'Approved']))} />
             </div>
             <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
                     <i class="fa-solid fa-plus"></i> {" "}

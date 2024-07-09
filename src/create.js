@@ -31,11 +31,10 @@ function MainContent() {
     }
 
     function saveProblem() {
-        //TODO @LWK19 theres the xp value and difficulty, not sure if you need both. Yes (Dom)
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
         const TEMPORARY_AUTOGRADED_VALUE = true;
-        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_XP_VALUE, TEMPORARY_DIFFICULTY_VALUE, mcqs.filter((mcq) => (mcq.qn!="")), srqs.filter((srq) => (srq.qn!="")), TEMPORARY_AUTOGRADED_VALUE)
+        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_DIFFICULTY_VALUE, TEMPORARY_XP_VALUE, mcqs.filter((mcq) => (mcq.qn!="")), srqs.filter((srq) => (srq.qn!="")), TEMPORARY_AUTOGRADED_VALUE)
         .then((resp) => {
             if(resp.success){
                 alert("Successfully saved")

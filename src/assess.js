@@ -5,29 +5,38 @@ import * as API from './API.js'
 import * as template from "./template.js"
 /* eslint-disable */
 export default function AssessEdit() {
-    const [isThisNeeded, setThis] = useState(true);
-    const temp = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const problem = useRef({'title': '',
+        'statement': '',
+        'sandbox': '',
+        'hints': [],
+        'mcqs': [],
+        'srqs': []});
+    const id = window.location.href.split('/').at(-1);
     
-    const promise = API.dashboard(template.getCookie('token'))
-    promise.then((resp) => {
-        console.log('Im doneee')
+    const promise = API.getProblem(template.getCookie('token'), id).then((resp) => {
+        if(resp.success === false || resp.reply.pending === false) {
+            window.location.href = '/createassessprobems'
+        }
+        problem.current = resp.reply;
+        setLoading(false)
     })
+
     return (
-        // TODO @LWK19 idk how to get the details of the selected problem
-        < template.Home MainContent={() => (<MainContent iTitle = "" iStatement = "" iSandbox = "" iHints = {["Test", "One", "two"]} iMcqs = {[{qn:"Test", options:["", "", "", "", ""], an:"C"}]} iSrqs = {[{qn:"1", an:"2"}]} />)} SSelected={'createassessprobems'} promise={promise} />
+        < template.Home MainContent={() => (
+            <MainContent problem={problem.current} SSelected={'createassessprobems'} promise={promise} />　)} />
     ) 
 }
 
-function MainContent({iTitle, iStatement, iSandbox, iHints, iMcqs, iSrqs}) {
-    const [title, setTitle] = useState(iTitle)
-    const [statement, setStatement] = useState(iStatement)
-    const [sandbox, setSandbox] = useState(iSandbox)
-    const [hints, setHints] = useState(iHints)
-    const [mcqs, setMCQs] = useState(iMcqs) // [{qn:"", options:["", "", "", "", ""], an:""},...]
-    const [srqs, setSRQs] = useState(iSrqs) // [{qn:"", an:""},...]
-    const [proposed_exp, setProposedExp] = useState()
-    const [propsoed_diff, setProposedDiff] = useState()
-    console.log(iHints)
+function MainContent({problem}) {
+    const [title, setTitle] = useState(problem.title)
+    const [statement, setStatement] = useState(problem.statement)
+    const [sandbox, setSandbox] = useState(problem.sandbox)
+    const [hints, setHints] = useState(problem.hints)
+    const [proposed_exp, setProposedExp] = useState(null)
+    const [proposed_diff, setProposedDiff] = useState(null)
+    const [mcqs, setMCQs] = useState(problem.mcqs) // [{qn:"", options:["", "", "", "", ""], an:""},...]
+    const [srqs, setSRQs] = useState(problem.srqs) // [{qn:"", an:""},...]
 
     function McqHandler (choice, num){
         template.select(document.getElementById(choice + num), document.getElementById(num))
@@ -35,13 +44,36 @@ function MainContent({iTitle, iStatement, iSandbox, iHints, iMcqs, iSrqs}) {
     }
 
     function saveProblem() {
-        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), proposed_exp, propsoed_diff, mcqs, srqs, true)
+        API.updateProblem(template.getCookie('token'), {'title':title, 'statement':statement, 'sandbox':sandbox, 'hints':hints.filter((hint) => (hint!="")), 'xp':proposed_exp, 'difficulty':proposed_diff, 'mcqs':mcqs, 'srqs':srqs, 'pending':true})
         .then((resp) => {
             if(resp.success){
                 alert("Successfully saved")
         }else {
             alert("Error: " + resp.msg)
         }})
+    }
+
+    function approve() {
+        // TODOM we have to discuss about the customJS feature, and what happens when reject
+        API.updateProblem(template.getCookie('token'), problem.id, {'pending': false, 'xp':proposed_exp, 'difficulty':proposed_diff})
+        .then((resp)=>{
+            if(resp.success){
+                alert('Sucessfully published problem')
+            } else {
+                template.handleErrors(resp.msg);
+            }
+        })
+    }
+
+    function reject() {
+        API.deleteProblem(template.getCookie('token'), problem.id)
+        .then((resp)=>{
+            if(resp.success){
+                alert('Sucessfully removed problem')
+            } else {
+                template.handleErrors(resp.msg);
+            }
+        })
     }
 
     return (
@@ -71,10 +103,10 @@ function MainContent({iTitle, iStatement, iSandbox, iHints, iMcqs, iSrqs}) {
             <div className='section'>
                 <h2>Submission</h2>
                 <div id='mcq_container' className='section'>
-                    {mcqs.map((i, index) => {return(
+                    {mcqs.map((i, index) => (
                         <>
                             <div className='form_input section'>
-                                <textarea id={"MCQ " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
+                                <textarea id={"MCQ " + index} value={i.qn} onInput={(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
                             </div>
                             {/* TODOM Figure out how to do these better*/}
                             <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
@@ -85,7 +117,7 @@ function MainContent({iTitle, iStatement, iSandbox, iHints, iMcqs, iSrqs}) {
                                 <template.MCQInput id={"E" + index} name='E' value='E' content={<div className='create_mcq_options'><textarea id={"E " + index} value={mcqs[index].options[4]} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[4] = i}, "E " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fifth Option"}/><b className='unselectable'>Selected Answer</b></div>} onClick={() => McqHandler("E", index)} preselected = {mcqs[index].an == "E"}/>
                             </div>
                         </>
-                    )})}
+                    ))}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                     <button className='action_button animated_button' onClick={() => setMCQs(mcqs => [...mcqs, {"qn": "", "options":["", "", "", "", ""], "an": ""}])}><span>Add New Multiple Choice Question</span></button>
@@ -108,14 +140,13 @@ function MainContent({iTitle, iStatement, iSandbox, iHints, iMcqs, iSrqs}) {
             <div>
                 <h2>Approve/Reject Problem</h2>
                 <div style={{display:"flex", flexDirection:"column", rowGap:"1em", marginBottom:"clamp(6px, 6vh, 24px)"}}>
-                    <template.FormInput name = "proposed_exp" value={proposed_exp} setValue={setProposedExp} placeholder="Propose an Exp value for this problem"/>
-                    <template.FormInput type='number' name = "proposed_exp" value={propsoed_diff} setValue={setProposedDiff} placeholder="Propose a Difficulty level (1-5) for this problem"/>
+                    <template.FormInput name = "proposed_exp" value={proposed_exp} onChange={e => setProposedExp(e.target.value)} placeholder="Propose an Exp value for this problem"/>
+                    <template.FormInput type='number' name = "proposed_exp" value={proposed_diff} onChange={e => setProposedDiff(e.target.value)} placeholder="Propose a Difficulty level (1-5) for this problem"/>
                 </div>
 
-                {/* TODO @LWK19 Help with the onclicks. I leave them up to you where they lead to */}
                 <div style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
-                    <button id='approve_button' className='action_button animated_button'><i class="fa-solid fa-thumbs-up"></i> <span>Approve Problem</span></button>
-                    <button id='reject_button' className='action_button animated_button'><i class="fa-solid fa-thumbs-down"></i> <span>Reject Problem</span></button>
+                    <button id='approve_button' className='action_button animated_button' onClick={approve}><i class="fa-solid fa-thumbs-up"></i> <span>Approve Problem</span></button>
+                    <button id='reject_button' className='action_button animated_button' onClick={reject}><i class="fa-solid fa-thumbs-down"></i> <span>Reject Problem</span></button>
                 </div>
             </div>
         </>

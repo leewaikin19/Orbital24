@@ -1,29 +1,76 @@
-// This is the page for users to view one of their submissions
-// TODO @LWK19: Idk how to fetch and display submissions
+// This is the page for users to grade one of their submissions
 
 /* eslint-disable */
-import { useState, useId, createRef } from 'react'
+import { useState, useId, useRef, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
-export function MainContent({id, title, description, sandbox, hints, mcqsQuestions, srqsQuestions, mcqUserAnswer, srqUserAnswer}) { 
+export default function Submission() {
+    const [loading, setLoading] = useState(true);
+    const submission = useRef({
+        'id': '',
+        'username': '',
+        'questionID': '',
+        'submission': '',
+        'done': false,
+        'correct': false,
+        'datetime': ''
+    });
+    const problem = useRef({
+        'title': '',
+        'statement': '',
+        'sandbox': '',
+        'hints': [],
+        'mcqs': [],
+        'srqs': []
+    });
+    const solution = useRef(null);
+    const id = window.location.href.split('/').at(-1);
+
+    const promise = API.getGradableSubmission(template.getCookie('token'), id).then(async (resp) => {
+        if (resp.success === false) {
+            window.location.href = '/home'
+        }
+        submission.current = resp.reply;
+
+        const promise1 = API.getProblem(template.getCookie('token'), submission.current.questionID).then((resp2) => {
+            problem.current = resp2.reply;
+            setLoading(false);
+        })
+
+        const promise2 = API.getProblemSolution(template.getCookie('token'), submission.current.questionID).then((resp2) => {
+            solution.current = resp2.reply;
+            setLoading(false);
+        })
+        await Promise.all([promise1, promise2])
+    })
+
+    return (
+        < template.Home MainContent={() => (
+            <MainContent submission={submission.current} problem={problem.current} solution={solution.current} SSelected={'grade'} promise={promise} />)} />
+    )
+}
+
+// TODOM idk how you did the submissions for the problems, but theres only one field submision.submission that contains the answer
+// solution.solution is just one string
+function MainContent({submission, problem, solution}) { 
     return (
         <div className='submission'>
-            <h1>{title}</h1>
-            <p>{description}</p>
-            {sandbox}
-            {hints.map((hint, index) => {
+            <h1>{problem.title}</h1>
+            <p>{problem.statement}</p>
+            {problem.sandbox}
+            {problem.hints.map((hint, index) => {
                 return(
                     <Hints title={"Hint " + (index + 1)} desc={hint} />
                 )
             })}
             <h2 style={{marginBottom:"0.3em"}}>Submission</h2>
-            {mcqs.map((mcq, i) => {
+            {problem.mcqs.map((mcq, i) => {
                 return(
                     <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} iUserAnswer = {mcqUserAnswer[i]} iCorrectAnswer = {mcq.an}/>
                 )
             })}
-            {srqs.map((srq, i) => {
+            {problem.srqs.map((srq, i) => {
                 return(
                     <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srq.an}/>
                 )
@@ -33,7 +80,7 @@ export function MainContent({id, title, description, sandbox, hints, mcqsQuestio
     )
 }
 
-export function impt_note({note}) {
+function impt_note({note}) {
     return(
         <div className="impt_note">
             <div className='impt_note_title'>
@@ -47,7 +94,7 @@ export function impt_note({note}) {
 }
 
 // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
-export function Hints({title, desc}) {
+function Hints({title, desc}) {
     const chevronRef= createRef();
     const contentRef = createRef();
     const [showHint, setShowHint] = useState(false);
@@ -77,20 +124,21 @@ export function Hints({title, desc}) {
     )
 }
 
-export function Srq({index, question, placeholder = "Enter your answer here", iUserAnswer = "", iCorrectAnswer = ""}) {
+function Srq({index, question, placeholder = "Enter your answer here", iUserAnswer = "", iCorrectAnswer = ""}) {
     const [solution, setSolution] = useState(iUserAnswer);
     return(
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Short Response Question {index}</b> 
             <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <template.FormInput name='solution' value={solution} setValue={setSolution} placeholder={placeholder} required disabled = {true}/>
+            <template.FormInput name='solution' value={solution} onChange={e => setSolution(e.target.value)} placeholder={placeholder} required disabled = {true}/>
             <p>Correct Answer: {iCorrectAnswer}</p>
-            {/* TODOM @LWK19 - Will it be Correct/Wrong or will we allow marks? */}
+            {/* TODOM lets not shoot ourselves in the foot i legit 
+            dont think we have the capacity to add more functionality */}
         </div>
     )
 }
 
-export function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
+function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
     return(
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Multiple Choice Question {index}</b> 
@@ -106,7 +154,7 @@ export function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer 
     )
 }
 
-export function Simulation({sim}) {
+function Simulation({sim}) {
     return(
         <div className='simulation'>
             <div className='simulation_title'>

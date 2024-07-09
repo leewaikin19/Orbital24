@@ -3,8 +3,8 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 // Cloudflare workers
-const url = "https://rojiku-server.lwk19-eab.workers.dev";
-//const url = "http://127.0.0.1:8787";
+//const url = "https://rojiku-server.lwk19-eab.workers.dev";
+const url = "http://127.0.0.1:8787";
 
 async function post(payload) {
     
@@ -91,12 +91,17 @@ export async function createProblem(token, title, statement, sandbox = "", hints
     return resp;
 }
 
-export async function updateProblem(token, questionID, title, statement, sandbox, hints, difficulty, mcqs, srqs, pending, autograded) {
+export async function updateProblem(token, id, updates) {
     // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'questionID':questionID, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded, 'pending':pending});
+    var resp = await post({ 'mode': 'main', 'method':'updateProblem', 'token':token, 'id':id, 'updates':updates});
     return resp;
 }
 
+export async function deleteProblem(token, id) {
+    // resp.success=true returns reply
+    var resp = await post({ 'mode': 'main', 'method':'deleteProblem', 'token':token, 'id':id});
+    return resp;
+}
 
 export async function getAllTournaments(token) {
     // resp.success=true returns reply.title,problems["UUIDforProblem"],dateStart,dateEnd
@@ -111,17 +116,35 @@ export async function getTournament(token) {
     return resp;
 }
 
-export async function getSubmissions(token, problemID) {
+export async function getAllGradableSubmissions(token) {
     // resp.success=true returns reply.submissionID = []
-    var resp = await post({ 'mode': 'main', 'method':'getSubmissions', 'token':token, 'problemID':problemID });
+    var resp = await post({ 'mode': 'main', 'method':'getAllGradableSubmissions', 'token':token });
     return resp;
 }
 
-export async function getSubmission(token, submissionID) {
+export async function getGradableSubmission(token, submissionID) {
+    // resp.success=true returns reply.submissionID = []
+    var resp = await post({ 'mode': 'main', 'method':'getGradableSubmission', 'token':token, 'id':submissionID});
+    return resp;
+}
+
+export async function getProblemSolution(token, id) {
+    // resp.success=true returns reply.done=true:reply.correct / reply.done=false
+    var resp = await post({ 'mode': 'main', 'method':'getProblemSolution', 'token':token, 'id':id });
+    return resp;
+}
+
+export async function getOwnSubmissionsOfProblem(token, problemID) {
+    // resp.success=true returns reply.submissionID = []
+    var resp = await post({ 'mode': 'main', 'method':'getOwnSubmissionsOfProblem', 'token':token, 'id':problemID });
+    return resp;
+}
+
+export async function getOwnSubmission(token, submissionID) {
     // resp.success=true returns reply
     // reply.datetime, reply.submission
     // whatever the submission object is you can define, its not touched in the backend
-    var resp = await post({ 'mode': 'main', 'method':'getSubmission','token':token, 'submissionID':submissionID });
+    var resp = await post({ 'mode': 'main', 'method':'getOwnSubmission','token':token, 'id':submissionID });
     return resp;
 }
 

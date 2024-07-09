@@ -1,21 +1,23 @@
-// This is the page for users to see the list of submissions
+// This is the page for users to see their own submissions of a problem
 
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 /* eslint-disable */
 export default function Submissions() {
-    const submissions = useRef([]);
+    const submissions = useRef();
     const [isThisNeeded, setThis] = useState(true);
     const temp = useRef(null);
+
+    // problem id
+    const id = window.location.href.split('/').at(-1);
     
-    const promise = API.getSubmissions(template.getCookie('token'), /*TODO @LWK19 get the problem id*/)
+    const promise = API.getOwnSubmissionsOfProblem(template.getCookie('token'), id)
     promise.then((resp) => {
         submissions.current = resp.reply;
-        console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent submissions = {submissions} />)} SSelected={'tournaments'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent submissions = {submissions.current} />)} MSelected={"Problems"} promise={promise} />
     ) 
 }
 
@@ -25,7 +27,7 @@ function MainContent({submissions}) {
                 <div className='section'>
                     <h1>My Submissions</h1>
                     <template.StaticTable id="solved_problems" headers={['Submissions']} width={[7]} data={submissions.map(
-                        (sub) => ([<a href={'./submissions/' + sub}>{new Date(/*TODO @LWK19 get the submission datetime*/).toLocaleString()}</a>]))} />
+                        (sub) => ([<a href={'/submission/' + sub.id}>{new Date(sub.datetime).toLocaleString()}</a>]))} />
                 </div>
     )
 }

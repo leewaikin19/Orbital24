@@ -5,19 +5,24 @@ import * as API from './API.js'
 import * as template from "./template.js"
 /* eslint-disable */
 export default function Dashboard() {
-    const solvedProblems = useRef(null);
-    const pastTournaments = useRef(null);
-    const pendingSubmissions = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const solvedProblems = useRef([]);
+    const pastTournaments = useRef([]);
+    const pendingSubmissions = useRef([]);
+    const pendingSubmissionsProblems = useRef([]);
     const user = useRef(null);
     const promise1 = API.dashboard(template.getCookie('token'))
     const promise2 = API.getAllProblems(template.getCookie('token'))
     const promise3 = API.getAllTournaments(template.getCookie('token'))
     const promise4 = API.getOwnPendingSubmissions(template.getCookie('token'))
-    promise1.then(resp1 => {
+    const promise5 = promise1.then(async resp1 => {
         user.current = resp1.reply;
-        promise2.then(resp2 => {
+        promise2.then(async resp2 => {
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
+            await promise4.then(() => {
+                pendingSubmissionsProblems.current = pendingSubmissions.current.map(sub => resp2.reply.find(x => x.id === sub.questionID))
+            })
        })
         promise3.then(resp3 => {
             // find past tournaments
@@ -28,20 +33,19 @@ export default function Dashboard() {
             pendingSubmissions.current = resp4.reply;
         })
     })
-    const promise = Promise.all([promise1, promise2, promise3, promise4])
+    const promise = Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() => setLoading(false))
     return (
-        < template.Home MainContent={() => (<MainContent pendingSubmissions={pendingSubmissions.current} solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent pendingSubmissions={pendingSubmissions.current} pendingSubmissionsProblems={pendingSubmissionsProblems.current} solvedProblems={solvedProblems.current} tournaments={pastTournaments.current} user={user.current} />)} SSelected={'dashboard'} promise={promise} />
     ) 
 }
 
-function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
+function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProblems, tournaments, user}) {
     const [username, setUsername] = useState(user.username);
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [email, setEmail] = useState(user.email);
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
-
     function updatePassword() {
         if(password1 === password2) {
             API.updateUser(template.getCookie('token'), {'password': password1}); 
@@ -54,8 +58,7 @@ function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
                 <h1>Pending Submissions</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Submission Time']} width={[1,1]} data={pendingSubmissions.map(
                     //TODOM - Submission Page
-                    //TODO @LWK19 help with the problems title routing
-                    (submissions) => ([<a href={'problems/' + submissions.questionID}>title</a>, <a href={'submissions/' + submissions.id}>{new Date(submissions.datetime).toLocaleString()}</a>]))} />
+                    (submissions, index) => ([<a href={'/problems/' + submissions.questionID}>{pendingSubmissionsProblems[index].title}</a>, <a href={'submission/' + submissions.id}>{new Date(submissions.datetime).toLocaleString()}</a>]))} />
             </div>
             <div className='section'>
                 <h1>Solved Problems</h1>
@@ -84,8 +87,8 @@ function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
                     <div className="form_container">
                         <form action=''>
                             <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
-                            <template.FormInput type="email" name='email' value={email} setValue={setEmail} placeholder='Email'/>
-                            <template.FormInput name='username' value={username} setValue={setUsername} placeholder='Username'/>
+                            <template.FormInput type="email" name='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email'/>
+                            <template.FormInput name='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username'/>
                             <button className="action_button animated_button" onClick={() => {
                                 const dict = {'firstName': {firstName}, 'lastName': {lastName}, 'email': {email}, 'username': {username}}
                                 API.updateUser(template.getCookie('token'), dict);
@@ -100,8 +103,8 @@ function MainContent({pendingSubmissions, solvedProblems, tournaments, user}) {
                     <h1>Update Password</h1> 
                     <div className="form_container">
                         <form action=''>
-                            <template.FormInput type="password" name='password1' value={password1} setValue={setPassword1} placeholder='Enter New Password'/>
-                            <template.FormInput type="password" name='password2' value={password2} setValue={setPassword2} placeholder='Reenter New Password'/>
+                            <template.FormInput type="password" name='password1' value={password1} onChange={e => setPassword1(e.target.value)} placeholder='Enter New Password'/>
+                            <template.FormInput type="password" name='password2' value={password2} onChange={e => setPassword2(e.target.value)} placeholder='Reenter New Password'/>
 
                             <div style={{ width: '100%', display: 'flex', alignItems: 'center'}}>
                                 <button className="action_button animated_button" type="button" onClick={() => updatePassword()}>

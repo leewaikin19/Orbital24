@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useState, useRef, React } from 'react'
+import { React } from 'react'
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from './main';
@@ -13,12 +13,14 @@ import CreateAssess from './createassess';
 import Leaderboards from './leaderboard';
 import Bugs from './bugs';
 import Posts from './posts';
+import Problem from './problem_template';
 import Explore from './explore';
 import Create from './create'
 import Grade from './grade'
+import GradeSubmission from './gradesubmission'
 import AssessEdit from './assess';
 import Submissions from './submissions';
-import * as template from './template'
+import Submission from './submission';
 
 export default function App() {
   return (
@@ -32,11 +34,12 @@ export default function App() {
               <Route path='*' element={<Problem/>}/>
             </Route>
             <Route path='submissions'> 
-              <Route path='/submissions' element={<Submissions />}/>
               <Route path='*' element={<Submissions/>}/>
             </Route>
+            <Route path='submission'> 
+              <Route path='*' element={<Submission />}/>
+            </Route>
             <Route path='assess'> 
-              <Route path='/assess' element={<Explore/>}/>
               <Route path='*' element={<AssessEdit/>}/>
             </Route>
             <Route path="home" element={<Homepage />} />
@@ -49,65 +52,15 @@ export default function App() {
             <Route path="bugs" element={<Bugs />} />
             <Route path="posts" element={<Posts />} />
             <Route path="create" element={<Create />} />
-            <Route path="grade" element={<Grade />} />
+            <Route path='grade'> 
+              <Route path="/grade" element={<Grade />} />
+              <Route path='*' element={<GradeSubmission/>}/>
+            </Route>
             <Route path="*" element={<P404 />} />
           </Route>
         </Routes>
     </BrowserRouter>
   )
-}
-
-function Problem(){
-  const [loading, setLoading] = useState(true);
-  const page = useRef(null);
-
-  const id = window.location.href.split('/').at(-1);
-  const k = import('./problems/'+id).then((r) => {
-    page.current = <r.default />
-    setLoading(false);
-  }).catch((e) => {
-    window.location.href = '../problems'
-  })
-
-  return (
-      <>{loading ? <template.Loader/> : page.current}</>
-  )  
-}
-
-// TODOM @LWK19 - Implement Submission page
-function Submission(){
-//   const [loading, setLoading] = useState(true);
-//   const page = useRef(null);
-
-//   const id = window.location.href.split('/').at(-1);
-//   const k = import('./submissions/'+id).then((r) => {
-//     page.current = <r.default />
-//     setLoading(false);
-//   }).catch((e) => {
-//     window.location.href = '../problems'
-//   })
-
-  return (
-      <>{loading ? <template.Loader/> : page.current}</>
-  )  
-}
-
-// TODOM @LWK19 - Module not Found: Cant resolve './assess/'
-function Assess(){
-  // const [loading, setLoading] = useState(true);
-  // const page = useRef(null);
-
-  // const id = window.location.href.split('/').at(-1);
-  // const k = import('./assess/'+id).then((r) => {
-  //   page.current = <r.default />
-  //   setLoading(false);
-  // }).catch((e) => {
-  //   window.location.href = '../assess'
-  // })
-
-  // return (
-  //     <>{loading ? <template.Loader/> : page.current}</>
-  // )  
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
