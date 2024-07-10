@@ -26,7 +26,7 @@ function MainContent({submissions}) {
     return (
                 <div className='section'>
                     <h1>My Submissions</h1>
-                    <template.StaticTable id="solved_problems" headers={['Submissions']} width={[7]} data={submissions.map(
+                    <template.StaticTable id="solved_problems" headers={['Submissions Dates']} width={[1]} data={submissions.map(
                         (sub) => ([<a href={'/submission/' + sub.id}>{new Date(sub.datetime).toLocaleString()}</a>]))} />
                 </div>
     )

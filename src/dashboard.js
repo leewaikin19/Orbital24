@@ -55,9 +55,8 @@ function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProb
     return (
         <>
             <div className='section'>
-                <h1>Pending Submissions</h1>
+                <h1>Ungraded Submissions</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Submission Time']} width={[1,1]} data={pendingSubmissions.map(
-                    //TODOM - Submission Page
                     (submissions, index) => ([<a href={'/problems/' + submissions.questionID}>{pendingSubmissionsProblems[index].title}</a>, <a href={'submission/' + submissions.id}>{new Date(submissions.datetime).toLocaleString()}</a>]))} />
             </div>
             <div className='section'>

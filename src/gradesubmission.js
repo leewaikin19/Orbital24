@@ -51,14 +51,15 @@ export default function Submission() {
     )
 }
 
-// TODOM idk how you did the submissions for the problems, but theres only one field submision.submission that contains the answer
-// solution.solution is just one string
-function MainContent({submission, problem, solution}) { 
+function MainContent({submission, problem}) { 
+    const mcqUserAnswer = submission.submission.mcqs;
+    const srqUserAnswer = submission.submission.srqs;
+    console.log(submission.submission.mcqs)
     return (
-        <div className='submission'>
+        <>
+            <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
             <h1>{problem.title}</h1>
             <p>{problem.statement}</p>
-            {problem.sandbox}
             {problem.hints.map((hint, index) => {
                 return(
                     <Hints title={"Hint " + (index + 1)} desc={hint} />
@@ -76,7 +77,7 @@ function MainContent({submission, problem, solution}) {
                 )
             })}
              <button className="action_button animated_button" onClick={() => API.gradeSubmission(template.getCookie('token'), id, /* TODO */)}><span>Submit Grades</span></button> 
-        </div>
+        </>
     )
 }
 
@@ -113,8 +114,8 @@ function Hints({title, desc}) {
 
     return(
         <div className="hint">
-            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title unselectable' style={{cursor:"default"}}>
-                <a>{title} {" "}</a> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title' style={{cursor:"default"}}>
+                <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                 {(showHint) ? (
                 <div className='content' ref={contentRef}>
                     {desc}
@@ -139,6 +140,7 @@ function Srq({index, question, placeholder = "Enter your answer here", iUserAnsw
 }
 
 function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
+    console.log(iUserAnswer + " " + iCorrectAnswer)
     return(
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Multiple Choice Question {index}</b> 
@@ -146,21 +148,10 @@ function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) 
             <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
                 {options.filter(option => option!= '').map((option) => {
                     return(
-                        <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (iCorrectAnswer === option ? " (Correct Answer)" : "")}</span>} userAnswer={iUserAnswer === option} correctAnswer={iCorrectAnswer === option}/>
+                        <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (iCorrectAnswer == option ? " (Correct Answer) " : "") + (iUserAnswer == option ? " (User Answer) " : "")}</span>} userAnswer={iUserAnswer == option} correctAnswer={iCorrectAnswer == option}/>
                     )
                 })}
             </div>
-        </div>
-    )
-}
-
-function Simulation({sim}) {
-    return(
-        <div className='simulation'>
-            <div className='simulation_title'>
-                <h2>Sandbox</h2>
-            </div>
-            {sim}
         </div>
     )
 }

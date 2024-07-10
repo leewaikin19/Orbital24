@@ -6,7 +6,6 @@ import * as API from './API.js'
 export default function Problem(){
     const [loading, setLoading] = useState(true);
     const page = useRef(null);
-  
     const id = window.location.href.split('/').at(-1);
     const k = import('./problems/'+id).then((r) => {
       page.current = <r.default />
@@ -22,6 +21,9 @@ export default function Problem(){
 
 export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
     console.log(title)
+    const [mcqAnswer, setMcqAnswer] = useState([])
+    const [srqAnswer, setSrqAnswer] = useState([])
+
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
@@ -29,7 +31,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                 <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
             </div>
             <p>{description}</p>
-            {sandbox}
+            {Simulation(sandbox)}
             {hints.map((hint, index) => {
                 return(
                     <Hints title={"Hint " + (index + 1)} desc={hint} />
@@ -38,137 +40,141 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
             <h2 style={{marginBottom:"0.3em"}}>Submission</h2>
             {mcqs.map((mcq, i) => {
                 return(
-                    <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} />
+                    <Mcq index = {i} question={mcq.qn} options={mcq.options} />
                 )
             })}
             {srqs.map((srq, i) => {
                 return(
-                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" />
+                    <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            {/* TODOM solution is undefined. also why resp.reply.correct? if its not autograded there wont be a resp.reply.correct field */}
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, solution).then((resp) => resp.success ? alert(resp.reply.correct) : alert(resp.msg))}><span>Submit Solution</span></button> 
+            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {/* TODO @LWK19 Go to the submission page of this problem to see the result of the autograding*/})}><span>Submit Solution</span></button> 
             {/* TODOM @LWK19 we need to discuss the struct of forum so we're on the same page < problems.Forum  /> */}
         </div>
     )
-}
 
-export function impt_note({note}) {
-    return(
-        <div className="impt_note">
-            <div className='impt_note_title'>
-                Important Note!
-                <div className='content'>
-                {note}
+    function impt_note({note}) {
+        return(
+            <div className="impt_note">
+                <div className='impt_note_title'>
+                    Important Note!
+                    <div className='content'>
+                    {note}
+                    </div>
                 </div>
             </div>
-        </div>
-    )
-}
-
-// Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
-export function Hints({title, desc}) {
-    const chevronRef= createRef();
-    const contentRef = createRef();
-    const [showHint, setShowHint] = useState(false);
-    function Reveal() {
-        setShowHint((showHint) => !showHint)
-    }
-    function Hover() {
-        chevronRef.current.style.transform = "rotate(90deg)"
-        chevronRef.current.style.transition = "0.4s ease"
+        )
     }
 
-    function Unhover() {
-        showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
-        chevronRef.current.style.transition = "0.4s ease"
-    }
+    // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
+    function Hints({title, desc}) {
+        const chevronRef= createRef();
+        const contentRef = createRef();
+        const [showHint, setShowHint] = useState(false);
+        function Reveal() {
+            setShowHint((showHint) => !showHint)
+        }
+        function Hover() {
+            chevronRef.current.style.transform = "rotate(90deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
 
-    return(
-        <div className="hint">
-            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title' style={{cursor:"default"}}>
-                <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
-                {(showHint) ? (
-                <div className='content' ref={contentRef}>
-                    {desc}
-                </div>) : null}
+        function Unhover() {
+            showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
+
+        return(
+            <div className="hint">
+                <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title' style={{cursor:"default"}}>
+                    <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+                    {(showHint) ? (
+                    <div className='content' ref={contentRef}>
+                        {desc}
+                    </div>) : null}
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 
-export function Srq({index, question, placeholder = "Enter your answer here"}) {
-    const [solution, setSolution] = useState("");
-    return(
-        <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
-            <b>Short Response Question {index}</b> 
-            <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <template.FormInput name='solution' value={solution} onChange={e => setSolution(e.target.value)} placeholder={placeholder} required/>
-        </div>
-    )
-}
+    function Srq({index, question, placeholder = "Enter your answer here"}) {
+        return(
+            <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
+                <b>Short Response Question {index + 1}</b> 
+                <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
+                <template.FormInput name='solution' id = {"srq" + index} value={srqAnswer[index]} onChange={e => srqAnswer[index] = e.target.value} placeholder={placeholder} required/>
+            </div>
+        )
+    }
 
-export function Mcq({index, question, options}) {
-    return(
-        <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
-            <b>Multiple Choice Question {index}</b> 
-            <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
+    function McqHandler (option, index){
+        template.select(document.getElementById(index + " " + option), document.getElementById("mcq" + index))
+        mcqAnswer[index] == option ? mcqAnswer[index] = null : mcqAnswer[index] = option
+        console.log(mcqAnswer)
+    }
+
+    function Mcq({index, question, options}) {
+        return(
+            <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
+                <b>Multiple Choice Question {index + 1}</b> 
+                <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
+                <div id={'mcq' + index} className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
                     {options.filter(option => option!= '').map((option) => {
                         return(
-                            <template.MCQInput id={option} name={option} value={option} content={<span>{option}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))}/>
+                            <template.MCQInput id={index + " " + option} name={option} value={option} content={<span>{option}</span>} onClick={() => (McqHandler(option, index))}/>
                         )
                     })}
+                </div>
             </div>
-        </div>
-    )
-}
-
-export function Forum({comments}) {
-    const chevronRef= createRef();
-    const contentRef = createRef();
-    const [showHint, setShowHint] = useState(false);
-    function Reveal() {
-        setShowHint((showHint) => !showHint)
-    }
-    function Hover() {
-        chevronRef.current.style.transform = "rotate(90deg)"
-        chevronRef.current.style.transition = "0.4s ease"
+        )
     }
 
-    function Unhover() {
-        showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
-        chevronRef.current.style.transition = "0.4s ease"
-    }
+    function Forum({comments}) {
+        const chevronRef= createRef();
+        const contentRef = createRef();
+        const [showHint, setShowHint] = useState(false);
+        function Reveal() {
+            setShowHint((showHint) => !showHint)
+        }
+        function Hover() {
+            chevronRef.current.style.transform = "rotate(90deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
 
-    return(
-        <div className="hint">
-            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title unselectable' style={{cursor:"default"}}>
-                Discussion <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
-            </div>
-            {(showHint) ? (
-                <div className='content' ref={contentRef}>
-                    {comments.map((comment) => {
-                        return(
-                            <div className='comment'>
-                                <div className='comment_content'>
-                                    {comment.content}
+        function Unhover() {
+            showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
+
+        return(
+            <div className="hint">
+                <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title unselectable' style={{cursor:"default"}}>
+                    Discussion <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+                </div>
+                {(showHint) ? (
+                    <div className='content' ref={contentRef}>
+                        {comments.map((comment) => {
+                            return(
+                                <div className='comment'>
+                                    <div className='comment_content'>
+                                        {comment.content}
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
-                </div>) : null}
-        </div>
-    )
-}
-
-export function Simulation({sim}) {
-    return(
-        <div className='simulation'>
-            <div className='simulation_title'>
-                <h2>Sandbox</h2>
+                            )
+                        })}
+                    </div>) : null}
             </div>
-            {sim}
-        </div>
-    )
+        )
+    }
+
+    function Simulation(sim) {
+        return(
+            <div className='simulation'>
+                <div className='simulation_title'>
+                    <h2>Sandbox</h2>
+                </div>
+                {sim}
+            </div>
+        )
+    }
 }

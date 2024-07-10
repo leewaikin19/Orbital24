@@ -99,7 +99,7 @@ h3 {
     margin: 0px;
 }
 
-p,b {
+p,b,em {
     font-family: 'Satoshi';
     font-size: var(--text);
     color: var(--lightgray);
@@ -127,7 +127,7 @@ a:hover {
     --d: 100%;
 }
 
-span:hover {
+span:hover:enabled {
     --d: 100%;
 }
 
@@ -361,7 +361,7 @@ input:-webkit-autofill {
     width: 100%;
 }
 
-.mcq_button:hover {
+.mcq_button:hover:enabled {
     color: var(--orange);
 }
 
@@ -416,24 +416,24 @@ input:-webkit-autofill {
     column-gap: 2em;
 }
 
-#approve_button {
-    border: 3px solid var(--green);
-    color: var(--green);
-}
-
-#approve_button:hover {
-    background-color: var(--green);
-    border: 3px solid var(--green);
-    color: var(--grayest);
-}
-
-#reject_button {
+#reject_button:enabled {
     border: 3px solid var(--red);
     color: var(--red);
 }
 
-#reject_button:hover {
+#reject_button:enabled, .red_button {
     background-color: var(--red);
     border: 3px solid var(--red);
+    color: var(--grayest);
+}
+
+#approve_button:enabled {
+    border: 3px solid var(--green);
+    color: var(--green);
+}
+
+#approve_button:enabled:hover, .green_button {
+    background-color: var(--green);
+    border: 3px solid var(--green);
     color: var(--grayest);
 }

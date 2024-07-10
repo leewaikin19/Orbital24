@@ -25,9 +25,9 @@ function MainContent() {
     const [mcqs, setMCQs] = useState([]) // [{qn:"", options:["", "", "", "", ""], an:""},...]
     const [srqs, setSRQs] = useState([]) // [{qn:"", an:""},...]
 
-    function McqHandler (choice, num){
+    function McqHandler (choice, num, option){
         template.select(document.getElementById(choice + num), document.getElementById(num))
-        mcqs[num].an = choice
+        mcqs[num].an = mcqs[num].options[option]
     }
 
     function saveProblem() {
@@ -78,11 +78,11 @@ function MainContent() {
                             </div>
                             {/* TODOM Figure out how to do these better*/}
                             <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
-                                <template.MCQInput id={"A" + index} name='A' value='A' content={<div className='create_mcq_options'><textarea id={"A " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[0] = i}, "A " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter First Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("A", index)}/>
-                                <template.MCQInput id={"B" + index} name='B' value='B' content={<div className='create_mcq_options'><textarea id={"B " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[1] = i}, "B " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Second Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("B", index)}/>
-                                <template.MCQInput id={"C" + index} name='C' value='C' content={<div className='create_mcq_options'><textarea id={"C " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[2] = i}, "C " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Third Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("C", index)}/>
-                                <template.MCQInput id={"D" + index} name='D' value='D' content={<div className='create_mcq_options'><textarea id={"D " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[3] = i}, "D " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fourth Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("D", index)}/>
-                                <template.MCQInput id={"E" + index} name='E' value='E' content={<div className='create_mcq_options'><textarea id={"E " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[4] = i}, "E " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fifth Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("E", index)}/>
+                                <template.MCQInput id={"A" + index} name='A' value='A' content={<div className='create_mcq_options'><textarea id={"A " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[0] = i}, "A " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter First Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("A", index, 0)}/>
+                                <template.MCQInput id={"B" + index} name='B' value='B' content={<div className='create_mcq_options'><textarea id={"B " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[1] = i}, "B " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Second Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("B", index, 1)}/>
+                                <template.MCQInput id={"C" + index} name='C' value='C' content={<div className='create_mcq_options'><textarea id={"C " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[2] = i}, "C " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Third Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("C", index, 2)}/>
+                                <template.MCQInput id={"D" + index} name='D' value='D' content={<div className='create_mcq_options'><textarea id={"D " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[3] = i}, "D " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fourth Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("D", index, 3)}/>
+                                <template.MCQInput id={"E" + index} name='E' value='E' content={<div className='create_mcq_options'><textarea id={"E " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[4] = i}, "E " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fifth Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("E", index, 4)}/>
                             </div>
                         </>
                     )})}
