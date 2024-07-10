@@ -81,39 +81,39 @@ function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProb
                     )})}
                 </div>
             </div>
-                <div className='section'>
-                    <h1>Change Account Details</h1>
-                    <div className="form_container">
-                        <form action=''>
-                            <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
-                            <template.FormInput type="email" name='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email'/>
-                            <template.FormInput name='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username'/>
-                            <button className="action_button animated_button" onClick={() => {
-                                const dict = {'firstName': {firstName}, 'lastName': {lastName}, 'email': {email}, 'username': {username}}
-                                API.updateUser(template.getCookie('token'), dict);
-                            }}>
-                                <i className="fa-solid fa-check"></i>{" "}
-                                <span>Confirm Details</span>
-                            </button>
-                        </form>
-                    </div>
+            <div className='section'>
+                <h1>Change Account Details</h1>
+                <div className="form_container">
+                    <form action=''>
+                        <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
+                        <template.FormInput type="email" name='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email'/>
+                        <template.FormInput name='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username'/>
+                        <button className="action_button animated_button" onClick={() => {
+                            const dict = {'firstName': firstName, 'lastName': lastName, 'email': email, 'username': username}
+                            API.updateUser(template.getCookie('token'), dict);
+                        }}>
+                            <i className="fa-solid fa-check"></i>{" "}
+                            <span>Confirm Details</span>
+                        </button>
+                    </form>
                 </div>
-                <div className='section'>
-                    <h1>Update Password</h1> 
-                    <div className="form_container">
-                        <form action=''>
-                            <template.FormInput type="password" name='password1' value={password1} onChange={e => setPassword1(e.target.value)} placeholder='Enter New Password'/>
-                            <template.FormInput type="password" name='password2' value={password2} onChange={e => setPassword2(e.target.value)} placeholder='Reenter New Password'/>
+            </div>
+            <div className='section'>
+                <h1>Update Password</h1> 
+                <div className="form_container">
+                    <form action=''>
+                        <template.FormInput type="password" name='password1' value={password1} onChange={e => setPassword1(e.target.value)} placeholder='Enter New Password'/>
+                        <template.FormInput type="password" name='password2' value={password2} onChange={e => setPassword2(e.target.value)} placeholder='Reenter New Password'/>
 
-                            <div style={{ width: '100%', display: 'flex', alignItems: 'center'}}>
-                                <button className="action_button animated_button" type="button" onClick={() => updatePassword()}>
-                                    <i className="fa-solid fa-lock"></i>{" "}
-                                    <span>Update Password</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div style={{ width: '100%', display: 'flex', alignItems: 'center'}}>
+                            <button className="action_button animated_button" type="button" onClick={() => updatePassword()}>
+                                <i className="fa-solid fa-lock"></i>{" "}
+                                <span>Update Password</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                </>
+            </div>
+        </>
     )
 }

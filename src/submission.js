@@ -39,7 +39,7 @@ export default function Submission() {
 
     return (
         < template.Home MainContent={() => (
-            <MainContent submission={submission.current} problem={problem.current} MSelected={"Problems"} promise={promise} />)} />
+            <MainContent submission={submission.current} problem={problem.current} />)} MSelected={"Problems"} promise={promise} />
     )
 }
 

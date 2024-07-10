@@ -47,14 +47,13 @@ export default function Submission() {
 
     return (
         < template.Home MainContent={() => (
-            <MainContent submission={submission.current} problem={problem.current} solution={solution.current} SSelected={'grade'} promise={promise} />)} />
+            <MainContent submission={submission.current} problem={problem.current} solution={solution.current}/>)}  SSelected={'grade'} promise={promise} />
     )
 }
 
 function MainContent({submission, problem}) { 
     const mcqUserAnswer = submission.submission.mcqs;
     const srqUserAnswer = submission.submission.srqs;
-    console.log(submission.submission.mcqs)
     return (
         <>
             <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
@@ -140,7 +139,6 @@ function Srq({index, question, placeholder = "Enter your answer here", iUserAnsw
 }
 
 function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
-    console.log(iUserAnswer + " " + iCorrectAnswer)
     return(
         <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
             <b>Multiple Choice Question {index}</b> 
