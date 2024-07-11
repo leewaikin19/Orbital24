@@ -28,12 +28,12 @@ export default function CreateAssess() {
 
     const promise = Promise.all([promise1, promise2, promise3])
     return (
-        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current} approvedProblems={approvedProblems.current} />)} SSelected={'createassessprobems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current}/>)} SSelected={'createassessprobems'} promise={promise} />
     ) 
 }
 
 // TODOM conditional rendering for assess problem table
-function MainContent({assessableProblems, createdProblems, approvedProblems}) {
+function MainContent({assessableProblems, createdProblems}) {
     return (
         <>
             <div className='section'>
@@ -43,7 +43,7 @@ function MainContent({assessableProblems, createdProblems, approvedProblems}) {
             </div>
             <div className='section'>
                 <h1>Created Problems</h1>
-                <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.concat(approvedProblems).map(
+                <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(
                     (problem) => ([<a href={'edit/' + problem.id}>{problem.title}</a>, problem.pending?"Pending":<p style={{color:"var(--green)"}}>Approved</p>]))} />
             </div>
             <button className='action_button animated_button' onClick={() => window.location.href = "create"}>

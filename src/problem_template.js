@@ -32,7 +32,7 @@ export default function Problem(){
     return (
         <>{loading ? <template.Loader/> : page.current}</>
     )  
-  }
+}
 
 export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
     console.log(title)
