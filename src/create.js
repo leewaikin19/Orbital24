@@ -18,7 +18,7 @@ export default function Create() {
 }
 
 function MainContent() {
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState("Untitled Problem")
     const [statement, setStatement] = useState("")
     const [sandbox, setSandbox] = useState("")
     const [hints, setHints] = useState([])
@@ -34,10 +34,12 @@ function MainContent() {
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
         const TEMPORARY_AUTOGRADED_VALUE = true;
+        title == "" ? setTitle("Untitled Problem") : title
         API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_DIFFICULTY_VALUE, TEMPORARY_XP_VALUE, mcqs.filter((mcq) => (mcq.qn!="")), srqs.filter((srq) => (srq.qn!="")), TEMPORARY_AUTOGRADED_VALUE)
         .then((resp) => {
             if(resp.success){
                 alert("Successfully saved")
+                window.location.href = "/createassessprobems"
         }else {
             alert("Error: " + resp.msg)
         }})
@@ -105,7 +107,7 @@ function MainContent() {
                     <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
-            <button id='create_hint' className='action_button animated_button' onClick={saveProblem}><span>Save Problem</span></button>
+            <button id='create_hint' className='action_button animated_button' onClick={saveProblem}><span>Submit Problem For Approval</span></button>
         </>
     )
 }

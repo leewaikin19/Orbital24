@@ -4,7 +4,7 @@ import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 /* eslint-disable */
-export default function Assess() {
+export default function Edit() {
     const [loading, setLoading] = useState(true);
     const problem = useRef({'title': '',
         'statement': '',
@@ -15,7 +15,7 @@ export default function Assess() {
     const id = window.location.href.split('/').at(-1);
     
     const promise = API.getProblem(template.getCookie('token'), id).then((resp) => {
-        if(resp.success === false || resp.reply.pending === false) {
+        if(resp.success === false || resp.reply.pending === true) {
             window.location.href = '/createassessprobems'
         }
         problem.current = resp.reply;
@@ -33,8 +33,6 @@ function MainContent({problem}) {
     const [statement, setStatement] = useState(problem.statement)
     const [sandbox, setSandbox] = useState(problem.sandbox)
     const [hints, setHints] = useState(problem.hints)
-    const [proposed_exp, setProposedExp] = useState(problem.xp)
-    const [proposed_diff, setProposedDiff] = useState(problem.difficulty)
     const [mcqs, setMCQs] = useState(problem.mcqs) // [{qn:"", options:["", "", "", "", ""], an:""},...]
     const [srqs, setSRQs] = useState(problem.srqs) // [{qn:"", an:""},...]
 
@@ -43,29 +41,18 @@ function MainContent({problem}) {
         mcqs[num].an = choice
     }
 
-    function approve() {
-        // TODOM we have to discuss about the customJS feature, and what happens when reject
-        API.updateProblem(template.getCookie('token'), problem.id, {'pending': false, 'xp':proposed_exp, 'difficulty':proposed_diff})
-        .then((resp)=>{
-            if(resp.success){
-                alert('Sucessfully published problem')
-                window.location.href = '/createassessprobems'
-            } else {
-                template.handleErrors(resp.msg);
-            }
-        })
-    }
+    function saveProblem() {
+        const TEMPORARY_XP_VALUE = 50;
+        const TEMPORARY_DIFFICULTY_VALUE = -1;
+        const TEMPORARY_AUTOGRADED_VALUE = true;
 
-    function reject() {
-        API.deleteProblem(template.getCookie('token'), problem.id)
-        .then((resp)=>{
+        API.updateProblem(template.getCookie('token'), problem.id, {'title':title, 'statement':statement, 'sandbox':sandbox, 'hints':hints.filter((hint) => (hint!="")), 'xp':TEMPORARY_XP_VALUE, 'difficulty':TEMPORARY_DIFFICULTY_VALUE, 'autograded':TEMPORARY_AUTOGRADED_VALUE, 'mcqs':mcqs, 'srqs':srqs, 'pending':true})
+        .then((resp) => {
             if(resp.success){
-                alert('Sucessfully removed problem')
-                window.location.href = '/createassessprobems'
-            } else {
-                template.handleErrors(resp.msg);
-            }
-        })
+                alert("Successfully saved")
+        }else {
+            alert("Error: " + resp.msg)
+        }})
     }
 
     return (
@@ -112,8 +99,6 @@ function MainContent({problem}) {
                                                 id={"A " + index} 
                                                 value={mcqs[index].options[0]} 
                                                 onInput={(e) => {template.handler(e, (i) => 
-                                                    // Array updating mechanism adapted from https://stackoverflow.com/questions/65393641/how-to-update-an-array-by-index-using-the-usestate-hook. 
-                                                    // It is then wrapped in the handler function.
                                                     {const updatedMcqs = [...mcqs];
                                                     updatedMcqs[index].options[0] = i;
                                                     setMCQs(updatedMcqs);}, ("A " + index)
@@ -242,18 +227,7 @@ function MainContent({problem}) {
                     <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
-            <div>
-                <h2>Approve/Reject Problem</h2>
-                <div style={{display:"flex", flexDirection:"column", rowGap:"1em", marginBottom:"clamp(6px, 6vh, 24px)"}}>
-                    <template.FormInput name = "proposed_exp" value={proposed_exp} onChange={e => setProposedExp(e.target.value)} placeholder="Propose an Exp value for this problem"/>
-                    <template.FormInput type='number' name = "proposed_exp" value={proposed_diff} onChange={e => setProposedDiff(e.target.value)} placeholder="Propose a Difficulty level (1-5) for this problem"/>
-                </div>
-
-                <div style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
-                    <button id='approve_button' className='action_button animated_button' onClick={approve}><i class="fa-solid fa-thumbs-up"></i> <span>Approve Problem</span></button>
-                    <button id='reject_button' className='action_button animated_button' onClick={reject}><i class="fa-solid fa-thumbs-down"></i> <span>Reject Problem</span></button>
-                </div>
-            </div>
+            <button id='save_problem' className='action_button animated_button' onClick={saveProblem}><span>Save Problem</span></button>
         </>
     )
 }

@@ -45,7 +45,7 @@ export function StaticTable({id, headers, width, data}) {
                     {data.map((row) => (
                         <tr>
                             {row.map((cell, i) => (
-                                <td style={{width: normalised[i] + '%'}}>{cell}</td>
+                                <td style={{width: normalised[i] + '%', verticalAlign:"middle"}}>{cell}</td>
                             ))}
                         </tr>
                     ))}

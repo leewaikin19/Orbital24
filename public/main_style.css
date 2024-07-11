@@ -21,6 +21,7 @@
 body {
     background-color: var(--grayest);
     font-family: 'Satoshi';
+    color: var(--lightgray);
 }
 
 .root {

@@ -7,11 +7,26 @@ export default function Problem(){
     const [loading, setLoading] = useState(true);
     const page = useRef(null);
     const id = window.location.href.split('/').at(-1);
+    const problem = useRef({
+        'title': '',
+        'statement': '',
+        'sandbox': '',
+        'hints': [],
+        'mcqs': [],
+        'srqs': []
+    });
     const k = import('./problems/'+id).then((r) => {
       page.current = <r.default />
       setLoading(false);
     }).catch((e) => {
-      window.location.href = '../problems'
+        const promise = API.getProblem(template.getCookie('token'), id).then((resp) => {
+            if (resp.success === false) {
+                window.location.href = '../problems'
+            }
+            problem.current = resp.reply;
+        })
+        page.current =  < template.Home MainContent={() => (<MainContent id={id} title={problem.current.title} description={problem.current.statement} sandbox={problem.current.sandbox} hints={problem.current.hints} mcqs={problem.current.mcqs} srqs={problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        setLoading(false);
     })
   
     return (
@@ -168,6 +183,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
     }
 
     function Simulation(sim) {
+        console.log(sim)
         return(
             <div className='simulation'>
                 <div className='simulation_title'>

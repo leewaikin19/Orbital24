@@ -32,6 +32,7 @@ export default function CreateAssess() {
     ) 
 }
 
+// TODO Created/Approved is supposed to be for the problems that each admin creates
 function MainContent({assessableProblems, createdProblems, approvedProblems}) {
     return (
         <>
@@ -42,8 +43,8 @@ function MainContent({assessableProblems, createdProblems, approvedProblems}) {
             </div>
             <div className='section'>
                 <h1>Created Problems</h1>
-                <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(
-                    (problem) => ([<a href={'problems/' + problem.id}>{problem.title}</a>, problem.pending?"Pending":'Approved']))} />
+                <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.concat(approvedProblems).map(
+                    (problem) => ([<a href={'edit/' + problem.id}>{problem.title}</a>, problem.pending?"Pending":<p style={{color:"var(--green)"}}>Approved</p>]))} />
             </div>
             <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
                     <i class="fa-solid fa-plus"></i> {" "}

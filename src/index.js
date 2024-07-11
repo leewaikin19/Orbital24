@@ -18,7 +18,8 @@ import Explore from './explore';
 import Create from './create'
 import Grade from './grade'
 import GradeSubmission from './gradesubmission'
-import AssessEdit from './assess';
+import Assess from './assess';
+import Edit from './edit';
 import Submissions from './submissions';
 import Submission from './submission';
 
@@ -40,7 +41,10 @@ export default function App() {
               <Route path='*' element={<Submission />}/>
             </Route>
             <Route path='assess'> 
-              <Route path='*' element={<AssessEdit/>}/>
+              <Route path='*' element={<Assess/>}/>
+            </Route>
+            <Route path='edit'> 
+              <Route path='*' element={<Edit/>}/>
             </Route>
             <Route path="home" element={<Homepage />} />
             <Route path="otp" element={<Otp />} />
