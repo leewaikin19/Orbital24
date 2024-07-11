@@ -44,7 +44,6 @@ function MainContent({problem}) {
     }
 
     function approve() {
-        // TODOM we have to discuss about the customJS feature, and what happens when reject
         API.updateProblem(template.getCookie('token'), problem.id, {'pending': false, 'xp':proposed_exp, 'difficulty':proposed_diff})
         .then((resp)=>{
             if(resp.success){
@@ -57,6 +56,7 @@ function MainContent({problem}) {
     }
 
     function reject() {
+        // TODO LWK change status to rejected
         API.deleteProblem(template.getCookie('token'), problem.id)
         .then((resp)=>{
             if(resp.success){

@@ -69,6 +69,7 @@ function MainContent({problem}) {
             </div>
             <div className='section'>
                 <h2>Hints</h2>
+                {/*TODOM FIX INPUT*/}
                 <div className='hint_container'>
                     {hints.map((i, index) => {
                         return(

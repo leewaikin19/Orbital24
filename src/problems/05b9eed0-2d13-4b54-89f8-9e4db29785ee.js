@@ -32,7 +32,7 @@ export default function PigeonHole() {
     )}
 
     function cardSimulation(cards) {
-        // TODO @LWK19 what is this line below lol anyways i assume this is meant to check the input val. It is (Dom)
+        // TODOM add popup box instead of setting the cards to 1
         cards >=1 && cards <= 52 ? null : cards = 1;
         const suits = ['clubs', 'hearts', 'diamonds', 'spades'];
         const clubs = document.getElementById('clubs');

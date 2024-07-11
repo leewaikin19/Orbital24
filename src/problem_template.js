@@ -63,6 +63,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
+            {/*TODOM add message diaogue fail or success*/}
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {/* TODO @LWK19 Go to the submission page of this problem to see the result of the autograding*/})}><span>Submit Solution</span></button> 
             {/* TODOM @LWK19 we need to discuss the struct of forum so we're on the same page < problems.Forum  /> */}
         </div>
@@ -144,6 +145,8 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
         )
     }
 
+
+    // TODOM add problem statistics
     function Forum({comments}) {
         const chevronRef= createRef();
         const contentRef = createRef();
