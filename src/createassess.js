@@ -15,13 +15,13 @@ export default function CreateAssess() {
     })
     const promise2 = API.getAllProblems(template.getCookie('token'))
     promise2.then((resp) => {
-        approvedProblems.current = resp.reply;
+        approvedProblems.current = resp.reply; // TODO @LWK19: Currently gives Non-NULL response here
     })
     const promise3 = API.getUserCreatedProblems(template.getCookie('token'))
     promise3.then((resp) => {
         Promise.all([promise1, promise2]).then(() => {
             const problems = approvedProblems.current.concat(assessableProblems.current);
-            createdProblems.current = resp.reply.map(id => problems.find(x => x.id === id)).filter(x => x!==undefined)
+            createdProblems.current = /*resp.reply.map(id => problems.find(x => x.id === id)).filter(x => x!==undefined)*/ [] // TODO @LWK19: Currently gives NULL response here
         }
         )
     })
@@ -32,15 +32,15 @@ export default function CreateAssess() {
     ) 
 }
 
-// TODOM conditional rendering for assess problem table
 function MainContent({assessableProblems, createdProblems}) {
     return (
         <>
-            <div className='section'>
-                <h1>Assess Others' Problems</h1>
-                <template.StaticTable id = "assessable_problems" headers={["Problem Title"]} width={[1]} data={assessableProblems.map(
-                    (problem) => ([<div className='problem_flair'><a href={'assess/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
-            </div>
+            {(assessableProblems == null ? null : ( // Conditional rendering
+                <div className='section'>
+                    <h1>Assess Others' Problems</h1>
+                    <template.StaticTable id = "assessable_problems" headers={["Problem Title"]} width={[1]} data={assessableProblems.map(
+                        (problem) => ([<div className='problem_flair'><a href={'assess/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
+                </div>))}
             <div className='section'>
                 <h1>Created Problems</h1>
                 <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(

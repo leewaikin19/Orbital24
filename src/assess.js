@@ -38,9 +38,32 @@ function MainContent({problem}) {
     const [mcqs, setMCQs] = useState(problem.mcqs) // [{qn:"", options:["", "", "", "", ""], an:""},...]
     const [srqs, setSRQs] = useState(problem.srqs) // [{qn:"", an:""},...]
 
-    function McqHandler (choice, num){
+    function McqHandler (choice, num, options){
         template.select(document.getElementById(choice + num), document.getElementById(num))
-        mcqs[num].an = choice
+        ArrayTextAreaInputHandler(mcqs, setMCQs, num, "an", mcqs[num].options[option])
+    }
+
+    // Array updating mechanism adapted from https://react.dev/learn/updating-arrays-in-state#replacing-items-in-an-array
+    // It is then wrapped in the handler function.
+    function ArrayTextAreaInputHandler (arr, setArr, index, field = "", value, elem = "") {
+        setArr(arr.map((i, ind) => {
+            if (ind === index) {
+                if (field === "") {
+                    return value
+                } else {
+                    return {...i, [field]: value}
+                }
+            } 
+            else {
+                return i
+            }
+        }))
+
+        if (elem != "") {
+            elem = document.getElementById(elem);
+            elem.style.height = "0px"
+            elem.style.height = (elem.scrollHeight) + "px";
+        }
     }
 
     function approve() {
@@ -86,7 +109,12 @@ function MainContent({problem}) {
                     {hints.map((i, index) => {
                         return(
                         <div className='form_input'>
-                            <textarea style={{marginBottom:"1em"}} id={"Hint " + index} value={hints[index]} onInput= {(e) => template.handler(e, (i) => {hints[index] = i}, "Hint " + index)} placeholder={"Enter Hint " + (index + 1)}/>
+                            <textarea 
+                                style={{marginBottom:"1em"}} 
+                                id={"Hint " + index} 
+                                value={hints[index]} 
+                                onInput= {(e) => ArrayTextAreaInputHandler(hints, setHints, index, "", e.target.value, "Hint " + index)} 
+                                placeholder={"Enter Hint " + (index + 1)}/>
                         </div>
                     )})}
                 </div>
@@ -98,9 +126,12 @@ function MainContent({problem}) {
                     {mcqs.map((i, index) => (
                         <>
                             <div className='form_input section'>
-                                <textarea id={"MCQ " + index} value={i.qn} onInput={(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
+                                <textarea 
+                                    id={"MCQ " + index} 
+                                    value={i.qn} 
+                                    onInput={(e) => ArrayTextAreaInputHandler(mcqs, setMCQs, index, "qn", e.target.value, "MCQ " + index)} 
+                                    placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
                             </div>
-                            {/* TODOM Figure out how to do these better*/}
                             <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
                                 <template.MCQInput 
                                     id={"A" + index} 
@@ -112,8 +143,6 @@ function MainContent({problem}) {
                                                 id={"A " + index} 
                                                 value={mcqs[index].options[0]} 
                                                 onInput={(e) => {template.handler(e, (i) => 
-                                                    // Array updating mechanism adapted from https://stackoverflow.com/questions/65393641/how-to-update-an-array-by-index-using-the-usestate-hook. 
-                                                    // It is then wrapped in the handler function.
                                                     {const updatedMcqs = [...mcqs];
                                                     updatedMcqs[index].options[0] = i;
                                                     setMCQs(updatedMcqs);}, ("A " + index)
@@ -122,7 +151,7 @@ function MainContent({problem}) {
                                                 placeholder={"Enter First Option"}/>
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>} 
-                                    onClick={() => McqHandler("A", index)} 
+                                    onClick={() => McqHandler("A", index, 0)} 
                                     preselected = {mcqs[index].an == "A"}/>
                                 <template.MCQInput 
                                     id={"B" + index} 
@@ -142,7 +171,7 @@ function MainContent({problem}) {
                                                 placeholder={"Enter Second Option"}/>
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>} 
-                                    onClick={() => McqHandler("B", index)} 
+                                    onClick={() => McqHandler("B", index, 1)} 
                                     preselected = {mcqs[index].an == "B"}/>
                                 <template.MCQInput 
                                     id={"C" + index} 
@@ -162,7 +191,7 @@ function MainContent({problem}) {
                                                 placeholder={"Enter Third Option"}/>
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>} 
-                                    onClick={() => McqHandler("C", index)} 
+                                    onClick={() => McqHandler("C", index, 2)} 
                                     preselected = {mcqs[index].an == "C"}/>
                                 <template.MCQInput 
                                     id={"D" + index} 
@@ -182,7 +211,7 @@ function MainContent({problem}) {
                                                 placeholder={"Enter Fourth Option"}/>
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>} 
-                                    onClick={() => McqHandler("D", index)} 
+                                    onClick={() => McqHandler("D", index, 3)} 
                                     preselected = {mcqs[index].an == "D"}/>
                                 <template.MCQInput 
                                     id={"E" + index} 
@@ -202,7 +231,7 @@ function MainContent({problem}) {
                                                 placeholder={"Enter Last Option"}/>
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>} 
-                                    onClick={() => McqHandler("E", index)} 
+                                    onClick={() => McqHandler("E", index, 4)} 
                                     preselected = {mcqs[index].an == "E"}/>
                                 
                             </div>
@@ -218,22 +247,12 @@ function MainContent({problem}) {
                             <textarea 
                                 id={"SRQ " + index} 
                                 value={i.qn} 
-                                onInput= {(e) => 
-                                    template.handler(e, (i) => 
-                                        {const updatedSrqs = [...srqs];
-                                        updatedSrqs[index].qn = i;
-                                        setSRQs(updatedSrqs);},
-                                    "SRQ " + index)} 
+                                onInput= {(e) => ArrayTextAreaInputHandler(srqs, setSRQs, index, "qn", e.target.value, "SRQ " + index)} 
                                 placeholder={"Enter Short Response Question " + (index + 1)}/>
                             <textarea 
                                 id={"SRQAns " + index}
                                 value={i.an} 
-                                onInput= {(e) => 
-                                    template.handler(e, (i) => 
-                                        {const updatedSrqs = [...srqs];
-                                        updatedSrqs[index].an = i;
-                                        setSRQs(updatedSrqs);}, 
-                                    "SRQAns " + index)} 
+                                onInput= {(e) => ArrayTextAreaInputHandler(srqs, setSRQs, index, "an", e.target.value, "SRQAns " + index)}
                                 placeholder={"Enter Answer " + (index + 1)}/>
                         </div>
                     )})}

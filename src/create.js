@@ -27,7 +27,7 @@ function MainContent() {
 
     function McqHandler (choice, num, option){
         template.select(document.getElementById(choice + num), document.getElementById(num))
-        mcqs[num].an = mcqs[num].options[option]
+        template.ArrayTextAreaInputHandler(mcqs, setMCQs, num, "an", mcqs[num].options[option])
     }
 
     function saveProblem() {
@@ -63,7 +63,11 @@ function MainContent() {
                     {hints.map((i, index) => {
                         return(
                         <div className='form_input'>
-                            <textarea style={{marginBottom:"1em"}} id={"Hint " + index} onInput= {(e) => template.handler(e, (i) => {hints[index] = i}, "Hint " + index)} placeholder={"Enter Hint " + (index + 1)}/>
+                            <textarea 
+                                style={{marginBottom:"1em"}} 
+                                id={"Hint " + index} 
+                                onInput= {(e) => template.ArrayTextAreaInputHandler(hints, setHints, index, "", e.target.value, "Hint " + index)} 
+                                placeholder={"Enter Hint " + (index + 1)}/>
                         </div>
                     )})}
                 </div>
@@ -76,15 +80,77 @@ function MainContent() {
                         <>
                             <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Multiple Choice Question {index + 1}</b>
                             <div className='form_input' style={{marginBottom:"0.5em"}}>
-                                <textarea id={"MCQ " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
+                                <textarea 
+                                    id={"MCQ " + index} 
+                                    onInput= {(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} 
+                                    placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
                             </div>
-                            {/* TODOM Figure out how to do these better*/}
                             <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
-                                <template.MCQInput id={"A" + index} name='A' value='A' content={<div className='create_mcq_options'><textarea id={"A " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[0] = i}, "A " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter First Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("A", index, 0)}/>
-                                <template.MCQInput id={"B" + index} name='B' value='B' content={<div className='create_mcq_options'><textarea id={"B " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[1] = i}, "B " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Second Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("B", index, 1)}/>
-                                <template.MCQInput id={"C" + index} name='C' value='C' content={<div className='create_mcq_options'><textarea id={"C " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[2] = i}, "C " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Third Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("C", index, 2)}/>
-                                <template.MCQInput id={"D" + index} name='D' value='D' content={<div className='create_mcq_options'><textarea id={"D " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[3] = i}, "D " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fourth Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("D", index, 3)}/>
-                                <template.MCQInput id={"E" + index} name='E' value='E' content={<div className='create_mcq_options'><textarea id={"E " + index} onInput= {(e) => template.handler(e, (i) => {mcqs[index].options[4] = i}, "E " + index)} style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fifth Option"}/><b className='unselectable'>Correct Answer</b></div>} onClick={() => McqHandler("E", index, 4)}/>
+                                <template.MCQInput 
+                                    id={"A" + index} 
+                                    name='A' 
+                                    value='A' 
+                                    content={
+                                        <div className='create_mcq_options'>
+                                            <textarea 
+                                                    id={"A " + index} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "A " + index)} 
+                                                    style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter First Option"}/>
+                                            <b className='unselectable'>Correct Answer</b>
+                                        </div>} 
+                                    onClick={() => McqHandler("A", index, 0)}/>
+                                <template.MCQInput
+                                    id={"B" + index} 
+                                    name='B' 
+                                    value='B' 
+                                    content={
+                                        <div className='create_mcq_options'>
+                                            <textarea 
+                                                    id={"B " + index} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "B " + index)} 
+                                                    style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Second Option"}/>
+                                            <b className='unselectable'>Correct Answer</b>
+                                        </div>} 
+                                    onClick={() => McqHandler("B", index, 1)}/>
+                                <template.MCQInput
+                                    id={"C" + index} 
+                                    name='C' 
+                                    value='C' 
+                                    content={
+                                        <div className='create_mcq_options'>
+                                            <textarea 
+                                                    id={"C " + index} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "C " + index)} 
+                                                    style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Third Option"}/>
+                                            <b className='unselectable'>Correct Answer</b>
+                                        </div>} 
+                                    onClick={() => McqHandler("C", index, 2)}/>
+                                <template.MCQInput
+                                    id={"D" + index} 
+                                    name='D' 
+                                    value='D' 
+                                    content={
+                                        <div className='create_mcq_options'>
+                                            <textarea 
+                                                    id={"D " + index} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "D " + index)} 
+                                                    style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fourth Option"}/>
+                                            <b className='unselectable'>Correct Answer</b>
+                                        </div>} 
+                                    onClick={() => McqHandler("D", index, 3)}/>
+                                <template.MCQInput
+                                    id={"E" + index} 
+                                    name='E' 
+                                    value='E' 
+                                    content={
+                                        <div className='create_mcq_options'>
+                                            <textarea 
+                                                    id={"E " + index} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "E " + index)} 
+                                                    style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fifth Option"}/>
+                                            <b className='unselectable'>Correct Answer</b>
+                                        </div>} 
+                                    onClick={() => McqHandler("E", index, 4)}/>
                             </div>
                         </>
                     )})}
@@ -97,8 +163,14 @@ function MainContent() {
                         <>
                             <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Short Response Question {index + 1}</b>
                             <div className='form_input section'>
-                                <textarea id={"SRQ " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].qn = i}, "SRQ " + index)} placeholder={"Enter Short Response Question " + (index + 1)}/>
-                                <textarea id={"SRQAns " + index} onInput= {(e) => template.handler(e, (i) => {srqs[index].an = i}, "SRQAns " + index)} placeholder={"Enter Answer " + (index + 1)}/>
+                                <textarea 
+                                    id={"SRQ " + index} 
+                                    onInput= {(e) => template.ArrayTextAreaInputHandler(srqs, setSRQs, index, "qn", e.target.value, "SRQ " + index)}
+                                    placeholder={"Enter Short Response Question " + (index + 1)}/>
+                                <textarea 
+                                    id={"SRQAns " + index} 
+                                    onInput= {(e) => template.ArrayTextAreaInputHandler(srqs, setSRQs, index, "an", e.target.value, "SRQAns " + index)}
+                                    placeholder={"Enter Answer " + (index + 1)}/>
                             </div>
                         </>
                     )})}

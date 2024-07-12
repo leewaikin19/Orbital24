@@ -61,3 +61,34 @@
     padding: 1vh 0px;
     border-bottom: 4px solid var(--orange);
 }
+
+.comment, .reply {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    align-items: center;
+}
+
+.comment_metadata, .comment_metadata *, .reply_metadata, .reply_metadata * {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+    margin: 0px;
+    align-items: center;
+}
+
+.big_dot {
+    height: 20px;
+    width: 20px;
+    background-color: var(--orange);
+    display: inline-block;
+    justify-self: center;
+}
+
+.small_dot {
+    height: 10px;
+    width: 10px;
+    background-color: var(--orange);
+    border-radius: 50%;
+    display: inline-block;
+    justify-self: center;
+}

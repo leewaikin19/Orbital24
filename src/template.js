@@ -63,6 +63,27 @@ export function handler(e, setValue, elem) {
     elem.style.height = (elem.scrollHeight) + "px";
 }
 
+export function ArrayTextAreaInputHandler (arr, setArr, index, field = "", value, elem = "") {
+    setArr(arr.map((i, ind) => {
+        if (ind === index) {
+            if (field === "") {
+                return value
+            } else {
+                return {...i, [field]: value}
+            }
+        } 
+        else {
+            return i
+        }
+    }))
+
+    if (elem != "") {
+        elem = document.getElementById(elem);
+        elem.style.height = "0px"
+        elem.style.height = (elem.scrollHeight) + "px";
+    }
+}
+
 export function TextArea({name, id=name, value="", setValue, placeholder, style, required=true}) {
     return (
         <div className="form_input">
@@ -158,7 +179,7 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
             <div id = "sidebar_buttons">
                 <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='/dashboard'} highlighted={selected == "dashboard"}/>
                 <SideButton contents='Tournaments' onClick={() => window.location.href='/tournaments'} highlighted={selected == "tournaments"}/>
-                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessprobems'} highlighted={selected == "createassessprobems"} shown = {isAdmin}/>
+                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessprobems'} highlighted={selected == "createassessprobems"}/>
                 <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='/grade'} highlighted={selected == "grade"} shown = {isAdmin}/>
                 <SideButton contents='Leaderboards' onClick={() => window.location.href='/leaderboards'} highlighted={selected == "leaderboards"}/>
                 <SideButton contents='Forum Posts' onClick={() => window.location.href='/posts'} highlighted={selected == "posts"}/>

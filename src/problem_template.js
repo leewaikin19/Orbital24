@@ -65,7 +65,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
             })}
             {/*TODOM add message diaogue fail or success*/}
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {/* TODO @LWK19 Go to the submission page of this problem to see the result of the autograding*/})}><span>Submit Solution</span></button> 
-            {/* TODOM @LWK19 we need to discuss the struct of forum so we're on the same page < problems.Forum  /> */}
+            <Forum comments={[{author: "John", date: 1720751177, content: "This problem is challenging!", replies: [{author: "Jane", content: "I agree!", date:1730771177}]}]} />
         </div>
     )
 
@@ -150,9 +150,9 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
     function Forum({comments}) {
         const chevronRef= createRef();
         const contentRef = createRef();
-        const [showHint, setShowHint] = useState(false);
+        const [showForum, setShowForum] = useState(true);
         function Reveal() {
-            setShowHint((showHint) => !showHint)
+            setShowForum((showForum) => !showForum)
         }
         function Hover() {
             chevronRef.current.style.transform = "rotate(90deg)"
@@ -160,26 +160,54 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
         }
 
         function Unhover() {
-            showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+            showForum ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
             chevronRef.current.style.transition = "0.4s ease"
         }
 
         return(
             <div className="hint">
-                <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title unselectable' style={{cursor:"default"}}>
+                <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
                     Discussion <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                 </div>
-                {(showHint) ? (
-                    <div className='content' ref={contentRef}>
+                {(showForum) ? (
+                    <div style={{color:"var(--lightgray)", paddingTop:"2vh"}} ref={contentRef}>
                         {comments.map((comment) => {
                             return(
-                                <div className='comment'>
-                                    <div className='comment_content'>
-                                        {comment.content}
+                                <>
+                                    <div className='comment'>
+                                        <div className='big_dot'></div>
+                                        <div>
+                                            <div className='comment_metadata'>
+                                                <b className='comment_author'>{comment.author}</b>
+                                                &bull;
+                                                <div className='comment_date'>{new Date(comment.date).toLocaleString()}</div>
+                                            </div>
+                                            <div className='comment_content'>
+                                                {comment.content}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })}
+                                    <div className='replies'>
+                                        {comment.replies.map((reply) => {
+                                            return(
+                                                <div className='reply'>
+                                                    <div className='small_dot'></div>
+                                                    <div>
+                                                        <div className='reply_metadata'>
+                                                            <b className='reply_author'>{reply.author}</b>
+                                                            &bull;
+                                                            <div className='reply_date'>{new Date(reply.date).toLocaleString()}</div>
+                                                        </div>
+                                                        <div className='reply_content'>
+                                                            {reply.content}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                            </>
+                        )})}
                     </div>) : null}
             </div>
         )

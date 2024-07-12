@@ -132,8 +132,7 @@ function Srq({index, question, placeholder = "Enter your answer here", iUserAnsw
             <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
             <template.FormInput name='solution' value={solution} onChange={e => setSolution(e.target.value)} placeholder={placeholder} required disabled = {true}/>
             <p>Correct Answer: {iCorrectAnswer}</p>
-            {/* TODOM lets not shoot ourselves in the foot i legit 
-            dont think we have the capacity to add more functionality */}
+            {/* TODOM Submit Grade */}
         </div>
     )
 }
