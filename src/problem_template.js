@@ -148,9 +148,12 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
 
     // TODOM add problem statistics
     function Forum({comments}) {
+        //TODO @LWK19 Comment = {id, author, date, content, replies = [{author, date, content}, ...]}
         const chevronRef= createRef();
         const contentRef = createRef();
-        const [showForum, setShowForum] = useState(true);
+        const [showForum, setShowForum] = useState(false);
+        const [comment, setComment] = useState("");
+        const [replies, setReplies] = useState({}); // {comment_id:reply}
         function Reveal() {
             setShowForum((showForum) => !showForum)
         }
@@ -164,6 +167,23 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
             chevronRef.current.style.transition = "0.4s ease"
         }
 
+        function publishComment(comment) {
+            // TODO @LWK19
+            console.log(comment)
+        }
+
+        function saveReply(replies) {
+            // TODO @LWK19
+            console.log(replies)
+        }
+
+        // TODOM Debug this.
+        // document.addEventListener('keydown', function(event) {
+        //     if (event.key === 'Enter' && document.activeElement.id === 'post_comment') {
+        //         publishComment(comment)
+        //     }
+        // })
+
         return(
             <div className="hint">
                 <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
@@ -171,10 +191,14 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                 </div>
                 {(showForum) ? (
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh"}} ref={contentRef}>
+                        <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)"}}>
+                            <template.FormInput name='comment' id='post_comment' placeholder="Enter your comment here." value = {comment} onChange = {(e) => setComment(e.target.value)} />
+                            <button className="action_button animated_button" onClick={() => publishComment(comment)}><span>Post</span></button>
+                        </div>
                         {comments.map((comment) => {
                             return(
                                 <div className='thread'>
-                                    <div className='comment'>
+                                    <div className='comment'> {/* TODO @LWK19 Sort by date*/}
                                         <div>
                                             <div className='comment_metadata'>
                                                 <b className='comment_author'>{comment.author}</b>
@@ -204,10 +228,22 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                                             )
                                         })}
                                     </div>
-                            </div>
-                        )})}
-                    </div>) : null}
-            </div>
+                                    <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)"}}>
+                                        <template.FormInput name='comment' id='post_reply' style={{marginLeft:"1vw"}} placeholder="Enter your reply here." onChange = {(e) => setReplies(() => {
+                                            const updatedReplies = replies;
+                                            if (comment.id in updatedReplies) {
+                                                updatedReplies[comment.id] += e.target.value
+                                            } else {
+                                                updatedReplies[comment.id] = e.target.value
+                                            }
+                                            return updatedReplies
+                                        })} />
+                                        <button className="action_button animated_button" onClick={() => saveReply(replies)}><span>Post</span></button>
+                                    </div>
+                                </div>
+                            )})}
+                        </div>) : null}
+                </div>
         )
     }
 

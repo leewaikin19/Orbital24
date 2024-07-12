@@ -68,6 +68,7 @@
 
 .reply {
     margin-left: 2.5vw;
+    margin-bottom: 2vh;
 }
 
 .comment_metadata, .comment_metadata *, .reply_metadata, .reply_metadata * {
@@ -76,9 +77,11 @@
     column-gap: 1em;
     margin: 0px;
     align-items: center;
+    font-size: clamp(0.8em, 1.5vh, 1em);
 }
 
 .thread {
-    margin: 1vh 0px;
+    margin: 2vh 0px;
+    padding: 0.5em 0px;
     border-left: 3px solid var(--orange);
 }
