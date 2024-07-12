@@ -65,6 +65,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
             })}
             {/*TODOM add message diaogue fail or success*/}
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {/* TODO @LWK19 Go to the submission page of this problem to see the result of the autograding*/})}><span>Submit Solution</span></button> 
+            <Statistics num_attempts={10} completion_rate={50} />
             <Forum comments={[{author: "John", date: 1720751177, content: "This problem is challenging!", replies: [{author: "Jane", content: "I agree!", date:1730771177}]}]} />
         </div>
     )
@@ -145,8 +146,37 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
         )
     }
 
+    function Statistics({num_attempts, completion_rate}) {
+        const [showStats, setShowStats] = useState(false);
+        const chevronRef= createRef();
+        const contentRef = createRef();
+        function Reveal() {
+            setShowStats((showStats) => !showStats)
+        }
+        function Hover() {
+            chevronRef.current.style.transform = "rotate(90deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
 
-    // TODOM add problem statistics
+        function Unhover() {
+            showStats ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
+
+        return(
+            <div className="hint">
+                <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
+                    Statistics <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+                </div>
+                {(showStats) ? (
+                    <div style={{color:"var(--lightgray)", paddingTop:"2vh", textAlign:"center"}} ref={contentRef}>
+                        Out of {num_attempts} attempts, {completion_rate}% of users have completed this problem.
+                        {/* TODOM Make it better */}
+                    </div>) : null}
+                </div>
+        )
+    }
+
     function Forum({comments}) {
         //TODO @LWK19 Comment = {id, author, date, content, replies = [{author, date, content}, ...]}
         const chevronRef= createRef();
