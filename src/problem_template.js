@@ -173,9 +173,8 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh"}} ref={contentRef}>
                         {comments.map((comment) => {
                             return(
-                                <>
+                                <div className='thread'>
                                     <div className='comment'>
-                                        <div className='big_dot'></div>
                                         <div>
                                             <div className='comment_metadata'>
                                                 <b className='comment_author'>{comment.author}</b>
@@ -191,7 +190,6 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                                         {comment.replies.map((reply) => {
                                             return(
                                                 <div className='reply'>
-                                                    <div className='small_dot'></div>
                                                     <div>
                                                         <div className='reply_metadata'>
                                                             <b className='reply_author'>{reply.author}</b>
@@ -206,7 +204,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                                             )
                                         })}
                                     </div>
-                            </>
+                            </div>
                         )})}
                     </div>) : null}
             </div>
