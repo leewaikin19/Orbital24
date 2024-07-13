@@ -36,9 +36,9 @@ export default function Problem(){
 }
 
 export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
-    console.log(title)
     const [mcqAnswer, setMcqAnswer] = useState([])
     const [srqAnswer, setSrqAnswer] = useState([])
+    var rating = 0;
 
     return (
         <div className='problems'>
@@ -81,6 +81,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     }
                 ]
             }]} />
+            <Rate />
         </div>
     )
 
@@ -141,7 +142,6 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
     function McqHandler (option, index){
         template.select(document.getElementById(index + " " + option), document.getElementById("mcq" + index))
         mcqAnswer[index] == option ? mcqAnswer[index] = null : mcqAnswer[index] = option
-        console.log(mcqAnswer)
     }
 
     function Mcq({index, question, options}) {
@@ -292,7 +292,6 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
     }
 
     function Simulation(sim) {
-        console.log(sim)
         return(
             <div className='simulation'>
                 <div className='simulation_title'>
@@ -300,6 +299,27 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                 </div>
                 {sim}
             </div>
+        )
+    }
+
+    // TODO @LWK19 do your magic with the ratings
+    function RatingHandler (id){
+        rating = id;
+        template.select(document.getElementById(id), document.getElementById("rate_container"));
+    }
+
+    function Rate(hasSolved = false) {
+        return(
+            <>
+                <h2>Rate This Problem</h2>
+                <div id='rate_container' style={{display:"grid", gridTemplateColumns:"repeat(5, 1fr)", gap:"0px clamp(6px, 3vw, 18px)"}}>
+                    <template.MCQInput id="1" name="rate" value="1" content={<span>1</span>} onClick={() => {RatingHandler("1")}}/>
+                    <template.MCQInput id="2" name="rate" value="2" content={<span>2</span>} onClick={() => {RatingHandler("2")}}/>
+                    <template.MCQInput id="3" name="rate" value="3" content={<span>3</span>} onClick={() => {RatingHandler("3")}}/>
+                    <template.MCQInput id="4" name="rate" value="4" content={<span>4</span>} onClick={() => {RatingHandler("4")}}/>
+                    <template.MCQInput id="5" name="rate" value="5" content={<span>5</span>} onClick={() => {RatingHandler("5")}}/>
+                </div>
+            </>
         )
     }
 }

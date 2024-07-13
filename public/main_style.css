@@ -437,3 +437,13 @@ input:-webkit-autofill {
     border: 3px solid var(--green);
     color: var(--grayest);
 }
+
+#rate_container {
+    display:"grid";
+    grid-template-columns: "1fr 1fr 1fr 1fr 1fr";
+    gap:"0px clamp(6px, 3vw, 18px)"
+}
+
+#rate_container button {
+    text-align: center;
+}
