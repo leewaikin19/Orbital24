@@ -3,6 +3,7 @@ import { useState, useId, useRef, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
+
 export default function Problem(){
     const [loading, setLoading] = useState(true);
     const page = useRef(null);
@@ -170,7 +171,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                 </div>
                 {(showStats) ? (
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh", textAlign:"center"}} ref={contentRef}>
-                        Out of {num_attempts} attempts, {completion_rate}% of users have completed this problem.
+                        <p>Out of <b style={{color:"var(--orange)"}}>{num_attempts}</b> users made a submission, <b style={{color:"var(--orange)"}}>{completion_rate}%</b> of users have successfully solved this problem.</p>
                         {/* TODOM Make it better */}
                     </div>) : null}
                 </div>

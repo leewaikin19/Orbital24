@@ -100,10 +100,10 @@ export function MCQInput( {name, id=name, value="", content=value, onClick, pres
     )
 }
 
-export function GradeMCQInput( {name, id=name, value="", content=value, userAnswer = false, correctAnswer = false}) {
+export function GradeMCQInput( {name, id=name, value="", content=value, userAnswer = false, correctAnswer = null}) {
     return (
         <>
-             <button name={name} id={id} value={value} className={'mcq_button ' + (userAnswer ? 'red_button ' : '') + (correctAnswer ? 'green_button' : '')} style={{marginBottom:"0.5em"}} disabled>{content}</button>
+             <button name={name} id={id} value={value} className={'mcq_button ' + (userAnswer ? 'selected_mcq_button ' : '') + (correctAnswer != null ? (correctAnswer == true ? 'green_button' : 'red_button') : '')} style={{marginBottom:"0.5em"}} disabled>{content}</button>
         </>
     )
 }

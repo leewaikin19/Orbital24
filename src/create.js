@@ -23,11 +23,19 @@ function MainContent() {
     const [sandbox, setSandbox] = useState("")
     const [hints, setHints] = useState([])
     const [mcqs, setMCQs] = useState([]) // [{qn:"", options:["", "", "", "", ""], an:""},...]
-    const [srqs, setSRQs] = useState([]) // [{qn:"", an:""},...]
+    const [srqs, setSRQs] = useState([]) // [{qn:"", an:"", autograded: ""},...]
 
     function McqHandler (choice, num, option){
         template.select(document.getElementById(choice + num), document.getElementById(num))
         template.ArrayTextAreaInputHandler(mcqs, setMCQs, num, "an", mcqs[num].options[option])
+    }
+
+    function toggle(id){
+        let button = document.getElementById("Autograde " + id)
+        button.classList.toggle('selected_button')
+        let span = document.getElementById("Span Autograde " + id) 
+        span.innerHTML = span.innerHTML == "Autograde Off" ? "Autograde On" : "Autograde Off"
+        console.log(srqs)
     }
 
     function saveProblem() {
@@ -78,7 +86,7 @@ function MainContent() {
                 <div id='mcq_container' className='section'>
                     {mcqs.map((i, index) => {return(
                         <>
-                            <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Multiple Choice Question {index + 1}</b>
+                            <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Multiple Choice Question {index + 1} (Autograded)</b>
                             <div className='form_input' style={{marginBottom:"0.5em"}}>
                                 <textarea 
                                     id={"MCQ " + index} 
@@ -162,7 +170,7 @@ function MainContent() {
                     {srqs.map((i, index) => {return(
                         <>
                             <b style={{marginBottom:"clamp(6px, 6vmin, 12px)"}}>Short Response Question {index + 1}</b>
-                            <div className='form_input section'>
+                            <div className='form_input section' style={{display:"grid", gridTemplateColumns:"2fr 2fr 1fr", gap:"max(2vw, 40px)"}}>
                                 <textarea 
                                     id={"SRQ " + index} 
                                     onInput= {(e) => template.ArrayTextAreaInputHandler(srqs, setSRQs, index, "qn", e.target.value, "SRQ " + index)}
@@ -171,12 +179,24 @@ function MainContent() {
                                     id={"SRQAns " + index} 
                                     onInput= {(e) => template.ArrayTextAreaInputHandler(srqs, setSRQs, index, "an", e.target.value, "SRQAns " + index)}
                                     placeholder={"Enter Answer " + (index + 1)}/>
+                                <button 
+                                    className='animated_button autograde_button' 
+                                    id = {"Autograde " + index}
+                                    onClick={() => {
+                                    toggle(index)
+                                    setSRQs(srqs.map((value, id) => {
+                                        if(id == index){
+                                            return {...value, autograded: !value.autograded}
+                                        } else {
+                                            return value
+                                    }}))
+                                }}><span id={"Span Autograde "+ index}>Autograde Off</span></button>
                             </div>
                         </>
                     )})}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                    <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
+                    <button className='action_button animated_button' onClick={() => setSRQs(sqrs => [...sqrs, {"qn": "", "an": "", "autograded":false}])}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
             <button id='create_hint' className='action_button animated_button' onClick={saveProblem}><span>Submit Problem For Approval</span></button>

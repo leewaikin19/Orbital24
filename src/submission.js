@@ -137,7 +137,7 @@ function MainContent({ submission, problem }) {
                 <div id='mcq' className='mcq_input' style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "left" }}>
                     {options.filter(option => option != '').map((option) => {
                         return (
-                            <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (option == iUserAnswer ? iUserAnswer == problem.mcqs[index].an ? " (Correct Answer)" : " (Wrong Answer)" : "")}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))} userAnswer = {iUserAnswer === option} correctAnswer = {problem.mcqs[index].an === option && iUserAnswer === problem.mcqs[index].an} />
+                            <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))} userAnswer = {iUserAnswer === option} /* TODO @LWK19 correctAnswer= true if correct, false if not, null if ungraded */ />
                         )
                     })}
                 </div>
