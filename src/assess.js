@@ -138,7 +138,7 @@ function MainContent({problem}) {
                                     id={"MCQ " + index} 
                                     value={i.qn} 
                                     onInput={(e) => ArrayTextAreaInputHandler(mcqs, setMCQs, index, "qn", e.target.value, "MCQ " + index)} 
-                                    placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
+                                    placeholder={"Enter Multiple Choice Question " + (index + 1) + " (Autograded)"}/>
                             </div>
                             <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
                                 <template.MCQInput 
@@ -279,7 +279,7 @@ function MainContent({problem}) {
                     )})}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                    <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
+                    <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": "", "autograded":false}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
             <div>

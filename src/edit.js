@@ -98,7 +98,7 @@ function MainContent({problem}) {
                     {mcqs.map((i, index) => (
                         <>
                             <div className='form_input section'>
-                                <textarea id={"MCQ " + index} value={i.qn} onInput={(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index)} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
+                                <textarea id={"MCQ " + index} value={i.qn} onInput={(e) => template.handler(e, (i) => {mcqs[index].qn = i}, "MCQ " + index + " (Autograded)")} placeholder={"Enter Multiple Choice Question " + (index + 1)}/>
                             </div>
                             <div className='form_input section' id={index} style={{display:"flex", flexDirection:"column"}}>
                                 <template.MCQInput 
@@ -239,7 +239,7 @@ function MainContent({problem}) {
                     )})}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                    <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": ""}]))}><span>Add New Short Response Question</span></button>
+                    <button className='action_button animated_button' onClick={() => (setSRQs(sqrs => [...sqrs, {"qn": "", "an": "", "autograded":false}]))}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
             <button id='save_problem' className='action_button animated_button' onClick={saveProblem}><span>Save Problem</span></button>
