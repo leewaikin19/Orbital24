@@ -67,7 +67,20 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
             {/*TODOM add message diaogue fail or success*/}
             <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {/* TODO @LWK19 Go to the submission page of this problem to see the result of the autograding*/})}><span>Submit Solution</span></button> 
             <Statistics num_attempts={10} completion_rate={50} />
-            <Forum comments={[{author: "John", date: 1720751177, content: "This problem is challenging!", replies: [{author: "Jane", content: "I agree!", date:1730771177}]}]} />
+            <Forum comments={[{
+                id: 1,
+                author: "Test",
+                date: 546543213275,
+                content: "This is the first comment",
+                replies: [
+                    {
+                        id: 1,
+                        author: "Test2",
+                        date: 553572486456,
+                        content: "Reply to the first comment"
+                    }
+                ]
+            }]} />
         </div>
     )
 
@@ -216,7 +229,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
         // })
 
         return(
-            <div className="hint">
+            <div className="forum">
                 <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
                     Discussion <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                 </div>
@@ -241,7 +254,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='replies'>
+                                    <div className='replies' style={{marginBottom:"2vh"}}>
                                         {comment.replies.map((reply) => {
                                             return(
                                                 <div className='reply'>

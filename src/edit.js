@@ -227,12 +227,7 @@ function MainContent({problem}) {
                                     id = {"Autograde " + index}
                                     onClick={() => {
                                     toggle(index)
-                                    setSRQs(srqs.map((value, id) => {
-                                        if(id == index){
-                                            return {...value, autograded: !value.autograded}
-                                        } else {
-                                            return value
-                                    }}))
+                                    setSRQs(srqs.map((value, id) => {id == index ? {...value, autograded: !value.autograded} : value}))
                                 }}><span id={"Span Autograde "+ index}>Autograde Off</span></button>
                             </div>
                         </>

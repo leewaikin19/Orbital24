@@ -54,6 +54,7 @@ export default function Submission() {
 function MainContent({submission, problem}) { 
     const mcqUserAnswer = submission.submission.mcqs;
     const srqUserAnswer = submission.submission.srqs;
+    const [approved, setApproved] = useState([]); // TODO @LWK19 Can we get the true/false based on autograder. Set default to false and let the manual graders change it.
     return (
         <>
             <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
@@ -72,83 +73,100 @@ function MainContent({submission, problem}) {
             })}
             {problem.srqs.map((srq, i) => {
                 return(
-                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srq.an}/>
+                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srq.an} autograded = {srq.autograded}/>
                 )
             })}
-             <button className="action_button animated_button" onClick={() => API.gradeSubmission(template.getCookie('token'), id, /* TODO */)}><span>Submit Grades</span></button> 
+             <button className="action_button animated_button" onClick={() => API.gradeSubmission(template.getCookie('token'), id, /* TODO */)}><span>Finalise Grades</span></button> 
         </>
     )
-}
 
-function impt_note({note}) {
-    return(
-        <div className="impt_note">
-            <div className='impt_note_title'>
-                Important Note!
-                <div className='content'>
-                {note}
+    function impt_note({note}) {
+        return(
+            <div className="impt_note">
+                <div className='impt_note_title'>
+                    Important Note!
+                    <div className='content'>
+                    {note}
+                    </div>
                 </div>
             </div>
-        </div>
-    )
-}
-
-// Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
-function Hints({title, desc}) {
-    const chevronRef= createRef();
-    const contentRef = createRef();
-    const [showHint, setShowHint] = useState(false);
-    function Reveal() {
-        setShowHint((showHint) => !showHint)
-    }
-    function Hover() {
-        chevronRef.current.style.transform = "rotate(90deg)"
-        chevronRef.current.style.transition = "0.4s ease"
+        )
     }
 
-    function Unhover() {
-        showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
-        chevronRef.current.style.transition = "0.4s ease"
-    }
+    // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
+    function Hints({title, desc}) {
+        const chevronRef= createRef();
+        const contentRef = createRef();
+        const [showHint, setShowHint] = useState(false);
+        function Reveal() {
+            setShowHint((showHint) => !showHint)
+        }
+        function Hover() {
+            chevronRef.current.style.transform = "rotate(90deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
 
-    return(
-        <div className="hint">
-            <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title' style={{cursor:"default"}}>
-                <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
-                {(showHint) ? (
-                <div className='content' ref={contentRef}>
-                    {desc}
-                </div>) : null}
+        function Unhover() {
+            showHint ? chevronRef.current.style.transform = "rotate(90deg)" : chevronRef.current.style.transform = "rotate(0deg)"
+            chevronRef.current.style.transition = "0.4s ease"
+        }
+
+        return(
+            <div className="hint">
+                <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='hint_title' style={{cursor:"default"}}>
+                    <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+                    {(showHint) ? (
+                    <div className='content' ref={contentRef}>
+                        {desc}
+                    </div>) : null}
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 
-function Srq({index, question, placeholder = "Enter your answer here", iUserAnswer = "", iCorrectAnswer = ""}) {
-    const [solution, setSolution] = useState(iUserAnswer);
-    return(
-        <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
-            <b>Short Response Question {index}</b> 
-            <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <template.FormInput name='solution' value={solution} onChange={e => setSolution(e.target.value)} placeholder={placeholder} required disabled = {true}/>
-            <p>Correct Answer: {iCorrectAnswer}</p>
-            {/* TODOM Submit Grade */}
-        </div>
-    )
-}
-
-function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
-    return(
-        <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
-            <b>Multiple Choice Question {index}</b> 
-            <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-            <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
-                {options.filter(option => option!= '').map((option) => {
-                    return(
-                        <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (iCorrectAnswer == option ? " (Correct Answer) " : "") + (iUserAnswer == option ? " (User Answer) " : "")}</span>} userAnswer={iUserAnswer == option} correctAnswer={iCorrectAnswer == option}/>
-                    )
-                })}
+    function Srq({index, question, iUserAnswer = "", iCorrectAnswer = "sHFFHSfhs", autograded = false}) {
+        const [solution, setSolution] = useState(iUserAnswer);
+        return(
+            <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
+                <b>Short Response Question {index + (autograded ? " (Autograded)" : " (Manual grading)")}</b> 
+                <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
+                {/* TODO @LWK19 how to get the autograded result? */}
+                <template.FormInput name='solution' className={autograded ? (iUserAnswer === iCorrectAnswer && iUserAnswer != "" ? "green_button" : "red_button") : ""} style={{margin:"0px 0px 0.5em 0px"}} value={solution} onChange={e => setSolution(e.target.value)} required disabled = {true}/>
+                <p style={{margin:"0px 0px 0.5em 0px"}}>Correct Answer: {iCorrectAnswer}</p>
+                {autograded ? null : (
+                    <div style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
+                        <button 
+                            id='approve_button' 
+                            className='action_button animated_button' 
+                            onClick={() => setApproved(approved.map((approve, id) => {id == index ? true : approve}))}>
+                            <i className="fa-solid fa-thumbs-up"></i> <span>Approve Answer</span>
+                        </button>
+                        <button 
+                            id='reject_button' 
+                            className='action_button animated_button' 
+                            onClick={() => setApproved(approved.map((approve, id) => {{id == index ? false : approve}}))}>
+                            <i className="fa-solid fa-thumbs-down"></i> <span>Reject Answer</span>
+                        </button>
+                    </div>
+                )}
             </div>
-        </div>
-    )
+        )
+    }
+
+    function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
+        return(
+            <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
+                <b>Multiple Choice Question {index}</b> 
+                <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
+                <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
+                    {options.filter(option => option!= '').map((option) => {
+                        return(
+                            // TODO @LWK19 how to get the autograded result?
+                            <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (iCorrectAnswer == option ? " (Correct Answer) " : "") + (iUserAnswer == option ? " (User Answer) " : "")}</span>} userAnswer={iUserAnswer == option} correctAnswer={iCorrectAnswer == option}/>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
 }

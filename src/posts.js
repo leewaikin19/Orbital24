@@ -14,26 +14,65 @@ export default function Posts() {
         console.log('Im doneee')
     })
     return (
-        < template.Home MainContent={() => (<MainContent forumLinks = {[]} forumPosts={[]} />)} SSelected={'posts'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent comments={[
+            {
+                id: 1,
+                author: "Test",
+                date: 546543213275,
+                content: "This is the first comment",
+                replies: [
+                    {
+                        id: 1,
+                        author: "Test2",
+                        date: 553572486456,
+                        content: "Reply to the first comment"
+                    }
+                ]
+            }
+        ]}/>)} SSelected={'posts'} promise={promise} />
     ) 
 }
 
-function MainContent({forumLinks, forumPosts}) {
-    function arrayiser() {
-        var arr = [];
-        for(let i = 0; i < forumLinks.length; i++) {
-            arr.push({"link": forumLinks[i], "content": forumPosts[i]});
-        }
-        return arr;
-    } 
+function MainContent({comments}) { // TODO @LWK19 filter for just current user
     return (
         <>
-                <h1>Past Forum Posts</h1>
-                {arrayiser().map((post) => { return(
-                    <div style={{borderBottom:"2px var(--gray) solid", padding:"2vw 2vh"}}>
-                        <a href={post.link}>{post.content}</a>
-                    </div>
-                )})}
+            <h1>Past Forum Posts</h1>
+            {comments.map((comment) => {
+                            return(
+                                <div className='thread'>
+                                    <div className='comment'> {/* TODO @LWK19 Sort by date*/}
+                                        <div>
+                                            {/* TODO @LWK19 link to the problems <a href={'./problems/'}><b style={{color:"var(--orange)"}}>problemtitle</b></a> */}
+                                            <div className='comment_metadata'>
+                                                <b className='comment_author'>{comment.author}</b>
+                                                &bull;
+                                                <div className='comment_date'>{new Date(comment.date).toLocaleString()}</div>
+                                            </div>
+                                            <div className='comment_content'>
+                                                {comment.content}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='replies'>
+                                        {comment.replies.map((reply) => {
+                                            return(
+                                                <div className='reply'>
+                                                    <div>
+                                                        <div className='reply_metadata'>
+                                                            <b className='reply_author'>{reply.author}</b>
+                                                            &bull;
+                                                            <div className='reply_date'>{new Date(reply.date).toLocaleString()}</div>
+                                                        </div>
+                                                        <div className='reply_content'>
+                                                            {reply.content}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            )})}
         </>
     )
 }

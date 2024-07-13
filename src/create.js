@@ -41,7 +41,7 @@ function MainContent() {
     function saveProblem() {
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
-        const TEMPORARY_AUTOGRADED_VALUE = true;
+        const TEMPORARY_AUTOGRADED_VALUE = true; // TODO @LWK19 Idk how to change this
         title == "" ? setTitle("Untitled Problem") : title
         API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_DIFFICULTY_VALUE, TEMPORARY_XP_VALUE, mcqs.filter((mcq) => (mcq.qn!="")), srqs.filter((srq) => (srq.qn!="")), TEMPORARY_AUTOGRADED_VALUE)
         .then((resp) => {
@@ -184,12 +184,7 @@ function MainContent() {
                                     id = {"Autograde " + index}
                                     onClick={() => {
                                     toggle(index)
-                                    setSRQs(srqs.map((value, id) => {
-                                        if(id == index){
-                                            return {...value, autograded: !value.autograded}
-                                        } else {
-                                            return value
-                                    }}))
+                                    setSRQs(srqs.map((value, id) => {id == index ? {...value, autograded: !value.autograded} : value}))
                                 }}><span id={"Span Autograde "+ index}>Autograde Off</span></button>
                             </div>
                         </>
