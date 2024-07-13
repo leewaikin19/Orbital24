@@ -6,7 +6,6 @@ import * as template from "./template.js"
 import * as API from './API.js'
 
 // TODO LWK do ans check
-// TODOM Add option for autograded for each SRQ
 export default function Submission() {
     const [loading, setLoading] = useState(true);
     const submission = useRef({
