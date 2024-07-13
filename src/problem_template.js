@@ -38,7 +38,7 @@ export default function Problem(){
 export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
     const [mcqAnswer, setMcqAnswer] = useState([])
     const [srqAnswer, setSrqAnswer] = useState([])
-    var rating = 0;
+    var rating = 0; // TODO @LWK19 do your magic with the ratings
 
     return (
         <div className='problems'>
@@ -81,7 +81,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     }
                 ]
             }]} />
-            <Rate />
+            <Rate hasSolved={false} hasRated = {true} /> {/*TODO @LWK19 Check if the user has solved the problem and rated it*/}
         </div>
     )
 
@@ -302,13 +302,15 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
         )
     }
 
-    // TODO @LWK19 do your magic with the ratings
     function RatingHandler (id){
         rating = id;
         template.select(document.getElementById(id), document.getElementById("rate_container"));
     }
 
-    function Rate(hasSolved = false) {
+    function Rate(hasSolved = false, hasRated = true){
+        if (!hasSolved || hasRated) {
+            return null
+        }
         return(
             <>
                 <h2>Rate This Problem</h2>
