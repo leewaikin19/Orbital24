@@ -35,26 +35,27 @@ export default function Submission() {
 
         const promise1 = API.getProblem(template.getCookie('token'), submission.current.questionID).then((resp2) => {
             problem.current = resp2.reply;
-            setLoading(false);
         })
 
         const promise2 = API.getProblemSolution(template.getCookie('token'), submission.current.questionID).then((resp2) => {
             solution.current = resp2.reply;
-            setLoading(false);
         })
-        await Promise.all([promise1, promise2])
+        await Promise.all([promise1, promise2]).then(() => setLoading(false))
     })
 
     return (
         < template.Home MainContent={() => (
-            <MainContent submission={submission.current} problem={problem.current} solution={solution.current}/>)}  SSelected={'grade'} promise={promise} />
+            <MainContent submission={submission.current} problem={problem.current} solution={solution.current} id={id}/>)}  SSelected={'grade'} promise={promise} />
     )
 }
 
-function MainContent({submission, problem}) { 
+function MainContent({submission, problem, solution, id}) { 
     const mcqUserAnswer = submission.submission.mcqs;
     const srqUserAnswer = submission.submission.srqs;
-    const [approved, setApproved] = useState([]); // TODO @LWK19 Can we get the true/false based on autograder. Set default to false and let the manual graders change it.
+    const mcqAns = solution.mcqAns;
+    const srqAns = solution.srqAns;
+    const mcqPregrade = mcqUserAnswer.map((x,i)=>x===mcqAns[i])
+    const [approved, setApproved] = useState(srqUserAnswer.map((x,i)=>srqAns[i].autograded ? x===srqAns[i].an : false)); 
     return (
         <>
             <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
@@ -68,17 +69,27 @@ function MainContent({submission, problem}) {
             <h2 style={{marginBottom:"0.3em"}}>Submission</h2>
             {problem.mcqs.map((mcq, i) => {
                 return(
-                    <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} iUserAnswer = {mcqUserAnswer[i]} iCorrectAnswer = {mcq.an}/>
+                    <Mcq index = {i + 1} question={mcq.qn} options={mcq.options} iUserAnswer = {mcqUserAnswer[i]} iCorrectAnswer = {mcqAns[i]}/>
                 )
             })}
             {problem.srqs.map((srq, i) => {
                 return(
-                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srq.an} autograded = {srq.autograded}/>
+                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srqAns[i].an} autograded = {srqAns[i].autograded}/>
                 )
             })}
-             <button className="action_button animated_button" onClick={() => API.gradeSubmission(template.getCookie('token'), id, /* TODO */)}><span>Finalise Grades</span></button> 
+             <button className="action_button animated_button" onClick={finaliseGrades}><span>Finalise Grades</span></button> 
         </>
     )
+
+    async function finaliseGrades() {
+        const resp = await API.gradeSubmission(template.getCookie('token'), id, {'mcq':mcqPregrade, 'srq':approved})
+        console.log(approved)
+        if(resp.success){
+            alert('Grades Submitted')
+        }else{
+            alert('An Error Occured')
+        }
+    }
 
     function impt_note({note}) {
         return(
@@ -93,6 +104,7 @@ function MainContent({submission, problem}) {
         )
     }
 
+    // TODOM do we need to show hints here?
     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({title, desc}) {
         const chevronRef= createRef();
@@ -130,7 +142,6 @@ function MainContent({submission, problem}) {
             <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
                 <b>Short Response Question {index + (autograded ? " (Autograded)" : " (Manual grading)")}</b> 
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-                {/* TODO @LWK19 how to get the autograded result? */}
                 <template.FormInput name='solution' className={autograded ? (iUserAnswer === iCorrectAnswer && iUserAnswer != "" ? "green_button" : "red_button") : ""} style={{margin:"0px 0px 0.5em 0px"}} value={solution} onChange={e => setSolution(e.target.value)} required disabled = {true}/>
                 <p style={{margin:"0px 0px 0.5em 0px"}}>Correct Answer: {iCorrectAnswer}</p>
                 {autograded ? null : (
@@ -138,13 +149,13 @@ function MainContent({submission, problem}) {
                         <button 
                             id='approve_button' 
                             className='action_button animated_button' 
-                            onClick={() => setApproved(approved.map((approve, id) => {id == index ? true : approve}))}>
+                            onClick={() => setApproved(approved.map((approve, id) => id == index-1 ? true : approve))}>
                             <i className="fa-solid fa-thumbs-up"></i> <span>Approve Answer</span>
                         </button>
                         <button 
                             id='reject_button' 
                             className='action_button animated_button' 
-                            onClick={() => setApproved(approved.map((approve, id) => {{id == index ? false : approve}}))}>
+                            onClick={() => setApproved(approved.map((approve, id) => id == index-1 ? false : approve))}>
                             <i className="fa-solid fa-thumbs-down"></i> <span>Reject Answer</span>
                         </button>
                     </div>
@@ -160,9 +171,11 @@ function MainContent({submission, problem}) {
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
                     {options.filter(option => option!= '').map((option) => {
-                        return(
-                            // TODO @LWK19 how to get the autograded result?
-                            <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (iCorrectAnswer == option ? " (Correct Answer) " : "") + (iUserAnswer == option ? " (User Answer) " : "")}</span>} userAnswer={iUserAnswer == option} correctAnswer={iCorrectAnswer == option}/>
+                        return (
+                            <template.GradeMCQInput id={option} name={option} value={option} 
+                            content={<span>{option + (iCorrectAnswer == option ? " (Correct Answer) " : "") + (iUserAnswer == option ? " (User Answer) " : "")}</span>} 
+                            userAnswer={iUserAnswer === option} 
+                            correctAnswer={iUserAnswer == option ? iCorrectAnswer === option : null}/>
                         )
                     })}
                 </div>

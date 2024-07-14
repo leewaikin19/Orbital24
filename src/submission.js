@@ -45,12 +45,12 @@ export default function Submission() {
 }
 
 function MainContent({ submission, problem }) {
-    const mcqUserAnswer = submission.submission.mcqs;    
+    const mcqUserAnswer = submission.submission.mcqs;
     const srqUserAnswer = submission.submission.srqs;
-    
+
     return (
         <>
-            <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
+            <em style={{ marginBottom: '1em' }}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
             <h1>{problem.title}</h1>
             <p>{problem.statement}</p>
             {problem.hints.map((hint, index) => {
@@ -117,6 +117,8 @@ function MainContent({ submission, problem }) {
         )
     }
 
+    //TODOM are we gonna display correct/wrong answer for srq? 
+    // submission.correct.srq[index] (boolean)
     function Srq({ index, question, placeholder = "Enter your answer here", iUserAnswer = "" }) {
         const [solution, setSolution] = useState(iUserAnswer);
         return (
@@ -129,6 +131,7 @@ function MainContent({ submission, problem }) {
     }
 
     function Mcq({ index, question, options, iUserAnswer = "" }) {
+        console.log(submission)
         return (
             <div className='form_input section' style={{ display: "flex", flexDirection: "column", alignItems: "left", justifyContent: "left" }}>
                 <b>Multiple Choice Question {index + 1} (Autograded)</b>
@@ -136,7 +139,12 @@ function MainContent({ submission, problem }) {
                 <div id='mcq' className='mcq_input' style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "left" }}>
                     {options.filter(option => option != '').map((option) => {
                         return (
-                            <template.GradeMCQInput id={option} name={option} value={option} content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>} onClick={() => template.select(document.getElementById(option), document.getElementById("mcq"))} userAnswer = {iUserAnswer === option} /* TODO @LWK19 correctAnswer= true if correct, false if not, null if ungraded */ />
+                            <template.GradeMCQInput id={option} name={option} value={option}
+                                content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>}
+                                onClick={() => template.select(document.getElementById(option),
+                                    document.getElementById("mcq"))} userAnswer={iUserAnswer === option}
+                                correctAnswer={option === iUserAnswer ? submission.correct.mcq ? submission.correct.mcq[index]: null : null}
+                            />
                         )
                     })}
                 </div>

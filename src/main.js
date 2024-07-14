@@ -7,6 +7,7 @@ const SIGNUP_LOGIN = 0;
 const FORGOT_PW = 1;
 const FORGOT_PW_LANDING = 2;
 
+//TODO LWK hash password
 export default function Main() {
 
     const [page, setPage] = useState(SIGNUP_LOGIN);

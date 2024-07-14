@@ -22,12 +22,18 @@ function MainContent() {
     const [statement, setStatement] = useState("")
     const [sandbox, setSandbox] = useState("")
     const [hints, setHints] = useState([])
-    const [mcqs, setMCQs] = useState([]) // [{qn:"", options:["", "", "", "", ""], an:""},...]
-    const [srqs, setSRQs] = useState([]) // [{qn:"", an:"", autograded: ""},...]
+    const [mcqs, setMCQs] = useState([]) // [{qn:"", options:["", "", "", "", ""]},...]
+    const [mcqAns, setMCQAns] = useState([]) // ["", ...]
+    const [srqs, setSRQs] = useState([]) // [{qn:""},...]
+    const [srqAns, setSRQAns] = useState([]) //[{'an':"", autograded:bool}]
 
     function McqHandler (choice, num, option){
+        // Saves ans
         template.select(document.getElementById(choice + num), document.getElementById(num))
-        template.ArrayTextAreaInputHandler(mcqs, setMCQs, num, "an", mcqs[num].options[option])
+        // TODOM there are behaviour issues with the MCQ ans selection. i added temp solution
+        // TODOM also filter empty questions beforehand. add a remove qn button or smt
+        setMCQAns(mcqAns.map((a,i)=>i===num?choice + " "+num:a))
+        //template.ArrayTextAreaInputHandler(mcqAns, setMCQAns, num, "an", mcqs[num].options[option])
     }
 
     function toggle(id){
@@ -41,9 +47,13 @@ function MainContent() {
     function saveProblem() {
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
-        const TEMPORARY_AUTOGRADED_VALUE = true; // TODO @LWK19 Idk how to change this
         title == "" ? setTitle("Untitled Problem") : title
-        API.createProblem(template.getCookie('token'), title, statement, sandbox, hints.filter((hint) => (hint!="")), TEMPORARY_DIFFICULTY_VALUE, TEMPORARY_XP_VALUE, mcqs.filter((mcq) => (mcq.qn!="")), srqs.filter((srq) => (srq.qn!="")), TEMPORARY_AUTOGRADED_VALUE)
+        API.createProblem(template.getCookie('token'), 
+               title, statement, sandbox, hints.filter((hint) => (hint!="")), 
+               TEMPORARY_DIFFICULTY_VALUE, TEMPORARY_XP_VALUE, 
+               mcqs, srqs, 
+               mcqAns.map(id => document.getElementById(id).value), srqAns,
+               )
         .then((resp) => {
             if(resp.success){
                 alert("Successfully saved")
@@ -102,7 +112,7 @@ function MainContent() {
                                         <div className='create_mcq_options'>
                                             <textarea 
                                                     id={"A " + index} 
-                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "A " + index)} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", mcqs[index].options.map((a,i)=>i===0?e.target.value:a), "A " + index)} 
                                                     style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter First Option"}/>
                                             <b className='unselectable'>Correct Answer</b>
                                         </div>} 
@@ -115,7 +125,7 @@ function MainContent() {
                                         <div className='create_mcq_options'>
                                             <textarea 
                                                     id={"B " + index} 
-                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "B " + index)} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", mcqs[index].options.map((a,i)=>i===1?e.target.value:a), "B " + index)} 
                                                     style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Second Option"}/>
                                             <b className='unselectable'>Correct Answer</b>
                                         </div>} 
@@ -128,7 +138,7 @@ function MainContent() {
                                         <div className='create_mcq_options'>
                                             <textarea 
                                                     id={"C " + index} 
-                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "C " + index)} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", mcqs[index].options.map((a,i)=>i===2?e.target.value:a), "C " + index)} 
                                                     style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Third Option"}/>
                                             <b className='unselectable'>Correct Answer</b>
                                         </div>} 
@@ -141,7 +151,7 @@ function MainContent() {
                                         <div className='create_mcq_options'>
                                             <textarea 
                                                     id={"D " + index} 
-                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "D " + index)} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", mcqs[index].options.map((a,i)=>i===3?e.target.value:a), "D " + index)} 
                                                     style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fourth Option"}/>
                                             <b className='unselectable'>Correct Answer</b>
                                         </div>} 
@@ -154,7 +164,7 @@ function MainContent() {
                                         <div className='create_mcq_options'>
                                             <textarea 
                                                     id={"E " + index} 
-                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", e.target.value, "E " + index)} 
+                                                    onInput= {(e) => template.ArrayTextAreaInputHandler(mcqs, setMCQs, index, "options", mcqs[index].options.map((a,i)=>i===4?e.target.value:a), "E " + index)} 
                                                     style={{width: "clamp(10em, 50%, 80em)"}} placeholder={"Enter Fifth Option"}/>
                                             <b className='unselectable'>Correct Answer</b>
                                         </div>} 
@@ -164,7 +174,10 @@ function MainContent() {
                     )})}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                    <button className='action_button animated_button' onClick={() => setMCQs(mcqs => [...mcqs, {"qn": "", "options":["", "", "", "", ""], "an": ""}])}><span>Add New Multiple Choice Question</span></button>
+                    <button className='action_button animated_button' onClick={() => {
+                        setMCQs(mcqs => [...mcqs, {"qn": "", "options":["", "", "", "", ""]}]); 
+                        setMCQAns(mcqAns => [...mcqAns, ""]);
+                        }}><span>Add New Multiple Choice Question</span></button>
                 </div>
                 <div id='srq_container' className='section '>
                     {srqs.map((i, index) => {return(
@@ -177,14 +190,14 @@ function MainContent() {
                                     placeholder={"Enter Short Response Question " + (index + 1)}/>
                                 <textarea 
                                     id={"SRQAns " + index} 
-                                    onInput= {(e) => template.ArrayTextAreaInputHandler(srqs, setSRQs, index, "an", e.target.value, "SRQAns " + index)}
+                                    onInput= {(e) => template.ArrayTextAreaInputHandler(srqAns, setSRQAns, index, "an", e.target.value, "SRQAns " + index)}
                                     placeholder={"Enter Answer " + (index + 1)}/>
                                 <button 
                                     className='animated_button autograde_button' 
                                     id = {"Autograde " + index}
                                     onClick={() => {
                                         toggle(index)
-                                        setSRQs(srqs.map((value, id) => {
+                                        setSRQAns(srqAns.map((value, id) => {
                                             if(id == index){
                                                 return {...value, autograded: !value.autograded}
                                             } else {
@@ -196,7 +209,10 @@ function MainContent() {
                     )})}
                 </div>
                 <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                    <button className='action_button animated_button' onClick={() => setSRQs(sqrs => [...sqrs, {"qn": "", "an": "", "autograded":false}])}><span>Add New Short Response Question</span></button>
+                    <button className='action_button animated_button' onClick={() => {
+                        setSRQs(sqrs => [...sqrs, {"qn":""}]);
+                        setSRQAns(srqAns => [...srqAns, {'an':"", "autograded":false}]);
+                        }}><span>Add New Short Response Question</span></button>
                 </div>
             </div>
             <button id='create_hint' className='action_button animated_button' onClick={saveProblem}><span>Submit Problem For Approval</span></button>

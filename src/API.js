@@ -3,8 +3,8 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 // Cloudflare workers
-const url = "https://rojiku-server.lwk19-eab.workers.dev";
-//const url = "http://127.0.0.1:8787";
+//const url = "https://rojiku-server.lwk19-eab.workers.dev";
+const url = "http://127.0.0.1:8787";
 
 async function post(payload) {
     
@@ -85,21 +85,18 @@ export async function leaderboard(token) {
     return resp;
 }
 
-export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs = [{qn: "", options: ["","","","",""], an: ""}], srqs = [{qn: "", an: ""}], autograded) {
+export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs, srqs, mcqAns, srqAns) {
     // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 'statement':statement, 'title':title, 'sandbox':sandbox, 'hints':hints, 'xp':xp, 'difficulty':difficulty, 'mcqs':mcqs, 'srqs':srqs, 'autograded':autograded});
+    var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 
+        'statement':statement, 'title':title, 'sandbox':sandbox, 
+        'hints':hints, 'xp':xp, 'difficulty':difficulty, 
+        'mcqs':mcqs, 'srqs':srqs, 'mcqAns':mcqAns, 'srqAns':srqAns, 'autograded':srqAns.find(x => x.autograded===false).length > 0});
     return resp;
 }
 
-export async function updateProblem(token, id, updates) {
+export async function updateProblem(token, id, problemUpdates, solutionUpdates) {
     // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'updateProblem', 'token':token, 'id':id, 'updates':updates});
-    return resp;
-}
-
-export async function deleteProblem(token, id) {
-    // resp.success=true returns reply
-    var resp = await post({ 'mode': 'main', 'method':'deleteProblem', 'token':token, 'id':id});
+    var resp = await post({ 'mode': 'main', 'method':'updateProblem', 'token':token, 'id':id, 'problemUpdates':problemUpdates, 'solutionUpdates':solutionUpdates});
     return resp;
 }
 
@@ -160,6 +157,18 @@ export async function getUserCreatedProblems(token) {
     return resp;
 }
 
+export async function getUserCreatedProblem(token, id) {
+    // resp.success=true returns reply = []
+    var resp = await post({ 'mode': 'main', 'method':'getUserCreatedProblem','token':token, 'id':id });
+    return resp;
+}
+
+export async function getUserCreatedProblemSolution(token, id) {
+    // resp.success=true returns reply = []
+    var resp = await post({ 'mode': 'main', 'method':'getUserCreatedProblemSolution','token':token, 'id':id });
+    return resp;
+}
+
 export async function getOwnPendingSubmissions(token) {
     // resp.success=true returns reply = []
     var resp = await post({ 'mode': 'main', 'method':'getOwnPendingSubmissions','token':token });
@@ -169,5 +178,17 @@ export async function getOwnPendingSubmissions(token) {
 export async function getAssessableProblems(token) {
     // resp.success=true returns reply[problems]
     var resp = await post({ 'mode': 'main', 'method':'getAssessableProblems', 'token':token });
+    return resp;
+}
+
+export async function getAssessableProblem(token, id) {
+    // resp.success=true returns reply[problems]
+    var resp = await post({ 'mode': 'main', 'method':'getAssessableProblem', 'token':token, 'id':id });
+    return resp;
+}
+
+export async function getAssessableProblemSolution(token, id) {
+    // resp.success=true returns reply[problems]
+    var resp = await post({ 'mode': 'main', 'method':'getAssessableProblemSolution', 'token':token, 'id':id });
     return resp;
 }

@@ -13,20 +13,12 @@ export default function CreateAssess() {
     promise1.then((resp) => {
         assessableProblems.current = resp.reply;
     })
-    const promise2 = API.getAllProblems(template.getCookie('token'))
+    const promise2 = API.getUserCreatedProblems(template.getCookie('token'))
     promise2.then((resp) => {
-        approvedProblems.current = resp.reply; // TODO @LWK19: Currently gives Non-NULL response here
-    })
-    const promise3 = API.getUserCreatedProblems(template.getCookie('token'))
-    promise3.then((resp) => {
-        Promise.all([promise1, promise2]).then(() => {
-            const problems = approvedProblems.current.concat(assessableProblems.current);
-            createdProblems.current = /*resp.reply.map(id => problems.find(x => x.id === id)).filter(x => x!==undefined)*/ [] // TODO @LWK19: Currently gives NULL response here
-        }
-        )
+        createdProblems.current = resp.reply
     })
 
-    const promise = Promise.all([promise1, promise2, promise3])
+    const promise = Promise.all([promise1, promise2])
     return (
         < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current}/>)} SSelected={'createassessprobems'} promise={promise} />
     ) 
@@ -44,7 +36,10 @@ function MainContent({assessableProblems, createdProblems}) {
             <div className='section'>
                 <h1>Created Problems</h1>
                 <template.StaticTable id = "created_problems" headers={["Problem Title", "Status"]} width={[4,1]} data={createdProblems.map(
-                    (problem) => ([<a href={'edit/' + problem.id}>{problem.title}</a>, problem.pending?"Pending":<p style={{color:"var(--green)"}}>Approved</p>]))} />
+                    (problem) => ([<a href={'edit/' + problem.id}>{problem.title}</a>, problem.status==='pending'
+                    ? "Pending" : problem.status==='approved'
+                    ? <p style={{color:"var(--green)"}}>Approved</p>
+                    : <p style={{color:"var(--red)"}}>Rejected</p>]))} />
             </div>
             <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
                     <i class="fa-solid fa-plus"></i> {" "}
