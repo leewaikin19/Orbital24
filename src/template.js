@@ -108,6 +108,15 @@ export function GradeMCQInput( {name, id=name, value="", content=value, userAnsw
     )
 }
 
+export function GradeSRQInput({name, id=name, value="", setValue, correctAnswer = null}) {
+    return (
+        <>
+            <FormInput name={name} id={id} value={value} onChange={setValue} className={correctAnswer != null ? (correctAnswer == true ? "green_button" : "red_button") : ""} disabled = {true}/>
+        </>
+    )
+}
+
+
 export function select(choice, container) {
     // Conversion to array adapted from: https://stackoverflow.com/questions/5158338/how-to-convert-a-collection-to-an-array-in-javascript
     const children = Array.from(container.children);

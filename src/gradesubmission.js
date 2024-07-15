@@ -104,7 +104,7 @@ function MainContent({submission, problem, solution, id}) {
         )
     }
 
-    // TODOM do we need to show hints here?
+    // TODO @LWK19 do we need to show hints here? Uty, if you think dont need then delete. I think we should coz it's part of the problem.
     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({title, desc}) {
         const chevronRef= createRef();

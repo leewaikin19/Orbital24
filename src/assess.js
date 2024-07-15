@@ -42,10 +42,8 @@ function MainContent({ problem, solution }) {
 
     function McqHandler(choice, num, options) {
         template.select(document.getElementById(choice + num), document.getElementById(num))
-        // TODOM there are behaviour issues with the MCQ ans selection. i added temp solution
-        // TODOM also filter empty questions beforehand. add a remove qn button or smt
-        setMCQAns(mcqAns.map((a, i) => i === num ? choice + " " + num : a))
-        //template.ArrayTextAreaInputHandler(mcqAns, setMCQAns, num, "an", mcqs[num].options[option])
+        // TODOM Add a remove qn button or smt
+        setMCQAns(mcqAns.map((a, i) => i === num ? choice + " " + num : a)) //  This is the permanent solution
     }
 
     function toggle(id) {
@@ -274,14 +272,14 @@ function MainContent({ problem, solution }) {
                                     <textarea
                                         id={"SRQAns " + index}
                                         value={srqAns[index].an}
-                                        onInput={(e) => template.ArrayTextAreaInputHandler(srqs, setSRQs, index, "an", e.target.value, "SRQAns " + index)}
+                                        onInput={(e) => template.ArrayTextAreaInputHandler(srqs, setSRQAns, index, "an", e.target.value, "SRQAns " + index)}
                                         placeholder={"Enter Answer " + (index + 1)} />
                                     <button
                                         className='animated_button autograde_button'
                                         id={"Autograde " + index}
                                         onClick={() => {
                                             toggle(index)
-                                            setSRQs(srqs.map((value, id) => {
+                                            setSRQAns(srqs.map((value, id) => {
                                                 if (id == index) {
                                                     return { ...value, autograded: !value.autograded }
                                                 } else {

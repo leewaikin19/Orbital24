@@ -117,7 +117,7 @@ function MainContent({ submission, problem }) {
         )
     }
 
-    //TODOM are we gonna display correct/wrong answer for srq? 
+    //TODO @LWK19 are we gonna display correct/wrong answer for srq?  Yes, is this correct?
     // submission.correct.srq[index] (boolean)
     function Srq({ index, question, placeholder = "Enter your answer here", iUserAnswer = "" }) {
         const [solution, setSolution] = useState(iUserAnswer);
@@ -125,7 +125,7 @@ function MainContent({ submission, problem }) {
             <div className='form_input section' style={{ display: "flex", flexDirection: "column", alignItems: "left", justifyContent: "left" }}>
                 <b>Short Response Question {index + 1}</b>
                 <h3 style={{ margin: "0px 0px 0.5em 0px" }}>{question}</h3>
-                <template.FormInput name='solution' value={solution} onChange={e => setSolution(e.target.value)} placeholder={placeholder} disabled={true} />
+                <template.GradeSRQInput name='solution' value={solution} setValue={e => setSolution(e.target.value)} placeholder={placeholder} correctAnswer={submission.correct.srq[index]} />
             </div>
         )
     }
