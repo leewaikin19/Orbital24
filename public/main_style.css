@@ -431,6 +431,7 @@ input:-webkit-autofill {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.2s ease;
 }
 
 .popup_content {
@@ -466,26 +467,27 @@ input:-webkit-autofill {
     padding: 0.5vh 1vw 1vh 1vw;
 }
 
-#reject_button {
+#reject_button, .reject_button {
     border: 3px solid var(--red);
     color: var(--red);
 }
 
-#reject_button:hover, .red_button {
+#reject_button:hover, .reject_button:hover:enabled, .red_button {
     background-color: var(--red);
     border: 3px solid var(--red);
     color: var(--grayest);
 }
 
-#approve_button {
+#approve_button, .approve_button {
     border: 3px solid var(--green);
     color: var(--green);
 }
 
-#approve_button:hover, .green_button {
+#approve_button:hover, .approve_button:hover:enabled, .green_button {
     background-color: var(--green);
     border: 3px solid var(--green);
     color: var(--grayest);
+    width: 100%;
 }
 
 #rate_container {

@@ -110,7 +110,7 @@ function MainContent({ submission, problem }) {
                     <b>{title} {" "}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                     {(showHint) ? (
                         <div className='content' ref={contentRef}>
-                            {desc}
+                            <p style={{color:"var(--grayest)"}}>{desc}</p>
                         </div>) : null}
                 </div>
             </div>
@@ -125,7 +125,7 @@ function MainContent({ submission, problem }) {
             <div className='form_input section' style={{ display: "flex", flexDirection: "column", alignItems: "left", justifyContent: "left" }}>
                 <b>Short Response Question {index + 1}</b>
                 <h3 style={{ margin: "0px 0px 0.5em 0px" }}>{question}</h3>
-                <template.GradeSRQInput name='solution' value={solution} setValue={e => setSolution(e.target.value)} placeholder={placeholder} correctAnswer={submission.correct.srq[index]} />
+                <template.GradeSRQInput name='solution' value={solution} setValue={e => setSolution(e.target.value)} placeholder={placeholder} correctAnswer={false /* TODO @LWK19 throws error when I use what u gave */} />
             </div>
         )
     }
@@ -137,9 +137,9 @@ function MainContent({ submission, problem }) {
                 <b>Multiple Choice Question {index + 1} (Autograded)</b>
                 <h3 style={{ margin: "0px 0px 0.5em 0px" }}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "left" }}>
-                    {options.filter(option => option != '').map((option) => {
+                    {options.filter(option => option != '').map((option, position) => {
                         return (
-                            <template.GradeMCQInput id={option} name={option} value={option}
+                            <template.GradeMCQInput id={String.fromCharCode(position + 65) + " " + index} name={option} value={option}
                                 content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>}
                                 onClick={() => template.select(document.getElementById(option),
                                     document.getElementById("mcq"))} userAnswer={iUserAnswer === option}

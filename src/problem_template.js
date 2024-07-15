@@ -67,7 +67,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                 )
             })}
             <template.Popup name="submission_success" title="Submission Received" content="Your submission has been captured. Click 'View Submissions' to view your submissions." trigger={triggerPopupSuccess} setTrigger={setTriggerPopupSuccess} /> 
-            <template.Popup name="submission_fail" title="Submission Error" content={"There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please " + (<a href='./bugs'>report it to the developers.</a>)} trigger={triggerPopupFail} setTrigger={setTriggerPopupFail} /> 
+            <template.Popup name="submission_fail" title="Submission Error" content={"There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please report it to the developers."} trigger={triggerPopupFail} setTrigger={setTriggerPopupFail} /> 
             <button className="action_button animated_button" onClick={() => (
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
@@ -134,7 +134,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     <b>{title}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                     {(showHint) ? (
                     <div className='content' ref={contentRef}>
-                        {desc}
+                        <p style={{color:"var(--grayest)"}}>{desc}</p>
                     </div>) : null}
                 </div>
             </div>

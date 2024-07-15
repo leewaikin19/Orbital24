@@ -74,7 +74,7 @@ function MainContent({submission, problem, solution, id}) {
             })}
             {problem.srqs.map((srq, i) => {
                 return(
-                    <Srq index = {i + 1} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srqAns[i].an} autograded = {srqAns[i].autograded}/>
+                    <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srqAns[i].an} autograded = {srqAns[i].autograded}/>
                 )
             })}
              <button className="action_button animated_button" onClick={finaliseGrades}><span>Finalise Grades</span></button> 
@@ -136,26 +136,46 @@ function MainContent({submission, problem, solution, id}) {
         )
     }
 
-    function Srq({index, question, iUserAnswer = "", iCorrectAnswer = "sHFFHSfhs", autograded = false}) {
+    function Srq({index, question, iUserAnswer = "", iCorrectAnswer = "", autograded = false}) {
         const [solution, setSolution] = useState(iUserAnswer);
+        function toggleApproveReject(approve_value = false) {
+            const button = approve_value ? document.getElementById("approve_button " + index) : document.getElementById("reject_button " + index)
+            const other_button = approve_value ? document.getElementById("reject_button " + index) : document.getElementById("approve_button " + index)
+            if (button.classList.contains('green_button')) {
+                button.classList.remove('green_button');
+            } else if (button.classList.contains('red_button')) {
+                button.classList.remove('red_button');
+            } else if (approve_value) {
+                button.classList.add('green_button');
+                other_button.classList.remove('red_button');
+
+            } else {
+                button.classList.add('red_button');
+                other_button.classList.remove('green_button');
+            }
+            const new_approved = approved;
+            new_approved[index] = approve_value;
+            setApproved(new_approved);
+        }
+
         return(
             <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
-                <b>Short Response Question {index + (autograded ? " (Autograded)" : " (Manual grading)")}</b> 
+                <b>Short Response Question {(index + 1) + (autograded ? " (Autograded)" : " (Manual grading)")}</b> 
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
                 <template.FormInput name='solution' className={autograded ? (iUserAnswer === iCorrectAnswer && iUserAnswer != "" ? "green_button" : "red_button") : ""} style={{margin:"0px 0px 0.5em 0px"}} value={solution} onChange={e => setSolution(e.target.value)} required disabled = {true}/>
                 <p style={{margin:"0px 0px 0.5em 0px"}}>Correct Answer: {iCorrectAnswer}</p>
                 {autograded ? null : (
-                    <div style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
+                    <div id = {"approve_reject " + index} style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
                         <button 
-                            id='approve_button' 
-                            className='action_button animated_button' 
-                            onClick={() => setApproved(approved.map((approve, id) => id == index-1 ? true : approve))}>
+                            id={'approve_button ' + index}
+                            className='action_button animated_button approve_button ' 
+                            onClick={() => toggleApproveReject(true)}>
                             <i className="fa-solid fa-thumbs-up"></i> <span>Approve Answer</span>
                         </button>
                         <button 
-                            id='reject_button' 
-                            className='action_button animated_button' 
-                            onClick={() => setApproved(approved.map((approve, id) => id == index-1 ? false : approve))}>
+                            id={'reject_button ' + index}
+                            className='action_button animated_button reject_button ' 
+                            onClick={() => {toggleApproveReject(false)}}>
                             <i className="fa-solid fa-thumbs-down"></i> <span>Reject Answer</span>
                         </button>
                     </div>
