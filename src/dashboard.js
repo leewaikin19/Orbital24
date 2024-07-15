@@ -31,7 +31,6 @@ export default function Dashboard() {
         promise4.then(resp4 => {
             // find pending submissions
             pendingSubmissions.current = resp4.reply;
-            console.log(resp4.reply)
         })
     })
     const promise = Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() => setLoading(false))

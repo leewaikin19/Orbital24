@@ -92,6 +92,8 @@ export function MainContent({problem, user, forum}) {
                     if (resp.success) {
                         setTriggerPopupSuccess(true)
                         setTriggerPopupFail(false)
+                        // TODOM it auto redirects now
+                        window.location.href = '/submission/' + resp.reply.id;
                     } else {
                         setTriggerPopupFail(true)
                         setTriggerPopupSuccess(false)
