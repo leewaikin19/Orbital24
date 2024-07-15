@@ -55,7 +55,6 @@ export function StaticTable({id, headers, width, data}) {
     )
 }
 
-
 export function handler(e, setValue, elem) {
     setValue(e.target.value);
     elem = document.getElementById(elem);
@@ -116,6 +115,24 @@ export function GradeSRQInput({name, id=name, value="", setValue, correctAnswer 
     )
 }
 
+// Popup code adapted from https://www.youtube.com/watch?v=i8fAO_zyFAM. Inputs and structure are changed.
+export function Popup({name, id = name, title, content = "", trigger, setTrigger}) {
+    return (trigger) ? (
+        <div className='popup' id={id}>
+            <div className='popup_content'>
+                <div className='popup_header'>
+                    <h2>{title}</h2>
+                </div>
+                <div className='popup_body'>
+                    <p>{content}</p>
+                </div>
+                <div className='popup_footer'>
+                    <button className='' onClick={() => setTrigger(false)}><span>Close</span></button>
+                </div>
+            </div>
+        </div>
+    ) : null
+}
 
 export function select(choice, container) {
     // Conversion to array adapted from: https://stackoverflow.com/questions/5158338/how-to-convert-a-collection-to-an-array-in-javascript

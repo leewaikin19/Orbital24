@@ -1,11 +1,12 @@
 /* eslint-disable */
-import { useRef } from 'react'
+import { useRef,useState } from 'react'
 import * as API from '../API.js'
 import * as template from "../template.js"
 import * as problems from "../problem_template.js"
 
 export default function PigeonHole() {
     const problem = useRef(null);
+    const [triggerPopup, setTriggerPopup] = useState(false);
     
     const promise = API.getProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee")
     promise.then((resp) => {
@@ -14,6 +15,7 @@ export default function PigeonHole() {
 
     const sim= () => { return (
         <>
+            <template.Popup name = "invalid_input" title = "Invalid Input" content = "Please enter a number between 1 and 52 (inclusive)." trigger = {triggerPopup} setTrigger = {setTriggerPopup} /> {/* TODOM (and @LWK19) Untested */}
             <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
             <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                 <input id='cards' style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
@@ -31,9 +33,18 @@ export default function PigeonHole() {
         </>
     )}
 
+
     function cardSimulation(cards) {
-        // TODOM add popup box instead of setting the cards to 1
-        cards >=1 && cards <= 52 ? null : cards = 1;
+        try {
+            cards = parseInt(cards);
+        } catch (e) {
+            setTriggerPopup(true);
+            return;
+        }
+        if(cards < 1 || cards > 52) {
+            setTriggerPopup(true);
+            return;
+        }
         const suits = ['clubs', 'hearts', 'diamonds', 'spades'];
         const clubs = document.getElementById('clubs');
         clubs.innerHTML = '';
@@ -58,6 +69,7 @@ export default function PigeonHole() {
                 card_array[i] = n;
             }
         }
+
         card_array.sort();
         for(let i = 0; i < cards; i++) {
             var n = card_array[i];
