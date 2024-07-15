@@ -345,21 +345,23 @@ export function MainContent({problem, sandbox, user, forum}) {
         )
     }
 
-    function RatingHandler (id){
-        //rating = id;
-        template.select(document.getElementById(id), document.getElementById("rate_container"));
-    }
-
     //TODOM submit rating submitRating(template.getCookie('token'), problem.id, 3)
     // the current rating of the problem is in the variable rating 
     
     function Rate({hasSolved = false, hasRated = true}){
+        const [ratingTrigger, setRatingTrigger] = useState(false)
+        var currentRating = 0
+        function RatingHandler (id){
+            currentRating = parseInt(id)
+            template.select(document.getElementById(id), document.getElementById("rate_container"));
+        }
         if (!hasSolved || hasRated) {
             return null
         }
         
         return(
             <>
+                <template.Popup id="rate_popup" title="Successful" content="Your rating is successfully captured." trigger={ratingTrigger} setTrigger={setRatingTrigger} onClickAction={window.location.href = "./home"} />
                 <h2>Rate This Problem</h2>
                 <div id='rate_container' style={{display:"grid", gridTemplateColumns:"repeat(5, 1fr)", gap:"0px clamp(6px, 3vw, 18px)"}}>
                     <template.MCQInput id="1" name="rate" value="1" content={<span>1</span>} onClick={() => {RatingHandler("1")}}/>
@@ -368,6 +370,13 @@ export function MainContent({problem, sandbox, user, forum}) {
                     <template.MCQInput id="4" name="rate" value="4" content={<span>4</span>} onClick={() => {RatingHandler("4")}}/>
                     <template.MCQInput id="5" name="rate" value="5" content={<span>5</span>} onClick={() => {RatingHandler("5")}}/>
                 </div>
+                <button className='action_button animated_button' onClick={() => {
+                    API.submitRating(template.getCookie('token'), id, currentRating).then(resp => {
+                        if(resp.success){
+                            setRatingTrigger(true)
+                        }
+                    })
+                }}><span>Submit Rating</span></button> 
             </>
         )
     }
