@@ -278,6 +278,8 @@ export function getCookie(cname) {
     return null;
 }
 
+// TODO @LWK add proper error handling
+// TODOM would be nice if you could add the popup here for the miscellaneous error msgs
 export function handleErrors(msg) {
     if (msg === "Token Error") {
         window.location.href = "/index";
