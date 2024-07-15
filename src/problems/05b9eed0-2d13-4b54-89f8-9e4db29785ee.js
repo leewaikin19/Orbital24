@@ -22,7 +22,7 @@ export default function PigeonHole() {
     const promise3 = API.getComments(template.getCookie('token'), id).then(resp => {
         forum.current = resp.reply;
     })
-    const promise = Promise.all([promise1, promise2])
+    const promise = Promise.all([promise1, promise2, promise3])
 
     const sim= () => { return (
         <>
@@ -117,6 +117,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} user={user.current} forum={forum.current} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

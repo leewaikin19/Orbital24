@@ -35,7 +35,7 @@ export default function Problem(){
             forum.current = resp.reply;
         })
         const promise = Promise.all([promise1, promise2]).then(() => setLoading(false))
-        page.current =  < template.Home MainContent={() => (<MainContent problem={problem.current} user={user.current} forum={forum.current}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        page.current =  < template.Home MainContent={() => (<MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
     })
   
     return (
@@ -43,11 +43,10 @@ export default function Problem(){
     )  
 }
 
-export function MainContent({problem, user, forum}) { 
+export function MainContent({problem, sandbox, user, forum}) { 
     const id = problem.id;
     const title = problem.title;
     const description = problem.description;
-    const sandbox = problem.sandbox;
     const hints = problem.hints;
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
@@ -57,9 +56,11 @@ export function MainContent({problem, user, forum}) {
     const [triggerPopupSuccess, setTriggerPopupSuccess] = useState(false);
     const [triggerPopupFail, setTriggerPopupFail] = useState(false);
 
+    forum = forum === null ? [] : forum;
     const solved = user.problemsSolved.includes(id)
     const rated = user.ratedProblems.includes(id)
-
+    const num_attempts = problem.stats.userCorrect.length + problem.stats.userIncorrect.length;
+    const completion_rate = num_attempts === 0 ? 0 : Math.round(100*problem.stats.userCorrect.length/num_attempts);
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
@@ -99,7 +100,7 @@ export function MainContent({problem, user, forum}) {
                         setTriggerPopupSuccess(false)
                     }
                 }))}><span>Submit Solution</span></button> 
-            <Statistics num_attempts={10} completion_rate={50} />
+            <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
             <Forum comments={forum
                 /*[{
                 id: 1,
