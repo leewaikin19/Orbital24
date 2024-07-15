@@ -16,18 +16,26 @@ export default function Problem(){
         'mcqs': [],
         'srqs': []
     });
+    const user = useRef(null)
+    const forum = useRef(null)
     const k = import('./problems/'+id).then((r) => {
       page.current = <r.default />
       setLoading(false);
     }).catch((e) => {
-        const promise = API.getProblem(template.getCookie('token'), id).then((resp) => {
+        const promise1 = API.getProblem(template.getCookie('token'), id).then((resp) => {
             if (resp.success === false) {
                 window.location.href = '../problems'
             }
             problem.current = resp.reply;
         })
-        page.current =  < template.Home MainContent={() => (<MainContent id={id} title={problem.current.title} description={problem.current.statement} sandbox={problem.current.sandbox} hints={problem.current.hints} mcqs={problem.current.mcqs} srqs={problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
-        setLoading(false);
+        const promise2 = API.dashboard(template.getCookie('token')).then((resp) => {
+            user.current = resp.reply;
+        })
+        const promise3 = API.getComments(template.getCookie('token'), id).then(resp => {
+            forum.current = resp.reply;
+        })
+        const promise = Promise.all([promise1, promise2]).then(() => setLoading(false))
+        page.current =  < template.Home MainContent={() => (<MainContent problem={problem.current} user={user.current} forum={forum.current}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
     })
   
     return (
@@ -35,12 +43,22 @@ export default function Problem(){
     )  
 }
 
-export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
+export function MainContent({problem, user, forum}) { 
+    const id = problem.id;
+    const title = problem.title;
+    const description = problem.description;
+    const sandbox = problem.sandbox;
+    const hints = problem.hints;
+    const mcqs = problem.mcqs;
+    const srqs = problem.srqs;
+    const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
     const [mcqAnswer, setMcqAnswer] = useState([])
     const [srqAnswer, setSrqAnswer] = useState([])
     const [triggerPopupSuccess, setTriggerPopupSuccess] = useState(false);
     const [triggerPopupFail, setTriggerPopupFail] = useState(false);
-    var rating = 0; // TODO @LWK19 do your magic with the ratings
+
+    const solved = user.problemsSolved.includes(id)
+    const rated = user.ratedProblems.includes(id)
 
     return (
         <div className='problems'>
@@ -79,7 +97,8 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     }
                 }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={10} completion_rate={50} />
-            <Forum comments={[{
+            <Forum comments={forum
+                /*[{
                 id: 1,
                 author: "Test",
                 date: 546543213275,
@@ -92,8 +111,8 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                         content: "Reply to the first comment"
                     }
                 ]
-            }]} />
-            <Rate hasSolved={false} hasRated = {true} /> {/*TODO @LWK19 Check if the user has solved the problem and rated it*/}
+            }]*/} />
+            <Rate hasSolved={solved} hasRated = {rated} /> 
         </div>
     )
 
@@ -204,7 +223,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
     }
 
     function Forum({comments}) {
-        //TODO @LWK19 Comment = {id, author, date, content, replies = [{author, date, content}, ...]}
+        //Comment = {questionID, id, author, username, datetime, content, replies = [{author, username, datetime, content}, ...]}
         const chevronRef= createRef();
         const contentRef = createRef();
         const [showForum, setShowForum] = useState(false);
@@ -224,13 +243,29 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
         }
 
         function publishComment(comment) {
-            // TODO @LWK19
-            console.log(comment)
+            const commentObj = {'questionID':id, 'author':user.firstName + ' ' + user.lastName, 'username':user.username, 'content':comment, replies:[]}
+            API.postComment(template.getCookie('token'), commentObj).then(resp =>{
+                if(resp.success){
+                    // TODOM popup
+                    location.reload()
+                }else{
+                    // TODOM popup
+                    // error resp.msg
+                }
+            })
         }
 
-        function saveReply(replies) {
-            // TODO @LWK19
-            console.log(replies)
+        function saveReply(replies, commentID) {
+            const replyObj = {'author':user.firstName + ' ' + user.lastName, 'username':user.username, 'content':replies}
+            API.postReply(template.getCookie('token'), commentID, replyObj).then(resp =>{
+                if(resp.success){
+                    // TODOM popup
+                    location.reload()
+                }else{
+                    // TODOM popup
+                    // error resp.msg
+                }
+            })
         }
 
         // TODOM Debug this.
@@ -254,12 +289,12 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                         {comments.map((comment) => {
                             return(
                                 <div className='thread'>
-                                    <div className='comment'> {/* TODO @LWK19 Sort by date*/}
+                                    <div className='comment'> 
                                         <div>
                                             <div className='comment_metadata'>
                                                 <b className='comment_author'>{comment.author}</b>
                                                 &bull;
-                                                <div className='comment_date'>{new Date(comment.date).toLocaleString()}</div>
+                                                <div className='comment_date'>{new Date(comment.datetime).toLocaleString()}</div>
                                             </div>
                                             <div className='comment_content'>
                                                 {comment.content}
@@ -274,7 +309,7 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                                                         <div className='reply_metadata'>
                                                             <b className='reply_author'>{reply.author}</b>
                                                             &bull;
-                                                            <div className='reply_date'>{new Date(reply.date).toLocaleString()}</div>
+                                                            <div className='reply_date'>{new Date(reply.datetime).toLocaleString()}</div>
                                                         </div>
                                                         <div className='reply_content'>
                                                             {reply.content}
@@ -285,16 +320,8 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                                         })}
                                     </div>
                                     <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)"}}>
-                                        <template.FormInput name='comment' id='post_reply' style={{marginLeft:"1vw"}} placeholder="Enter your reply here." onChange = {(e) => setReplies(() => {
-                                            const updatedReplies = replies;
-                                            if (comment.id in updatedReplies) {
-                                                updatedReplies[comment.id] += e.target.value
-                                            } else {
-                                                updatedReplies[comment.id] = e.target.value
-                                            }
-                                            return updatedReplies
-                                        })} />
-                                        <button className="action_button animated_button" onClick={() => saveReply(replies)}><span>Post</span></button>
+                                        <template.FormInput name='comment' id='post_reply' style={{marginLeft:"1vw"}} placeholder="Enter your reply here." onChange = {(e) => setReplies(() => e.target.value)} />
+                                        <button className="action_button animated_button" onClick={() => saveReply(replies, comment.id)}><span>Post</span></button>
                                     </div>
                                 </div>
                             )})}
@@ -315,14 +342,18 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
     }
 
     function RatingHandler (id){
-        rating = id;
+        //rating = id;
         template.select(document.getElementById(id), document.getElementById("rate_container"));
     }
 
-    function Rate(hasSolved = false, hasRated = true){
+    //TODOM submit rating submitRating(template.getCookie('token'), problem.id, 3)
+    // the current rating of the problem is in the variable rating 
+    
+    function Rate({hasSolved = false, hasRated = true}){
         if (!hasSolved || hasRated) {
             return null
         }
+        
         return(
             <>
                 <h2>Rate This Problem</h2>

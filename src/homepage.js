@@ -13,7 +13,9 @@ export default function Homepage() {
         promise2.then(resp2 => {
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
-            unsolvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id !== id));
+            unsolvedProblems.current = resp2.reply
+                .map(x => !resp1.reply.problemsSolved.includes(x.id) ? x : undefined)
+                .filter(x => x !== undefined);
         })
     })
     const promise = Promise.all([promise1, promise2])

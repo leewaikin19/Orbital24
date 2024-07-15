@@ -299,8 +299,8 @@ function MainContent({ problem, solution }) {
             <div>
                 <h2>Approve/Reject Problem</h2>
                 <div style={{ display: "flex", flexDirection: "column", rowGap: "1em", marginBottom: "clamp(6px, 6vh, 24px)" }}>
-                    <template.FormInput name="proposed_exp" value={proposed_exp} onChange={e => setProposedExp(e.target.value)} placeholder="Propose an Exp value for this problem" />
-                    <template.FormInput type='number' name="proposed_exp" value={proposed_diff} onChange={e => setProposedDiff(e.target.value)} placeholder="Propose a Difficulty level (1-5) for this problem" />
+                    <template.FormInput name="proposed_exp" id='proposed_exp' value={proposed_exp} onChange={e => setProposedExp(e.target.value)} placeholder="Propose an Exp value for this problem" />
+                    <template.FormInput type='number' name="proposed_diff" id='proposed_diff' value={proposed_diff} onChange={e => setProposedDiff(e.target.value)} placeholder="Propose a Difficulty level (1-5) for this problem" />
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "row", columnGap: "1em" }}>

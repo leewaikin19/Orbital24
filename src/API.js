@@ -85,6 +85,11 @@ export async function leaderboard(token) {
     return resp;
 }
 
+export async function submitRating(token, id, rating) {
+    var resp = await post({ 'mode': 'main', 'method':'submitRating', 'token':token, 'id':id, 'rating':rating });
+    return resp;
+}
+
 export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs, srqs, mcqAns, srqAns) {
     // resp.success=true returns reply
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 
@@ -145,9 +150,9 @@ export async function getOwnSubmission(token, submissionID) {
     return resp;
 }
 
-export async function gradeSubmission(token, submissionID, correct) {
+export async function gradeSubmission(token, submissionID, questionID, correct, correct_array) {
     // resp.success=true returns null
-    var resp = await post({ 'mode': 'main', 'method':'gradeSubmission','token':token, 'submissionID':submissionID, 'correct':correct });
+    var resp = await post({ 'mode': 'main', 'method':'gradeSubmission','token':token, 'submissionID':submissionID, 'questionID':questionID, 'correct':correct, 'correct_array':correct_array });
     return resp;
 }
 
@@ -190,5 +195,25 @@ export async function getAssessableProblem(token, id) {
 export async function getAssessableProblemSolution(token, id) {
     // resp.success=true returns reply[problems]
     var resp = await post({ 'mode': 'main', 'method':'getAssessableProblemSolution', 'token':token, 'id':id });
+    return resp;
+}
+
+export async function postComment(token, comment) {
+    var resp = await post({'mode': 'main', 'method':'postComment', 'token':token, 'comment':comment })
+    return resp;
+}
+
+export async function postReply(token, id, reply) {
+    var resp = await post({'mode': 'main', 'method':'postReply', 'token':token, 'id':id, 'reply':reply })
+    return resp;
+}
+
+export async function getComments(token, id) {
+    var resp = await post({'mode': 'main', 'method':'getComments', 'token':token, 'id':id })
+    return resp;
+}
+
+export async function getUserComments(token) {
+    var resp = await post({'mode': 'main', 'method':'getUserComments', 'token':token })
     return resp;
 }

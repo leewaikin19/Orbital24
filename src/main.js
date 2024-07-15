@@ -7,7 +7,6 @@ const SIGNUP_LOGIN = 0;
 const FORGOT_PW = 1;
 const FORGOT_PW_LANDING = 2;
 
-//TODO LWK hash password
 export default function Main() {
 
     const [page, setPage] = useState(SIGNUP_LOGIN);
@@ -100,8 +99,8 @@ function Login({ setPage }) {
         <div style={{width:"100%"}}>
             <template.Popup name="empty_user_pw" title="Empty Username or Password" content="Please enter a valid username and password." trigger={triggerPopup} setTrigger={setTriggerPopup} /> 
             <form>
-                <template.FormInput name='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
-                <template.FormInput type='password' name='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
+                <template.FormInput name='username' id='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
+                <template.FormInput type='password' name='password' id='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
                 <div className="smalllink">
                     <div onClick={() => setPage(FORGOT_PW)}>
                         <span>Forgot Password?</span>
@@ -159,11 +158,11 @@ function Signup() {
         <div style={{width:"100%"}}>
             <template.Popup name="empty_user_pw" title="Empty Fields" content="Please fill in all details." trigger={triggerPopup} setTrigger={setTriggerPopup} /> 
             <form className="section" action='signup'>
-                <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} onChange={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
-                <template.FormInput type="email" name='email' value={email} onInput={e => setEmail(e.target.value)} placeholder='Email'/>
-                <template.FormInput name='username' value={username} onInput={e => setUsername(e.target.value)} placeholder='Username'/>
-                <template.FormInput type="password" name='password1' value={password1} onInput={e => setPassword1(e.target.value)} placeholder='Password'/>
-                <template.FormInput type="password" name='password2' value={password2} onInput={e => setPassword2(e.target.value)} placeholder='Re-Enter Password'/>
+                <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
+                <template.FormInput type="email" name='email' id='email' value={email} onInput={e => setEmail(e.target.value)} placeholder='Email'/>
+                <template.FormInput name='username' id='username' value={username} onInput={e => setUsername(e.target.value)} placeholder='Username'/>
+                <template.FormInput type="password" name='password1' id='password1' value={password1} onInput={e => setPassword1(e.target.value)} placeholder='Password'/>
+                <template.FormInput type="password" name='password2' id='password2' value={password2} onInput={e => setPassword2(e.target.value)} placeholder='Re-Enter Password'/>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                     <button className="animated_button action_button" type="button" onClick={clickSignup}>
@@ -191,7 +190,7 @@ function Forgotpw({ setPage }) {
                 <div style={{width:"100%"}}>
                     <form action="signup()">
                         <p>Please enter your email address.</p>
-                        <template.FormInput type='email' name='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' />
+                        <template.FormInput type='email' name='email' id='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' />
                         <div className="smalllink">
                             <div onClick={() => setPage(SIGNUP_LOGIN)}>
                                 <i className="fa-solid fa-caret-left"></i>
