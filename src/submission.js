@@ -109,7 +109,7 @@ function MainContent({ submission, problem }) {
                     <b>{title} {" "}</b> <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                     {(showHint) ? (
                         <div className='content' ref={contentRef}>
-                            {desc}
+                            <p style={{color:"var(--grayest)"}}>{desc}</p>
                         </div>) : null}
                 </div>
             </div>
@@ -136,7 +136,7 @@ function MainContent({ submission, problem }) {
                     {options.filter(option => option != '').map((option) => {
                         console.log(submission)
                         return (
-                            <template.GradeMCQInput id={option} name={option} value={option}
+                            <template.GradeMCQInput id={String.fromCharCode(position + 65) + " " + index} name={option} value={option}
                                 content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>}
                                 onClick={() => template.select(document.getElementById(option),
                                     document.getElementById("mcq"))} userAnswer={iUserAnswer === option}

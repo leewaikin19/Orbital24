@@ -3,8 +3,8 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 // Cloudflare workers
-//const url = "https://rojiku-server.lwk19-eab.workers.dev";
-const url = "http://127.0.0.1:8787";
+const url = "https://rojiku-server.lwk19-eab.workers.dev";
+//const url = "http://127.0.0.1:8787";
 
 async function post(payload) {
     
@@ -95,7 +95,7 @@ export async function createProblem(token, title, statement, sandbox = "", hints
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 
         'statement':statement, 'title':title, 'sandbox':sandbox, 
         'hints':hints, 'xp':xp, 'difficulty':difficulty, 
-        'mcqs':mcqs, 'srqs':srqs, 'mcqAns':mcqAns, 'srqAns':srqAns, 'autograded':srqAns.find(x => x.autograded===false).length > 0});
+        'mcqs':mcqs, 'srqs':srqs, 'mcqAns':mcqAns, 'srqAns':srqAns, 'autograded':srqAns.filter(x => x.autograded===false).length > 0});
     return resp;
 }
 
