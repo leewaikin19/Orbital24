@@ -66,14 +66,16 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            <template.Popup name="submission_success" title="Submission Received" content="Your submission has been captured. Click 'View Submissions' to view your submission." trigger={triggerPopupSuccess} setTrigger={setTriggerPopupSuccess} /> 
+            <template.Popup name="submission_success" title="Submission Received" content="Your submission has been captured. Click 'View Submissions' to view your submissions." trigger={triggerPopupSuccess} setTrigger={setTriggerPopupSuccess} /> 
             <template.Popup name="submission_fail" title="Submission Error" content={"There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please " + (<a href='./bugs'>report it to the developers.</a>)} trigger={triggerPopupFail} setTrigger={setTriggerPopupFail} /> 
             <button className="action_button animated_button" onClick={() => (
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
-                        triggerPopupSuccess(true)
+                        setTriggerPopupSuccess(true)
+                        setTriggerPopupFail(false)
                     } else {
-                        triggerPopupFail(true)
+                        setTriggerPopupFail(true)
+                        setTriggerPopupSuccess(false)
                     }
                 }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={10} completion_rate={50} />
