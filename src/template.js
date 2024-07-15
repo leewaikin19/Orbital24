@@ -170,13 +170,17 @@ export function Loader() {
 export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
+    const [triggerError, setTriggerError] = useState(false);
+    var errormsg = "";
     
     API.dashboard(getCookie('token')).then((resp) => {
         if(resp.success){
             user.current = resp.reply;
             promise.then(() => {setLoading(false)});
         } else {
+            errormsg = resp.msg == "Token Error" ? "Please log in again." : resp.msg;
             handleErrors(resp.msg);
+            setTriggerError(true);
             return null;
         }
     })
@@ -185,6 +189,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <div className='outer_grid'>
+                <Popup name='error_popup' title='Error' content={'An error has occurred: ' + errormsg} trigger={triggerError} setTrigger={setTriggerError}/>
                 <NavBar isProblem={isProblem} selected={MSelected}/>
                 <div className='inner_grid'>
                     <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
@@ -283,12 +288,8 @@ export function getCookie(cname) {
 }
 
 // TODO @LWK add proper error handling
-// TODOM would be nice if you could add the popup here for the miscellaneous error msgs
 export function handleErrors(msg) {
     if (msg === "Token Error") {
         window.location.href = "/index";
-        alert("Login timeout. Please sign in again.");
-    } else {
-        console.log(msg);
-    }
+    } 
 }

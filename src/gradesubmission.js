@@ -56,8 +56,12 @@ function MainContent({submission, problem, solution, id}) {
     const srqAns = solution.srqAns;
     const mcqPregrade = mcqUserAnswer.map((x,i)=>x===mcqAns[i])
     const [approved, setApproved] = useState(srqUserAnswer.map((x,i)=>srqAns[i].autograded ? x===srqAns[i].an : false)); 
+    const [triggerGrade, setTriggerGrade] = useState(false);
+    const [triggerError, setTriggerError] = useState(false);
     return (
         <>
+            <template.Popup id="grades_submitted" trigger={triggerGrade} setTrigger={setTriggerGrade} title="Grades Submitted" content="Grades have been submitted successfully." />
+            <template.Popup id="error_occured" trigger={triggerError} setTrigger={setTriggerError} title="Grades Not Submitted" content="An error occured. Please retry submitting the grades. If issue persists, please report it to the developers." onClickAction={window.location.href = "./grade"} />
             <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
             <h1>{problem.title}</h1>
             <p>{problem.statement}</p>
@@ -86,7 +90,7 @@ function MainContent({submission, problem, solution, id}) {
         const resp = await API.gradeSubmission(template.getCookie('token'), id, problem.id, correct, {'mcqs':mcqPregrade, 'srqs':approved})
         console.log(approved)
         if(resp.success){
-            alert('Grades Submitted')
+            setTriggerGrade(true)
         }else{
             alert('An Error Occured')
         }

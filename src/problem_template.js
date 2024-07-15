@@ -93,7 +93,6 @@ export function MainContent({problem, sandbox, user, forum}) {
                     if (resp.success) {
                         setTriggerPopupSuccess(true)
                         setTriggerPopupFail(false)
-                        // TODOM it auto redirects now
                         window.location.href = '/submission/' + resp.reply.id;
                     } else {
                         setTriggerPopupFail(true)
@@ -101,21 +100,7 @@ export function MainContent({problem, sandbox, user, forum}) {
                     }
                 }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
-            <Forum comments={forum
-                /*[{
-                id: 1,
-                author: "Test",
-                date: 546543213275,
-                content: "This is the first comment",
-                replies: [
-                    {
-                        id: 1,
-                        author: "Test2",
-                        date: 553572486456,
-                        content: "Reply to the first comment"
-                    }
-                ]
-            }]*/} />
+            <Forum comments={forum} />
             <Rate hasSolved={solved} hasRated = {rated} /> 
         </div>
     )
@@ -345,9 +330,6 @@ export function MainContent({problem, sandbox, user, forum}) {
         )
     }
 
-    //TODOM submit rating submitRating(template.getCookie('token'), problem.id, 3)
-    // the current rating of the problem is in the variable rating 
-    
     function Rate({hasSolved = false, hasRated = true}){
         const [ratingTrigger, setRatingTrigger] = useState(false)
         var currentRating = 0
