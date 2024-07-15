@@ -260,18 +260,30 @@ export function srq_builder(srqArray, setSRQArray, srqAnsArray, setSRQAnsArray) 
                                 value={srqAnsArray[index].an}
                                 onInput= {(e) => template.ArrayTextAreaInputHandler(srqAnsArray, setSRQAnsArray, index, "an", e.target.value, "SRQAns " + index)}
                                 placeholder={"Enter Answer " + (index + 1)}/>
-                            <button 
+                            {(srqAnsArray[index].autograded) ? (<button 
+                                className='animated_button autograde_button selected_button' 
+                                id = {"Autograde " + index}
+                                onClick={() => {
+                                    toggle(index)
+                                    setSRQAnsArray(srqAnsArray.map((value, id) => {
+                                        if(id == index){
+                                            return {...value, autograded: false}
+                                        } else {
+                                            return value
+                                    }}))
+                            }}><span id={"Span Autograde "+ index}>Autograde On</span></button>) : 
+                            (<button 
                                 className='animated_button autograde_button' 
                                 id = {"Autograde " + index}
                                 onClick={() => {
                                     toggle(index)
                                     setSRQAnsArray(srqAnsArray.map((value, id) => {
                                         if(id == index){
-                                            return {...value, autograded: !value.autograded}
+                                            return {...value, autograded: true}
                                         } else {
                                             return value
                                     }}))
-                            }}><span id={"Span Autograde "+ index}>Autograde Off</span></button>
+                            }}><span id={"Span Autograde "+ index}>Autograde Off</span></button>)}
                         </div>
                     </>
                 )})}

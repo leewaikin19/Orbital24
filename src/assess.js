@@ -49,7 +49,6 @@ function MainContent({ problem, solution }) {
         .then((resp) => {
             if(resp.success){
                 setTriggerSuccessfullySaved(true)
-                window.location.href = "/createassessprobems"
         }else {
             setTriggerUnsuccessfullySaved(true)
         }})
