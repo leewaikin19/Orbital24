@@ -6,11 +6,21 @@ import * as problems from "../problem_template.js"
 
 export default function Nim() {
     const problem = useRef(null);
-    
-    const promise = API.getProblem(template.getCookie('token'), "4d2026a0-a403-45c8-a44c-a3ec4adf8f10")
-    promise.then((resp) => {
+    const user = useRef(null);
+    const forum = useRef(null);
+    const id = window.location.href.split('/').at(-1);
+    const promise1 = API.getProblem(template.getCookie('token'), id)
+    promise1.then((resp) => {
         problem.current = resp.reply;
     })
+
+    const promise2 = API.dashboard(template.getCookie('token')).then((resp) => {
+        user.current = resp.reply;
+    })
+    const promise3 = API.getComments(template.getCookie('token'), id).then(resp => {
+        forum.current = resp.reply;
+    })
+    const promise = Promise.all([promise1, promise2, promise3])
 
     const sim= () => { return (
         <>
@@ -136,6 +146,6 @@ export default function Nim() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent id={problem.current.id} title={problem.current.title} description={problem.current.statement} sandbox={sim()} hints={problem.current.hints} mcqs = {problem.current.mcqs} srqs = {problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} />) } MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

@@ -1,4 +1,5 @@
 import React, { useRef, useState, Component } from 'react'
+
 import * as API from './API.js'
 /* eslint-disable */
 
@@ -12,7 +13,9 @@ export class FormInput extends Component {
     }
 }
 
-export function MultiFormInput({type=["text"], name, id=name, value="", setValue, placeholder, required=true}) {
+export function MultiFormInput({type=["text", 'text'], name, id=name, value, setValue, placeholder, required=[true, true]}) {
+    console.log(type, name, id, value, setValue, placeholder,required)
+
     return (
         <div className="form_input">
             {name.map((n, i) => (
@@ -279,6 +282,8 @@ export function getCookie(cname) {
     return null;
 }
 
+// TODO @LWK add proper error handling
+// TODOM would be nice if you could add the popup here for the miscellaneous error msgs
 export function handleErrors(msg) {
     if (msg === "Token Error") {
         window.location.href = "/index";

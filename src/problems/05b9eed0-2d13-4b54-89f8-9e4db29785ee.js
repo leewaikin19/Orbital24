@@ -6,12 +6,23 @@ import * as problems from "../problem_template.js"
 
 export default function PigeonHole() {
     const problem = useRef(null);
+    const user = useRef(null);
+    const forum = useRef(null);
+    const id = window.location.href.split('/').at(-1);
     const [triggerPopup, setTriggerPopup] = useState(false);
     
-    const promise = API.getProblem(template.getCookie('token'), "05b9eed0-2d13-4b54-89f8-9e4db29785ee")
-    promise.then((resp) => {
+    const promise1 = API.getProblem(template.getCookie('token'), id)
+    promise1.then((resp) => {
         problem.current = resp.reply;
     })
+
+    const promise2 = API.dashboard(template.getCookie('token')).then((resp) => {
+        user.current = resp.reply;
+    })
+    const promise3 = API.getComments(template.getCookie('token'), id).then(resp => {
+        forum.current = resp.reply;
+    })
+    const promise = Promise.all([promise1, promise2, promise3])
 
     const sim= () => { return (
         <>
@@ -106,6 +117,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent id={problem.current.id} title={problem.current.title} description={problem.current.statement} sandbox={sim()} hints={problem.current.hints} mcqs={problem.current.mcqs} srqs={problem.current.srqs} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }
