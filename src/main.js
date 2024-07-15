@@ -68,12 +68,13 @@ function SignupLogin({ setPage }) {
 function Login({ setPage }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [triggerPopup, setTriggerPopup] = useState(false);
 
     document.title = 'Signup/Login';
 
     async function clickLogin() {
         if (username === "" || password === "") {
-            document.getElementById('incorrect').style.color = 'var(--red)';
+            setTriggerPopup(true);
             return;
         } else {
             const resp = await API.login(username, password);
@@ -97,6 +98,7 @@ function Login({ setPage }) {
 
     return (
         <div style={{width:"100%"}}>
+            <template.Popup name="empty_user_pw" title="Empty Username or Password" content="Please enter a valid username and password." trigger={triggerPopup} setTrigger={setTriggerPopup} /> 
             <form>
                 <template.FormInput name='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
                 <template.FormInput type='password' name='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
@@ -111,7 +113,7 @@ function Login({ setPage }) {
                         <span>Log In</span>
                     </button>
                 </div>
-                <p className="error" id="incorrect">Please fill out all the fields</p>
+                <p className="error unselectable" id="incorrect">Please fill out all the fields</p>
             </form>
         </div>
     )
@@ -124,12 +126,12 @@ function Signup() {
     const [email, setEmail] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
+    const [triggerPopup, setTriggerPopup] = useState(false);
     document.title = 'Signup/Login';
 
     async function clickSignup() {
         if (username === "" || firstName === "" || lastName === "" || email === "" || password1 === "" || password2 === "") {
-            document.getElementById('unequal').style.color = 'var(--red)';
-            document.getElementById('unequal').innerHTML = 'Please fill out all fields';
+            setTriggerPopup(true);
         } else if (password1 === password2) {
             document.getElementById('unequal').style.color = 'var(--grayest)';
             document.getElementById('password2').style.border = '2px solid var(--grayer)';
@@ -155,6 +157,7 @@ function Signup() {
 
     return (
         <div style={{width:"100%"}}>
+            <template.Popup name="empty_user_pw" title="Empty Fields" content="Please fill in all details." trigger={triggerPopup} setTrigger={setTriggerPopup} /> 
             <form className="section" action='signup'>
                 <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} onChange={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
                 <template.FormInput type="email" name='email' value={email} onInput={e => setEmail(e.target.value)} placeholder='Email'/>

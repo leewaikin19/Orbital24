@@ -36,15 +36,11 @@ function MainContent({ problem, solution }) {
     const [mcqAns, setMCQAns] = useState(solution.mcqAns) // ["", ...]
     const [srqs, setSRQs] = useState(problem.srqs) // [{qn:""},...]
     const [srqAns, setSRQAns] = useState(solution.srqAns) //[{'an':"", autograded:bool}]
-
-
     
-    // TODOM highlight mcqAns[].an, srqAns[].autograded on load
-    function McqHandler(choice, num, option) {
+    function McqHandler(choice, num) {
         template.select(document.getElementById(choice + num), document.getElementById(num))
-        // TODOM there are behaviour issues with the MCQ ans selection. i added temp solution
-        // TODOM also filter empty questions beforehand. add a remove qn button or smt
-        setMCQAns(mcqAns.map((a,i)=>i===num?choice + " "+num:a))
+        // TODOM Add a remove qn button or smt
+        setMCQAns(mcqAns.map((a,i)=>i===num?choice + " "+num:a)) // This is the permanent solution
         //template.ArrayTextAreaInputHandler(mcqAns, setMCQAns, num, "an", mcqs[num].options[option])
     }
 
@@ -140,7 +136,7 @@ function MainContent({ problem, solution }) {
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>}
                                     onClick={() => McqHandler("A", index, 0)}
-                                    preselected={mcqAns[index].an == "A"} />
+                                    preselected={mcqAns[index] == i.options[0]} />
                                 <template.MCQInput
                                     id={"B" + index}
                                     name='B'
@@ -163,7 +159,7 @@ function MainContent({ problem, solution }) {
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>}
                                     onClick={() => McqHandler("B", index, 1)}
-                                    preselected={mcqAns[index].an == "B"} />
+                                    preselected={mcqAns[index] == i.options[1]} />
                                 <template.MCQInput
                                     id={"C" + index}
                                     name='C'
@@ -186,7 +182,7 @@ function MainContent({ problem, solution }) {
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>}
                                     onClick={() => McqHandler("C", index, 2)}
-                                    preselected={mcqAns[index].an == "C"} />
+                                    preselected={mcqAns[index] == i.options[2]} />
                                 <template.MCQInput
                                     id={"D" + index}
                                     name='D'
@@ -209,7 +205,7 @@ function MainContent({ problem, solution }) {
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>}
                                     onClick={() => McqHandler("D", index, 3)}
-                                    preselected={mcqAns[index].an == "D"} />
+                                    preselected={mcqAns[index] == i.options[3]} />
                                 <template.MCQInput
                                     id={"E" + index}
                                     name='E'
@@ -232,7 +228,7 @@ function MainContent({ problem, solution }) {
                                             <b className='unselectable'>Selected Answer</b>
                                         </div>}
                                     onClick={() => McqHandler("E", index, 4)}
-                                    preselected={mcqAns[index].an == "E"} />
+                                    preselected={mcqAns[index] == i.options[4]} />
 
                             </div>
                         </>
@@ -248,7 +244,7 @@ function MainContent({ problem, solution }) {
                     {srqs.map((i, index) => {
                         return (
                             <>
-                                <b style={{ marginBottom: "clamp(6px, 6vmin, 12px)" }}>Short Response Question {index + 1}</b>
+                                <b style={{ marginBottom: "clamp(6px, 6vmin, 12px)" }}>Short Response Question {index + 1} {(srqAns.autograded ? "(Autograded)" : "")}</b>
                                 <div className='form_input section' style={{ display: "grid", gridTemplateColumns: "2fr 2fr 1fr", gap: "max(2vw, 40px)" }}>
                                     <textarea
                                         id={"SRQ " + index}

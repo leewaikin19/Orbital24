@@ -38,6 +38,8 @@ export default function Problem(){
 export function MainContent({id, title, description, sandbox = "", hints, mcqs, srqs}) { 
     const [mcqAnswer, setMcqAnswer] = useState([])
     const [srqAnswer, setSrqAnswer] = useState([])
+    const [triggerPopupSuccess, setTriggerPopupSuccess] = useState(false);
+    const [triggerPopupFail, setTriggerPopupFail] = useState(false);
     var rating = 0; // TODO @LWK19 do your magic with the ratings
 
     return (
@@ -64,8 +66,18 @@ export function MainContent({id, title, description, sandbox = "", hints, mcqs, 
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            {/*TODOM add message diaogue fail or success*/}
-            <button className="action_button animated_button" onClick={() => API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {/* TODO @LWK19 Go to the submission page of this problem to see the result of the autograding*/})}><span>Submit Solution</span></button> 
+            <template.Popup name="submission_success" title="Submission Received" content="Your submission has been captured. Click 'View Submissions' to view your submissions." trigger={triggerPopupSuccess} setTrigger={setTriggerPopupSuccess} /> 
+            <template.Popup name="submission_fail" title="Submission Error" content={"There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please " + (<a href='./bugs'>report it to the developers.</a>)} trigger={triggerPopupFail} setTrigger={setTriggerPopupFail} /> 
+            <button className="action_button animated_button" onClick={() => (
+                API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
+                    if (resp.success) {
+                        setTriggerPopupSuccess(true)
+                        setTriggerPopupFail(false)
+                    } else {
+                        setTriggerPopupFail(true)
+                        setTriggerPopupSuccess(false)
+                    }
+                }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={10} completion_rate={50} />
             <Forum comments={[{
                 id: 1,
