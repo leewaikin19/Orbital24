@@ -85,7 +85,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
         // TODOM Add a remove qn button or smt
         setMCQAnsArray(mcqAnsArray.map((value, index) => {
             if(index == num && value != choice){
-                return choice + " " + num
+                return choice
             } else if (index == num && value == choice){
                 return ""
             } else {

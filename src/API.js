@@ -3,8 +3,8 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 // Cloudflare workers
-const url = "https://rojiku-server.lwk19-eab.workers.dev";
-//const url = "http://127.0.0.1:8787";
+//const url = "https://rojiku-server.lwk19-eab.workers.dev";
+const url = "http://127.0.0.1:8787";
 
 async function post(payload) {
     
@@ -27,7 +27,6 @@ async function post(payload) {
 export async function login(username, password) {
     // resp.success=true returns reply.username, reply.token
     var resp = await post({ 'mode': 'auth', 'method':'login', 'username':username, 'password':password });
-    console.log(resp)
     return resp;
 }
 
@@ -92,10 +91,11 @@ export async function submitRating(token, id, rating) {
 
 export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs, srqs, mcqAns, srqAns) {
     // resp.success=true returns reply
+    console.log(srqAns.filter(x => x.autograded===true).length > 0)
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 
         'statement':statement, 'title':title, 'sandbox':sandbox, 
         'hints':hints, 'xp':xp, 'difficulty':difficulty, 
-        'mcqs':mcqs, 'srqs':srqs, 'mcqAns':mcqAns, 'srqAns':srqAns, 'autograded':srqAns.filter(x => x.autograded===false).length > 0});
+        'mcqs':mcqs, 'srqs':srqs, 'mcqAns':mcqAns, 'srqAns':srqAns, 'autograded':srqAns.filter(x => x.autograded===false).length === 0});
     return resp;
 }
 

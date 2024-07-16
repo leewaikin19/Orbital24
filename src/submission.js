@@ -26,12 +26,12 @@ export default function Submission() {
     });
     const id = window.location.href.split('/').at(-1);
 
-    const promise = API.getOwnSubmission(template.getCookie('token'), id).then(async (resp) => {
+    const promise = API.getOwnSubmission(template.getCookie('token'), id).then((resp) => {
         if (resp.success === false) {
             window.location.href = '/home'
         }
         submission.current = resp.reply;
-        await API.getProblem(template.getCookie('token'), submission.current.questionID).then((resp2) => {
+        return API.getProblem(template.getCookie('token'), submission.current.questionID).then((resp2) => {
             problem.current = resp2.reply;
             setLoading(false);
         })
@@ -134,12 +134,12 @@ function MainContent({ submission, problem }) {
                 <h3 style={{ margin: "0px 0px 0.5em 0px" }}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "left" }}>
                     {options.filter(option => option != '').map((option, position) => {
-                        console.log(submission)
+                        console.log()
                         return (
                             <template.GradeMCQInput id={String.fromCharCode(position + 65) + " " + index} name={option} value={option}
                                 content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>}
                                 onClick={() => template.select(document.getElementById(option),
-                                    document.getElementById("mcq"))} userAnswer={iUserAnswer === option}
+                                    document.getElementById("mcq"))} userAnswer={iUserAnswer.charCodeAt(0)-65 === position}
                                 correctAnswer={option === iUserAnswer ? submission.done ? submission.correct_array.mcqs[index]: null : null}
                             />
                         )

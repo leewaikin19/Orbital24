@@ -171,8 +171,18 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
     const [triggerError, setTriggerError] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+    const [popupTitle, setPopupTitle] = useState("");
+    const [onClickAction, setOnClickAction] = useState(()=>null);
     var errormsg = "";
     var tokenerror = false;
+
+    const popup = {
+        'trigger': setTriggerError,
+        'setMsg': setPopupMsg,
+        'setTitle': setPopupTitle,
+        'setOnClickAction': setOnClickAction
+    }
     
     API.dashboard(getCookie('token')).then((resp) => {
         if(resp.success){
@@ -191,11 +201,11 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <div className='outer_grid'>
-                <Popup name='error_popup' title='Error' content={'An error has occurred: ' + errormsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={(tokenerror) ? () => window.location.href="./index" : () => {}}/>
+                <Popup name='error_popup' title='Error' content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
                 <NavBar isProblem={isProblem} selected={MSelected}/>
                 <div className='inner_grid'>
                     <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
-                    <MainContainer MainContent={MainContent} selected={MSelected}/>
+                    <MainContainer MainContent={MainContent} popup={popup} selected={MSelected}/>
                 </div>
             </div>
             }
@@ -247,10 +257,10 @@ export function NavBar({isProblem, selected}) {
         </div>)
 }
 
-export function MainContainer({MainContent}) {
+export function MainContainer({MainContent, popup}) {
     return (
         <div id = "main" className = "main_content">
-            <MainContent/>
+            <MainContent popup={popup}/>
         </div>
     )
 }
@@ -290,6 +300,13 @@ export function getCookie(cname) {
 }
 
 // TODO @LWK add proper error handling
-export function handleErrors(msg) {
-    if (msg === "Token Error") {} 
+export function handleErrors(msg, popup) {
+    if (msg === "Token Error") {
+        window.location.href = '/index'
+    } else {
+        popup.setMsg('An error has occurred: ' + msg)
+        popup.setTitle("Error")
+        popup.setOnClickAction(() => null)
+        popup.trigger(true)
+    }
 }

@@ -10,12 +10,12 @@ export default function Posts() {
     const comments = useRef(null);
     const problems = useRef(null);
 
-    const promise = API.getUserComments(template.getCookie('token')).then(async (resp) => {
+    const promise = API.getUserComments(template.getCookie('token')).then((resp) => {
         comments.current = resp.reply;
-        const promise2 = await API.getAllProblems(template.getCookie('token')).then((resp2) => {
+        return API.getAllProblems(template.getCookie('token')).then((resp2) => {
             problems.current = resp.reply.map(comment => resp2.reply.find(prob => comment.questionID === prob.id));
+            setLoading(false)
         })
-        setLoading(false)
     })
 
     return (

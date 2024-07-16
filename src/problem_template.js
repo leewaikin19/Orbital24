@@ -35,15 +35,22 @@ export default function Problem(){
             forum.current = resp.reply;
         })
         const promise = Promise.all([promise1, promise2]).then(() => setLoading(false))
-        page.current =  < template.Home MainContent={() => (<MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
+
+        async function refreshComments() {
+            return await API.getComments(template.getCookie('token'), id).then(resp => {
+                forum.current = resp.reply;
+                return(resp.reply);
+            })
+        }
+        page.current =  < template.Home MainContent={({popup}) => (<MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
     })
-  
+
     return (
         <>{loading ? <template.Loader/> : page.current}</>
     )  
 }
 
-export function MainContent({problem, sandbox, user, forum}) { 
+export function MainContent({problem, sandbox, user, forum, refreshComments, popup}) { 
     const id = problem.id;
     const title = problem.title;
     const description = problem.description;
@@ -51,16 +58,15 @@ export function MainContent({problem, sandbox, user, forum}) {
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
     const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
+    console.log("rating", rating)
     const [mcqAnswer, setMcqAnswer] = useState([])
     const [srqAnswer, setSrqAnswer] = useState([])
-    const [triggerPopupSuccess, setTriggerPopupSuccess] = useState(false);
-    const [triggerPopupFail, setTriggerPopupFail] = useState(false);
-
+    
     forum = forum === null ? [] : forum;
     const solved = user.problemsSolved.includes(id)
     const rated = user.ratedProblems.includes(id)
-    const num_attempts = problem.stats.userCorrect.length + problem.stats.userIncorrect.length;
-    const completion_rate = num_attempts === 0 ? 0 : Math.round(100*problem.stats.userCorrect.length/num_attempts);
+    const num_attempts = problem.stats.usersCorrect.length + problem.stats.usersIncorrect.length;
+    const completion_rate = num_attempts === 0 ? 0 : Math.round(100*problem.stats.usersCorrect.length/num_attempts);
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
@@ -85,22 +91,24 @@ export function MainContent({problem, sandbox, user, forum}) {
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            <template.Popup name="submission_success" title="Submission Received" content="Your submission has been captured. Click 'View Submissions' to view your submissions." trigger={triggerPopupSuccess} setTrigger={setTriggerPopupSuccess} /> 
-            <template.Popup name="submission_fail" title="Submission Error" content={"There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please report it to the developers."} trigger={triggerPopupFail} setTrigger={setTriggerPopupFail} /> 
             <button className="action_button animated_button" onClick={() => (
                 // TODOM are we gonna let everyone submit as many submissions as possible? their ungraded submissions page is gonna be packed
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
-                        setTriggerPopupSuccess(true)
-                        setTriggerPopupFail(false)
-                        window.location.href = '/submission/' + resp.reply.id;
+                        popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
+                        popup.setTitle("Submission Received")
+                        popup.setOnClickAction(() => window.location.href = '/submission/' + resp.reply.id)
+                        popup.trigger(true)
+                        
                     } else {
-                        setTriggerPopupFail(true)
-                        setTriggerPopupSuccess(false)
+                        popup.setMsg("There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please report it to the developers.")
+                        popup.setTitle("Submission Error")
+                        popup.setOnClickAction(() => null)
+                        popup.trigger(true)
                     }
                 }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
-            <Forum comments={forum} />
+            <Forum comm={forum} />
             <Rate hasSolved={solved} hasRated = {rated} /> 
         </div>
     )
@@ -211,13 +219,16 @@ export function MainContent({problem, sandbox, user, forum}) {
         )
     }
 
-    function Forum({comments}) {
+    function Forum({comm}) {
+        
         //Comment = {questionID, id, author, username, datetime, content, replies = [{author, username, datetime, content}, ...]}
+        const [comments, setComments] = useState(comm.toReversed());
         const chevronRef= createRef();
         const contentRef = createRef();
         const [showForum, setShowForum] = useState(false);
         const [comment, setComment] = useState("");
-        const [replies, setReplies] = useState({}); // {comment_id:reply}
+        const [replies, setReplies] = useState(""); // {comment_id:reply}
+
         function Reveal() {
             setShowForum((showForum) => !showForum)
         }
@@ -232,27 +243,48 @@ export function MainContent({problem, sandbox, user, forum}) {
         }
 
         function publishComment(comment) {
-            const commentObj = {'questionID':id, 'author':user.firstName + ' ' + user.lastName, 'username':user.username, 'content':comment, replies:[]}
-            API.postComment(template.getCookie('token'), commentObj).then(resp =>{
-                if(resp.success){
-                    // TODOM popup
-                    location.reload()
-                }else{
-                    // TODOM popup
-                    // error resp.msg
-                }
-            })
+            if(comment == "") {
+                popup.setMsg("Comment cannot be empty.")
+                popup.setTitle("Error")
+                popup.setOnClickAction(() => null)
+                popup.trigger(true)
+            } else {
+                const commentObj = {'questionID':id, 'author':user.firstName + ' ' + user.lastName, 'username':user.username, 'content':comment, replies:[]}
+                API.postComment(template.getCookie('token'), commentObj).then(resp =>{
+                    if(resp.success){
+                        refreshComments().then((resp) => {
+                            setComments(resp.toReversed());
+                            setComment("");
+                            setReplies("");
+                            document.getElementsByName('comment').forEach(x=>x.value="")
+                        })
+                    }else{
+                        handleErrors(resp.msg, popup)
+                    }
+                })
+            }
+            
         }
-
+        
         function saveReply(replies, commentID) {
+            if (replies==""){
+                popup.setMsg("Reply cannot be empty.")
+                popup.setTitle("Error")
+                popup.setOnClickAction(() => null)
+                popup.trigger(true)
+                return
+            }
             const replyObj = {'author':user.firstName + ' ' + user.lastName, 'username':user.username, 'content':replies}
             API.postReply(template.getCookie('token'), commentID, replyObj).then(resp =>{
                 if(resp.success){
-                    // TODOM popup
-                    location.reload()
+                    refreshComments().then((resp) => {
+                        setComments(resp.toReversed());
+                        setComment("");
+                        setReplies("");
+                        document.getElementsByName('comment').forEach(x=>x.value="")
+                    })
                 }else{
-                    // TODOM popup
-                    // error resp.msg
+                    handleErrors(resp.msg, popup)
                 }
             })
         }
@@ -263,9 +295,8 @@ export function MainContent({problem, sandbox, user, forum}) {
         //         publishComment(comment)
         //     }
         // })
-
-        return(
-            <div className="forum">
+        return (
+            <div className="forum" id="forum">
                 <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
                     Discussion <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
                 </div>
@@ -343,7 +374,7 @@ export function MainContent({problem, sandbox, user, forum}) {
         
         return(
             <>
-                <template.Popup id="rate_popup" title="Successful" content="Your rating is successfully captured." trigger={ratingTrigger} setTrigger={setRatingTrigger} onClickAction={window.location.href = "./home"} />
+                <template.Popup id="rate_popup" title="Successful" content="Your rating is successfully captured." trigger={ratingTrigger} setTrigger={setRatingTrigger} onClickAction={() => window.location.href = "/home"} />
                 <h2>Rate This Problem</h2>
                 <div id='rate_container' style={{display:"grid", gridTemplateColumns:"repeat(5, 1fr)", gap:"0px clamp(6px, 3vw, 18px)"}}>
                     <template.MCQInput id="1" name="rate" value="1" content={<span>1</span>} onClick={() => {RatingHandler("1")}}/>

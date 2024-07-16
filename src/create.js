@@ -34,7 +34,8 @@ function MainContent() {
                 setTriggerSuccessfullySaved(true)
             } else {
                 setTriggerUnsuccessfullySaved(true)
-            }})}
+            }})
+        }
 
     const empty_problem = useRef({
         'title': '',

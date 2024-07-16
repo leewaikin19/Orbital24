@@ -27,7 +27,8 @@ export default function Submission() {
     const solution = useRef(null);
     const id = window.location.href.split('/').at(-1);
 
-    const promise = API.getGradableSubmission(template.getCookie('token'), id).then(async (resp) => {
+    const promise = API.getGradableSubmission(template.getCookie('token'), id).then((resp) => {
+        
         if (resp.success === false) {
             window.location.href = '/home'
         }
@@ -40,7 +41,7 @@ export default function Submission() {
         const promise2 = API.getProblemSolution(template.getCookie('token'), submission.current.questionID).then((resp2) => {
             solution.current = resp2.reply;
         })
-        await Promise.all([promise1, promise2]).then(() => setLoading(false))
+        return Promise.all([promise1, promise2]).then(() => setLoading(false))
     })
 
     return (
@@ -61,7 +62,7 @@ function MainContent({submission, problem, solution, id}) {
     return (
         <>
             <template.Popup id="grades_submitted" trigger={triggerGrade} setTrigger={setTriggerGrade} title="Grades Submitted" content="Grades have been submitted successfully." />
-            <template.Popup id="error_occured" trigger={triggerError} setTrigger={setTriggerError} title="Grades Not Submitted" content="An error occured. Please retry submitting the grades. If issue persists, please report it to the developers." onClickAction={window.location.href = "./grade"} />
+            <template.Popup id="error_occured" trigger={triggerError} setTrigger={setTriggerError} title="Grades Not Submitted" content="An error occured. Please retry submitting the grades. If issue persists, please report it to the developers." onClickAction={() => window.location.href = "/grade"} />
             <em style={{marginBottom:'1em'}}>(Submitted on {new Date(submission.datetime).toLocaleString()})</em>
             <h1>{problem.title}</h1>
             <p>{problem.statement}</p>
@@ -189,17 +190,18 @@ function MainContent({submission, problem, solution, id}) {
     }
 
     function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
+        
         return(
             <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
                 <b>Multiple Choice Question {index}</b> 
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
-                    {options.filter(option => option!= '').map((option) => {
+                    {options.filter(option => option!= '').map((option, i) => {
                         return (
                             <template.GradeMCQInput id={option} name={option} value={option} 
-                            content={<span>{option + (iCorrectAnswer == option ? " (Correct Answer) " : "") + (iUserAnswer == option ? " (User Answer) " : "")}</span>} 
-                            userAnswer={iUserAnswer === option} 
-                            correctAnswer={iUserAnswer == option ? iCorrectAnswer === option : null}/>
+                            content={<span>{option + (mcqPregrade[i] ? " (Correct Answer) " : "") + (iUserAnswer.charCodeAt(0)-65 === i ? " (User Answer) " : "")}</span>} 
+                            userAnswer={iUserAnswer.charCodeAt(0)-65 === i} 
+                            correctAnswer={mcqPregrade[i]}/>
                         )
                     })}
                 </div>

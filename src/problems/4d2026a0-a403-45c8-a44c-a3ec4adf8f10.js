@@ -22,6 +22,12 @@ export default function Nim() {
     })
     const promise = Promise.all([promise1, promise2, promise3])
 
+    async function refreshComments() {
+        return await API.getComments(template.getCookie('token'), id).then(resp => {
+            return(resp.reply);
+        })
+    }
+
     const sim= () => { return (
         <>
             <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
@@ -146,6 +152,6 @@ export default function Nim() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} />) } MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments}/>) } MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

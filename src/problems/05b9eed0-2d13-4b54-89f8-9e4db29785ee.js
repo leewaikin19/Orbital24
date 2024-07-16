@@ -24,6 +24,12 @@ export default function PigeonHole() {
     })
     const promise = Promise.all([promise1, promise2, promise3])
 
+    async function refreshComments() {
+        return await API.getComments(template.getCookie('token'), id).then(resp => {
+            return(resp.reply);
+        })
+    }
+
     const sim= () => { return (
         <>
             <template.Popup name = "invalid_input" title = "Invalid Input" content = "Please enter a number between 1 and 52 (inclusive)." trigger = {triggerPopup} setTrigger = {setTriggerPopup} /> {/* TODOM (and @LWK19) Untested */}
@@ -117,6 +123,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} />)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }
