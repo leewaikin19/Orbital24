@@ -167,22 +167,25 @@ export function Loader() {
     )
 }
 
+const [triggerError, setTriggerError] = useState(false);
+var errormsg = "";
+var tokenerror = false;
+
+function error_popup(msg = "Unknown Error") {
+    errormsg = msg;
+    setTriggerError(true);
+}
+
 export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
-    const [triggerError, setTriggerError] = useState(false);
-    var errormsg = "";
-    var tokenerror = false;
     
     API.dashboard(getCookie('token')).then((resp) => {
         if(resp.success){
             user.current = resp.reply;
             promise.then(() => {setLoading(false)});
         } else {
-            errormsg = resp.msg == "Token Error" ? "Please log in again." : resp.msg;
-            tokenerror = resp.msg == "Token Error";
             handleErrors(resp.msg);
-            setTriggerError(true);
             return null;
         }
     })
@@ -191,7 +194,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <div className='outer_grid'>
-                <Popup name='error_popup' title='Error' content={'An error has occurred: ' + errormsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={(tokenerror) ? () => window.location.href="./index" : () => {}}/>
+                <Popup name='error_popup' title='Error' content={'An error has occurred: ' + errormsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={(tokenerror) ? () => window.location.href="/index" : () => {}}/>
                 <NavBar isProblem={isProblem} selected={MSelected}/>
                 <div className='inner_grid'>
                     <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
@@ -291,5 +294,10 @@ export function getCookie(cname) {
 
 // TODO @LWK add proper error handling
 export function handleErrors(msg) {
-    if (msg === "Token Error") {} 
+    if (msg === "Invalid Token") {
+        tokenerror = true;
+        error_popup("Please Login Again");
+    } else {
+        error_popup(msg);
+    }
 }
