@@ -1,9 +1,9 @@
-<p align="center" height="50px">
-  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Miscelaneous/blank_profile.svg"/>
+<p align="center" >
+  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Miscelaneous/blank_profile.svg" height="50px"/>
 </p>
 
 <p align="center" height="50px">
-  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.svg"/>
+  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.svg" height="50px"/>
 </p>
 
 # Welcome to Rojiku
