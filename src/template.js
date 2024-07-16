@@ -167,15 +167,6 @@ export function Loader() {
     )
 }
 
-const [triggerError, setTriggerError] = useState(false);
-var errormsg = "";
-var tokenerror = false;
-
-function error_popup(msg = "Unknown Error") {
-    errormsg = msg;
-    setTriggerError(true);
-}
-
 export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
@@ -183,8 +174,6 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
     const [popupMsg, setPopupMsg] = useState("");
     const [popupTitle, setPopupTitle] = useState("");
     const [onClickAction, setOnClickAction] = useState(()=>null);
-    var errormsg = "";
-    var tokenerror = false;
 
     const popup = {
         'trigger': setTriggerError,
@@ -207,7 +196,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <div className='outer_grid'>
-                <Popup name='error_popup' title='Error' content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
+                <Popup name='error_popup' title={popupTitle} content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
                 <NavBar isProblem={isProblem} selected={MSelected}/>
                 <div className='inner_grid'>
                     <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
