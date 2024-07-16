@@ -3,8 +3,8 @@
 // if resp.success is false, resp.msg will contain the error message 
 
 // Cloudflare workers
-//const url = "https://rojiku-server.lwk19-eab.workers.dev";
-const url = "http://127.0.0.1:8787";
+const url = "https://rojiku-server.lwk19-eab.workers.dev";
+//const url = "http://127.0.0.1:8787";
 
 async function post(payload) {
     
