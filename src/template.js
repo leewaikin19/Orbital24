@@ -167,6 +167,15 @@ export function Loader() {
     )
 }
 
+const [triggerError, setTriggerError] = useState(false);
+var errormsg = "";
+var tokenerror = false;
+
+function error_popup(msg = "Unknown Error") {
+    errormsg = msg;
+    setTriggerError(true);
+}
+
 export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
@@ -189,10 +198,7 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
             user.current = resp.reply;
             promise.then(() => {setLoading(false)});
         } else {
-            errormsg = resp.msg == "Token Error" ? "Please log in again." : resp.msg;
-            tokenerror = resp.msg == "Token Error";
             handleErrors(resp.msg);
-            setTriggerError(true);
             return null;
         }
     })
