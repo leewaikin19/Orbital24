@@ -1,8 +1,8 @@
-<p align="center">
+<p align="center" height="50px">
   <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Miscelaneous/blank_profile.svg"/>
 </p>
 
-<p align="center">
+<p align="center" height="50px">
   <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.svg"/>
 </p>
 
