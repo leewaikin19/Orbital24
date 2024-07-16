@@ -301,7 +301,7 @@ export function handleErrors(msg, popup) {
     } else {
         popup.setMsg('An error has occurred: ' + msg)
         popup.setTitle("Error")
-        popup.setOnClickAction(() => null)
+        popup.setOnClickAction(()=>()=>null)
         popup.trigger(true)
     }
 }

@@ -97,14 +97,11 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                     if (resp.success) {
                         popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
                         popup.setTitle("Submission Received")
-                        popup.setOnClickAction(() => window.location.href = '/submission/' + resp.reply.id)
+                        popup.setOnClickAction(()=>() => window.location.href = '/submission/' + resp.reply.id)
                         popup.trigger(true)
                         
                     } else {
-                        popup.setMsg("There is an error while trying to capture your submission. Please fill in all the fields and click 'Submit Solution'. If error persists, please report it to the developers.")
-                        popup.setTitle("Submission Error")
-                        popup.setOnClickAction(() => null)
-                        popup.trigger(true)
+                        template.handleErrors(resp.msg, popup)
                     }
                 }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
@@ -246,7 +243,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             if(comment == "") {
                 popup.setMsg("Comment cannot be empty.")
                 popup.setTitle("Error")
-                popup.setOnClickAction(() => null)
+                popup.setOnClickAction(()=>() => null)
                 popup.trigger(true)
             } else {
                 const commentObj = {'questionID':id, 'author':user.firstName + ' ' + user.lastName, 'username':user.username, 'content':comment, replies:[]}
@@ -259,7 +256,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                             document.getElementsByName('comment').forEach(x=>x.value="")
                         })
                     }else{
-                        handleErrors(resp.msg, popup)
+                        template.handleErrors(resp.msg, popup)
                     }
                 })
             }
@@ -270,7 +267,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             if (replies==""){
                 popup.setMsg("Reply cannot be empty.")
                 popup.setTitle("Error")
-                popup.setOnClickAction(() => null)
+                popup.setOnClickAction(()=>() => null)
                 popup.trigger(true)
                 return
             }
@@ -284,7 +281,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                         document.getElementsByName('comment').forEach(x=>x.value="")
                     })
                 }else{
-                    handleErrors(resp.msg, popup)
+                    template.handleErrors(resp.msg, popup)
                 }
             })
         }
