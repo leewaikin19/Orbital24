@@ -1,5 +1,5 @@
 # Welcome to Rojiku
-![alt text]([https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/logo.svg])
+![alt text](https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.svg)
 
 ROJIKU is an online web-based platform where users can solve puzzles and logic problems. By solving problems, users can earn experience points, gain achievements by reaching milestones, and climb up a ranking ladder to compete with other users.
 
