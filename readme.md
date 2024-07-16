@@ -1,9 +1,12 @@
+<p align="center">
+  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Miscelaneous/blank_profile.svg"/>
+</p>
 
 <p align="center">
   <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.svg"/>
 </p>
-# Welcome to Rojiku
 
+# Welcome to Rojiku
 
 ROJIKU is an online web-based platform where users can solve puzzles and logic problems. By solving problems, users can earn experience points, gain achievements by reaching milestones, and climb up a ranking ladder to compete with other users.
 
@@ -11,6 +14,3 @@ ROJIKU aims to make logic problems seem more appealing to the public, by incorpo
 
 
 Powered by React, Cloudflare and MongoDB. 
-
-
-
