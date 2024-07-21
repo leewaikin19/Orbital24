@@ -32,7 +32,7 @@ export default function PigeonHole() {
 
     const sim= () => { return (
         <>
-            <template.Popup name = "invalid_input" title = "Invalid Input" content = "Please enter a number between 1 and 52 (inclusive)." trigger = {triggerPopup} setTrigger = {setTriggerPopup} /> {/* TODOM (and @LWK19) Untested */}
+            <template.Popup name = "invalid_input" title = "Invalid Input" content = "Please enter a number between 1 and 52 (inclusive)." trigger = {triggerPopup} setTrigger = {setTriggerPopup} /> 
             <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
             <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                 <input id='cards' style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
