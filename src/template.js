@@ -25,9 +25,14 @@ export function MultiFormInput({type=["text", 'text'], name, id=name, value, set
     )
 }
 
-export function ActionButton ({name, id=name, value="", content=value, onClick}) {
+export function ActionButton ({name, id=name, value="", icon = "", content=value, onClickAction = () => {}, disabled=false}) {
     return (
-        <button name={name} id={id} value={value} className='action_button animated_button' onClick={onClick}><span>{content}</span></button>
+        <div id={id} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <button className="animated_button action_button" type="button" onClick={onClickAction} disabled = {disabled}>
+                <i className={icon}></i>{" "}
+                <span>{content}</span>
+            </button>
+        </div>
     )
 }
 

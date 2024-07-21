@@ -82,7 +82,7 @@ function MainContent({submission, problem, solution, id}) {
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" iUserAnswer = {srqUserAnswer[i]}  iCorrectAnswer = {srqAns[i].an} autograded = {srqAns[i].autograded}/>
                 )
             })}
-             <button className="action_button animated_button" onClick={finaliseGrades}><span>Finalise Grades</span></button> 
+            <template.ActionButton icon="fa-solid fa-check" content="Finalise Grades" onClickAction={finaliseGrades}/>
         </>
     )
 
@@ -170,7 +170,7 @@ function MainContent({submission, problem, solution, id}) {
                 <template.FormInput name='solution' id='solution' className={autograded ? (iUserAnswer === iCorrectAnswer && iUserAnswer != "" ? "green_button" : "red_button") : ""} style={{margin:"0px 0px 0.5em 0px"}} value={solution} onChange={e => setSolution(e.target.value)} required disabled = {true}/>
                 <p style={{margin:"0px 0px 0.5em 0px"}}>Correct Answer: {iCorrectAnswer}</p>
                 {autograded ? null : (
-                    <div id = {"approve_reject " + index} style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
+                    <div id = {"approve_reject " + index} style={{display:"flex", flexDirection:"row", columnGap:"1em", justifyContent:"center"}}>
                         <button 
                             id={'approve_button ' + index}
                             className='action_button animated_button approve_button ' 

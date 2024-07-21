@@ -53,7 +53,7 @@ export default function Problem(){
 export function MainContent({problem, sandbox, user, forum, refreshComments, popup}) { 
     const id = problem.id;
     const title = problem.title;
-    const description = problem.description;
+    const description = problem.statement;
     const hints = problem.hints;
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
@@ -69,7 +69,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                <h1 style={{flexGrow:7}}>{title}</h1>
+                <h1 style={{flexGrow:7}}>{title}</h1>'
                 <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
             </div>
             <p>{description}</p>
@@ -90,7 +90,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            <button className="action_button animated_button" onClick={() => (
+            <template.ActionButton content="Submit Solution" onClick={() => (
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
                         popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
@@ -101,7 +101,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                     } else {
                         template.handleErrors(resp.msg, popup)
                     }
-                }))}><span>Submit Solution</span></button> 
+                }))} />
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
             <Forum comm={forum} />
             <h2>Rate This Problem</h2>
@@ -292,7 +292,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 </div>
                 {(showForum) ? (
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh"}} ref={contentRef}>
-                        <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)"}}>
+                        <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)", width:"80%"}}>
                             <template.FormInput name='comment' id='post_comment' placeholder="Enter your comment here." value = {comment} onChange = {(e) => setComment(e.target.value)} />
                             <button className="action_button animated_button" onClick={() => publishComment(comment)}><span>Post</span></button>
                         </div>
@@ -329,7 +329,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                                             )
                                         })}
                                     </div>
-                                    <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)"}}>
+                                    <div style={{display:"grid", gridTemplateColumns:"7fr 1fr", columnGap:"clamp(6px, 4vw, 24px)", width:"80%"}}>
                                         <template.FormInput name='comment' id='post_reply' style={{marginLeft:"1vw"}} placeholder="Enter your reply here." onChange = {(e) => setReplies(() => e.target.value)} />
                                         <button className="action_button animated_button" onClick={() => saveReply(replies, comment.id)}><span>Post</span></button>
                                     </div>

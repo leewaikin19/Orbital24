@@ -46,14 +46,20 @@ function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProb
     const [email, setEmail] = useState(user.email);
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
+    const [triggerUpdate, setTriggerUpdate] = useState(false);
+    const [triggerPassword, setTriggerPassword] = useState(false);
+
     function updatePassword() {
         if(password1 === password2) {
-            API.updateUser(template.getCookie('token'), {'password': password1}); 
+            API.updateUser(template.getCookie('token'), {'password': password1}).then((resp) => {setTriggerPassword(true)}); 
             
         } else {}
     }
     return (
         <>
+            <template.Popup name="update_user" title="Details Updated" content="Your account details have been successfully updated." trigger={triggerUpdate} setTrigger={setTriggerUpdate} />
+            <template.Popup name="update_password" title="Password Updated" content="Your password has been successfully updated." trigger={triggerPassword} setTrigger={setTriggerPassword} />
+        
             <div className='section'>
                 <h1>Ungraded Submissions</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Submission Time']} width={[1,1]} data={pendingSubmissions.map(
@@ -88,13 +94,10 @@ function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProb
                         <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
                         <template.FormInput type="email" name='email' id='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='Email'/>
                         <template.FormInput name='username' id='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username'/>
-                        <button className="action_button animated_button" onClick={() => {
+                        <template.ActionButton icon="fa-solid fa-check" content="Click to Confirm Details" onClickAction={() => {
                             const dict = {'firstName': firstName, 'lastName': lastName, 'email': email, 'username': username}
-                            API.updateUser(template.getCookie('token'), dict);
-                        }}>
-                            <i className="fa-solid fa-check"></i>{" "}
-                            <span>Confirm Details</span>
-                        </button>
+                            API.updateUser(template.getCookie('token'), dict).then((resp) => {setTriggerUpdate(true)})
+                        }}/>
                     </form>
                 </div>
             </div>
@@ -104,13 +107,7 @@ function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProb
                     <form action=''>
                         <template.FormInput type="password" name='password1' id='password1' value={password1} onChange={e => setPassword1(e.target.value)} placeholder='Enter New Password'/>
                         <template.FormInput type="password" name='password2' id='password2' value={password2} onChange={e => setPassword2(e.target.value)} placeholder='Reenter New Password'/>
-
-                        <div style={{ width: '100%', display: 'flex', alignItems: 'center'}}>
-                            <button className="action_button animated_button" type="button" onClick={() => updatePassword()}>
-                                <i className="fa-solid fa-lock"></i>{" "}
-                                <span>Update Password</span>
-                            </button>
-                        </div>
+                        <template.ActionButton icon="fa-solid fa-lock" content="Click to Update Password" onClickAction={updatePassword}/>
                     </form>
                 </div>
             </div>
