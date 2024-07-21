@@ -58,8 +58,6 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
     const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
-    // TODOM display rating
-    console.log("rating", rating)
     const [mcqAnswer, setMcqAnswer] = useState([])
     const [srqAnswer, setSrqAnswer] = useState([])
     
@@ -93,7 +91,6 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 )
             })}
             <button className="action_button animated_button" onClick={() => (
-                // TODOM are we gonna let everyone submit as many submissions as possible? their ungraded submissions page is gonna be packed
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
                         popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
@@ -107,6 +104,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 }))}><span>Submit Solution</span></button> 
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
             <Forum comm={forum} />
+            <h2>Rate This Problem</h2>
             <Rate hasSolved={solved} hasRated = {rated} /> 
         </div>
     )
@@ -187,7 +185,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     }
 
     function Statistics({num_attempts, completion_rate}) {
-        const [showStats, setShowStats] = useState(false);
+        const [showStats, setShowStats] = useState(true);
         const chevronRef= createRef();
         const contentRef = createRef();
         function Reveal() {
@@ -206,12 +204,12 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
         return(
             <div className="hint">
                 <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
-                    Statistics <i className="fa-solid fa-chevron-right" ref={chevronRef}></i>
+                    Statistics <i className="fa-solid fa-chevron-right" style={(showStats ? {transform:"rotate(90deg)"} : {})} ref={chevronRef}></i>
                 </div>
                 {(showStats) ? (
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh", textAlign:"center"}} ref={contentRef}>
                         <p>Out of <b style={{color:"var(--orange)"}}>{num_attempts}</b> users made a submission, <b style={{color:"var(--orange)"}}>{completion_rate}%</b> of users have successfully solved this problem.</p>
-                        {/* TODOM Make it better */}
+                        <p>The average rating given by users for this problem is <b style={{color:"var(--orange)"}}>{rating}</b></p>
                     </div>) : null}
                 </div>
         )
@@ -287,12 +285,6 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             })
         }
 
-        // TODOM Debug this.
-        // document.addEventListener('keydown', function(event) {
-        //     if (event.key === 'Enter' && document.activeElement.id === 'post_comment') {
-        //         publishComment(comment)
-        //     }
-        // })
         return (
             <div className="forum" id="forum">
                 <div onClick={Reveal} onMouseEnter={Hover} onMouseLeave={Unhover} className='forum_title' style={{cursor:"default"}}>
@@ -366,14 +358,23 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             currentRating = parseInt(id)
             template.select(document.getElementById(id), document.getElementById("rate_container"));
         }
-        if (!hasSolved || hasRated) {
-            return null
+        if (!hasSolved) {
+            return (
+                <div style={{textAlign:"center"}}>
+                    <em>You have not solved this problem. Only users who have solved this problem can rate it.</em>
+                </div>
+            )
+        } else if (hasRated) {
+            return (
+                <div style={{textAlign:"center"}}>
+                    <em>You have already rated this problem.</em>
+                </div>
+            )
         }
         
         return(
             <>
                 <template.Popup id="rate_popup" title="Successful" content="Your rating is successfully captured." trigger={ratingTrigger} setTrigger={setRatingTrigger} onClickAction={() => window.location.href = "/home"} />
-                <h2>Rate This Problem</h2>
                 <div id='rate_container' style={{display:"grid", gridTemplateColumns:"repeat(5, 1fr)", gap:"0px clamp(6px, 3vw, 18px)"}}>
                     <template.MCQInput id="1" name="rate" value="1" content={<span>1</span>} onClick={() => {RatingHandler("1")}}/>
                     <template.MCQInput id="2" name="rate" value="2" content={<span>2</span>} onClick={() => {RatingHandler("2")}}/>
