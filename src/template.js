@@ -294,7 +294,6 @@ export function getCookie(cname) {
     return null;
 }
 
-// TODO @LWK add proper error handling
 export function handleErrors(msg, popup) {
     if (msg === "Token Error") {
         window.location.href = '/index'

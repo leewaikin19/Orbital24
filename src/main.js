@@ -3,6 +3,7 @@ import { useState } from 'react'
 import * as template from "./template.js"
 import * as API from "./API.js"
 
+const unusedvar = 0;
 const SIGNUP_LOGIN = 0;
 const FORGOT_PW = 1;
 const FORGOT_PW_LANDING = 2;
