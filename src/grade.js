@@ -23,9 +23,7 @@ export default function Grade() {
     ) 
 }
 
-function MainContent({problems, submissions}) {
-    console.log(problems)
-    console.log(submissions)
+export function MainContent({problems, submissions}) {
     return (
         <>
             <template.StaticTable id="gradables" headers={["Problems", "User", "Date"]} width={[1, 1, 4]} data={problems.map((problem, index) => (
