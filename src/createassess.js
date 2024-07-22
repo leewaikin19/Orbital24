@@ -25,7 +25,7 @@ export default function CreateAssess() {
     ) 
 }
 
-function MainContent({assessableProblems, createdProblems}) {
+export function MainContent({assessableProblems, createdProblems}) {
     return (
         <>
             {(assessableProblems == null ? null : ( // Conditional rendering

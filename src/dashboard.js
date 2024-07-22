@@ -39,7 +39,7 @@ export default function Dashboard() {
     ) 
 }
 
-function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProblems, tournaments, user}) {
+export function MainContent({pendingSubmissions, pendingSubmissionsProblems, solvedProblems, tournaments, user}) {
     const [username, setUsername] = useState(user.username);
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);

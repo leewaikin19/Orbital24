@@ -32,7 +32,7 @@ export default function Homepage() {
     )
 }
 
-function MainContent({user_real_name, solvedProblems, unsolvedProblems }) {
+export function MainContent({user_real_name, solvedProblems, unsolvedProblems }) {
     return (
         <>
             <div id='welcome_sign'>
