@@ -120,27 +120,6 @@ export function GradeSRQInput({name, id=name, value="", setValue, correctAnswer 
     )
 }
 
-// Popup code adapted from https://www.youtube.com/watch?v=i8fAO_zyFAM. Inputs and structure are changed.
-export function Popup({name, id = name, title, content = "", trigger, setTrigger, onClickAction = () => {}}) {
-    return (trigger) ? (
-        <div className='popup' id={id}>
-            <div className='popup_content'>
-                <div className='popup_header'>
-                    <h2>{title}</h2>
-                </div>
-                <div className='popup_body'>
-                    <p>{content}</p>
-                </div>
-                <div className='popup_footer'>
-                    <button className='' onClick={() => {
-                        setTrigger(false);
-                        onClickAction()}}><span>Close</span></button>
-                </div>
-            </div>
-        </div>
-    ) : null
-}
-
 export function select(choice, container) {
     // Conversion to array adapted from: https://stackoverflow.com/questions/5158338/how-to-convert-a-collection-to-an-array-in-javascript
     const children = Array.from(container.children);
@@ -167,13 +146,34 @@ export function Loader() {
     )
 }
 
+// Popup code adapted from https://www.youtube.com/watch?v=i8fAO_zyFAM. Inputs and structure are changed.
+export function Popup({name, id = name, title, content = "", trigger, setTrigger, onClickAction = () => {}}) {
+    return (trigger) ? (
+        <div className='popup' id={id}>
+            <div className='popup_content'>
+                <div className='popup_header'>
+                    <h2>{title}</h2>
+                </div>
+                <div className='popup_body'>
+                    <p>{content}</p>
+                </div>
+                <div className='popup_footer'>
+                    <button className='' onClick={() => {
+                        setTrigger(false);
+                        onClickAction()}}><span>Close</span></button>
+                </div>
+            </div>
+        </div>
+    ) : null
+}
+
 export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
     const [triggerError, setTriggerError] = useState(false);
     const [popupMsg, setPopupMsg] = useState("");
     const [popupTitle, setPopupTitle] = useState("");
-    const [onClickAction, setOnClickAction] = useState(()=>null);
+    const [onClickAction, setOnClickAction] = useState(()=>()=>null);
 
     const popup = {
         'trigger': setTriggerError,
