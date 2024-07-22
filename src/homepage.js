@@ -29,7 +29,7 @@ export default function Homepage() {
     )
 }
 
-function MainContent({ solvedProblems, unsolvedProblems }) {
+export function MainContent({ solvedProblems, unsolvedProblems }) {
     return (
         <>
             <h1>Recommended Problems</h1>

@@ -9,7 +9,6 @@ export default function Leaderboard() {
     
     const promise = API.leaderboard(template.getCookie('token'))
     promise.then((resp) => {
-        console.log(resp)
         xp.current = resp.reply.xp;
         badges.current = resp.reply.badges;
     })
@@ -18,7 +17,7 @@ export default function Leaderboard() {
     ) 
 }
 
-function MainContent({expLeaderboards, badgesLeaderboards}) { 
+export function MainContent({expLeaderboards, badgesLeaderboards}) { 
     return (<>
         <div className='section'>
             <h1>Exp Leaderboard</h1>

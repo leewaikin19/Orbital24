@@ -3,7 +3,6 @@ import { useState } from 'react'
 import * as template from "./template.js"
 import * as API from "./API.js"
 
-const unusedvar = 0;
 const SIGNUP_LOGIN = 0;
 const FORGOT_PW = 1;
 const FORGOT_PW_LANDING = 2;
@@ -113,11 +112,11 @@ function Login({ setPage, popup }) {
             <form>
                 <template.FormInput name='username' id='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
                 <template.FormInput type='password' name='password' id='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
-                <div className="smalllink">
+                {true ? null : (<div className="smalllink">
                     <div onClick={() => setPage(FORGOT_PW)}>
                         <span>Forgot Password?</span>
                     </div>
-                </div>
+                </div>)}
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                     <button className="animated_button action_button" type="button" onClick={clickLogin}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
