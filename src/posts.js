@@ -40,7 +40,7 @@ export default function Posts() {
     )
 }
 
-function MainContent({ comments, problems }) {
+export function MainContent({ comments, problems }) {
     return (
         <>
             <h1>Past Forum Posts</h1>

@@ -8,14 +8,25 @@ const FORGOT_PW = 1;
 const FORGOT_PW_LANDING = 2;
 
 export default function Main() {
-
+    const [triggerError, setTriggerError] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+    const [popupTitle, setPopupTitle] = useState("");
+    const [onClickAction, setOnClickAction] = useState(()=>()=>null);
     const [page, setPage] = useState(SIGNUP_LOGIN);
+
+    const popup = {
+        'trigger': setTriggerError,
+        'setMsg': setPopupMsg,
+        'setTitle': setPopupTitle,
+        'setOnClickAction': setOnClickAction
+    }
+    
 
     function renderPage() {
         switch (page) {
-            case SIGNUP_LOGIN: return <SignupLogin setPage={setPage} />
-            case FORGOT_PW: return <Forgotpw setPage={setPage} />
-            case FORGOT_PW_LANDING: return <Forgotpwlanding setPage={setPage} />
+            case SIGNUP_LOGIN: return <SignupLogin setPage={setPage} popup={popup}/>
+            case FORGOT_PW: return <Forgotpw setPage={setPage} popup={popup}/>
+            case FORGOT_PW_LANDING: return <Forgotpwlanding setPage={setPage} popup={popup} />
             default: return null
         }
     }
@@ -29,13 +40,14 @@ export default function Main() {
                 {renderPage()}
             </div>
             <template.Bar dir='right' />
+            <template.Popup name='error_popup' title={popupTitle} content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
 
         </div>
     )
 
 }
 
-function SignupLogin({ setPage }) {
+function SignupLogin({ setPage, popup }) {
     const [loginSelected, setLoginSelected] = useState(true);
     return (
         <div style={{ width: '100%' }}>
@@ -58,34 +70,34 @@ function SignupLogin({ setPage }) {
                 </button>
             </div>
             <div id="outer_form_container">
-                {loginSelected ? <Login setPage={setPage} /> : <Signup />}
+                {loginSelected ? <Login setPage={setPage} popup={popup} /> : <Signup popup={popup}/>}
             </div>
         </div>
     )
 }
 
-function Login({ setPage }) {
+function Login({ setPage, popup }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [triggerPopup, setTriggerPopup] = useState(false);
 
     document.title = 'Signup/Login';
 
     async function clickLogin() {
         if (username === "" || password === "") {
-            setTriggerPopup(true);
+            popup.setTitle("Empty Username or Password");
+            popup.setMsg("Please enter a valid username and password.");
+            popup.trigger(true)
             return;
         } else {
             const resp = await API.login(username, password);
             if (resp.success) {
                 template.setCookie('token', resp.reply.token)
                 window.location.href = 'home';
-            } else {
-                template.handleErrors(resp.msg);
-                console.log(resp.msg)
-                alert("asd")
+            } else if(resp.msg === "Wrong Username" || resp.msg === "Wrong Password"){                
                 document.getElementById('incorrect').style.color = 'var(--red)';
                 document.getElementById('incorrect').innerHTML = 'Incorrect username or password';
+            } else {
+                template.handleErrors(resp.msg, popup);
             }
         }
     }
@@ -97,11 +109,9 @@ function Login({ setPage }) {
 
     return (
         <div style={{width:"100%"}}>
-            <template.Popup name="empty_user_pw" title="Empty Username or Password" content="Please enter a valid username and password." trigger={triggerPopup} setTrigger={setTriggerPopup} /> 
             <form>
                 <template.FormInput name='username' id='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
                 <template.FormInput type='password' name='password' id='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
-                
                 <template.ActionButton icon="fa-solid fa-arrow-right-from-bracket" content="Click to Log In" onClickAction={clickLogin}/>
                 <p className="error unselectable" id="incorrect">Please fill out all the fields</p>
             </form>
@@ -109,19 +119,20 @@ function Login({ setPage }) {
     )
 }
 
-function Signup() {
+function Signup({popup}) {
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
-    const [triggerPopup, setTriggerPopup] = useState(false);
     document.title = 'Signup/Login';
 
     async function clickSignup() {
         if (username === "" || firstName === "" || lastName === "" || email === "" || password1 === "" || password2 === "") {
-            setTriggerPopup(true);
+            popup.setTitle("Empty Fields");
+            popup.setMsg("Please fill in all details.");
+            popup.trigger(true)
         } else if (password1 === password2) {
             document.getElementById('unequal').style.color = 'var(--grayest)';
             document.getElementById('password2').style.border = '2px solid var(--grayer)';
@@ -130,7 +141,7 @@ function Signup() {
                 template.setCookie('token', resp.reply.token)
                 window.location.href = 'home';
             } else {
-                template.handleErrors(resp.msg);
+                template.handleErrors(resp.msg, popup);
             }
         } else {
             document.getElementById('unequal').style.color = 'var(--red)';
@@ -147,7 +158,6 @@ function Signup() {
 
     return (
         <div style={{width:"100%"}}>
-            <template.Popup name="empty_user_pw" title="Empty Fields" content="Please fill in all details." trigger={triggerPopup} setTrigger={setTriggerPopup} /> 
             <form className="section" action='signup'>
                 <template.MultiFormInput name={['firstName', 'lastName']} value={[firstName, lastName]} setValue={[setFirstName, setLastName]} placeholder={['First Name','Last Name']}/>
                 <template.FormInput type="email" name='email' id='email' value={email} onInput={e => setEmail(e.target.value)} placeholder='Email'/>
@@ -161,7 +171,7 @@ function Signup() {
     )
 }
     
-function Forgotpw({ setPage }) {
+function Forgotpw({ setPage, popup }) {
     document.title = 'Forgot Password';
     const [email, setEmail] = useState("");
 

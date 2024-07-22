@@ -16,7 +16,7 @@ export default function Explore() {
 }
 
 
-function MainContent({problems}) { 
+export function MainContent({problems}) { 
     const [problemlist, setProblemlist] = useState(problems);
     return (<>
         <h1>Explore/Search Problems</h1>
