@@ -8,6 +8,7 @@ export default function CreateAssess() {
     const approvedProblems = useRef(null);
     const assessableProblems = useRef(null);
     const createdProblems = useRef(null);
+    const user = useRef(null);
 
     const promise1 = API.getAssessableProblems(template.getCookie('token'))
     promise1.then((resp) => {
@@ -41,10 +42,7 @@ export function MainContent({assessableProblems, createdProblems}) {
                     ? <p style={{color:"var(--green)"}}>Approved</p>
                     : <p style={{color:"var(--red)"}}>Rejected</p>]))} />
             </div>
-            <button className='action_button animated_button' onClick={() => window.location.href = "create"}>
-                    <i class="fa-solid fa-plus"></i> {" "}
-                    <span>Create New Problem</span>
-            </button>
+            <template.ActionButton content='Create New Problem' onClickAction={() => window.location.href = "create"} icon='fa-solid fa-plus' />
         </>
     )
 }

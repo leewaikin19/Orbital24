@@ -81,7 +81,8 @@ h1 {
     font-size: var(--title);
     font-weight: 900;
     color: var(--orange);
-    margin: 0px;
+    margin-bottom: 0.2em;
+    margin-top: 0px;
 }
 
 h2 {
@@ -89,7 +90,7 @@ h2 {
     font-size: var(--topic);
     font-weight: 700;
     color: var(--orange);
-    margin: 0px;
+    margin-bottom: 0.5em;
 }
 
 h3 {
@@ -269,7 +270,8 @@ input:-webkit-autofill {
 }
 
 .section {
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
     width: 100%;
 }
 
@@ -294,11 +296,12 @@ input:-webkit-autofill {
     font-weight: 700;
     padding: 0.4em 0.8em;
     transition: all 0.2s ease;
+    border-radius: 1000px;
 }
 
 .action_button, .autograde_button {
-    padding: 0.75em 0em;
-    width: 100%;
+    padding: 0.75em 3em;
+    width: clamp(300px, 35%, 600px);
 }
 
 .action_button:hover:enabled, .popup_footer button:hover {
@@ -487,7 +490,6 @@ input:-webkit-autofill {
     background-color: var(--green);
     border: 3px solid var(--green);
     color: var(--grayest);
-    width: 100%;
 }
 
 #rate_container {
@@ -498,4 +500,21 @@ input:-webkit-autofill {
 
 #rate_container button {
     text-align: center;
+}
+
+#welcome_sign {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh 0px;
+}
+
+#welcome_sign p, #welcome_sign b {
+    font-size: var(--topic);
+    font-weight: 500;
+}
+
+#welcome_sign b {
+    font-weight: 800;
 }
