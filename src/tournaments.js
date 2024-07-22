@@ -20,8 +20,7 @@ export default function Tournaments() {
     ) 
 }
 
-function MainContent({tournaments, problems}) { 
-    console.log(problems)
+export function MainContent({tournaments, problems}) { 
     return (
         <>
             {tournaments.map(tournament => (

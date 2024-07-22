@@ -102,11 +102,11 @@ function Login({ setPage }) {
             <form>
                 <template.FormInput name='username' id='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='Username' onKeyDown={keyPress}/>
                 <template.FormInput type='password' name='password' id='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' onKeyDown={keyPress}/>
-                <div className="smalllink">
+                {true ? null : (<div className="smalllink">
                     <div onClick={() => setPage(FORGOT_PW)}>
                         <span>Forgot Password?</span>
                     </div>
-                </div>
+                </div>)}
                 <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                     <button className="animated_button action_button" type="button" onClick={clickLogin}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
