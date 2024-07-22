@@ -37,6 +37,7 @@ function MainContent({user_real_name, solvedProblems, unsolvedProblems }) {
         <>
             <div id='welcome_sign'>
                 <p>Welcome, <b style={{color:"var(--orange)"}}>{user_real_name}</b>!</p>
+                <em>Here are today's recommended problems:</em>
             </div>
             <div className='section'>
                 <h1>Recommended Problems</h1>

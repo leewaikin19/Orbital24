@@ -504,15 +504,17 @@ input:-webkit-autofill {
 
 #welcome_sign {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 6vh;
+    padding: 3vh 0px;
 }
 
-#welcome_sign * {
+#welcome_sign p,b {
     font-size: var(--topic);
+    font-weight: 500;
 }
 
-#welcome_sign p {
-    font-weight: 500;
+#welcome_sign b {
+    font-weight: 800;
 }
