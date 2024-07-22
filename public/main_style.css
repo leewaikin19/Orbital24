@@ -510,7 +510,7 @@ input:-webkit-autofill {
     padding: 3vh 0px;
 }
 
-#welcome_sign p,b {
+#welcome_sign p, #welcome_sign b {
     font-size: var(--topic);
     font-weight: 500;
 }
