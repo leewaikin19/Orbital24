@@ -1,9 +1,7 @@
-/* eslint-disable */
-
 import * as template from "./template.js"
 import { useState } from 'react'
 
-export function generic_main_content({ problem, solution, func }) {
+export function Generic_main_content({ problem, solution, func }) {
     const [title, setTitle] = useState(problem.title)
     const [statement, setStatement] = useState(problem.statement)
     const [sandbox, setSandbox] = useState(problem.sandbox)
@@ -29,11 +27,11 @@ export function generic_main_content({ problem, solution, func }) {
                 {srq_builder(srqs, setSRQs, srqAns, setSRQAns)}
             </div>
             <template.ActionButton icon="fa-solid fa-save" content="Save Problem Details" onClickAction={() => {
-                if (mcqAns.filter((ans) => ans == "").length > 0) {
+                if (mcqAns.filter((ans) => ans === "").length > 0) {
                     setTriggerMissingMCQAns(true)
                 } else {
                     setTriggerMissingMCQAns(false)
-                    func(title, statement, sandbox, hints.filter((hint) => (hint!="")), mcqs, srqs, mcqAns, srqAns, setTriggerSuccessfullySaved, setTriggerUnsuccessfullySaved)
+                    func(title, statement, sandbox, hints.filter((hint) => (hint!=="")), mcqs, srqs, mcqAns, srqAns, setTriggerSuccessfullySaved, setTriggerUnsuccessfullySaved)
                 }}}/>
         </>
     )
@@ -83,9 +81,9 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
         // Saves ans
         template.select(document.getElementById(abcde + num), document.getElementById(num))
         setMCQAnsArray(mcqAnsArray.map((value, index) => {
-            if(index == num && value != choice){
+            if(index === num && value !== choice){
                 return choice
-            } else if (index == num && value == choice){
+            } else if (index === num && value === choice){
                 return ""
             } else {
                 return value
@@ -127,7 +125,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter First Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] == "A " + index}
+                                preselected={mcqAnsArray[index] === "A " + index}
                                 onClick={() => McqHandler(mcq.options[0],"A", index)} />
                             <template.MCQInput
                                 id={"B" + index}
@@ -150,7 +148,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Second Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] == "B " + index}
+                                preselected={mcqAnsArray[index] === "B " + index}
                                 onClick={() => McqHandler(mcq.options[1],"B", index)} />
                             <template.MCQInput
                                 id={"C" + index}
@@ -173,7 +171,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Third Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] == "C " + index}
+                                preselected={mcqAnsArray[index] === "C " + index}
                                 onClick={() => McqHandler(mcq.options[2],"C", index)} />
                             <template.MCQInput
                                 id={"D" + index}
@@ -196,7 +194,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Fourth Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] == "D " + index}
+                                preselected={mcqAnsArray[index] === "D " + index}
                                 onClick={() => McqHandler(mcq.options[3],"D", index)} />
                             <template.MCQInput
                                 id={"E" + index}
@@ -219,7 +217,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Fifth Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] == "E " + index}
+                                preselected={mcqAnsArray[index] === "E " + index}
                                 onClick={() => McqHandler(mcq.options[4],"E", index)} />
                         </div>
                     </>
@@ -240,7 +238,7 @@ export function srq_builder(srqArray, setSRQArray, srqAnsArray, setSRQAnsArray) 
         let button = document.getElementById("Autograde " + id)
         button.classList.toggle('selected_button')
         let span = document.getElementById("Span Autograde " + id) 
-        span.innerHTML = span.innerHTML == "Autograde Off" ? "Autograde On" : "Autograde Off"
+        span.innerHTML = span.innerHTML === "Autograde Off" ? "Autograde On" : "Autograde Off"
     }
     return(
         <>
@@ -265,7 +263,7 @@ export function srq_builder(srqArray, setSRQArray, srqAnsArray, setSRQAnsArray) 
                                 onClick={() => {
                                     toggle(index)
                                     setSRQAnsArray(srqAnsArray.map((value, id) => {
-                                        if(id == index){
+                                        if(id === index){
                                             return {...value, autograded: false}
                                         } else {
                                             return value
@@ -277,7 +275,7 @@ export function srq_builder(srqArray, setSRQArray, srqAnsArray, setSRQAnsArray) 
                                 onClick={() => {
                                     toggle(index)
                                     setSRQAnsArray(srqAnsArray.map((value, id) => {
-                                        if(id == index){
+                                        if(id === index){
                                             return {...value, autograded: true}
                                         } else {
                                             return value

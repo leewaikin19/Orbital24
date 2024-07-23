@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
@@ -42,12 +41,12 @@ export function MainContent({user_real_name, solvedProblems, unsolvedProblems })
             <div className='section'>
                 <h1>Recommended Problems</h1>
                 <template.StaticTable id="recommended_problems" headers={['Problem Title', 'Exp']} width={[7, 1]} data={unsolvedProblems.map(
-                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Solved Problems</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7, 1]} data={solvedProblems.map(
-                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
         </>
     )

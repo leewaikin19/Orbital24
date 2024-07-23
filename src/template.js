@@ -1,7 +1,6 @@
 import React, { useRef, useState, Component } from 'react'
 
 import * as API from './API.js'
-/* eslint-disable */
 
 export class FormInput extends Component {
     render () {
@@ -86,7 +85,7 @@ export function ArrayTextAreaInputHandler (arr, setArr, index, field = "", value
         }
     }))
 
-    if (elem != "") {
+    if (elem !== "") {
         elem = document.getElementById(elem);
         elem.style.height = "0px"
         elem.style.height = (elem.scrollHeight) + "px";
@@ -112,7 +111,7 @@ export function MCQInput( {name, id=name, value="", content=value, onClick, pres
 export function GradeMCQInput( {name, id=name, value="", content=value, userAnswer = false, correctAnswer = null}) {
     return (
         <>
-             <button name={name} id={id} value={value} className={'mcq_button ' + (userAnswer ? 'selected_mcq_button ' : '') + (correctAnswer != null ? (correctAnswer == true ? 'green_button' : 'red_button') : '')} style={{marginBottom:"0.5em"}} disabled>{content}</button>
+             <button name={name} id={id} value={value} className={'mcq_button ' + (userAnswer ? 'selected_mcq_button ' : '') + (correctAnswer !== null ? (correctAnswer === true ? 'green_button' : 'red_button') : '')} style={{marginBottom:"0.5em"}} disabled>{content}</button>
         </>
     )
 }
@@ -120,7 +119,7 @@ export function GradeMCQInput( {name, id=name, value="", content=value, userAnsw
 export function GradeSRQInput({name, id=name, value="", setValue, correctAnswer = null}) {
     return (
         <>
-            <FormInput name={name} id={id} value={value} onChange={setValue} className={correctAnswer != null ? (correctAnswer == true ? "green_button" : "red_button") : ""} disabled = {true}/>
+            <FormInput name={name} id={id} value={value} onChange={setValue} className={correctAnswer !== null ? (correctAnswer === true ? "green_button" : "red_button") : ""} disabled = {true}/>
         </>
     )
 }
@@ -227,13 +226,13 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
                 </div>
             </div>
             <div id = "sidebar_buttons">
-                <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='/dashboard'} highlighted={selected == "dashboard"}/>
-                <SideButton contents='Tournaments' onClick={() => window.location.href='/tournaments'} highlighted={selected == "tournaments"}/>
-                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessprobems'} highlighted={selected == "createassessprobems"}/>
-                <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='/grade'} highlighted={selected == "grade"} shown = {isAdmin}/>
-                <SideButton contents='Leaderboards' onClick={() => window.location.href='/leaderboards'} highlighted={selected == "leaderboards"}/>
-                <SideButton contents='Forum Posts' onClick={() => window.location.href='/posts'} highlighted={selected == "posts"}/>
-                <SideButton contents='Report Bugs' onClick={() => window.location.href='/bugs'} highlighted={selected == "bugs"}/>
+                <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='/dashboard'} highlighted={selected === "dashboard"}/>
+                <SideButton contents='Tournaments' onClick={() => window.location.href='/tournaments'} highlighted={selected === "tournaments"}/>
+                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessprobems'} highlighted={selected === "createassessprobems"}/>
+                <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='/grade'} highlighted={selected === "grade"} shown = {isAdmin}/>
+                <SideButton contents='Leaderboards' onClick={() => window.location.href='/leaderboards'} highlighted={selected === "leaderboards"}/>
+                <SideButton contents='Forum Posts' onClick={() => window.location.href='/posts'} highlighted={selected === "posts"}/>
+                <SideButton contents='Report Bugs' onClick={() => window.location.href='/bugs'} highlighted={selected === "bugs"}/>
             </div>
         </div>
     )
@@ -244,10 +243,10 @@ export function NavBar({isProblem, selected}) {
     <div className='nav_bar'>
             <img src = {(isProblem ? "." : "") + "./Assets/Logo/dark.svg"} alt='' onClick={() => window.location.href = '/home'} style={{paddingLeft:"clamp(6px, 4vw, 18px)"}}/>
             <div style={{justifySelf:"end"}}>
-                <button className={"nav_button " + (selected == "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/home'}>
+                <button className={"nav_button " + (selected === "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/home'}>
                     <span>Home</span>
                 </button>
-                <button className={"nav_button " + (selected == "Problems" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/problems'}>
+                <button className={"nav_button " + (selected === "Problems" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/problems'}>
                     <span>Problems</span>
                 </button>
                 <button className="animated_button nav_button" id="logout_button" onClick={() => window.location.href='/index'}>
@@ -289,10 +288,10 @@ export function getCookie(cname) {
     const cookies = decodeURIComponent(document.cookie).split(';');
     for (let i = 0; i < cookies.length; i++) {
         let c = cookies[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(cname) == 0) {
+        if (c.indexOf(cname) === 0) {
             return c.substring(cname.length, c.length);
         }
     }

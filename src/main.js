@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react'
 import * as template from "./template.js"
 import * as API from "./API.js"
@@ -150,7 +149,7 @@ export function Signup({popup}) {
         }
     }
 
-    addEventListener('keydown', function (e) {
+    window.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
             clickSignup();
         }
