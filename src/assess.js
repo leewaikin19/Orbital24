@@ -82,7 +82,7 @@ function MainContent({ problem, solution }) {
             <template.Popup id="approved_popup" title="Problem Approved" content="Successfully published problem" trigger={triggerApproved} setTrigger={setTriggerApproved} onClickAction={() => window.location.href="/createassessprobems"} />
             <template.Popup id="rejected_popup" title="Problem Rejected" content="Successfully rejected problem" trigger={triggerRejected} setTrigger={setTriggerRejected} onClickAction={() => window.location.href="/createassessprobems"} />
             <template.Popup id="error_popup" title="Error" content="An error occured. Please try again." trigger={triggerError} setTrigger={setTriggerError} />
-            <parts.generic_main_content problem={problem} solution={solution} func={updateProblem} />
+            <parts.Generic_main_content problem={problem} solution={solution} func={updateProblem} />
             <div>
                 <h2>Approve/Reject Problem</h2>
                 <div style={{ display: "flex", flexDirection: "column", rowGap: "1em", marginBottom: "clamp(6px, 6vh, 24px)" }}>

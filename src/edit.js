@@ -44,6 +44,6 @@ export function MainContent({ problem, solution }) {
     }
 
     return (
-        <parts.generic_main_content problem={problem} solution={solution} func = {updateProblem} />
+        <parts.Generic_main_content problem={problem} solution={solution} func = {updateProblem} />
     )
 }

@@ -96,6 +96,7 @@ export default function Nim() {
             end_turn.innerHTML = "End Your Turn";
             var num_flip = (num_cards - current_card) % 4;
             num_flip === 0 ? num_flip = Math.floor(Math.random() * 3 + 1) : num_flip;
+            //
             for(let i = 0; i < num_flip; i++) {
                 computer_flip();
             }
@@ -126,6 +127,7 @@ export default function Nim() {
 
     function setup(cards) {
         cards < 1 ? cards = 21 : cards;
+        //
         num_cards = cards;
         player_counter = 0;
         computer_counter = 0;
