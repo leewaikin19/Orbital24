@@ -190,7 +190,6 @@ function MainContent({submission, problem, solution, id}) {
     }
 
     function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
-        
         return(
             <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
                 <b>Multiple Choice Question {index}</b> 
@@ -199,9 +198,9 @@ function MainContent({submission, problem, solution, id}) {
                     {options.filter(option => option!= '').map((option, i) => {
                         return (
                             <template.GradeMCQInput id={option} name={option} value={option} 
-                            content={<span>{option + (mcqPregrade[i] ? " (Correct Answer) " : "") + (iUserAnswer.charCodeAt(0)-65 === i ? " (User Answer) " : "")}</span>} 
-                            userAnswer={iUserAnswer.charCodeAt(0)-65 === i} 
-                            correctAnswer={mcqPregrade[i]}/>
+                            content={<span>{option + (iCorrectAnswer === option ? " (Correct Answer) " : "") + (iUserAnswer === option ? " (User Answer) " : "")}</span>} 
+                            userAnswer={iUserAnswer === option} 
+                            correctAnswer={iUserAnswer === option ? mcqPregrade[index-1] : null}/>
                         )
                     })}
                 </div>

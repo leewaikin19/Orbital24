@@ -72,7 +72,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                <h1 style={{flexGrow:7}}>{title}</h1>'
+                <h1 style={{flexGrow:7}}>{title}</h1>
                 <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
             </div>
             <p>{description}</p>
@@ -169,7 +169,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
 
     function McqHandler (option, index){
         template.select(document.getElementById(index + " " + option), document.getElementById("mcq" + index))
-        mcqAnswer[index] == option ? mcqAnswer[index] = null : mcqAnswer[index] = option
+        mcqAnswer[index] = (mcqAnswer[index] === option) ? null : option
     }
 
     function Mcq({index, question, options}) {

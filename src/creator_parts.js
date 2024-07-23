@@ -79,10 +79,9 @@ export function hints_builder(hintsArray, setHintsArray) {
 }
 
 export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) {
-    function McqHandler (choice, num){
+    function McqHandler (choice, abcde, num){
         // Saves ans
-        template.select(document.getElementById(choice + num), document.getElementById(num))
-        // TODOM Add a remove qn button or smt
+        template.select(document.getElementById(abcde + num), document.getElementById(num))
         setMCQAnsArray(mcqAnsArray.map((value, index) => {
             if(index == num && value != choice){
                 return choice
@@ -129,7 +128,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
                                 preselected={mcqAnsArray[index] == "A " + index}
-                                onClick={() => McqHandler("A", index)} />
+                                onClick={() => McqHandler(mcq.options[0],"A", index)} />
                             <template.MCQInput
                                 id={"B" + index}
                                 name="B"
@@ -152,7 +151,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
                                 preselected={mcqAnsArray[index] == "B " + index}
-                                onClick={() => McqHandler("B", index)} />
+                                onClick={() => McqHandler(mcq.options[1],"B", index)} />
                             <template.MCQInput
                                 id={"C" + index}
                                 name="C"
@@ -175,7 +174,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
                                 preselected={mcqAnsArray[index] == "C " + index}
-                                onClick={() => McqHandler("C", index)} />
+                                onClick={() => McqHandler(mcq.options[2],"C", index)} />
                             <template.MCQInput
                                 id={"D" + index}
                                 name="D"
@@ -198,7 +197,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
                                 preselected={mcqAnsArray[index] == "D " + index}
-                                onClick={() => McqHandler("D", index)} />
+                                onClick={() => McqHandler(mcq.options[3],"D", index)} />
                             <template.MCQInput
                                 id={"E" + index}
                                 name="E"
@@ -221,7 +220,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
                                 preselected={mcqAnsArray[index] == "E " + index}
-                                onClick={() => McqHandler("E", index)} />
+                                onClick={() => McqHandler(mcq.options[4],"E", index)} />
                         </div>
                     </>
                 )})}

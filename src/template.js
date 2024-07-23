@@ -200,12 +200,13 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
         <div className='root'>
             {  loading ? <Loader/> : 
             <div className='outer_grid'>
-                <Popup name='error_popup' title={popupTitle} content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
+                
                 <NavBar isProblem={isProblem} selected={MSelected}/>
                 <div className='inner_grid'>
                     <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
                     <MainContainer MainContent={MainContent} popup={popup} selected={MSelected}/>
                 </div>
+                <Popup name='error_popup' title={popupTitle} content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
             </div>
             }
         </div>
