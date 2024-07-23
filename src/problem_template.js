@@ -105,6 +105,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                         template.handleErrors(resp.msg, popup)
                     }
                 })}}/>
+
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
             <Forum comm={forum} />
             <h2>Rate This Problem</h2>
