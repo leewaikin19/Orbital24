@@ -36,7 +36,7 @@ test('Integration Login/Signup', async () => {
 
 test('Integration Popup', async () => {
   render(<Main />);
-  fireEvent.click(screen.getAllByText('Log In')[1]);
+  fireEvent.click(screen.getByText('Click to Log In'));
   expect(document.getElementById('error_popup')).toBeInTheDocument();
   expect(screen.getByText("Empty Username or Password")).toBeInTheDocument();
   expect(screen.getByText("Please enter a valid username and password.")).toBeInTheDocument();
