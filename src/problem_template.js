@@ -90,7 +90,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            <template.ActionButton content="Submit Solution" onClick={() => (
+            <template.ActionButton content="Submit Solution" onClickAction={() => (
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
                         popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
