@@ -57,13 +57,17 @@
     font-size: clamp(24px, 15vh, 144px);
 }
 
-.outside_root button {
-    border-radius: 0px;
-}
 .outside_root .animated_button {
-    width: 100%;
-    margin: 0px;
     font-weight: bold;
+}
+
+.outside_root .action_button {
+    margin-top: 2em;
+    font-weight: bold;
+}
+
+.outside_root .top_button {
+    width: 100%;
 }
 
 .outside_root .animated_button:hover {
@@ -105,23 +109,5 @@
 
 .outside_root .main_logo img {
     width: clamp(250px, 50vmin, 750px);
-}
-
-.smalllink {
-    color: var(--orange);
-    display: flex;
-    justify-content: end;
-    margin: clamp(2px, 1vh ,8px) 0px;
-}
-
-.smalllink a, .smalllink i {
-    color: var(--orange);
-    text-decoration: none;
-}
-
-.outside_root #otp_container #otp_input {
-    font-size: var(--topic);
-    font-weight: 800;
-    text-align: center;
 }
 

@@ -123,6 +123,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

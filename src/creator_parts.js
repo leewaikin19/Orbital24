@@ -28,13 +28,13 @@ export function generic_main_content({ problem, solution, func }) {
                 {mcq_builder(mcqs, setMCQs, mcqAns, setMCQAns)}
                 {srq_builder(srqs, setSRQs, srqAns, setSRQAns)}
             </div>
-            <button id='save_problem' className='action_button animated_button' onClick={() => {
+            <template.ActionButton icon="fa-solid fa-save" content="Save Problem Details" onClickAction={() => {
                 if (mcqAns.filter((ans) => ans == "").length > 0) {
                     setTriggerMissingMCQAns(true)
                 } else {
                     setTriggerMissingMCQAns(false)
                     func(title, statement, sandbox, hints.filter((hint) => (hint!="")), mcqs, srqs, mcqAns, srqAns, setTriggerSuccessfullySaved, setTriggerUnsuccessfullySaved)
-                }}}><span>Save Problem Details</span></button>
+                }}}/>
         </>
     )
 }
@@ -73,7 +73,7 @@ export function hints_builder(hintsArray, setHintsArray) {
                     </div>
                 )})}
             </div>
-            <button id='create_hint' className='action_button animated_button' onClick = {() => setHintsArray([...hintsArray, ""])}><span>Add Hint</span></button>
+            <template.ActionButton icon="fa-solid fa-plus" content="Add Hint" onClickAction={() => setHintsArray([...hintsArray, ""])} />
         </div>
     )
 }

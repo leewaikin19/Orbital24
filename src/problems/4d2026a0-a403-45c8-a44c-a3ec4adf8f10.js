@@ -40,7 +40,9 @@ export default function Nim() {
             </div>
             <div id='card_container' style={{display:"flex", flexDirection:"row", margin:"1vh 1vw", rowGap:"1vh", columnGap:"1vw", flexWrap:"wrap", justifyContent:"center"}}></div>
             <p id='sucess_message' style={{textAlign:"center"}}></p>
-            <button id='end_player_turn' className="action_button animated_button" style={{display:"none"}}><span id='end_turn'>Let Computer Go First</span></button>
+            <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                <button id='end_player_turn' className="action_button animated_button" style={{display:"none"}}><span id='end_turn'>Let Computer Go First</span></button>
+            </div>
         </>
     )}
 
@@ -152,6 +154,6 @@ export default function Nim() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments}/>) } MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>) } MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }
