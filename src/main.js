@@ -76,7 +76,7 @@ function SignupLogin({ setPage, popup }) {
     )
 }
 
-function Login({ setPage, popup }) {
+export function Login({ setPage, popup }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -129,7 +129,7 @@ function Login({ setPage, popup }) {
     )
 }
 
-function Signup({popup}) {
+export function Signup({popup}) {
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
