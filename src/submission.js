@@ -139,7 +139,7 @@ function MainContent({ submission, problem }) {
                                 content={<span>{option + (option === iUserAnswer ? " (Your Answer)" : "")}</span>}
                                 onClick={() => template.select(document.getElementById(option),
                                     document.getElementById("mcq"))} 
-                                userAnswer={iUserAnswer == option}
+                                userAnswer={iUserAnswer === option}
                                 correctAnswer={option === iUserAnswer ? submission.done ? submission.correct_array.mcqs[index]: null : null}
                             />
                         )
