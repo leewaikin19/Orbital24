@@ -228,7 +228,7 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
             <div id = "sidebar_buttons">
                 <SideButton contents={"Account Dashboard"} onClick={() => window.location.href='/dashboard'} highlighted={selected === "dashboard"}/>
                 <SideButton contents='Tournaments' onClick={() => window.location.href='/tournaments'} highlighted={selected === "tournaments"}/>
-                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessprobems'} highlighted={selected === "createassessprobems"}/>
+                <SideButton contents={'Create Problems'} onClick={() => window.location.href='/createassessproblems'} highlighted={selected === "createassessproblems"}/>
                 <SideButton contents={'Grade Submissions'} onClick={() => window.location.href='/grade'} highlighted={selected === "grade"} shown = {isAdmin}/>
                 <SideButton contents='Leaderboards' onClick={() => window.location.href='/leaderboards'} highlighted={selected === "leaderboards"}/>
                 <SideButton contents='Forum Posts' onClick={() => window.location.href='/posts'} highlighted={selected === "posts"}/>

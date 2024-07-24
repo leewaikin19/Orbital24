@@ -19,7 +19,7 @@ export default function CreateAssess() {
 
     const promise = Promise.all([promise1, promise2])
     return (
-        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current}/>)} SSelected={'createassessprobems'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent assessableProblems={assessableProblems.current} createdProblems={createdProblems.current}/>)} SSelected={'createassessproblems'} promise={promise} />
     ) 
 }
 

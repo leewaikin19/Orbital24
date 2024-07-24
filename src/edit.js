@@ -11,7 +11,7 @@ export default function Edit() {
 
     const promise1 = API.getUserCreatedProblem(template.getCookie('token'), id).then((resp) => {
         if (resp.success === false || resp.reply.status === 'approved') {
-            window.location.href = '/createassessprobems'
+            window.location.href = '/createassessproblems'
         }
         problem.current = resp.reply;
     })
@@ -22,7 +22,7 @@ export default function Edit() {
     const promise = Promise.all([promise1, promise2]).then(() => setLoading(false))
     return (
         < template.Home MainContent={() => (
-            <MainContent problem={problem.current} solution={solution.current} />)} SSelected={'createassessprobems'} promise={promise} />
+            <MainContent problem={problem.current} solution={solution.current} />)} SSelected={'createassessproblems'} promise={promise} />
     )
 }
 
