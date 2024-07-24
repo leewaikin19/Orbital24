@@ -12,7 +12,7 @@ export default function Assess() {
 
     const promise1 = API.getAssessableProblem(template.getCookie('token'), id).then((resp) => {
         if (resp.success === false || resp.reply === null || resp.reply.status === 'approved') {
-            window.location.href = '/createassessprobems'
+            window.location.href = '/createassessproblems'
         }
         problem.current = resp.reply;
     })
@@ -24,7 +24,7 @@ export default function Assess() {
 
     return (
         < template.Home MainContent={() => (
-            <MainContent problem={problem.current} solution={solution.current} />)} SSelected={'createassessprobems'} promise={promise} />
+            <MainContent problem={problem.current} solution={solution.current} />)} SSelected={'createassessproblems'} promise={promise} />
     )
 }
 
@@ -79,8 +79,8 @@ function MainContent({ problem, solution }) {
 
     return (
         <>
-            <template.Popup id="approved_popup" title="Problem Approved" content="Successfully published problem" trigger={triggerApproved} setTrigger={setTriggerApproved} onClickAction={() => window.location.href="/createassessprobems"} />
-            <template.Popup id="rejected_popup" title="Problem Rejected" content="Successfully rejected problem" trigger={triggerRejected} setTrigger={setTriggerRejected} onClickAction={() => window.location.href="/createassessprobems"} />
+            <template.Popup id="approved_popup" title="Problem Approved" content="Successfully published problem" trigger={triggerApproved} setTrigger={setTriggerApproved} onClickAction={() => window.location.href="/createassessproblems"} />
+            <template.Popup id="rejected_popup" title="Problem Rejected" content="Successfully rejected problem" trigger={triggerRejected} setTrigger={setTriggerRejected} onClickAction={() => window.location.href="/createassessproblems"} />
             <template.Popup id="error_popup" title="Error" content="An error occured. Please try again." trigger={triggerError} setTrigger={setTriggerError} />
             <parts.Generic_main_content problem={problem} solution={solution} func={updateProblem} />
             <div>

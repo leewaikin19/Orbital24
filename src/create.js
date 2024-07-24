@@ -6,7 +6,7 @@ import * as parts from "./creator_parts.js"
 export default function Create() {
 
     return (
-        < template.Home MainContent={() => (<MainContent />)} SSelected={'createassessprobems'} promise={Promise.resolve()} />
+        < template.Home MainContent={() => (<MainContent />)} SSelected={'createassessproblems'} promise={Promise.resolve()} />
     ) 
 }
 
