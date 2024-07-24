@@ -34,7 +34,7 @@ export default function Main() {
             <template.Bar dir='left' />
             <div className="main_container">
                 <div className="main_logo">
-                    <img src="./Assets/Logo/dark.svg" alt="Logo"></img>
+                    <img src="./Assets/Logo/dark.png" alt="Logo"></img>
                 </div>
                 {renderPage()}
             </div>
