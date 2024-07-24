@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { useState, useId, useRef, createRef } from 'react'
+import { useState, useRef, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
@@ -18,10 +17,10 @@ export default function Problem(){
     });
     const user = useRef(null)
     const forum = useRef(null)
-    const k = import('./problems/'+id).then((r) => {
+    import('./problems/'+id).then((r) => {
       page.current = <r.default />
       setLoading(false);
-    }).catch((e) => {
+    }).catch(() => {
         const promise1 = API.getProblem(template.getCookie('token'), id).then((resp) => {
             if (resp.success === false) {
                 window.location.href = '../problems'
@@ -34,7 +33,7 @@ export default function Problem(){
         const promise3 = API.getComments(template.getCookie('token'), id).then(resp => {
             forum.current = resp.reply;
         })
-        const promise = Promise.all([promise1, promise2]).then(() => setLoading(false))
+        const promise = Promise.all([promise1, promise2, promise3]).then(() => setLoading(false))
 
         async function refreshComments() {
             return await API.getComments(template.getCookie('token'), id).then(resp => {
@@ -42,13 +41,15 @@ export default function Problem(){
                 return(resp.reply);
             })
         }
-        page.current =  < template.Home MainContent={({popup}) => (<MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise} isProblem={true} />
     })
 
     return (
         <>{loading ? <template.Loader/> : page.current}</>
     )  
 }
+
+
 
 export function MainContent({problem, sandbox, user, forum, refreshComments, popup}) { 
     const id = problem.id;
@@ -58,18 +59,19 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
     const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
-    const [mcqAnswer, setMcqAnswer] = useState([])
-    const [srqAnswer, setSrqAnswer] = useState([])
+    const [mcqAnswer, ] = useState([])
+    const [srqAnswer, ] = useState([])
     
     forum = forum === null ? [] : forum;
     const solved = user.problemsSolved.includes(id)
     const rated = user.ratedProblems.includes(id)
     const num_attempts = problem.stats.usersCorrect.length + problem.stats.usersIncorrect.length;
     const completion_rate = num_attempts === 0 ? 0 : Math.round(100*problem.stats.usersCorrect.length/num_attempts);
+    console.log(popup)
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                <h1 style={{flexGrow:7}}>{title}</h1>'
+                <h1 style={{flexGrow:7}}>{title}</h1>
                 <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
             </div>
             <p>{description}</p>
@@ -90,7 +92,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                     <Srq index = {i} question={srq.qn} placeholder="Enter your answer here" />
                 )
             })}
-            <template.ActionButton content="Submit Solution" onClickAction={() => (
+            <template.ActionButton content="Submit Solution" onClickAction={() => {
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
                         popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
@@ -101,7 +103,8 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                     } else {
                         template.handleErrors(resp.msg, popup)
                     }
-                }))} />
+                })}}/>
+
             <Statistics num_attempts={num_attempts} completion_rate={completion_rate} />
             <Forum comm={forum} />
             <h2>Rate This Problem</h2>
@@ -109,18 +112,18 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
         </div>
     )
 
-    function impt_note({note}) {
-        return(
-            <div className="impt_note">
-                <div className='impt_note_title'>
-                    Important Note!
-                    <div className='content'>
-                    {note}
-                    </div>
-                </div>
-            </div>
-        )
-    }
+    // function impt_note({note}) {
+    //     return(
+    //         <div className="impt_note">
+    //             <div className='impt_note_title'>
+    //                 Important Note!
+    //                 <div className='content'>
+    //                 {note}
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({title, desc}) {
@@ -165,7 +168,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
 
     function McqHandler (option, index){
         template.select(document.getElementById(index + " " + option), document.getElementById("mcq" + index))
-        mcqAnswer[index] == option ? mcqAnswer[index] = null : mcqAnswer[index] = option
+        mcqAnswer[index] = (mcqAnswer[index] === option) ? null : option
     }
 
     function Mcq({index, question, options}) {
@@ -174,7 +177,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 <b>Multiple Choice Question {index + 1}</b> 
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
                 <div id={'mcq' + index} className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
-                    {options.filter(option => option!= '').map((option) => {
+                    {options.filter(option => option!== '').map((option) => {
                         return(
                             <template.MCQInput id={index + " " + option} name={option} value={option} content={<span>{option}</span>} onClick={() => (McqHandler(option, index))}/>
                         )
@@ -239,7 +242,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
         }
 
         function publishComment(comment) {
-            if(comment == "") {
+            if(comment === "") {
                 popup.setMsg("Comment cannot be empty.")
                 popup.setTitle("Error")
                 popup.setOnClickAction(()=>() => null)
@@ -263,7 +266,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
         }
         
         function saveReply(replies, commentID) {
-            if (replies==""){
+            if (replies===""){
                 popup.setMsg("Reply cannot be empty.")
                 popup.setTitle("Error")
                 popup.setOnClickAction(()=>() => null)

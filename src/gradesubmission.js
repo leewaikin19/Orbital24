@@ -1,12 +1,11 @@
 // This is the page for users to grade one of their submissions
 
-/* eslint-disable */
-import { useState, useId, useRef, createRef } from 'react'
+import { useState, useRef, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
 export default function Submission() {
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const submission = useRef({
         'id': '',
         'username': '',
@@ -97,18 +96,18 @@ function MainContent({submission, problem, solution, id}) {
         }
     }
 
-    function impt_note({note}) {
-        return(
-            <div className="impt_note">
-                <div className='impt_note_title'>
-                    Important Note!
-                    <div className='content'>
-                    {note}
-                    </div>
-                </div>
-            </div>
-        )
-    }
+    // function impt_note({note}) {
+    //     return(
+    //         <div className="impt_note">
+    //             <div className='impt_note_title'>
+    //                 Important Note!
+    //                 <div className='content'>
+    //                 {note}
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({title, desc}) {
@@ -167,7 +166,7 @@ function MainContent({submission, problem, solution, id}) {
             <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
                 <b>Short Response Question {(index + 1) + (autograded ? " (Autograded)" : " (Manual grading)")}</b> 
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
-                <template.FormInput name='solution' id='solution' className={autograded ? (iUserAnswer === iCorrectAnswer && iUserAnswer != "" ? "green_button" : "red_button") : ""} style={{margin:"0px 0px 0.5em 0px"}} value={solution} onChange={e => setSolution(e.target.value)} required disabled = {true}/>
+                <template.FormInput name='solution' id='solution' className={autograded ? (iUserAnswer === iCorrectAnswer && iUserAnswer !== "" ? "green_button" : "red_button") : ""} style={{margin:"0px 0px 0.5em 0px"}} value={solution} onChange={e => setSolution(e.target.value)} required disabled = {true}/>
                 <p style={{margin:"0px 0px 0.5em 0px"}}>Correct Answer: {iCorrectAnswer}</p>
                 {autograded ? null : (
                     <div id = {"approve_reject " + index} style={{display:"flex", flexDirection:"row", columnGap:"1em", justifyContent:"center"}}>
@@ -190,18 +189,17 @@ function MainContent({submission, problem, solution, id}) {
     }
 
     function Mcq({index, question, options, iUserAnswer = "", iCorrectAnswer = ""}) {
-        
         return(
             <div className='form_input section' style={{display:"flex", flexDirection:"column", alignItems:"left", justifyContent:"left"}}>
                 <b>Multiple Choice Question {index}</b> 
                 <h3 style={{margin:"0px 0px 0.5em 0px"}}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"left"}}>
-                    {options.filter(option => option!= '').map((option, i) => {
+                    {options.filter(option => option!== '').map((option, i) => {
                         return (
                             <template.GradeMCQInput id={option} name={option} value={option} 
-                            content={<span>{option + (mcqPregrade[i] ? " (Correct Answer) " : "") + (iUserAnswer.charCodeAt(0)-65 === i ? " (User Answer) " : "")}</span>} 
-                            userAnswer={iUserAnswer.charCodeAt(0)-65 === i} 
-                            correctAnswer={mcqPregrade[i]}/>
+                            content={<span>{option + (iCorrectAnswer === option ? " (Correct Answer) " : "") + (iUserAnswer === option ? " (User Answer) " : "")}</span>} 
+                            userAnswer={iUserAnswer === option} 
+                            correctAnswer={iUserAnswer === option ? mcqPregrade[index-1] : null}/>
                         )
                     })}
                 </div>

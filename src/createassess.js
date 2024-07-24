@@ -1,14 +1,12 @@
-/* eslint-disable */
-
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
 export default function CreateAssess() {
-    const approvedProblems = useRef(null);
+    //const approvedProblems = useRef(null);
     const assessableProblems = useRef(null);
     const createdProblems = useRef(null);
-    const user = useRef(null);
+    //const user = useRef(null);
 
     const promise1 = API.getAssessableProblems(template.getCookie('token'))
     promise1.then((resp) => {
@@ -32,7 +30,7 @@ export function MainContent({assessableProblems, createdProblems}) {
                 <div className='section'>
                     <h1>Assess Others' Problems</h1>
                     <template.StaticTable id = "assessable_problems" headers={["Problem Title"]} width={[1]} data={assessableProblems.map(
-                        (problem) => ([<div className='problem_flair'><a href={'assess/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
+                        (problem) => ([<div className='problem_flair'><a href={'assess/' + problem.id}>{problem.title}</a> <img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>]))} />
                 </div>))}
             <div className='section'>
                 <h1>Created Problems</h1>

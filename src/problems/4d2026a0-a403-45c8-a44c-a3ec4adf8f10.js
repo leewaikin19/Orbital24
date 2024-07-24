@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from '../API.js'
 import * as template from "../template.js"
 import * as problems from "../problem_template.js"
@@ -53,9 +52,9 @@ export default function Nim() {
     var turn = 1;
 
     function player_flip(card) {
-        if (turn == 0) {}
-        else if (document.getElementById(card).getAttribute("src") != "../../Assets/Cards/Misc/back_panel.svg") {}
-        else if(card == 0 || (document.getElementById(card - 1).getAttribute("src") != "../../Assets/Cards/Misc/back_panel.svg" && player_counter < 3)) {
+        if (turn === 0) {}
+        else if (document.getElementById(card).getAttribute("src") !== "../../Assets/Cards/Misc/back_panel.svg") {}
+        else if(card === 0 || (document.getElementById(card - 1).getAttribute("src") !== "../../Assets/Cards/Misc/back_panel.svg" && player_counter < 3)) {
             const end_turn = document.getElementById('end_turn');
             end_turn.innerHTML = "End Your Turn";
             document.getElementById(card).setAttribute("src", "../../Assets/Cards/Misc/user.svg")
@@ -64,13 +63,13 @@ export default function Nim() {
             computer_counter = 0;
             enable_disable();
         }
-        if(current_card == num_cards) {
+        if(current_card === num_cards) {
             announce_winner(1);
         }
     }
     
     function end_player_move() {
-        if(current_card > 0 && player_counter == 0) {}
+        if(current_card > 0 && player_counter === 0) {}
         else {
             turn = 0;
             computer_move();
@@ -78,25 +77,25 @@ export default function Nim() {
     }
 
     function computer_flip() {
-        if (turn == 1) {}
-        else if(current_card == 0 || (document.getElementById(current_card - 1).getAttribute("src") != "../../Assets/Cards/Misc/back_panel.svg" && computer_counter < 3)) {
+        if (turn === 1) {}
+        else if(current_card === 0 || (document.getElementById(current_card - 1).getAttribute("src") !== "../../Assets/Cards/Misc/back_panel.svg" && computer_counter < 3)) {
             document.getElementById(current_card).setAttribute("src", "../../Assets/Cards/Misc/comp.svg")
             computer_counter++;
             current_card++;
             player_counter = 0;
             enable_disable();
         }
-        if(current_card == num_cards) {
+        if(current_card === num_cards) {
             announce_winner(0);
         }
     }
     function computer_move() {
-        if(current_card == num_cards) {}
+        if(current_card === num_cards) {}
         else {
             const end_turn = document.getElementById('end_turn');
             end_turn.innerHTML = "End Your Turn";
             var num_flip = (num_cards - current_card) % 4;
-            num_flip == 0 ? num_flip = Math.floor(Math.random() * 3 + 1) : num_flip;
+            num_flip = num_flip === 0 ? Math.floor(Math.random() * 3 + 1) : num_flip;
             for(let i = 0; i < num_flip; i++) {
                 computer_flip();
             }
@@ -105,7 +104,7 @@ export default function Nim() {
     }
     function announce_winner(i) {
         const success_message = document.getElementById('sucess_message');
-        i == 1 ? success_message.innerHTML = "Player takes the last card so Player wins!" : success_message.innerHTML = "Computer takes the last card so Computer wins!";
+        i === 1 ? success_message.innerHTML = "Player takes the last card so Player wins!" : success_message.innerHTML = "Computer takes the last card so Computer wins!";
         const end_turn = document.getElementById('end_turn');
         end_turn.innerHTML = 'Start New Game';
         const end_player_turn = document.getElementById('end_player_turn');
@@ -116,7 +115,7 @@ export default function Nim() {
     function enable_disable() {
         const end_player_turn = document.getElementById('end_player_turn');
         const end_turn = document.getElementById('end_turn');
-        if (player_counter == 0) {
+        if (player_counter === 0) {
             end_player_turn.disabled = true;
             end_turn.innerHTML = 'Flip at least one card';
         } else {
@@ -126,7 +125,7 @@ export default function Nim() {
     }
 
     function setup(cards) {
-        cards < 1 ? cards = 21 : cards;
+        cards = cards < 1 ? 21 : cards;
         num_cards = cards;
         player_counter = 0;
         computer_counter = 0;
@@ -154,6 +153,6 @@ export default function Nim() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments}/>) } MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>) } MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react'
 import * as template from "./template.js"
 import * as API from "./API.js"
@@ -76,7 +75,7 @@ function SignupLogin({ setPage, popup }) {
     )
 }
 
-function Login({ setPage, popup }) {
+export function Login({ setPage, popup }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -119,7 +118,7 @@ function Login({ setPage, popup }) {
     )
 }
 
-function Signup({popup}) {
+export function Signup({popup}) {
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -150,7 +149,7 @@ function Signup({popup}) {
         }
     }
 
-    addEventListener('keydown', function (e) {
+    window.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
             clickSignup();
         }

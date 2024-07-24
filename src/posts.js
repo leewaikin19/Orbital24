@@ -1,12 +1,9 @@
-/* eslint-disable */
-
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
-/* eslint-disable */
 export default function Posts() {
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const comments = useRef(null);
     const problems = useRef(null);
 

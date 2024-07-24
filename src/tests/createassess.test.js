@@ -23,6 +23,7 @@ test('Test CreateAssess for Non-Admin', async () => {
 
   const list = [/Create New Problem/, /Created Problems/, /Sample Title/ ]
   list.forEach(x => expect(screen.getByText(x)).toBeInTheDocument());
+  expect(screen.queryByText(/Assess Others' Problems/)).toBeNull();
 });
 
 test('Test CreateAssess for Admin', async () => {

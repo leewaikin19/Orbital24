@@ -1,12 +1,11 @@
 // This is the page for users to view one of their submissions
 
-/* eslint-disable */
-import { useState, useId, useRef, createRef } from 'react'
+import { useState, useRef, createRef } from 'react'
 import * as template from "./template.js"
 import * as API from './API.js'
 
 export default function Submission() {
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const submission = useRef({
         'id': '',
         'username': '',
@@ -72,18 +71,18 @@ function MainContent({ submission, problem }) {
     )
 
 
-    function impt_note({ note }) {
-        return (
-            <div className="impt_note">
-                <div className='impt_note_title'>
-                    Important Note!
-                    <div className='content'>
-                        {note}
-                    </div>
-                </div>
-            </div>
-        )
-    }
+    // function impt_note({ note }) {
+    //     return (
+    //         <div className="impt_note">
+    //             <div className='impt_note_title'>
+    //                 Important Note!
+    //                 <div className='content'>
+    //                     {note}
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({ title, desc }) {
@@ -133,11 +132,11 @@ function MainContent({ submission, problem }) {
                 <b>Multiple Choice Question {index + 1} (Autograded)</b>
                 <h3 style={{ margin: "0px 0px 0.5em 0px" }}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "left" }}>
-                    {options.filter(option => option != '').map((option, position) => {
+                    {options.filter(option => option !== '').map((option, position) => {
                         console.log()
                         return (
                             <template.GradeMCQInput id={String.fromCharCode(position + 65) + " " + index} name={option} value={option}
-                                content={<span>{option + (option == iUserAnswer ? " (Your Answer)" : "")}</span>}
+                                content={<span>{option + (option === iUserAnswer ? " (Your Answer)" : "")}</span>}
                                 onClick={() => template.select(document.getElementById(option),
                                     document.getElementById("mcq"))} 
                                 userAnswer={iUserAnswer == option}

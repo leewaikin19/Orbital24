@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import * as React from 'react'
 import * as template from "./template.js"
 
