@@ -11,6 +11,8 @@ export default function Homepage() {
 
     promise1.then(resp1 => {
         promise2.then(resp2 => {
+            console.log(resp1)
+            console.log(resp2)
             user_real_name.current = resp1.reply.firstName + " " + resp1.reply.lastName;
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved

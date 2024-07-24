@@ -5,7 +5,7 @@ var exp = 0;
 
 describe('Site Connection', () => {
   it('Visits Rojiku', () => {
-    cy.visit('https://rojiku.pages.dev')
+    cy.visit('https://end-to-end-testing.rojiku.pages.dev')
     auth()
     createNonAutogradedProblem()
     assessNonAutogradedProblem()

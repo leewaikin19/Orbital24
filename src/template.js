@@ -13,8 +13,6 @@ export class FormInput extends Component {
 }
 
 export function MultiFormInput({type=["text", 'text'], name, id=name, value, setValue, placeholder, required=[true, true]}) {
-    console.log(type, name, id, value, setValue, placeholder,required)
-
     return (
         <div className="form_input">
             {name.map((n, i) => (

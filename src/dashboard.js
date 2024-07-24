@@ -19,6 +19,7 @@ export default function Dashboard() {
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
             return promise4.then(resp4 => {
+                resp4.reply = resp4.reply.filter(x => x !== null)
                 pendingSubmissions.current = resp4.reply.map(sub => resp2.reply.find(x => x.id === sub.questionID) ===undefined ? undefined : sub).filter(x => x !== undefined)
                 pendingSubmissionsProblems.current = pendingSubmissions.current.map(sub => resp2.reply.find(x => x.id === sub.questionID)).filter(x => x !== undefined)
             })
