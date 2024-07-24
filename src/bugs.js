@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as template from "./template.js"
 
 export default function Bugs() {

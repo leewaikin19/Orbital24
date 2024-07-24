@@ -20,7 +20,7 @@
 }
 
 .outside_root .main_container {
-    padding: clamp(6px, 8vmin, 60px);
+    padding: clamp(6px, 8vmin, 40px);
 }
 
 @media only screen and (orientation: portrait) {

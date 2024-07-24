@@ -18,7 +18,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "lint" : "eslint src/**/*.js",
+    "lint": "eslint src/**/*.js",
     "eject": "react-scripts eject",
     "deploy": "npm run build && wrangler pages deploy ./build",
     "preview": "npm run build && wrangler pages dev ./build"
@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "msw": "^2.3.2",
     "npm-run-all": "^4.1.5",
     "react-router-dom": "^6.23.1",
     "wrangler": "^3.60.0"

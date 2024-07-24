@@ -1,12 +1,10 @@
-/* eslint-disable */
-
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 import * as parts from "./creator_parts.js"
-/* eslint-disable */
+
 export default function Edit() {
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const problem = useRef();
     const solution = useRef();
     const id = window.location.href.split('/').at(-1);
@@ -33,7 +31,7 @@ export function MainContent({ problem, solution }) {
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
         API.updateProblem(template.getCookie('token'), problem.id, 
-        {'title':title, 'statement':statement, 'sandbox':sandbox, 'hints':hints.filter((hint) => (hint!="")), 
+        {'title':title, 'statement':statement, 'sandbox':sandbox, 'hints':hints.filter((hint) => (hint!=="")), 
             'xp':TEMPORARY_XP_VALUE, 'difficulty':TEMPORARY_DIFFICULTY_VALUE, 'mcqs':mcqs, 'srqs':srqs, 
             'autograded':srqAns.filter(x => x.autograded===false).length > 0, 'status':'pending'}, 
         {'mcqAns':mcqAns, 'srqAns':srqAns})
@@ -46,6 +44,6 @@ export function MainContent({ problem, solution }) {
     }
 
     return (
-        <parts.generic_main_content problem={problem} solution={solution} func = {updateProblem} />
+        <parts.Generic_main_content problem={problem} solution={solution} func = {updateProblem} />
     )
 }

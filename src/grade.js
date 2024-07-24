@@ -1,11 +1,8 @@
-/* eslint-disable */
-
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
+
 export default function Grade() {
-    const [isThisNeeded, setThis] = useState(true);
     const submissions = useRef(null);
     const problems = useRef(null);
     const promise1 = API.getAllGradableSubmissions(template.getCookie('token')).then((resp) => {
