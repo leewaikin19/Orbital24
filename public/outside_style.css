@@ -105,6 +105,7 @@
     display: flex; 
     align-items: center; 
     justify-content: center;
+    margin-bottom: 4em;
 }
 
 .outside_root .main_logo img {
