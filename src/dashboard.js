@@ -1,11 +1,9 @@
-/* eslint-disable */
-
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
+
 export default function Dashboard() {
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const solvedProblems = useRef([]);
     const pastTournaments = useRef([]);
     const pendingSubmissions = useRef([]);
@@ -68,7 +66,7 @@ export function MainContent({pendingSubmissions, pendingSubmissionsProblems, sol
             <div className='section'>
                 <h1>Solved Problems</h1>
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={solvedProblems.map(
-                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
+                    (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
             <div className='section'>
                 <h1>Past Tournaments</h1>
@@ -81,7 +79,7 @@ export function MainContent({pendingSubmissions, pendingSubmissionsProblems, sol
                     {user.badges.map((badge) => {
                         return(
                             <div style={{width:"8em"}} className='badge'>
-                                <img style={{height:"8em", marginBottom:"2vh"}} src= {"../../Assets/Badges/" + badge.replaceAll(' ', '') + ".svg"}/>
+                                <img alt="" style={{height:"8em", marginBottom:"2vh"}} src= {"../../Assets/Badges/" + badge.replaceAll(' ', '') + ".svg"}/>
                                 <b style={{wordWrap:"normal", textAlign:"center"}}>{badge}</b>
                             </div>
                     )})}

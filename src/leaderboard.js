@@ -1,9 +1,7 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
 export default function Leaderboard() {
-    const [isThisNeeded, setThis] = useState(true);
     const xp = useRef(null);
     const badges = useRef(null);
     
@@ -31,7 +29,7 @@ export function MainContent({expLeaderboards, badgesLeaderboards}) {
                 <div className='badges_container' style={{overflowX:"auto"}}>
                     {entry.badges.map((badge) => (
                         <div className='badge'>
-                            <img src= {"../../Assets/Badges/" + badge.replaceAll(' ', '') + ".svg"}/>
+                            <img alt="" src= {"../../Assets/Badges/" + badge.replaceAll(' ', '') + ".svg"}/>
                             <p>{badge}</p>
                         </div>
                     ))}

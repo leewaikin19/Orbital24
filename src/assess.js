@@ -1,14 +1,11 @@
-/* eslint-disable */
 
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 import * as parts from "./creator_parts.js"
-import * as Edit from "./edit.js"
 
-/* eslint-disable */
 export default function Assess() {
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const problem = useRef();
     const solution = useRef();
     const id = window.location.href.split('/').at(-1);
@@ -42,7 +39,7 @@ function MainContent({ problem, solution }) {
         const TEMPORARY_XP_VALUE = 50;
         const TEMPORARY_DIFFICULTY_VALUE = -1;
         API.updateProblem(template.getCookie('token'), problem.id, 
-        {'title':title, 'statement':statement, 'sandbox':sandbox, 'hints':hints.filter((hint) => (hint!="")), 
+        {'title':title, 'statement':statement, 'sandbox':sandbox, 'hints':hints.filter((hint) => (hint!=="")), 
             'xp':TEMPORARY_XP_VALUE, 'difficulty':TEMPORARY_DIFFICULTY_VALUE, 'mcqs':mcqs, 'srqs':srqs, 
             'autograded':srqAns.filter(x => x.autograded===false).length > 0, 'status':'pending'}, 
         {'mcqAns':mcqAns, 'srqAns':srqAns})
@@ -85,7 +82,7 @@ function MainContent({ problem, solution }) {
             <template.Popup id="approved_popup" title="Problem Approved" content="Successfully published problem" trigger={triggerApproved} setTrigger={setTriggerApproved} onClickAction={() => window.location.href="/createassessprobems"} />
             <template.Popup id="rejected_popup" title="Problem Rejected" content="Successfully rejected problem" trigger={triggerRejected} setTrigger={setTriggerRejected} onClickAction={() => window.location.href="/createassessprobems"} />
             <template.Popup id="error_popup" title="Error" content="An error occured. Please try again." trigger={triggerError} setTrigger={setTriggerError} />
-            <parts.generic_main_content problem={problem} solution={solution} func={updateProblem} />
+            <parts.Generic_main_content problem={problem} solution={solution} func={updateProblem} />
             <div>
                 <h2>Approve/Reject Problem</h2>
                 <div style={{ display: "flex", flexDirection: "column", rowGap: "1em", marginBottom: "clamp(6px, 6vh, 24px)" }}>

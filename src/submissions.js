@@ -1,13 +1,10 @@
 // This is the page for users to see their own submissions of a problem
 
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
-/* eslint-disable */
 export default function Submissions() {
     const submissions = useRef();
-    const [isThisNeeded, setThis] = useState(true);
-    const temp = useRef(null);
 
     // problem id
     const id = window.location.href.split('/').at(-1);

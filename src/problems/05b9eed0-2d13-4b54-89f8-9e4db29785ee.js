@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useRef,useState } from 'react'
 import * as API from '../API.js'
 import * as template from "../template.js"
@@ -78,12 +77,12 @@ export default function PigeonHole() {
         var card_array = new Uint8Array(cards);
 
         for(let i = 0; i < cards; i++) {
-            var n = Math.floor(Math.random() * 52);
-            if(card_array.includes(n)) { 
+            var nn = Math.floor(Math.random() * 52);
+            if(card_array.includes(nn)) { 
                 i--;
                 continue;
             } else{
-                card_array[i] = n;
+                card_array[i] = nn;
             }
         }
 
@@ -113,9 +112,11 @@ export default function PigeonHole() {
                     diamonds.appendChild(card);
                     diamonds_count++;
                     break;
+                default: 
+                    break;
             }
         }
-        if(clubs_count * hearts_count * spades_count * diamonds_count == 0) {
+        if(clubs_count * hearts_count * spades_count * diamonds_count === 0) {
             document.getElementById('sucess_message').innerHTML = 'Sadly there is one or more missing suit. Try again!';
         } else {
             document.getElementById('sucess_message').innerHTML = 'You succeeded. Congratulations! But do you really need to take this many cards? Or is this not enough to guarantee a win?';
@@ -123,6 +124,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={() => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
     ) 
 }

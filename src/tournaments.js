@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
 
@@ -27,7 +26,7 @@ export function MainContent({tournaments, problems}) {
                 <div className='section'>
                     <h1>{tournament.title}</h1>
                     <template.StaticTable id = {tournament.title} headers = {["Problem Set"]} width = {[1]} data={tournament.problems.map(id => problems.find(x => x.id === id)).map((problem) => [(
-                        <div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a><img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div> 
+                        <div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a><img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div> 
                     )])}/>
                 </div>
             ))}

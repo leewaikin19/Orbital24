@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState, useRef } from 'react'
 import * as API from './API.js'
 import * as template from "./template.js"
@@ -26,9 +25,9 @@ export function MainContent({problems}) {
             style={{margin:"2vh 0px"}}
             placeholder="Search for problem titles here..."
             onInput={(e) => setProblemlist(problems.filter((problem) => (problem.title.toUpperCase().includes(e.target.value.toUpperCase()))))} />
-        {problemlist.length == 0 ? (<h2 style={{textAlign:"center", color:"var(--red)"}}>No problems found</h2>) : (
+        {problemlist.length === 0 ? (<h2 style={{textAlign:"center", color:"var(--red)"}}>No problems found</h2>) : (
         <template.StaticTable id="explore_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={problemlist.map(
-            (problem) => ([<div className="problem_flair"><a href={'problems/' + problem.id}>{problem.title}</a><img height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />)}
+            (problem) => ([<div className="problem_flair"><a href={'problems/' + problem.id}>{problem.title}</a><img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />)}
     </>
     )
 }
