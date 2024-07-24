@@ -138,7 +138,7 @@ function MainContent({ submission, problem }) {
                             <template.GradeMCQInput id={String.fromCharCode(position + 65) + " " + index} name={option} value={option}
                                 content={<span>{option + (option === iUserAnswer ? " (Your Answer)" : "")}</span>}
                                 onClick={() => template.select(document.getElementById(option),
-                                    document.getElementById("mcq"))} userAnswer={iUserAnswer.charCodeAt(0)-65 === position}
+                                    document.getElementById("mcq"))} userAnswer={option === iUserAnswer}
                                 correctAnswer={option === iUserAnswer ? submission.done ? submission.correct_array.mcqs[index]: null : null}
                             />
                         )
