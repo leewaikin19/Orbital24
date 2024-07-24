@@ -2,11 +2,12 @@
 const safeMode = false;
 var exp = 0;
 
-
 describe('Site Connection', () => {
   it('Visits Rojiku', () => {
-    cy.visit('https://end-to-end-testing.rojiku.pages.dev')
-    auth()
+    //cy.visit('https://rojiku.pages.dev')
+    //signup()
+    cy.visit('https://rojiku.pages.dev')
+    login()
     createNonAutogradedProblem()
     assessNonAutogradedProblem()
     submitNonAutograded()
@@ -26,9 +27,28 @@ describe('Site Connection', () => {
 
 })
 
+// signup
+function signup() {
+  cy.contains('Sign Up').click()
+  cy.get('input[id="firstName"]').type("I'm")
+  cy.get('input[id="firstName"]').should('have.value', "I'm")
+  cy.get('input[id="lastName"]').type("NotARobot")
+  cy.get('input[id="lastName"]').should('have.value', "NotARobot")
+  cy.get('input[id="email"]').type("robots")
+  cy.get('input[id="email"]').should('have.value', "robots")
+  cy.get('input[id="username"]').type("robots")
+  cy.get('input[id="username"]').should('have.value', "robots")
+  cy.get('input[id="password1"]').type("robots")
+  cy.get('input[id="password1"]').should('have.value', "robots")
+  cy.get('input[id="password2"]').type("robots")
+  cy.get('input[id="password2"]').should('have.value', "robots")
+  cy.contains('Click to Sign Up').click()
+  cy.url().should('include', '/home')
 
+  cy.get('div[id="profile"]').find('p').then(val => {exp=val.text().split(' ')[0]})
+}
 // login
-function auth() {
+function login() {
   cy.get('input[id="username"]').type("robots")
   cy.get('input[id="username"]').should('have.value', "robots")
   cy.get('input[id="password"]').type("robots")
@@ -36,7 +56,9 @@ function auth() {
   cy.contains('Click to Log In').click()
   cy.url().should('include', '/home')
 
-  cy.get('div[id="profile"]').find('p').then(val => {exp=val.text().split(' ')[0]})
+  cy.get('div[id="profile"]').find('p').then(val => {
+    exp = parseInt(val.text().split(' ')[0])
+  })
 }
 
 // create non-autograded problem
@@ -93,7 +115,7 @@ function createNonAutogradedProblem() {
 function assessNonAutogradedProblem() {
   cy.contains('Create Problems').click()
   cy.url().should('include', '/createassessproblems')
-  cy.contains('Automatically-created-nonautograded-problem').click()
+  cy.get("div[id='assessable_problems']").contains('Automatically-created-nonautograded-problem').click()
   cy.url().should('include', '/assess')
   cy.get('textarea[id="Title"]').should('have.value', "Automatically-created-nonautograded-problem")
   cy.get('textarea[id="Statement"]').should('have.value', "Automatically-created-statement")
@@ -203,7 +225,7 @@ function verifyNonAutograded() {
   cy.url().should('include', '/dashboard')
   var new_exp = 0;
   cy.get('div[id="profile"]').find('p').then(val => {
-    new_exp=val.text().split(' ')[0];
+    new_exp = parseInt(val.text().split(' ')[0])
     expect(exp + 50).to.equal(new_exp)
     exp = new_exp
   })
@@ -222,6 +244,9 @@ function rateProblem() {
   cy.contains('Successful')
   cy.contains('Your rating is successfully captured.')
   cy.contains('Close').click()
+  cy.get('[class=nav_bar]').contains('Problems').click()
+  cy.contains('Automatically-created-nonautograded-problem').click()
+  cy.url().should('include', '/problems/')
   cy.contains('You have already rated this problem.')
 }
 
@@ -318,6 +343,7 @@ function assessAutogradedProblem() {
     cy.contains('Approve Problem').click()
     cy.contains('Problem Approved')
     cy.contains('Successfully published problem')
+    cy.contains('Close').click()
     cy.get('[class=nav_bar]').contains('Problems').click()
     cy.contains('Automatically-created-nonautograded-problem')
   }
@@ -364,7 +390,7 @@ function verifyAutograded() {
   cy.url().should('include', '/dashboard')
   var new_exp = 0;
   cy.get('div[id="profile"]').find('p').then(val => {
-    new_exp=val.text().split(' ')[0]
+    new_exp = parseInt(val.text().split(' ')[0])
     expect(exp + 50).to.equal(new_exp)
     exp = new_exp
   })
