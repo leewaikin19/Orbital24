@@ -13,7 +13,7 @@ export default function Grade() {
     })
     const promise = Promise.all([promise1, promise2])
     promise.then(() => {
-        problems.current = submissions.current.map(sub => problems.current.find(prob => prob.id === sub.questionID))
+        problems.current = submissions.current.map(sub => problems.current.find(prob => prob.id === sub.questionID)).filter(x => x !== undefined)
     })
     return (
         < template.Home MainContent={() => (<MainContent problems={problems.current} submissions={submissions.current} />)} SSelected={'grade'} promise={promise} />

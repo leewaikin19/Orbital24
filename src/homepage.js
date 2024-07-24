@@ -13,7 +13,10 @@ export default function Homepage() {
         promise2.then(resp2 => {
             user_real_name.current = resp1.reply.firstName + " " + resp1.reply.lastName;
             // find problems that are already solved
-            solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
+            solvedProblems.current = resp1.reply.problemsSolved
+                .map(id => resp2.reply
+                .find(x => x.id === id))
+                .filter(x => x !== undefined);
             unsolvedProblems.current = resp2.reply
                 .map(x => !resp1.reply.problemsSolved.includes(x.id) ? x : undefined)
                 .filter(x => x !== undefined);
