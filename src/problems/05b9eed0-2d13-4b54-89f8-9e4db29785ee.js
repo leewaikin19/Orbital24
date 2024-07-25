@@ -51,12 +51,14 @@ export default function PigeonHole() {
 
 
     function cardSimulation(cards) {
+        
         try {
             cards = parseInt(cards);
         } catch (e) {
             setTriggerPopup(true);
             return;
         }
+        console.log(cards)
         if(cards < 1 || cards > 52) {
             setTriggerPopup(true);
             return;
@@ -77,7 +79,8 @@ export default function PigeonHole() {
         var card_array = new Uint8Array(cards);
 
         for(let i = 0; i < cards; i++) {
-            var nn = Math.floor(Math.random() * 52);
+            var nn = Math.floor(Math.random() * (52+1));
+            
             if(card_array.includes(nn)) { 
                 i--;
                 continue;
@@ -124,6 +127,6 @@ export default function PigeonHole() {
     }
 
     return (
-        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>)} MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>)} MSelected={"Problems"} promise={promise}/>
     ) 
 }

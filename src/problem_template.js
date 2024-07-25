@@ -41,7 +41,7 @@ export default function Problem(){
                 return(resp.reply);
             })
         }
-        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise} isProblem={true} />
+        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise}/>
     })
 
     return (
@@ -67,7 +67,6 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     const rated = user.ratedProblems.includes(id)
     const num_attempts = problem.stats.usersCorrect.length + problem.stats.usersIncorrect.length;
     const completion_rate = num_attempts === 0 ? 0 : Math.round(100*problem.stats.usersCorrect.length/num_attempts);
-    console.log(popup)
     return (
         <div className='problems'>
             <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
