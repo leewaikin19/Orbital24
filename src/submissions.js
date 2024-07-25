@@ -19,7 +19,6 @@ export default function Submissions() {
 }
 
 function MainContent({submissions}) { 
-    console.log(submissions)
     return (
                 <div className='section'>
                     <h1>My Submissions</h1>

@@ -38,24 +38,18 @@ const sampleSubProb = {
   'title': 'Sample Submission Title'
 }
 
-const sampleTournament = {
-  'title': "Sample Tournament",
-  'xp': 34567
-}
-
 test('Test Dashboard User', async () => {
   render(<MainContent 
     pendingSubmissions={[sampleSubmission]} 
     pendingSubmissionsProblems={[sampleSubProb]} 
     solvedProblems={[sampleProblem]} 
-    tournaments={[sampleTournament]} 
+    tournaments={[]} 
     user={sampleUser} />);
 
   const list = [
-    /Ungraded Submissions/, /Solved Problems/, /Past Tournaments/, /Badges/, /Change Account Details/, 
+    /Ungraded Submissions/, /Solved Problems/, /Badges/, /Change Account Details/, 
     /Sample Submission Title/,
     /Sample Title/, /12345/,
-    /Sample Tournament/
   ]
   
   list.forEach(x => expect(screen.getByText(x)).toBeInTheDocument());

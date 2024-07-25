@@ -29,9 +29,9 @@ export default function Nim() {
 
     const sim= () => { return (
         <>
-            <p>You can simulate what happens if you take different number of cards! Enter the number in the box below and press take card to simulate what happens when you take that amount of cards.</p>
+            <p>You can simulate the game by starting with any number of cards! Enter the number in the box below and press Start New Game to simulate the game.</p>
             <div className='form_input' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
-                <input style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards you will take' required/>
+                <input style={{flexGrow:"1", textAlign:"center"}} type="number" name="cards" min="1" max="52" placeholder='Enter how many cards to generate' required/>
                 <button style={{flexGrow:"1", marginTop:"0px"}} className="action_button animated_button" onClick={() => {
                     setup(document.querySelector('input[name="cards"]').value
                 )
@@ -77,9 +77,10 @@ export default function Nim() {
     }
 
     function computer_flip() {
+        
         if (turn === 1) {}
         else if(current_card === 0 || (document.getElementById(current_card - 1).getAttribute("src") !== "../../Assets/Cards/Misc/back_panel.svg" && computer_counter < 3)) {
-            document.getElementById(current_card).setAttribute("src", "../../Assets/Cards/Misc/comp.svg")
+            document.getElementById(current_card).setAttribute("src", "/Assets/Cards/Misc/comp.svg")
             computer_counter++;
             current_card++;
             player_counter = 0;
@@ -125,6 +126,7 @@ export default function Nim() {
     }
 
     function setup(cards) {
+        cards = parseInt(cards);
         cards = cards < 1 ? 21 : cards;
         num_cards = cards;
         player_counter = 0;
@@ -153,6 +155,6 @@ export default function Nim() {
     }
 
     return (
-        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>) } MSelected={"Problems"} promise={promise} isProblem={true} />
+        < template.Home MainContent={({popup}) => (<problems.MainContent problem={problem.current} sandbox={sim()} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>) } MSelected={"Problems"} promise={promise}/>
     ) 
 }

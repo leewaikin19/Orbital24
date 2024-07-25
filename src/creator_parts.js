@@ -18,7 +18,7 @@ export function Generic_main_content({ problem, solution, func }) {
         <>
             <template.Popup name = "missing_answer" title = "Missing MCQ Answers" content = "One or more multiple choice questions does not have an answer yet. Please select an answer for all multiple choice questions." trigger={triggerMissingMCQAns} setTrigger = {setTriggerMissingMCQAns} />
             <template.Popup name = "successfully_saved" title = "Successfully Saved" content = "Problem Details saved successfully" trigger={triggerSuccessfullySaved} setTrigger = {setTriggerSuccessfullySaved} onClickAction={() => window.location.href = "./createassessproblems"} />
-            <template.Popup name = "unsuccessfully_saved" title = "Unsuccessfully Saved" content = "Problem Details could not be saved. Please try again. If error persists please contact the developers" trigger={triggerUnsuccessfullySaved} setTrigger = {setTriggerUnsuccessfullySaved} />
+            <template.Popup name = "unsuccessfully_saved" title = "Saving Unsuccessful" content = "Problem Details could not be saved. Please try again. If error persists please contact the developers" trigger={triggerUnsuccessfullySaved} setTrigger = {setTriggerUnsuccessfullySaved} />
             {title_statement_sandbox_builder(title, setTitle, statement, setStatement, sandbox, setSandbox)}
             {hints_builder(hints, setHints)}
             <div className='section'>

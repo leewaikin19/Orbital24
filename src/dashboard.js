@@ -18,17 +18,15 @@ export default function Dashboard() {
         promise2.then(async resp2 => {
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
-            await promise4.then(() => {
-                pendingSubmissionsProblems.current = pendingSubmissions.current.map(sub => resp2.reply.find(x => x.id === sub.questionID))
+            return promise4.then(resp4 => {
+                resp4.reply = resp4.reply.filter(x => x !== null)
+                pendingSubmissions.current = resp4.reply.map(sub => resp2.reply.find(x => x.id === sub.questionID) ===undefined ? undefined : sub).filter(x => x !== undefined)
+                pendingSubmissionsProblems.current = pendingSubmissions.current.map(sub => resp2.reply.find(x => x.id === sub.questionID)).filter(x => x !== undefined)
             })
        })
         promise3.then(resp3 => {
             // find past tournaments
             pastTournaments.current = resp1.reply.pastTournaments.map(id => resp3.reply.find(x => x.id === id));
-        })
-        promise4.then(resp4 => {
-            // find pending submissions
-            pendingSubmissions.current = resp4.reply;
         })
     })
     const promise = Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() => setLoading(false))
@@ -46,6 +44,7 @@ export function MainContent({pendingSubmissions, pendingSubmissionsProblems, sol
     const [password2, setPassword2] = useState("");
     const [triggerUpdate, setTriggerUpdate] = useState(false);
     const [triggerPassword, setTriggerPassword] = useState(false);
+    console.log(tournaments)
 
     function updatePassword() {
         if(password1 === password2) {
@@ -68,11 +67,13 @@ export function MainContent({pendingSubmissions, pendingSubmissionsProblems, sol
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={solvedProblems.map(
                     (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
+            { /*
             <div className='section'>
                 <h1>Past Tournaments</h1>
                 <template.StaticTable id="past_tournaments" headers={['Tournament', 'Exp']} width={[7,1]} data={tournaments.map(
                     (tournament) => ([<a href="tournaments">{tournament.title}</a>, tournament.xp]))} />
             </div>
+            */}
             <div className='section'>
                 <h1>Badges</h1>
                 <div className='badges_container'>
