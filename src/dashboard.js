@@ -44,6 +44,7 @@ export function MainContent({pendingSubmissions, pendingSubmissionsProblems, sol
     const [password2, setPassword2] = useState("");
     const [triggerUpdate, setTriggerUpdate] = useState(false);
     const [triggerPassword, setTriggerPassword] = useState(false);
+    console.log(tournaments)
 
     function updatePassword() {
         if(password1 === password2) {
@@ -66,11 +67,13 @@ export function MainContent({pendingSubmissions, pendingSubmissionsProblems, sol
                 <template.StaticTable id="solved_problems" headers={['Problem Title', 'Exp']} width={[7,1]} data={solvedProblems.map(
                     (problem) => ([<div className='problem_flair'><a href={'problems/' + problem.id}>{problem.title}</a> <img alt="" height="25em" src={'../../Assets/Flairs/' + problem.difficulty + ".png"}></img></div>, problem.xp]))} />
             </div>
+            { /*
             <div className='section'>
                 <h1>Past Tournaments</h1>
                 <template.StaticTable id="past_tournaments" headers={['Tournament', 'Exp']} width={[7,1]} data={tournaments.map(
                     (tournament) => ([<a href="tournaments">{tournament.title}</a>, tournament.xp]))} />
             </div>
+            */}
             <div className='section'>
                 <h1>Badges</h1>
                 <div className='badges_container'>
