@@ -77,18 +77,19 @@ export default function PigeonHole() {
         var spades_count = 0;
         var diamonds_count = 0;
         var card_array = new Uint8Array(cards);
-
         for(let i = 0; i < cards; i++) {
-            var nn = Math.floor(Math.random() * (52+1));
-            
+            card_array[i] = cards;
+        }
+        for(let i = 0; i < cards; i++) {
+            var nn = Math.floor(Math.random() * (52));
             if(card_array.includes(nn)) { 
                 i--;
+                console.log(nn)
                 continue;
             } else{
                 card_array[i] = nn;
             }
         }
-
         card_array.sort();
         for(let i = 0; i < cards; i++) {
             var n = card_array[i];
