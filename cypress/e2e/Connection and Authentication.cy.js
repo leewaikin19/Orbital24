@@ -263,6 +263,8 @@ function postForum() {
 
   cy.contains('Automated-comment').parent().parent().parent().find('[id="post_reply"]').type('Automated-reply')
   cy.contains('Automated-comment').parent().parent().parent().find('[id="post_reply"]').parent().siblings().click()
+  cy.contains("Automated-comment")
+  cy.contains("Automated-reply")
 }
 
 // create autograded problem

@@ -91,7 +91,6 @@ export async function submitRating(token, id, rating) {
 
 export async function createProblem(token, title, statement, sandbox = "", hints, difficulty, xp, mcqs, srqs, mcqAns, srqAns) {
     // resp.success=true returns reply
-    console.log(srqAns.filter(x => x.autograded===true).length > 0)
     var resp = await post({ 'mode': 'main', 'method':'createProblem', 'token':token, 
         'statement':statement, 'title':title, 'sandbox':sandbox, 
         'hints':hints, 'xp':xp, 'difficulty':difficulty, 

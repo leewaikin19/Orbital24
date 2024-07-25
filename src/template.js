@@ -1,5 +1,4 @@
 import React, { useRef, useState, Component } from 'react'
-
 import * as API from './API.js'
 
 export class FormInput extends Component {
@@ -169,7 +168,7 @@ export function Popup({name, id = name, title, content = "", trigger, setTrigger
     ) : null
 }
 
-export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve(), isProblem=false}) {
+export function Home({MainContent, SSelected=null, MSelected=null, promise=Promise.resolve()}) {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
     const [triggerError, setTriggerError] = useState(false);
@@ -198,9 +197,9 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
             {  loading ? <Loader/> : 
             <div className='outer_grid'>
                 
-                <NavBar isProblem={isProblem} selected={MSelected}/>
+                <NavBar selected={MSelected}/>
                 <div className='inner_grid'>
-                    <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'} isProblem={isProblem}/> 
+                    <SideContainer name={user.current.firstName + " " + user.current.lastName} exp={user.current.xp} selected={SSelected} isAdmin={user.current.account === 'admin'}/> 
                     <MainContainer MainContent={MainContent} popup={popup} selected={MSelected}/>
                 </div>
                 <Popup name='error_popup' title={popupTitle} content={popupMsg} trigger={triggerError} setTrigger={setTriggerError} onClickAction={onClickAction}/>
@@ -210,14 +209,11 @@ export function Home({MainContent, SSelected=null, MSelected=null, promise=Promi
     ) 
 }
 
-export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
-    const dot = ((window.location.href.includes('rojike.pages.dev')
-        ? window.location.href.split('rojiku.pages.dev').at(-1)
-        : window.location.href.split('localhost').at(-1)).match(/\//g) || []).length - 1;
+export function SideContainer({name, exp, selected, isAdmin}) {
     return (
         <div id = "user" className = "main_content">
             <div id="profile">
-                <img src={'./.'.repeat(dot)+"./Assets/Miscelaneous/blank_profile.svg"} id="profile_pic" alt=''/>
+                <img src={"/Assets/Miscelaneous/blank_profile.svg"} id="profile_pic" alt=''/>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <a href='dashboard' style={{fontWeight: 700}}>{name}</a>
                     <p style={{fontSize: '14px', fontWeight: 300}}>{exp} Exp</p>
@@ -236,10 +232,10 @@ export function SideContainer({name, exp, selected, isAdmin, isProblem}) {
     )
 }
 
-export function NavBar({isProblem, selected}) {
+export function NavBar({selected}) {
     return (
     <div className='nav_bar'>
-            <img src = {(isProblem ? "." : "") + "../Assets/Logo/dark.png"} alt='' onClick={() => window.location.href = '/home'} style={{padding:"clamp(6px, 4vw, 18px)"}}/>
+            <img src = {"/Assets/Logo/dark.png"} alt='' onClick={() => window.location.href = '/home'} style={{padding:"clamp(6px, 4vw, 18px)"}}/>
             <div style={{justifySelf:"end"}}>
                 <button className={"nav_button " + (selected === "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/home'}>
                     <span>Home</span>
