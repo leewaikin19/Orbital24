@@ -133,7 +133,6 @@ function MainContent({ submission, problem }) {
                 <h3 style={{ margin: "0px 0px 0.5em 0px" }}>{question}</h3>
                 <div id='mcq' className='mcq_input' style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "left" }}>
                     {options.filter(option => option !== '').map((option, position) => {
-                        console.log()
                         return (
                             <template.GradeMCQInput id={String.fromCharCode(position + 65) + " " + index} name={option} value={option}
                                 content={<span>{option + (option === iUserAnswer ? " (Your Answer)" : "")}</span>}

@@ -88,7 +88,6 @@ function MainContent({submission, problem, solution, id}) {
     async function finaliseGrades() {
         const correct = mcqPregrade.reduce((x, y) => x && y, true) && approved.reduce((x, y) => x && y, true)
         const resp = await API.gradeSubmission(template.getCookie('token'), id, problem.id, correct, {'mcqs':mcqPregrade, 'srqs':approved})
-        console.log(approved)
         if(resp.success){
             setTriggerGrade(true)
         }else{
