@@ -235,7 +235,7 @@ export function SideContainer({name, exp, selected, isAdmin}) {
 export function NavBar({selected}) {
     return (
     <div className='nav_bar'>
-            <img src = {"/Assets/Logo/dark.png"} alt='' onClick={() => window.location.href = '/home'} style={{padding:"clamp(6px, 4vw, 18px)"}}/>
+            <img src = {"/Assets/Logo/dark.png"} alt='' onClick={() => window.location.href = '/home'} style={{height:"1.5em", padding:"clamp(6px, 4vw, 18px)"}}/>
             <div style={{justifySelf:"end"}}>
                 <button className={"nav_button " + (selected === "Home" ? "selected_button" : "animated_button")} onClick={() => window.location.href='/home'}>
                     <span>Home</span>
