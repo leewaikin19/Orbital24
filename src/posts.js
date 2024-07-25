@@ -10,7 +10,8 @@ export default function Posts() {
     const promise = API.getUserComments(template.getCookie('token')).then((resp) => {
         comments.current = resp.reply;
         return API.getAllProblems(template.getCookie('token')).then((resp2) => {
-            problems.current = resp.reply.map(comment => resp2.reply.find(prob => comment.questionID === prob.id));
+            comments.current = comments.current.map(comment => resp2.reply.find(prob => comment.questionID === prob.id) === undefined ? undefined : comment).filter(x => x !== undefined)
+            problems.current = resp.reply.map(comment => resp2.reply.find(prob => comment.questionID === prob.id)).filter(x => x !== undefined);
             setLoading(false)
         })
     })

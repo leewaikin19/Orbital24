@@ -18,17 +18,15 @@ export default function Dashboard() {
         promise2.then(async resp2 => {
             // find problems that are already solved
             solvedProblems.current = resp1.reply.problemsSolved.map(id => resp2.reply.find(x => x.id === id));
-            await promise4.then(() => {
-                pendingSubmissionsProblems.current = pendingSubmissions.current.map(sub => resp2.reply.find(x => x.id === sub.questionID))
+            return promise4.then(resp4 => {
+                resp4.reply = resp4.reply.filter(x => x !== null)
+                pendingSubmissions.current = resp4.reply.map(sub => resp2.reply.find(x => x.id === sub.questionID) ===undefined ? undefined : sub).filter(x => x !== undefined)
+                pendingSubmissionsProblems.current = pendingSubmissions.current.map(sub => resp2.reply.find(x => x.id === sub.questionID)).filter(x => x !== undefined)
             })
        })
         promise3.then(resp3 => {
             // find past tournaments
             pastTournaments.current = resp1.reply.pastTournaments.map(id => resp3.reply.find(x => x.id === id));
-        })
-        promise4.then(resp4 => {
-            // find pending submissions
-            pendingSubmissions.current = resp4.reply;
         })
     })
     const promise = Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() => setLoading(false))
