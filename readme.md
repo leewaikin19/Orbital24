@@ -3,7 +3,7 @@
 </p>
 
 <p align="center" height="50px">
-  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.png" scale="0.1" width="50px"/>
+  <img src="https://github.com/leewaikin19/Orbital24/blob/main/public/Assets/Logo/dark.png" width="500px"/>
 </p>
 
 # Welcome to Rojiku
