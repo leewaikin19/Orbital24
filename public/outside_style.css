@@ -1,6 +1,6 @@
 .outside_root {
     display: grid;
-    grid-template-columns: 10vw 80vw 10vw;
+    grid-template-columns: 1fr 8fr 1fr;
     grid-template-rows: 100vh;
 }
 
@@ -25,7 +25,7 @@
 
 @media only screen and (orientation: portrait) {
     .outside_root {
-        grid-template-rows: 5vh 90vh 5vh;
+        grid-template-rows: 5fr 90fr 5fr;
         grid-template-columns: 100vw;
     }
 
@@ -105,6 +105,7 @@
     display: flex; 
     align-items: center; 
     justify-content: center;
+    margin-bottom: 4em;
 }
 
 .outside_root .main_logo img {
