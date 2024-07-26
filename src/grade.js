@@ -23,7 +23,8 @@ export default function Grade() {
 export function MainContent({problems, submissions}) {
     return (
         <>
-            <template.StaticTable id="gradables" headers={["Problems", "User", "Date"]} width={[1, 1, 4]} data={problems.map((problem, index) => (
+            <em style={{marginBottom:"2em"}}>Click on the date to view the submissions.</em>
+            <template.StaticTable id="gradables" headers={["Problems", "User", "Submission Date"]} width={[1, 1, 4]} data={problems.map((problem, index) => (
                 [<a href={'problems/' + problem.id}>{problem.title}</a>, submissions[index].username, <a href={'grade/' + submissions[index].id}>{new Date(submissions[index].datetime).toLocaleString()}</a>]
             ))} />
         </>
