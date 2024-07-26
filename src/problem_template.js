@@ -41,7 +41,7 @@ export default function Problem(){
                 return(resp.reply);
             })
         }
-        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise}/>
+        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.current.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise}/>
     })
 
     return (
@@ -75,6 +75,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             </div>
             <p>{description}</p>
             {Simulation(sandbox)}
+            <h2 style={{marginBottom:"0.3em"}}>Hints</h2>
             {hints.map((hint, index) => {
                 return(
                     <Hints title={"Hint " + (index + 1)} desc={hint} />

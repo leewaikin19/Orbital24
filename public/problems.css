@@ -37,6 +37,10 @@
     margin: 1vh 0px;
 }
 
+.simulation {
+    margin-bottom: 3em;
+}
+
 .hint .hint_title{
     background-color: var(--orange);
     padding: 1vh 2vw 1vh 2vw;
