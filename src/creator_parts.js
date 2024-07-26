@@ -125,7 +125,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter First Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === "A " + index}
+                                preselected={mcqAnsArray[index] === mcq.options[0]}
                                 onClick={() => McqHandler(mcq.options[0],"A", index)} />
                             <template.MCQInput
                                 id={"B" + index}
@@ -148,7 +148,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Second Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === "B " + index}
+                                preselected={mcqAnsArray[index] === mcq.options[1]}
                                 onClick={() => McqHandler(mcq.options[1],"B", index)} />
                             <template.MCQInput
                                 id={"C" + index}
@@ -171,7 +171,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Third Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === "C " + index}
+                                preselected={mcqAnsArray[index] === mcq.options[2]}
                                 onClick={() => McqHandler(mcq.options[2],"C", index)} />
                             <template.MCQInput
                                 id={"D" + index}
@@ -194,7 +194,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Fourth Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === "D " + index}
+                                preselected={mcqAnsArray[index] === mcq.options[3]}
                                 onClick={() => McqHandler(mcq.options[3],"D", index)} />
                             <template.MCQInput
                                 id={"E" + index}
@@ -217,7 +217,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Fifth Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === "E " + index}
+                                preselected={mcqAnsArray[index] === mcq.options[4]}
                                 onClick={() => McqHandler(mcq.options[4],"E", index)} />
                         </div>
                     </>
