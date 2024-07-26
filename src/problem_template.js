@@ -41,7 +41,7 @@ export default function Problem(){
                 return(resp.reply);
             })
         }
-        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise}/>
+        page.current =  < template.Home MainContent={({popup}) => <MainContent problem={problem.current} sandbox={problem.current.sandbox} user={user.current} forum={forum.current} refreshComments={refreshComments} popup={popup}/>} MSelected={"Problems"} promise={promise}/>
     })
 
     return (
@@ -59,6 +59,8 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
     const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
+    // Rounding code adapted from https://stackabuse.com/bytes/rounding-to-two-decimal-places-in-javascript/, variables changed to rating.
+    const rounded_rating = Math.round(rating * 100) / 100;
     const [mcqAnswer, ] = useState([])
     const [srqAnswer, ] = useState([])
     
@@ -75,6 +77,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             </div>
             <p>{description}</p>
             {Simulation(sandbox)}
+            <h2 style={{marginBottom:"0.3em"}}>Hints</h2>
             {hints.map((hint, index) => {
                 return(
                     <Hints title={"Hint " + (index + 1)} desc={hint} />
@@ -94,7 +97,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             <template.ActionButton content="Submit Solution" onClickAction={() => {
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
-                        popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
+                        popup.setMsg("Your submission has been captured. It is currently being graded. Click 'View Submissions' to view your submissions.")
                         popup.setTitle("Submission Received")
                         popup.setOnClickAction(()=>() => window.location.href = '/submission/' + resp.reply.id)
                         popup.trigger(true)
@@ -211,7 +214,8 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 {(showStats) ? (
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh", textAlign:"center"}} ref={contentRef}>
                         <p>Out of <b style={{color:"var(--orange)"}}>{num_attempts}</b> users made a submission, <b style={{color:"var(--orange)"}}>{completion_rate}%</b> of users have successfully solved this problem.</p>
-                        <p>The average rating given by users for this problem is <b style={{color:"var(--orange)"}}>{rating}</b></p>
+                        {/* Rounding off code taken from: https://stackoverflow.com/questions/15762768/javascript-math-round-to-two-decimal-places */}
+                        <p>The average rating given by users for this problem is <b style={{color:"var(--orange)"}}>{rounded_rating}</b></p>
                     </div>) : null}
                 </div>
         )
