@@ -59,6 +59,8 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
     const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
+    // Rounding code adapted from https://stackabuse.com/bytes/rounding-to-two-decimal-places-in-javascript/, variables changed to rating.
+    const rounded_rating = Math.round(rating * 100) / 100;
     const [mcqAnswer, ] = useState([])
     const [srqAnswer, ] = useState([])
     
@@ -212,7 +214,8 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 {(showStats) ? (
                     <div style={{color:"var(--lightgray)", paddingTop:"2vh", textAlign:"center"}} ref={contentRef}>
                         <p>Out of <b style={{color:"var(--orange)"}}>{num_attempts}</b> users made a submission, <b style={{color:"var(--orange)"}}>{completion_rate}%</b> of users have successfully solved this problem.</p>
-                        <p>The average rating given by users for this problem is <b style={{color:"var(--orange)"}}>{rating}</b></p>
+                        {/* Rounding off code taken from: https://stackoverflow.com/questions/15762768/javascript-math-round-to-two-decimal-places */}
+                        <p>The average rating given by users for this problem is <b style={{color:"var(--orange)"}}>{rounded_rating}</b></p>
                     </div>) : null}
                 </div>
         )
