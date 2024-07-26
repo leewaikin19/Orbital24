@@ -94,7 +94,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
             <template.ActionButton content="Submit Solution" onClickAction={() => {
                 API.submitProblem(template.getCookie('token'), id, {'mcqs':mcqAnswer, 'srqs':srqAnswer}).then((resp) => {
                     if (resp.success) {
-                        popup.setMsg("Your submission has been captured. Click 'View Submissions' to view your submissions.")
+                        popup.setMsg("Your submission has been captured. It is currently being graded. Click 'View Submissions' to view your submissions.")
                         popup.setTitle("Submission Received")
                         popup.setOnClickAction(()=>() => window.location.href = '/submission/' + resp.reply.id)
                         popup.trigger(true)
