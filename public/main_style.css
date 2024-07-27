@@ -108,13 +108,8 @@ p,b,em {
     margin: 0px;
 }
 
-/* Underline code adapted from: https://dev.to/afif/100-underline-overlay-animation-the-ultimate-css-collection-4p40, width and transition speed changed */
 a, span {
     font-family: 'Satoshi';
-    background: 
-      linear-gradient(currentColor 0 0) 
-      0 100% /var(--d, 0) 2px 
-    no-repeat;
     transition: all 0.2s ease;
     cursor: pointer;
 }
@@ -126,11 +121,6 @@ a {
 
 a:hover {
     color: var(--orange);
-    --d: 100%;
-}
-
-span:hover:enabled {
-    --d: 100%;
 }
 
 button {
@@ -188,7 +178,7 @@ form {
     text-align: center;
 }
 
-/* Code for unselectable elements sourced from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page */
+/* Code for unselectable elements adapted from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page */
 .unselectable {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -249,11 +239,6 @@ textarea {
     margin-bottom: 2vh;
 }
 
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px black inset;
-    -webkit-text-fill-color: var(--lightgray);
-}
-
 .nav_bar {
     background-color: black;
     position: sticky;
@@ -284,10 +269,6 @@ input:-webkit-autofill {
 .animated_button, .popup_footer button {
     padding: clamp(3px, 10%, 12px);
     transition: all 0.2s ease;
-}
-
-.animated_button:hover:enabled, .popup_footer button:hover {
-    --d: 100%;
 }
 
 .action_button, .autograde_button, .popup_footer button {
@@ -327,7 +308,6 @@ input:-webkit-autofill {
 .selected_button:hover {
     background-color: var(--orange);
     color: var(--grayest);
-    --d: 100%;
 }
 
 .logo_container img {
@@ -346,7 +326,6 @@ input:-webkit-autofill {
 .side_button:hover {
     color: var(--orange);
     padding-left: 4vw;
-    --d: 100%;
 }
 
 .selected_side_button {
@@ -358,7 +337,6 @@ input:-webkit-autofill {
 
 .selected_side_button:hover {
     color: var(--grayest);
-    --d: 100%;
 }
 
 .mcq_button {
