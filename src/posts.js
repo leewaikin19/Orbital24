@@ -41,7 +41,7 @@ export default function Posts() {
 export function MainContent({ comments, problems }) {
     return (
         <>
-            <h1>Past Forum Posts</h1>
+            <h1>Your Past Forum Posts</h1>
             {comments.map((comment, i) => {
                 return (
                     <div className='thread'>
