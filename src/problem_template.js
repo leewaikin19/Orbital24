@@ -75,7 +75,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
                 <h1 style={{flexGrow:7}}>{title}</h1>
                 <button className="action_button animated_button" onClick={() => window.location.href = "/submissions/" + id} style={{width:"auto", padding:"0.3em 1em"}}><span>View Submissions</span></button>
             </div>
-            <p style="white-space: pre-wrap;">{description}</p>
+            <p style={{whiteSpace: "pre-wrap"}}>{description}</p>
             {Simulation(sandbox)}
             <h2 style={{marginBottom:"0.3em"}}>Hints</h2>
             {hints.map((hint, index) => {
