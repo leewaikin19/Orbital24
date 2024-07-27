@@ -178,7 +178,7 @@ form {
     text-align: center;
 }
 
-/* Code for unselectable elements adapted from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page */
+/* Code for unselectable elements adapted from: https://stackoverflow.com/questions/69430/is-there-a-way-to-make-text-unselectable-on-an-html-page Pointer events, cursor, and list of browser supported is changed. */
 .unselectable {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
