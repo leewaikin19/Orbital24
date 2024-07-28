@@ -17,24 +17,7 @@ export default function Posts() {
     })
 
     return (
-        < template.Home MainContent={() => (<MainContent comments={comments.current
-            /*[
-            {
-                id: 1,
-                author: "Test",
-                datetime: 546543213275,
-                content: "This is the first comment",
-                replies: [
-                    {
-                        id: 1,
-                        author: "Test2",
-                        datetime: 553572486456,
-                        content: "Reply to the first comment"
-                    }
-                ]
-            }
-        ]*/
-        } problems={problems.current} />)} SSelected={'posts'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent comments={comments.current} problems={problems.current} />)} SSelected={'posts'} promise={promise} />
     )
 }
 
@@ -47,7 +30,7 @@ export function MainContent({ comments, problems }) {
                     <div className='thread'>
                         <div className='comment'>
                             <div>
-                                <a href={'./problems/' + problems[i].id}><b style={{ color: "var(--orange)" }}>{problems[i].title}</b></a>
+                                <a href={'./problems/' + problems[i].id}><b>{problems[i].title}</b></a>
                                 <div className='comment_metadata'>
                                     <b className='comment_author'>{comment.author}</b>
                                     &bull;
