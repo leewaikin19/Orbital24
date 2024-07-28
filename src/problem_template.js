@@ -189,6 +189,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
         )
     }
 
+     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Statistics({num_attempts, completion_rate}) {
         const [showStats, setShowStats] = useState(true);
         const chevronRef= createRef();
@@ -221,6 +222,7 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
         )
     }
 
+     // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Forum({comm}) {
         
         //Comment = {questionID, id, author, username, datetime, content, replies = [{author, username, datetime, content}, ...]}
