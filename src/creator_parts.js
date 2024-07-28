@@ -126,7 +126,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter First Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === mcq.options[0]}
+                                preselected={mcqAnsArray[index] "" ? false : mcqAnsArray[index] === mcq.options[0]}
                                 onClick={() => McqHandler(mcq.options[0],"A", index)} />
                             <template.MCQInput
                                 id={"B" + index}
@@ -149,7 +149,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Second Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === mcq.options[1]}
+                                preselected={mcqAnsArray[index] "" ? false : mcqAnsArray[index] === mcq.options[1]}
                                 onClick={() => McqHandler(mcq.options[1],"B", index)} />
                             <template.MCQInput
                                 id={"C" + index}
@@ -172,7 +172,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Third Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === mcq.options[2]}
+                                preselected={mcqAnsArray[index] "" ? false : mcqAnsArray[index] === mcq.options[2]}
                                 onClick={() => McqHandler(mcq.options[2],"C", index)} />
                             <template.MCQInput
                                 id={"D" + index}
@@ -195,7 +195,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Fourth Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === mcq.options[3]}
+                                preselected={mcqAnsArray[index] "" ? false : mcqAnsArray[index] === mcq.options[3]}
                                 onClick={() => McqHandler(mcq.options[3],"D", index)} />
                             <template.MCQInput
                                 id={"E" + index}
@@ -218,7 +218,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                             placeholder={"Enter Fifth Option"} />
                                         <b className="unselectable">Selected Answer</b>
                                     </div>}
-                                preselected={mcqAnsArray[index] === mcq.options[4]}
+                                preselected={mcqAnsArray[index] === "" ? false : mcqAnsArray[index] === mcq.options[4]}
                                 onClick={() => McqHandler(mcq.options[4],"E", index)} />
                         </div>
                     </>
@@ -227,7 +227,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
             <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                 <button className='action_button animated_button' onClick={() => {
                     setMCQArray([...mcqArray, {"qn": "", "options":["", "", "", "", ""]}]);  
-                    setMCQAnsArray([...mcqAnsArray, "Sample Ans"]);
+                    setMCQAnsArray([...mcqAnsArray, ""]);
                 }}><span>Add New Multiple Choice Question</span></button>
             </div>
         </>
