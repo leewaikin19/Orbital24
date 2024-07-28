@@ -227,7 +227,7 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
             <div className='form_input section' style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                 <button className='action_button animated_button' onClick={() => {
                     setMCQArray([...mcqArray, {"qn": "", "options":["", "", "", "", ""]}]);  
-                    setMCQAnsArray([...mcqAnsArray, ""]);
+                    setMCQAnsArray([...mcqAnsArray, "Sample Ans"]);
                 }}><span>Add New Multiple Choice Question</span></button>
             </div>
         </>
