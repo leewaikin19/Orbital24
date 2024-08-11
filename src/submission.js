@@ -84,7 +84,6 @@ function MainContent({ submission, problem }) {
     //     )
     // }
 
-    // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({ title, desc }) {
         const chevronRef = createRef();
         const contentRef = createRef();

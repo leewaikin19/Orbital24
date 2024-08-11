@@ -59,7 +59,6 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     const mcqs = problem.mcqs;
     const srqs = problem.srqs;
     const rating = problem.rating[1] <= 0 ? 0 : problem.rating[0]/problem.rating[1];
-    // Rounding code adapted from https://stackabuse.com/bytes/rounding-to-two-decimal-places-in-javascript/, variables changed to rating.
     const rounded_rating = Math.round(rating * 100) / 100;
     const [mcqAnswer, ] = useState([])
     const [srqAnswer, ] = useState([])
@@ -127,7 +126,6 @@ export function MainContent({problem, sandbox, user, forum, refreshComments, pop
     //     )
     // }
 
-    // Code adapted from https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react 
     function Hints({title, desc}) {
         const chevronRef= createRef();
         const contentRef = createRef();
