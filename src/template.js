@@ -66,8 +66,6 @@ export function handler(e, setValue, elem) {
     elem.style.height = (elem.scrollHeight) + "px";
 }
 
-// Array updating mechanism adapted from https://react.dev/learn/updating-arrays-in-state#replacing-items-in-an-array
-// It is then wrapped in the handler function.
 export function ArrayTextAreaInputHandler (arr, setArr, index, field = "", value, elem = "") {
     setArr(arr.map((i, ind) => {
         if (ind === index) {
@@ -122,7 +120,6 @@ export function GradeSRQInput({name, id=name, value="", setValue, correctAnswer 
 }
 
 export function select(choice, container) {
-    // Conversion to array adapted from: https://stackoverflow.com/questions/5158338/how-to-convert-a-collection-to-an-array-in-javascript
     const children = Array.from(container.children);
     children.forEach((child) => {
         if (child === choice && !child.classList.contains('selected_mcq_button')) {
@@ -147,7 +144,6 @@ export function Loader() {
     )
 }
 
-// Popup code adapted from https://www.youtube.com/watch?v=i8fAO_zyFAM. Inputs and structure are changed.
 export function Popup({name, id = name, title, content = "", trigger, setTrigger, onClickAction = () => {}}) {
     return (trigger) ? (
         <div className='popup' id={id}>
