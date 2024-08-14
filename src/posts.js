@@ -17,24 +17,7 @@ export default function Posts() {
     })
 
     return (
-        < template.Home MainContent={() => (<MainContent comments={comments.current
-            /*[
-            {
-                id: 1,
-                author: "Test",
-                datetime: 546543213275,
-                content: "This is the first comment",
-                replies: [
-                    {
-                        id: 1,
-                        author: "Test2",
-                        datetime: 553572486456,
-                        content: "Reply to the first comment"
-                    }
-                ]
-            }
-        ]*/
-        } problems={problems.current} />)} SSelected={'posts'} promise={promise} />
+        < template.Home MainContent={() => (<MainContent comments={comments.current} problems={problems.current} />)} SSelected={'posts'} promise={promise} />
     )
 }
 
