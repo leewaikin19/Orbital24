@@ -113,7 +113,6 @@ export function mcq_builder(mcqArray, setMCQArray, mcqAnsArray, setMCQAnsArray) 
                                         <textarea
                                             id={"A " + index}
                                             value={mcq.options[0]}
-                                            // Array updating mechanism taken from https://www.dhiwise.com/post/react-update-array-of-objects-in-state-a-developer-guide. Array names and the elements updated are changed.
                                             onInput={(e) => {
                                                 template.handler(e, (i) => {
                                                     const updatedMcqs = [...mcqArray];
